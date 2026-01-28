@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BRC Official Website
 
-## Getting Started
+This repository is the foundation for the BRC official website. It is a Next.js
+App Router site with a small BFF layer that reads ministry content from
+WPGraphQL and exposes a clean JSON API for the frontend. The structure is meant
+to be expanded into a full site (Home, About, Ministries, Trainings, Audio,
+Donation, etc.).
 
-First, run the development server:
+Design inspiration: [https://newbethelrc.org/](https://newbethelrc.org/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Current Features
+
+- App Router site structure under `src/app`
+- BFF API routes for ministry list and detail
+- Section resolution logic (top vs leaf) for filtering
+- Basic ministries list page and detail page
+- Server-side fetching to internal API endpoints
+
+## Routes
+
+Frontend:
+
+- `/ministries/[top]` - list page, filtered by section top
+- `/ministries/[top]/[slug]` - detail page with hero image + summary
+
+API (BFF):
+
+- `/api/ministries` - list all ministries
+- `/api/ministries?top=youth` - list ministries by top section
+- `/api/ministries/[slug]` - single ministry detail
+- `/api/nav` - placeholder navigation endpoint (returns empty array)
+
+## Data Model (as used by the BFF)
+
+Each ministry item returned by the API has this shape:
+
+- `slug` string
+- `date` string or null
+- `fields` (raw `ministryFields` from WPGraphQL)
+- `section`:
+  - `leaf` (most specific section)
+  - `top` (parent section slug or leaf slug)
+  - `parent` (optional, only on detail)
+
+Section logic lives in `src/lib/sections.ts`:
+
+- If multiple sections are assigned (e.g. Youth + CHISTA), the leaf is the one
+  with a parent.
+- `section.top` is the parent slug if present, otherwise the leaf slug.
+
+## Environment
+
+Create `.env.local`:
+
+```
+WP_GRAPHQL_URL=https://your-wordpress-site/graphql
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open http://localhost:3000
 
-## Learn More
+## Code Layout
 
-To learn more about Next.js, take a look at the following resources:
+- `src/app/layout.tsx` - root layout
+- `src/app/(site)/layout.tsx` - site layout wrapper
+- `src/app/(site)/page.tsx` - home placeholder
+- `src/app/(site)/ministries/[top]/page.tsx` - list page
+- `src/app/(site)/ministries/[top]/[slug]/page.tsx` - detail page
+- `src/app/api/ministries/route.ts` - list endpoint
+- `src/app/api/ministries/[slug]/route.ts` - detail endpoint
+- `src/lib/wpgraphql.ts` - WPGraphQL client
+- `src/lib/sections.ts` - section selection helpers
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Next Steps (Suggested)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Build home page sections to mirror BRC content (hero, ministries, trainings)
+- Add global navigation/footer (menu + contact + donation)
+- Add content pages (About, Prayer Room, Trainings, Audio, Donation)
+- Replace `/api/nav` with real WP menu or a site config
