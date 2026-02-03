@@ -5,7 +5,7 @@ import MinistryCarousel from "@/components/MinistryCarousel";
 export default function Home() {
   return (
     <main className="min-h-screen bg-white text-zinc-900">
-      <section className="relative overflow-hidden bg-zinc-1000 text-white">
+      <section className="relative min-h-[100vh] overflow-hidden bg-zinc-1000 text-white">
         <div className="absolute inset-0">
           <Image
             src="/images/hero.jpeg"
@@ -16,7 +16,7 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/80 via-zinc-800/70 to-zinc-700/60" />
         </div>
-        <div className="relative mx-auto max-w-6xl px-12 py-32 md:py-40">
+        <div className="relative mx-auto max-w-6xl px-12 py-32 md:py-40 min-h-[100vh] flex items-center justify-center">
           <div className="mx-auto max-w-4xl text-center">
 
             <h1 className="mt-4 text-4xl font-semibold leading-tight md:text-5xl">
@@ -30,11 +30,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-zinc-50">
-        <div className="grid md:grid-cols-2">
-          <div className="min-h-[320px] bg-zinc-200" />
+      <section className="bg-zinc-50 min-h-[35vh]">
+        <div className="grid md:grid-cols-2 md:min-h-[35vh]">
+          <div className="min-h-[240px] bg-zinc-200 md:min-h-[35vh]" />
           <div className="flex items-center">
-            <div className="mx-auto max-w-xl space-y-4 px-6 py-12">
+            <div className="mx-auto max-w-xl space-y-4 px-6 py-10 md:py-14">
               <h2 className="text-3xl font-semibold">使命</h2>
               <p className="text-sm text-zinc-600">
                 [placeholder] 以推動敬拜讚美與禱告為核心，以連結各教會為使命，舉辦各樣活動推動
@@ -47,10 +47,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white">
-        <div className="grid md:grid-cols-2">
+      <section className="bg-white min-h-[35vh]">
+        <div className="grid md:grid-cols-2 md:min-h-[35vh]">
           <div className="flex items-center">
-            <div className="mx-auto max-w-xl space-y-4 px-6 py-12">
+            <div className="mx-auto max-w-xl space-y-4 px-6 py-10 md:py-14">
               <h2 className="text-3xl font-semibold">异象</h2>
               <p className="text-sm text-zinc-600">
                 [placeholder] 成为一个跨文化、跨世代的合一网络，培育敬拜与祷告的生活方式，
@@ -62,13 +62,13 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="min-h-[320px] bg-zinc-200" />
+          <div className="min-h-[240px] bg-zinc-200 md:min-h-[35vh]" />
         </div>
       </section>
 
-      <section className="relative bg-zinc-900 text-white">
+      <section className="relative bg-zinc-900 text-white min-h-[20vh]">
         <div className="absolute inset-0 bg-gradient-to-r from-zinc-900 via-zinc-800 to-zinc-900" />
-        <div className="relative grid w-full grid-cols-1 text-center md:grid-cols-4">
+        <div className="relative grid w-full grid-cols-1 text-center md:grid-cols-4 md:min-h-[20vh]">
           {[
             { value: "120+", label: "[placeholder] 合作机构" },
             { value: "200+", label: "[placeholder] 志愿者" },
@@ -77,7 +77,7 @@ export default function Home() {
           ].map((item) => (
             <div
               key={item.label}
-              className="border-t border-white/10 px-6 py-12 text-center md:border-l md:border-t-0"
+              className="flex min-h-[110px] flex-col items-center justify-center border-t border-white/10 px-6 text-center md:min-h-[20vh] md:border-l md:border-t-0"
             >
               <div className="text-3xl font-semibold">{item.value}</div>
               <div className="mt-1 text-sm text-zinc-300">{item.label}</div>
@@ -237,7 +237,6 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-6 py-14">
           <div className="grid gap-8 md:grid-cols-[1fr_1.2fr]">
             <div className="space-y-4">
-              <p className="text-xs uppercase tracking-wide text-amber-600">[placeholder] Contact</p>
               <h2 className="text-3xl font-semibold">[placeholder] 联系我们</h2>
               <div className="text-sm text-zinc-600">
                 <div>[placeholder] 地址：Bethel Renewal Center, Lake Hiawatha, NJ</div>

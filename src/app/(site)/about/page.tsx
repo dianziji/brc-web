@@ -1,11 +1,10 @@
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-white text-zinc-900">
+    <main className="min-h-screen bg-white text-zinc-900 pt-28 md:pt-32">
       <section className="relative overflow-hidden bg-zinc-900 text-white">
         <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-700" />
         <div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <p className="text-xs uppercase tracking-widest text-amber-300">About BRC</p>
-          <h1 className="mt-3 text-4xl font-semibold leading-tight md:text-5xl">
+          <h1 className="text-4xl font-semibold leading-tight md:text-5xl">
             關於伯特利更新中心
             <span className="block text-2xl text-zinc-200 md:text-3xl">Bethel Renewal Center</span>
           </h1>
@@ -19,7 +18,6 @@ export default function AboutPage() {
       <section className="bg-zinc-50">
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-2 md:items-center">
           <div className="space-y-4">
-            <p className="text-xs uppercase tracking-wide text-amber-600">Our History</p>
             <h2 className="text-3xl font-semibold">我们的故事</h2>
             <p className="text-sm text-zinc-600">
               我们致力于推动敬拜与祷告相关的活动，连结各地教会与机构，
@@ -33,7 +31,6 @@ export default function AboutPage() {
       <section className="mx-auto max-w-6xl px-6 py-12">
         <div className="grid gap-8 md:grid-cols-2">
           <div className="space-y-4">
-            <p className="text-xs uppercase tracking-wide text-amber-600">Mission</p>
             <h2 className="text-3xl font-semibold">使命</h2>
             <p className="text-sm text-zinc-600">
               以推動敬拜讚美與禱告為核心，以連結各教會為使命，舉辦各樣活動推動
@@ -43,7 +40,6 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="space-y-4">
-            <p className="text-xs uppercase tracking-wide text-amber-600">Vision</p>
             <h2 className="text-3xl font-semibold">异象</h2>
             <p className="text-sm text-zinc-600">
               成为一个跨文化、跨世代的合一网络，培育敬拜与祷告的生活方式，
@@ -57,7 +53,6 @@ export default function AboutPage() {
         <div className="mx-auto max-w-6xl px-6 py-14">
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-4">
-              <p className="text-xs uppercase tracking-wide text-amber-600">We Will</p>
               <h2 className="text-3xl font-semibold">我们的方向</h2>
               <p className="text-sm text-zinc-600">
               在美國東岸及世界各地要與弟兄姐妹連結，藉著敬拜讚美及禱告來尋求神的旨意，
@@ -65,7 +60,6 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="space-y-4">
-              <p className="text-xs uppercase tracking-wide text-amber-600">Core Values</p>
               <h2 className="text-3xl font-semibold">核心价值</h2>
               <div className="text-sm text-zinc-600">
                 <div>Bridal Minded 新婦的思维</div>
