@@ -1,0 +1,224 @@
+{
+  "nav": {
+    "home": "主頁",
+    "about": "關於我們",
+    "calendar": "活动日历",
+    "prayer": "禱告室",
+    "ministries": "宣教事工",
+    "trainings": "門徒訓練",
+    "audio": "音訊庫",
+    "donation": "奉獻支持",
+    "contact": "联系我们"
+  },
+  "header": {
+    "title": "Bethel Renewal Center",
+    "subtitle": "伯特利中心",
+    "donate": "奉獻支持",
+    "switchToEn": "EN",
+    "switchToZh": "中文"
+  },
+  "footer": {
+    "title": "Bethel Renewal Center",
+    "subtitle": "伯特利中心",
+    "location": "Lake Hiawatha, NJ placeholder",
+    "email": "info@brc.org placeholder",
+    "phone": "(973) 000-0000 placeholder",
+    "contactCta": "联系我们",
+    "quickLinks": "快速链接",
+    "subscribeTitle": "订阅更新",
+    "subscribeDesc": "获取最新活动与讲道资讯。",
+    "emailPlaceholder": "your@email.com",
+    "subscribeButton": "订阅",
+    "copyright": "© {year} Bethel Renewal Center. All rights reserved."
+  },
+  "common": {
+    "comingSoon": "Coming soon",
+    "back": "← 返回",
+    "notFound": "未找到相关事工。",
+    "errorPrefix": "Ministries API error:"
+  },
+  "home": {
+    "hero": {
+      "title": "伯特利中心",
+      "subtitle": "更新生命 · 服事列国"
+    },
+    "carousel": [
+      { "title": "生命影响力事工", "subtitle": "Life Impact Ministries" },
+      { "title": "跨文化宣教", "subtitle": "Cross Culture Ministries" },
+      { "title": "基督徒学生行动", "subtitle": "CHISTA" }
+    ],
+    "mission": {
+      "title": "使命",
+      "body": "以推動敬拜讚美與祷告為核心，以連結各教會為使命，舉辦各樣活動推動敬拜讚美運動，恢復神在美東的榮耀同在。到各處宣傳建立美東眾教會聯結，幫助有需要的個人、家庭、群體及教會。提供教導、訓練、資源，鼓勵常常一同禱告敬拜、舉辦特會、佈道會，直至興旺教會。"
+    },
+    "vision": {
+      "title": "异象",
+      "body1": "成为一个跨文化、跨世代的合一网络，培育敬拜与祷告的生活方式，并协同众教会同心建立属灵家园。",
+      "body2": "在美國東岸及世界各地要與弟兄姐妹連結，藉著敬拜讚美及祷告來尋求神的旨意，進入神的命定，更新這個世代。"
+    },
+    "stats": [
+      { "value": "120+", "label": "合作机构" },
+      { "value": "200+", "label": "志愿者" },
+      { "value": "30+", "label": "年度项目" },
+      { "value": "5,000+", "label": "受益人群" }
+    ],
+    "about": {
+      "title": "关于我们",
+      "body": "我们是一个多文化、多语言的 NGO 组织，专注于社区关怀与跨文化服务，通过长期项目推动教育、关怀与生命更新。",
+      "cta": "关于我们"
+    },
+    "ministries": {
+      "title": "重点事工",
+      "cta": "查看全部"
+    },
+    "events": {
+      "title": "近期活动",
+      "cta": "查看全部",
+      "cards": [
+        { "title": "社区关怀义诊", "subtitle": "本周六 9:00 AM" },
+        { "title": "青年成长营", "subtitle": "本周日 2:00 PM" },
+        { "title": "国际伙伴分享会", "subtitle": "下周五 7:30 PM" }
+      ],
+      "detailsCta": "了解详情"
+    },
+    "prayer": {
+      "title": "祷告室",
+      "body": "祷告室为有需要的人提供陪伴与代祷，欢迎预约或现场参与。",
+      "cta": "了解祷告室",
+      "hoursTitle": "开放时间",
+      "hours1": "周二至周六 10:00 AM - 6:00 PM",
+      "hours2": "预约电话：(973) 000-0000"
+    },
+    "trainings": {
+      "title": "门徒训练",
+      "cta": "查看全部",
+      "cards": [
+        { "title": "基督生平", "desc": "扎根福音，建立属灵生命基础。" },
+        { "title": "保罗生平与书信", "desc": "认识真理，建立门徒品格与使命。" },
+        { "title": "领袖培训", "desc": "装备同工，建立健康团队与事奉。" }
+      ],
+      "detailsCta": "门徒训练详情"
+    },
+    "audio": {
+      "title": "音讯库",
+      "cta": "查看全部",
+      "cards": [
+        { "title": "信心的旅程", "subtitle": "讲员：David" },
+        { "title": "更新的生命", "subtitle": "讲员：Grace" },
+        { "title": "爱中彼此建造", "subtitle": "讲员：John" }
+      ],
+      "detailsCta": "观看讲道"
+    },
+    "donation": {
+      "title": "支持我们的使命",
+      "body": "你的奉献支持帮助我们持续服事社区与列国。",
+      "cta": "立即奉献"
+    },
+    "contact": {
+      "title": "联系我们",
+      "address": "地址：Bethel Renewal Center, Lake Hiawatha, NJ",
+      "email": "邮箱：info@brc.org",
+      "phone": "电话：(973) 000-0000",
+      "namePlaceholder": "姓名",
+      "emailPlaceholder": "邮箱",
+      "messagePlaceholder": "留言内容",
+      "submit": "提交问题"
+    }
+  },
+  "about": {
+    "heroTitle": "關於伯特利更新中心",
+    "heroSubtitle": "Bethel Renewal Center",
+    "heroBody": "BRC 是位於北美紐澤西的資源型機構，專注推動敬拜、祷告與跨文化連結，透過活動、訓練與合作，服事城市與列國。",
+    "storyTitle": "我们的故事",
+    "storyBody": "我们致力于推动敬拜与祷告相关的活动，连结各地教会与机构，在不同世代与文化之间建立共同使命的伙伴关系。",
+    "missionTitle": "使命",
+    "missionBody": "以推動敬拜讚美與祷告為核心，以連結各教會為使命，舉辦各樣活動推動敬拜讚美運動，恢復神在美東的榮耀同在。到各處宣傳建立美東眾教會聯結，幫助有需要的個人、家庭、群體及教會。提供教導、訓練、資源，鼓勵常常一同禱告敬拜、舉辦特會、佈道會，直至興旺教會。",
+    "visionTitle": "异象",
+    "visionBody": "成为一个跨文化、跨世代的合一网络，培育敬拜与祷告的生活方式，并协同众教会同心建立属灵家园。",
+    "directionTitle": "我们的方向",
+    "directionBody": "在美國東岸及世界各地要與弟兄姐妹連結，藉著敬拜讚美及祷告來尋求神的旨意，進入神的命定，更新這個世代。",
+    "valuesTitle": "核心价值",
+    "values": [
+      "Bridal Minded 新婦的思维",
+      "Equipping Saints 裝備聖徒",
+      "Truth Abiding 持守真理",
+      "Holiness Unto the Lord 歸耶和華為聖",
+      "Eternity Focused 注目於永恆",
+      "Love God and Love People 愛神與愛人",
+      "Renewed Heart and Mind 心意更新而變化",
+      "Christ Centered Lifestyle 以基督為中心的生活方式"
+    ],
+    "teamTitle": "事工与领导团队",
+    "teamCta": "查看事工详情",
+    "team": [
+      { "name": "林雄堅 牧师", "role": "事工领袖" },
+      { "name": "彭榮仁 牧师", "role": "事工领袖" },
+      { "name": "鄭隆保 牧师", "role": "事工领袖" }
+    ],
+    "joinTitle": "与我们同行",
+    "joinBody": "透过合作、代祷与奉献，一起参与城市与列国的更新。",
+    "joinCta": "奉献支持"
+  },
+  "ministries": {
+    "indexTitle": "宣教事工",
+    "indexBody": "重要事工与核心异象的聚焦展示。",
+    "sectionTitle": "事工板块",
+    "archiveTitle": "过往事工",
+    "archiveBody": "这里将展示已归档的过往事工与见证，稍后可继续补充内容。",
+    "detailsCta": "查看详情",
+    "listTitle": "事工列表",
+    "notFoundTitle": "Ministry not found.",
+    "back": "← 返回"
+  },
+  "calendar": {
+    "title": "事工活动日历",
+    "desc": "查看即将举行的活动，并根据日期查找详细安排。",
+    "selectedDate": "选择日期",
+    "empty": "今天没有安排的事工或活动。",
+    "prev": "← 上月",
+    "next": "下月 →",
+    "weekDays": ["日", "一", "二", "三", "四", "五", "六"]
+  },
+  "pages": {
+    "audio": "音讯库",
+    "calendar": "事工活动日历",
+    "contact": "联系我们",
+    "donation": "奉献支持",
+    "prayer": "祷告室",
+    "trainings": "门徒训练"
+  },
+  "prayer": {
+    "heroTitle": "祷告室",
+    "heroBody": "伯特利中心邀请全球守望祷告，与不同城市、不同国家的团队一起，建立持续不断的敬拜与祷告祭坛。",
+    "cards": [
+      {
+        "title": "24 小时祷告祭坛",
+        "body": "24/7 全球敬拜赞美祷告宣教祭坛，全年无休，按纽约美东时间（EST）轮流守望。",
+        "detail1": "形式：Zoom 线上 24 小时不间断祷告会",
+        "detail2": "基准时间：纽约美东时间（EST）",
+        "cta1": "加入祷告会",
+        "cta2": "目前已经认领时段列表",
+        "note": "為避免產生雜音干擾聚會，上線後請關閉麥克風(或按 mute)保持靜音，要說話的時候再打開即可。"
+      },
+      {
+        "title": "伯特利中心祷告平台",
+        "body": "周间美东时间早上 7:00 专题分享，周二晚祷美东时间 8:00 开始。",
+        "detail1": "内容：本周专题分享及祷告焦点",
+        "detail2": "入口：可在音讯库查询过往分享",
+        "cta1": "本周专题分享"
+      },
+      {
+        "title": "RPG 复兴祷告特会",
+        "body": "复兴祷告特会每日美东时间早上 8:30 开始，邀请你一同参与。",
+        "detail1": "时间：周一至周日 8:30 AM（EST）",
+        "detail2": "形式：线上聚集与祷告",
+        "cta1": "加入复兴祷告特会"
+      }
+    ],
+    "contact": {
+      "address": "Bethel Renewal Center, Lake Hiawatha, NJ 07034",
+      "email": "info@brc.org",
+      "phone": "(973) 000-0000"
+    }
+  }
+}

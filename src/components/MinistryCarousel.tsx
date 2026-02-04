@@ -3,35 +3,34 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const slides = [
-  {
-    title: "[placeholder] Life Impact Ministries",
-    subtitle: "[placeholder] 生命影响力事工",
-    src: "/images/hero.jpeg",
-  },
-  {
-    title: "[placeholder] Cross Culture Ministries",
-    subtitle: "[placeholder] 跨文化宣教",
-    src: "/images/hero.jpeg",
-  },
-  {
-    title: "[placeholder] CHISTA",
-    subtitle: "[placeholder] 基督徒学生行动",
-    src: "/images/hero.jpeg",
-  },
+type Slide = {
+  title: string;
+  subtitle: string;
+  src: string;
+};
+
+type MinistryCarouselProps = {
+  slides?: Slide[];
+};
+
+const fallbackSlides: Slide[] = [
+  { title: "Life Impact Ministries", subtitle: "生命影响力事工", src: "/images/hero.jpeg" },
+  { title: "Cross Culture Ministries", subtitle: "跨文化宣教", src: "/images/hero.jpeg" },
+  { title: "CHISTA", subtitle: "基督徒学生行动", src: "/images/hero.jpeg" },
 ];
 
-export default function MinistryCarousel() {
+export default function MinistryCarousel({ slides }: MinistryCarouselProps) {
+  const effectiveSlides = slides && slides.length > 0 ? slides : fallbackSlides;
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     const id = window.setInterval(() => {
-      setIndex((prev) => (prev + 1) % slides.length);
+      setIndex((prev) => (prev + 1) % effectiveSlides.length);
     }, 4500);
     return () => window.clearInterval(id);
-  }, []);
+  }, [effectiveSlides.length]);
 
-  const active = slides[index];
+  const active = effectiveSlides[index] ?? effectiveSlides[0];
 
   return (
     <div className="w-full">
@@ -44,7 +43,7 @@ export default function MinistryCarousel() {
         </div>
       </div>
       <div className="mt-4 flex items-center justify-center gap-2">
-        {slides.map((slide, i) => (
+        {effectiveSlides.map((slide, i) => (
           <button
             key={slide.title}
             aria-label={`Go to slide ${i + 1}`}
