@@ -1,0 +1,224 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "calendar": "Calendar",
+    "prayer": "Prayer Room",
+    "ministries": "Ministries",
+    "trainings": "Trainings",
+    "audio": "Media",
+    "donation": "Give",
+    "contact": "Contact"
+  },
+  "header": {
+    "title": "Bethel Renewal Center",
+    "subtitle": "伯特利中心",
+    "donate": "Give",
+    "switchToEn": "EN",
+    "switchToZh": "中文"
+  },
+  "footer": {
+    "title": "Bethel Renewal Center",
+    "subtitle": "伯特利中心",
+    "location": "Lake Hiawatha, NJ placeholder",
+    "email": "info@brc.org placeholder",
+    "phone": "(973) 000-0000 placeholder",
+    "contactCta": "Contact Us",
+    "quickLinks": "Quick Links",
+    "subscribeTitle": "Subscribe",
+    "subscribeDesc": "Get updates on events and messages.",
+    "emailPlaceholder": "your@email.com",
+    "subscribeButton": "Subscribe",
+    "copyright": "© {year} Bethel Renewal Center. All rights reserved."
+  },
+  "common": {
+    "comingSoon": "Coming soon",
+    "back": "← Back",
+    "notFound": "Ministry not found.",
+    "errorPrefix": "Ministries API error:"
+  },
+  "home": {
+    "hero": {
+      "title": "Bethel Renewal Center",
+      "subtitle": "Renewed Lives · Serving Nations"
+    },
+    "carousel": [
+      { "title": "Life Impact Ministries", "subtitle": "生命影响力事工" },
+      { "title": "Cross Culture Ministries", "subtitle": "跨文化宣教" },
+      { "title": "CHISTA", "subtitle": "基督徒学生行动" }
+    ],
+    "mission": {
+      "title": "Mission",
+      "body": "Rooted in worship and prayer, we connect churches and serve communities through gatherings, training, and shared mission. We seek God together, build unity across generations and cultures, and raise up lives for His purposes."
+    },
+    "vision": {
+      "title": "Vision",
+      "body1": "To become a multi-cultural, multi-generational network, cultivating a lifestyle of worship and prayer while building a spiritual home together.",
+      "body2": "We connect believers across the East Coast and beyond, seeking God through worship and prayer to walk in His calling and renew this generation."
+    },
+    "stats": [
+      { "value": "120+", "label": "Partner Organizations" },
+      { "value": "200+", "label": "Volunteers" },
+      { "value": "30+", "label": "Annual Projects" },
+      { "value": "5,000+", "label": "People Served" }
+    ],
+    "about": {
+      "title": "About Us",
+      "body": "We are a multicultural, multilingual NGO focused on community care and cross-cultural service, advancing education, care, and renewal through long-term initiatives.",
+      "cta": "Learn more"
+    },
+    "ministries": {
+      "title": "Featured Ministries",
+      "cta": "View all"
+    },
+    "events": {
+      "title": "Upcoming Events",
+      "cta": "View all",
+      "cards": [
+        { "title": "Community Health Outreach", "subtitle": "Sat 9:00 AM" },
+        { "title": "Youth Growth Camp", "subtitle": "Sun 2:00 PM" },
+        { "title": "International Partners Night", "subtitle": "Fri 7:30 PM" }
+      ],
+      "detailsCta": "See details"
+    },
+    "prayer": {
+      "title": "Prayer Room",
+      "body": "We offer companionship and intercession for those in need. You are welcome to join by appointment or in person.",
+      "cta": "Learn about prayer room",
+      "hoursTitle": "Hours",
+      "hours1": "Tue–Sat 10:00 AM - 6:00 PM",
+      "hours2": "Appointment: (973) 000-0000"
+    },
+    "trainings": {
+      "title": "Trainings",
+      "cta": "View all",
+      "cards": [
+        { "title": "Life of Christ", "desc": "Rooted in the gospel and spiritual foundations." },
+        { "title": "Life of Paul & Epistles", "desc": "Grow in truth and disciple character." },
+        { "title": "Leadership Training", "desc": "Equip teams for healthy ministry." }
+      ],
+      "detailsCta": "Training details"
+    },
+    "audio": {
+      "title": "Media Library",
+      "cta": "View all",
+      "cards": [
+        { "title": "Journey of Faith", "subtitle": "Speaker: David" },
+        { "title": "Life Renewed", "subtitle": "Speaker: Grace" },
+        { "title": "Built in Love", "subtitle": "Speaker: John" }
+      ],
+      "detailsCta": "Watch sermon"
+    },
+    "donation": {
+      "title": "Support Our Mission",
+      "body": "Your generosity helps us serve communities and nations.",
+      "cta": "Give now"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "address": "Address: Bethel Renewal Center, Lake Hiawatha, NJ",
+      "email": "Email: info@brc.org",
+      "phone": "Phone: (973) 000-0000",
+      "namePlaceholder": "Name",
+      "emailPlaceholder": "Email",
+      "messagePlaceholder": "Message",
+      "submit": "Submit"
+    }
+  },
+  "about": {
+    "heroTitle": "About Bethel Renewal Center",
+    "heroSubtitle": "Bethel Renewal Center",
+    "heroBody": "BRC is a resource-based ministry in New Jersey, devoted to worship, prayer, and cross-cultural connection through events, training, and partnerships that serve cities and nations.",
+    "storyTitle": "Our Story",
+    "storyBody": "We advance worship and prayer initiatives and connect churches and organizations, building partnerships across generations and cultures.",
+    "missionTitle": "Mission",
+    "missionBody": "Rooted in worship and prayer, we connect churches and serve communities through gatherings, training, and shared mission, seeking God together and building unity across generations and cultures.",
+    "visionTitle": "Vision",
+    "visionBody": "To become a multi-cultural, multi-generational network, cultivating a lifestyle of worship and prayer while building a spiritual home together.",
+    "directionTitle": "Our Direction",
+    "directionBody": "We connect believers across the East Coast and beyond, seeking God through worship and prayer to walk in His calling and renew this generation.",
+    "valuesTitle": "Core Values",
+    "values": [
+      "Bridal Minded",
+      "Equipping Saints",
+      "Truth Abiding",
+      "Holiness Unto the Lord",
+      "Eternity Focused",
+      "Love God and Love People",
+      "Renewed Heart and Mind",
+      "Christ Centered Lifestyle"
+    ],
+    "teamTitle": "Ministry & Leadership",
+    "teamCta": "View ministry details",
+    "team": [
+      { "name": "林雄堅 牧师", "role": "Ministry Leader" },
+      { "name": "彭榮仁 牧师", "role": "Ministry Leader" },
+      { "name": "鄭隆保 牧师", "role": "Ministry Leader" }
+    ],
+    "joinTitle": "Walk With Us",
+    "joinBody": "Partner through prayer and giving to renew cities and nations.",
+    "joinCta": "Give"
+  },
+  "ministries": {
+    "indexTitle": "Ministries",
+    "indexBody": "Highlighted ministries and core vision.",
+    "sectionTitle": "Ministry Areas",
+    "archiveTitle": "Archive",
+    "archiveBody": "Archived ministries and testimonies will be displayed here.",
+    "detailsCta": "View details",
+    "listTitle": "Ministries List",
+    "notFoundTitle": "Ministry not found.",
+    "back": "← Back"
+  },
+  "calendar": {
+    "title": "Ministry Calendar",
+    "desc": "See upcoming events and find details by date.",
+    "selectedDate": "Selected Date",
+    "empty": "No events scheduled for this day.",
+    "prev": "← Prev",
+    "next": "Next →",
+    "weekDays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  },
+  "pages": {
+    "audio": "Media Library",
+    "calendar": "Ministry Calendar",
+    "contact": "Contact Us",
+    "donation": "Give",
+    "prayer": "Prayer Room",
+    "trainings": "Trainings"
+  },
+  "prayer": {
+    "heroTitle": "Prayer Room",
+    "heroBody": "BRC invites global intercessors to build a continuous altar of worship and prayer with teams across cities and nations.",
+    "cards": [
+      {
+        "title": "24/7 Prayer Altar",
+        "body": "A 24/7 global altar of worship and prayer, rotating by Eastern Time (EST).",
+        "detail1": "Format: Zoom 24/7 prayer gathering",
+        "detail2": "Time zone: Eastern Time (EST)",
+        "cta1": "Join prayer meeting",
+        "cta2": "View time slot list",
+        "note": "To avoid background noise, please mute your microphone after joining and unmute only when speaking."
+      },
+      {
+        "title": "BRC Prayer Platform",
+        "body": "Weekday 7:00 AM sharing and Tuesday 8:00 PM prayer (EST).",
+        "detail1": "Content: weekly focus and prayer points",
+        "detail2": "Access: find recordings in the media library",
+        "cta1": "This week's sharing"
+      },
+      {
+        "title": "RPG Revival Prayer Gathering",
+        "body": "Daily 8:30 AM (EST) prayer gathering. Join us in revival prayer.",
+        "detail1": "Time: Mon–Sun 8:30 AM (EST)",
+        "detail2": "Format: online gathering and prayer",
+        "cta1": "Join the prayer gathering"
+      }
+    ],
+    "contact": {
+      "address": "Bethel Renewal Center, Lake Hiawatha, NJ 07034",
+      "email": "info@brc.org",
+      "phone": "(973) 000-0000"
+    }
+  }
+}
