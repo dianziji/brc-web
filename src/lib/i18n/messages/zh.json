@@ -130,7 +130,7 @@
     "heroSubtitle": "Bethel Renewal Center",
     "heroBody": "BRC 是位於北美紐澤西的資源型機構，專注推動敬拜、祷告與跨文化連結，透過活動、訓練與合作，服事城市與列國。",
     "storyTitle": "我们的故事",
-    "storyBody": "我们致力于推动敬拜与祷告相关的活动，连结各地教会与机构，在不同世代与文化之间建立共同使命的伙伴关系。",
+    "storyBody": "伯特利中心(簡稱BRC)位於北美紐澤西，是一個建造新婦教會的資源中心，附設敬拜禱告室。我們將致力於推動敬拜禱告相關的活動以及教會的連結。將協助各教會機構舉辦活動，歡迎連絡洽詢。希望透過全心熱切的敬拜讚美禱告，超越形式、世代、語言、種族、教派，同心合意的尋求。期待活出活潑生命的life-style，在其中天天都歡喜快樂，大有信心、隨處傳福音，時時禱告，並且得勝。到處傳遞敬拜禱告的異象，並且要和眾教會聯結一起同心建立大衛倒塌的帳幕。",
     "missionTitle": "使命",
     "missionBody": "以推動敬拜讚美與祷告為核心，以連結各教會為使命，舉辦各樣活動推動敬拜讚美運動，恢復神在美東的榮耀同在。到各處宣傳建立美東眾教會聯結，幫助有需要的個人、家庭、群體及教會。提供教導、訓練、資源，鼓勵常常一同禱告敬拜、舉辦特會、佈道會，直至興旺教會。",
     "visionTitle": "异象",
@@ -186,6 +186,30 @@
     "donation": "奉献支持",
     "prayer": "祷告室",
     "trainings": "门徒训练"
+  },
+  "donation": {
+    "title": "奉献支持",
+    "subtitle": "伯特利中心是符合 IRS 501(c)(3) 的非营利慈善机构，奉献可用于抵税。",
+    "orgNote": "Bethel Renewal Center is an IRS 501(c)(3) Non-Profit Organization. Donations are tax deductible.",
+    "buttonLabel": "Donate Now",
+    "verseTitle": "奉献经文",
+    "verseText": "「各人要随本心所酌定的，不要作难，不要勉强，因为捐得乐意的人是　神所喜爱的。」",
+    "verseRef": "哥林多后书 9:7",
+    "payableTitle": "支票抬头",
+    "payableValue": "Bethel Renewal Center",
+    "mailTitle": "邮寄地址",
+    "mailValue": "Bethel Renewal Center, P.O.Box 186, Lake Hiawatha, NJ 07034",
+    "digitalTitle": "线上转账",
+    "paypal": "Paypal：brc@bethelrc.org",
+    "zelle": "Zelle：BRC@BETHELRC.ORG",
+    "wire": "Wire Transfer：finance@bethelrc.org（请来信索取详情）",
+    "notesTitle": "奉献注意事项",
+    "notes": [
+      "使用信用卡/Paypal 捐款会产生 2-3% 手续费。",
+      "请在备注中注明奉献支持的具体事工。"
+    ],
+    "testMode": "Notice: Test mode is enabled. While in test mode no live donations are processed.",
+    "disclaimer": "您的奉献是基于以下理解：伯特利中心对所有奉献款项的使用拥有完全的酌情权与控制权。"
   },
   "prayer": {
     "heroTitle": "祷告室",
