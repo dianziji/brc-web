@@ -9,7 +9,7 @@ export default async function DonationPage({ params }: { params: Promise<{ local
   return (
     <main className="pb-0">
       <section className="relative w-full overflow-hidden bg-zinc-900 text-white">
-        <div className="relative h-[450px] w-full">
+        <div className="relative h-[260px] w-full sm:h-[360px] md:h-[450px]">
           <Image
             src="/images/donation_hero.png"
             alt="Donation"
@@ -19,9 +19,9 @@ export default async function DonationPage({ params }: { params: Promise<{ local
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/60" />
         </div>
-        <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-28 md:pt-32">
+        <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-24 md:pt-32">
           <div className="max-w-3xl space-y-3">
-            <h1 className="text-3xl font-semibold md:text-4xl">{messages.donation.title}</h1>
+            <h1 className="text-2xl font-semibold md:text-4xl">{messages.donation.title}</h1>
             <p className="text-sm text-zinc-200 md:text-base">{messages.donation.subtitle}</p>
           </div>
         </div>
@@ -29,7 +29,7 @@ export default async function DonationPage({ params }: { params: Promise<{ local
 
       <section>
         <div className="grid lg:grid-cols-[0.6fr_1.4fr]">
-          <div className="bg-amber-100 px-6 py-16 lg:px-10">
+          <div className="bg-amber-100 px-6 py-12 md:py-16 lg:px-10">
             <div className="mx-auto max-w-xl space-y-6">
               <div className="text-sm uppercase tracking-widest text-zinc-500">
                 {messages.donation.verseTitle}
@@ -37,14 +37,14 @@ export default async function DonationPage({ params }: { params: Promise<{ local
               <div className="text-xl font-semibold text-zinc-900">{messages.donation.verseText}</div>
               <div className="text-sm text-zinc-500">{messages.donation.verseRef}</div>
               <div className="pt-6 text-xs text-zinc-500 space-y-1">
-              
+                <div>{messages.donation.testMode}</div>
                 <div>{messages.donation.disclaimer}</div>
               </div>
             </div>
           </div>
 
-          <div className="bg-amber-50 px-6 py-16 lg:px-10">
-            <div className="mx-auto max-w-2xl space-y-5 rounded-2xl border border-zinc-200 p-5">
+          <div className="bg-amber-50 px-6 py-12 md:py-16 lg:px-10">
+            <div className="mx-auto max-w-2xl space-y-5 rounded-2xl border border-zinc-200 p-4 sm:p-5">
               <div className="space-y-2">
                 <div className="text-sm uppercase tracking-widest text-zinc-500">
                   {messages.donation.payableTitle}

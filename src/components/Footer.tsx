@@ -25,8 +25,8 @@ export default function Footer({ locale, messages }: FooterProps) {
 
   return (
     <footer className="border-t bg-zinc-50">
-      <div className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
+      <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <div className="grid gap-8 md:gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
           <div className="space-y-3">
             <div className="text-sm font-semibold">{messages.footer.title}</div>
             <div className="text-xs text-zinc-500">{messages.footer.subtitle}</div>
@@ -53,7 +53,7 @@ export default function Footer({ locale, messages }: FooterProps) {
           <div className="text-sm text-zinc-700">
             <div className="font-medium text-zinc-900">{messages.footer.subscribeTitle}</div>
             <p className="mt-2 text-zinc-600">{messages.footer.subscribeDesc}</p>
-            <div className="mt-4 flex gap-2">
+            <div className="mt-4 flex flex-col gap-2 sm:flex-row">
               <input
                 type="email"
                 placeholder={messages.footer.emailPlaceholder}

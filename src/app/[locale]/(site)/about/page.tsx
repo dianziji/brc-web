@@ -144,7 +144,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   return (
     <main className="pb-16">
       <section className="relative w-full overflow-hidden bg-zinc-900 text-white">
-        <div className="relative h-[480px] w-full">
+        <div className="relative h-[320px] w-full md:h-[480px]">
           <Image
             src="/images/hand_b&w.jpeg"
             alt="About BRC"
@@ -153,9 +153,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/60" />
         </div>
-        <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-28 md:pt-32">
+        <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-24 md:pt-32">
           <div className="max-w-3xl space-y-4">
-            <h1 className="text-4xl font-semibold md:text-5xl">
+            <h1 className="text-3xl font-semibold md:text-5xl">
               {messages.about.heroTitle}
         
             </h1>
@@ -175,7 +175,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       <section className="grid lg:grid-cols-2">
-        <div className="relative min-h-[520px] w-full">
+        <div className="relative min-h-[320px] w-full md:min-h-[520px]">
           <Image
             src="/images/mission&vision.jpeg"
             alt="Mission and Vision"
@@ -204,7 +204,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
               <div className="space-y-4 border-t border-zinc-200 pt-6">
                 <div className="text-xs uppercase tracking-widest text-zinc-500">{goalsTitle}</div>
-                <div className="text-5xl font-semibold tracking-wide leading-none text-red-700">
+                <div className="text-4xl font-semibold tracking-wide leading-none text-red-700 sm:text-5xl">
                   {goalsHeadline.map((item) => (
                     <div key={item}>{item}</div>
                   ))}
@@ -222,7 +222,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                     </div>
                     <div
                       className={`font-semibold text-right w-full max-w-[320px] leading-snug ${
-                        isEnglish ? "text-base" : "text-xl"
+                        isEnglish ? "text-base sm:text-lg" : "text-lg sm:text-xl"
                       }`}
                     >
                       {formatGoalTitle(item.title, item.titleLines)}

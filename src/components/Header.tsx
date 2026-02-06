@@ -51,16 +51,16 @@ export default function Header({ locale, messages }: HeaderProps) {
       }`}
     >
 
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 md:px-6 md:py-5">
         <Link href={withLocale(locale, "/")} className="flex items-center gap-3">
-          <div className="relative h-10 w-24">
+          <div className="relative h-8 w-20 md:h-10 md:w-24">
             <Image src="/images/logo.png" alt="BRC logo" fill className="object-contain" />
           </div>
           <div className="leading-tight">
-            <div className={`text-sm font-semibold ${lightMode ? "text-white" : "text-zinc-900"}`}>
+            <div className={`text-xs font-semibold md:text-sm ${lightMode ? "text-white" : "text-zinc-900"}`}>
               {messages.header.title}
             </div>
-            <div className={`text-xs ${lightMode ? "text-zinc-200" : "text-zinc-500"}`}>
+            <div className={`text-[10px] md:text-xs ${lightMode ? "text-zinc-200" : "text-zinc-500"}`}>
               {messages.header.subtitle}
             </div>
           </div>
@@ -76,10 +76,10 @@ export default function Header({ locale, messages }: HeaderProps) {
             </Link>
           ))}
         </nav>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 md:gap-3">
           <Link
             href={switchHref}
-            className={`rounded-full border px-3 py-2 text-xs font-semibold ${
+            className={`rounded-full border px-2 py-1.5 text-[10px] font-semibold md:px-3 md:py-2 md:text-xs ${
               lightMode ? "border-white/60 text-white" : "border-zinc-200 text-zinc-700"
             }`}
           >
@@ -87,7 +87,7 @@ export default function Header({ locale, messages }: HeaderProps) {
           </Link>
           <Link
             href={withLocale(locale, "/donation")}
-            className={`rounded-full px-4 py-2 text-xs font-semibold ${
+            className={`rounded-full px-3 py-1.5 text-[10px] font-semibold md:px-4 md:py-2 md:text-xs ${
               lightMode ? "bg-white/90 text-zinc-900" : "bg-amber-500 text-black"
             }`}
           >

@@ -9,7 +9,7 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
   return (
     <main className="pb-16">
       <section className="relative w-full overflow-hidden bg-zinc-900 text-white">
-        <div className="relative h-[480px] w-full">
+        <div className="relative h-[320px] w-full md:h-[480px]">
           <Image
             src="/images/AdobeStock_536214384.jpeg"
             alt="Prayer Room"
@@ -18,15 +18,15 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/60" />
         </div>
-        <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-28 md:pt-32">
+        <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-24 md:pt-32">
           <div className="max-w-3xl space-y-4">
-            <h1 className="text-4xl font-semibold md:text-5xl">{messages.prayer.heroTitle}</h1>
+            <h1 className="text-3xl font-semibold md:text-5xl">{messages.prayer.heroTitle}</h1>
             <p className="text-base text-zinc-200 md:text-lg">{messages.prayer.heroBody}</p>
           </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-6 pt-12 md:pt-16 space-y-12">
+      <div className="mx-auto max-w-6xl px-6 pt-10 md:pt-16 space-y-10 md:space-y-12">
         <section className="grid gap-6 md:grid-cols-3">
           <div className="rounded-2xl border border-zinc-200 bg-white p-6 space-y-4">
             <div className="relative h-40 w-full overflow-hidden rounded-xl bg-zinc-100">

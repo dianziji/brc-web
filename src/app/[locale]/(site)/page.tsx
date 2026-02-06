@@ -12,7 +12,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <main className="min-h-screen bg-white text-zinc-900">
-      <section className="relative min-h-[100vh] overflow-hidden bg-zinc-1000 text-white">
+      <section className="relative min-h-[70vh] md:min-h-[100vh] overflow-hidden bg-zinc-1000 text-white">
         <div className="absolute inset-0">
           <video
             className="h-full w-full object-cover object-center"
@@ -27,11 +27,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </video>
           <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/80 via-zinc-800/70 to-zinc-700/60" />
         </div>
-        <div className="relative mx-auto max-w-6xl px-12 py-32 md:py-40 min-h-[100vh] flex items-center justify-center">
+        <div className="relative mx-auto max-w-6xl px-6 py-24 md:px-12 md:py-40 min-h-[70vh] md:min-h-[100vh] flex items-center justify-center">
           <div className="mx-auto max-w-4xl text-center">
-            <h1 className="mt-4 text-4xl font-semibold leading-tight md:text-5xl">
+            <h1 className="mt-4 text-3xl font-semibold leading-tight md:text-5xl">
               {messages.home.hero.title}
-              <span className="block text-2xl text-zinc-200 md:text-3xl">
+              <span className="block text-xl text-zinc-200 md:text-3xl">
                 {messages.home.hero.subtitle}
               </span>
             </h1>
