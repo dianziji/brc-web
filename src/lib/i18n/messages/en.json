@@ -7,7 +7,7 @@
     "ministries": "Ministries",
     "trainings": "Trainings",
     "audio": "Media",
-    "donation": "Give",
+    "donation": "Donate",
     "contact": "Contact"
   },
   "header": {
@@ -186,6 +186,30 @@
     "donation": "Give",
     "prayer": "Prayer Room",
     "trainings": "Trainings"
+  },
+  "donation": {
+    "title": "Give",
+    "subtitle": "Bethel Renewal Center is an IRS 501(c)(3) non-profit organization. Donations are tax deductible.",
+    "orgNote": "『Bethel Renewal Center』 is an IRS 501(c)(3) Non-Profit Organization. Donations are Tax Deductible.",
+    "buttonLabel": "Donate Now",
+    "verseTitle": "Scripture on Giving",
+    "verseText": "Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.",
+    "verseRef": "2 Corinthians 9:7 (NIV)",
+    "payableTitle": "Make Check Payable To",
+    "payableValue": "Bethel Renewal Center",
+    "mailTitle": "Mail Check To",
+    "mailValue": "Bethel Renewal Center, P.O.Box 186, Lake Hiawatha, NJ 07034",
+    "digitalTitle": "Digital Giving",
+    "paypal": "Paypal: brc@bethelrc.org",
+    "zelle": "Zelle: BRC@BETHELRC.ORG",
+    "wire": "Wire Transfer: finance@bethelrc.org (email for details)",
+    "notesTitle": "Donation Notes",
+    "notes": [
+      "Paying by credit card/Paypal incurs a 2-3% processing fee.",
+      "Please specify the ministry you support in the memo."
+    ],
+    "testMode": "Notice: Test mode is enabled. While in test mode no live donations are processed.",
+    "disclaimer": "Your contribution is solicited with the understanding that Bethel Renewal Center has complete discretion and control over the use of all donated funds."
   },
   "prayer": {
     "heroTitle": "Prayer Room",

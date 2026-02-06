@@ -87,13 +87,7 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
           </div>
         </section>
 
-        <section className="rounded-2xl border border-dashed border-zinc-200 bg-zinc-50 p-6 text-sm text-zinc-600">
-          <div className="mt-2 space-y-1">
-            <div>{messages.prayer.contact.address}</div>
-            <div>{messages.prayer.contact.email}</div>
-            <div>{messages.prayer.contact.phone}</div>
-          </div>
-        </section>
+
       </div>
     </main>
   );
