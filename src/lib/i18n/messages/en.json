@@ -161,9 +161,11 @@
   },
   "ministries": {
     "indexTitle": "Ministries",
-    "indexBody": "Highlighted ministries and core vision.",
+    "indexBody": "Highlighted BRC ministries in 22+ countries and regions.",
+    "highlightTitle": "Featured Ministries",
+    "highlightBody": "Key ministries and testimonies from across regions.",
     "sectionTitle": "Ministry Areas",
-    "archiveTitle": "Archive",
+    "archiveTitle": "Archive ministries",
     "archiveBody": "Archived ministries and testimonies will be displayed here.",
     "detailsCta": "View details",
     "listTitle": "Ministries List",

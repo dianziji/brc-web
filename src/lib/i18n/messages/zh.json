@@ -4,7 +4,7 @@
     "about": "關於我們",
     "calendar": "活动日历",
     "prayer": "禱告室",
-    "ministries": "宣教事工",
+    "ministries": "BRC事工",
     "trainings": "門徒訓練",
     "audio": "音訊庫",
     "donation": "奉獻支持",
@@ -126,7 +126,7 @@
     }
   },
   "about": {
-    "heroTitle": "關於伯特利更新中心",
+    "heroTitle": "關於伯特利中心",
     "heroSubtitle": "Bethel Renewal Center",
     "heroBody": "BRC 是位於北美紐澤西的資源型機構，專注推動敬拜、祷告與跨文化連結，透過活動、訓練與合作，服事城市與列國。",
     "storyTitle": "我们的故事",
@@ -160,11 +160,13 @@
     "joinCta": "奉献支持"
   },
   "ministries": {
-    "indexTitle": "宣教事工",
-    "indexBody": "重要事工与核心异象的聚焦展示。",
+    "indexTitle": "BRC 事工",
+    "indexBody": "BRC的事工遍布全球超过22个国家和地区。",
+    "highlightTitle": "重要事工",
+    "highlightBody": "各地事工与见证的重点展示。",
     "sectionTitle": "事工板块",
     "archiveTitle": "过往事工",
-    "archiveBody": "这里将展示已归档的过往事工与见证，稍后可继续补充内容。",
+    "archiveBody": "这里将展示已归档的过往事工与见证，稍后将继续补充内容。",
     "detailsCta": "查看详情",
     "listTitle": "事工列表",
     "notFoundTitle": "Ministry not found.",
