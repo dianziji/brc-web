@@ -15,7 +15,7 @@ export default function Header({ locale, messages }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const basePath = stripLocale(pathname);
-  const lightHeaderPaths = new Set(["/", "/prayer", "/about", "/donation"]);
+  const lightHeaderPaths = new Set(["/", "/prayer", "/about", "/donation", "/ministries", "/ministries/archive"]);
   const isLightHeader = lightHeaderPaths.has(basePath);
   const lightMode = isLightHeader && !scrolled;
   const navItems = useMemo(
