@@ -25,7 +25,7 @@ export default function Header({ locale, messages }: HeaderProps) {
       { label: messages.nav.calendar, href: withLocale(locale, "/calendar") },
       { label: messages.nav.prayer, href: withLocale(locale, "/prayer") },
       { label: messages.nav.ministries, href: withLocale(locale, "/ministries") },
-      { label: messages.nav.trainings, href: withLocale(locale, "/trainings") },
+      { label: messages.nav.trainings, href: withLocale(locale, "/discipleship") },
       { label: messages.nav.audio, href: withLocale(locale, "/audio") },
     ],
     [locale, messages.nav]
@@ -114,4 +114,3 @@ export default function Header({ locale, messages }: HeaderProps) {
     </header>
   );
 }
-
