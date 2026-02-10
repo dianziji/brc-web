@@ -159,7 +159,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <h2 className="text-3xl font-semibold">{messages.home.trainings.title}</h2>
             <a
               className="text-sm text-zinc-700 underline"
-              href={withLocale(normalizedLocale, "/trainings")}
+              href={withLocale(normalizedLocale, "/discipleship")}
             >
               {messages.home.trainings.cta}
             </a>
@@ -172,7 +172,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 <p className="mt-1 text-sm text-zinc-600">{item.desc}</p>
                 <a
                   className="mt-3 inline-flex text-sm text-zinc-900 underline"
-                  href={withLocale(normalizedLocale, "/trainings")}
+                  href={withLocale(normalizedLocale, "/discipleship")}
                 >
                   {messages.home.trainings.detailsCta}
                 </a>

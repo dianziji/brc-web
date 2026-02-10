@@ -5,7 +5,7 @@
     "calendar": "Calendar",
     "prayer": "Prayer Room",
     "ministries": "Ministries",
-    "trainings": "Trainings",
+    "trainings": "Discipleship",
     "audio": "Media",
     "donation": "Donate",
     "contact": "Contact"
@@ -90,14 +90,14 @@
       "hours2": "Appointment: (973) 000-0000"
     },
     "trainings": {
-      "title": "Trainings",
+      "title": "Discipleship",
       "cta": "View all",
       "cards": [
         { "title": "Life of Christ", "desc": "Rooted in the gospel and spiritual foundations." },
         { "title": "Life of Paul & Epistles", "desc": "Grow in truth and disciple character." },
         { "title": "Leadership Training", "desc": "Equip teams for healthy ministry." }
       ],
-      "detailsCta": "Training details"
+      "detailsCta": "Discipleship details"
     },
     "audio": {
       "title": "Media Library",
@@ -187,7 +187,7 @@
     "contact": "Contact Us",
     "donation": "Give",
     "prayer": "Prayer Room",
-    "trainings": "Trainings"
+    "trainings": "Discipleship"
   },
   "donation": {
     "title": "Give",
