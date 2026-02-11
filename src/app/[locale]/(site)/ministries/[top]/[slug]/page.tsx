@@ -1,36 +1,9 @@
+import Link from "next/link";
+import { getMinistryDetail } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
-
-type Detail = {
-  slug: string;
-  fields: {
-    titleEn?: string;
-    titleZh?: string;
-    summaryEn?: string;
-    summaryZh?: string;
-    heroImage?: { node?: { sourceUrl?: string; altText?: string } };
-  };
-  section: { top: string | null; leaf: { slug: string } | null; parent?: any };
-};
+import { sanitizeRichHtml } from "@/lib/sanitize-html";
 
 export const revalidate = 60;
-
-async function getDetail(slug: string): Promise<Detail | null> {
-  const configuredBaseUrl = process.env.SITE_URL?.replace(/\/$/, "");
-  if (!configuredBaseUrl) {
-    throw new Error("Missing SITE_URL for internal API request");
-  }
-
-  const url = `${configuredBaseUrl}/api/ministries/${encodeURIComponent(slug)}`;
-  const res = await fetch(url, { next: { revalidate: 60 } });
-
-  if (!res.ok) {
-    if (res.status === 404) return null;
-    const body = await res.text().catch(() => "");
-    throw new Error(`Ministry API failed: ${res.status} ${res.statusText}. ${body}`);
-  }
-
-  return res.json();
-}
 
 export default async function Page({
   params,
@@ -40,15 +13,26 @@ export default async function Page({
   const { locale, top, slug } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
-  const data = await getDetail(slug);
+  const data = await getMinistryDetail(slug);
   const backLink = withLocale(normalizedLocale, `/ministries/${top}`);
+  const backLabel = messages.common.back.replace(/^←\s*/, "");
+  const websiteLabel = normalizedLocale === "en" ? "Visit ministry website" : "查看事工网站";
 
   if (!data) {
     return (
-      <main className="mx-auto max-w-4xl px-6 pt-28 pb-6 md:pt-32 space-y-6">
-        <a className="underline" href={backLink}>
-          {messages.common.back}
-        </a>
+      <main className="mx-auto max-w-4xl space-y-6 px-6 pb-6 pt-28 md:pt-32">
+        <Link
+          href={backLink}
+          className="group inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-800 shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-400 hover:shadow"
+        >
+          <span
+            aria-hidden="true"
+            className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-zinc-100 text-xs text-zinc-700 transition group-hover:-translate-x-0.5"
+          >
+            ←
+          </span>
+          <span>{backLabel}</span>
+        </Link>
         <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
           {messages.common.notFound}
         </div>
@@ -65,26 +49,66 @@ export default async function Page({
     en: data.fields.summaryEn,
     zh: data.fields.summaryZh,
   });
+  const safeSummaryHtml = sanitizeRichHtml(summary);
+  const websiteUrl = data.fields.externalUrl ?? "";
 
   return (
-    <main className="mx-auto max-w-4xl px-6 pt-28 pb-6 md:pt-32 space-y-6">
-      <a className="underline" href={backLink}>
-        {messages.common.back}
-      </a>
+    <main className="bg-white pt-20 md:pt-24">
+      <section className="grid min-h-[calc(100vh-5rem)] md:grid-cols-2">
+        <div className="relative min-h-[300px] md:min-h-[calc(100vh-6rem)]">
+          {data.fields.heroImage?.node?.sourceUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={data.fields.heroImage.node.sourceUrl}
+              alt={data.fields.heroImage.node.altText || title}
+              className="h-full w-full object-cover object-center"
+            />
+          ) : (
+            <div className="h-full w-full bg-zinc-200" />
+          )}
+        </div>
 
-      <h1 className="text-3xl font-semibold">{title}</h1>
+        <div className="flex items-start">
+          <div className="mx-auto w-full max-w-xl space-y-6 px-6 py-8 md:px-10 md:py-10">
+            <h1 className="text-3xl font-semibold text-zinc-900 md:text-4xl">{title}</h1>
 
-      {data.fields.heroImage?.node?.sourceUrl ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={data.fields.heroImage.node.sourceUrl}
-          alt={data.fields.heroImage.node.altText || ""}
-          className="w-full rounded-xl border"
-        />
-      ) : null}
+            <section className="prose max-w-none">
+              <div dangerouslySetInnerHTML={{ __html: safeSummaryHtml }} />
+            </section>
 
-      <section className="prose max-w-none">
-        <div dangerouslySetInnerHTML={{ __html: summary }} />
+            <div className="flex flex-col items-start gap-4 pt-4">
+              {websiteUrl.length > 0 ? (
+                <a
+                  href={websiteUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="group inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-800 shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-400 hover:shadow"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-zinc-100 text-xs text-zinc-700 transition group-hover:translate-x-0.5"
+                  >
+                    ↗
+                  </span>
+                  <span>{websiteLabel}</span>
+                </a>
+              ) : null}
+
+              <Link
+                href={backLink}
+                className="group inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-800 shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-400 hover:shadow"
+              >
+                <span
+                  aria-hidden="true"
+                  className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-zinc-100 text-xs text-zinc-700 transition group-hover:-translate-x-0.5"
+                >
+                  ←
+                </span>
+                <span>{backLabel}</span>
+              </Link>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
   );
