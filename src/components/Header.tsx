@@ -15,9 +15,21 @@ export default function Header({ locale, messages }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const basePath = stripLocale(pathname);
-  const lightHeaderPaths = new Set(["/", "/prayer", "/about", "/donation", "/ministries", "/ministries/archive"]);
-  const isLightHeader = lightHeaderPaths.has(basePath);
-  const lightMode = isLightHeader && !scrolled;
+  const transparentHeaderPaths = new Set(["/", "/prayer", "/about", "/donation", "/ministries", "/ministries/archive"]);
+  const ministryHeroPaths = new Set([
+    "/ministries/missions",
+    "/ministries/mission",
+    "/ministries/youth",
+    "/ministries/family",
+  ]);
+  const transparentHeaderWithDarkTextPaths = new Set([
+    "/ministries/missions",
+    "/ministries/mission",
+    "/ministries/family",
+  ]);
+  const isTransparentHeader = (transparentHeaderPaths.has(basePath) || ministryHeroPaths.has(basePath)) && !scrolled;
+  const transparentHeaderUsesDarkText = transparentHeaderWithDarkTextPaths.has(basePath);
+  const useLightText = isTransparentHeader && !transparentHeaderUsesDarkText;
   const navItems = useMemo(
     () => [
       { label: messages.nav.home, href: withLocale(locale, "/") },
@@ -26,7 +38,6 @@ export default function Header({ locale, messages }: HeaderProps) {
       { label: messages.nav.prayer, href: withLocale(locale, "/prayer") },
       { label: messages.nav.ministries, href: withLocale(locale, "/ministries") },
       { label: messages.nav.trainings, href: withLocale(locale, "/discipleship") },
-      { label: messages.nav.audio, href: withLocale(locale, "/audio") },
     ],
     [locale, messages.nav]
   );
@@ -47,7 +58,7 @@ export default function Header({ locale, messages }: HeaderProps) {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
-        lightMode ? "bg-transparent border-transparent" : "bg-white/90 backdrop-blur border-zinc-200"
+        isTransparentHeader ? "bg-transparent border-transparent" : "bg-white/90 backdrop-blur border-zinc-200"
       }`}
     >
 
@@ -57,20 +68,20 @@ export default function Header({ locale, messages }: HeaderProps) {
             <Image src="/images/logo.png" alt="BRC logo" fill className="object-contain" />
           </div>
           <div className="leading-tight">
-            <div className={`text-xs font-semibold md:text-sm ${lightMode ? "text-white" : "text-zinc-900"}`}>
+            <div className={`text-xs font-semibold md:text-sm ${useLightText ? "text-white" : "text-zinc-900"}`}>
               {messages.header.title}
             </div>
-            <div className={`text-[10px] md:text-xs ${lightMode ? "text-zinc-200" : "text-zinc-500"}`}>
+            <div className={`text-[10px] md:text-xs ${useLightText ? "text-zinc-200" : "text-zinc-500"}`}>
               {messages.header.subtitle}
             </div>
           </div>
         </Link>
-        <nav className={`hidden items-center gap-6 text-sm md:flex ${lightMode ? "text-zinc-200" : "text-zinc-700"}`}>
+        <nav className={`hidden items-center gap-6 text-sm md:flex ${useLightText ? "text-zinc-200" : "text-zinc-700"}`}>
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={lightMode ? "hover:text-white" : "hover:text-zinc-900"}
+              className={useLightText ? "hover:text-white" : "hover:text-zinc-900"}
             >
               {item.label}
             </Link>
@@ -80,7 +91,7 @@ export default function Header({ locale, messages }: HeaderProps) {
           <Link
             href={switchHref}
             className={`rounded-full border px-2 py-1.5 text-[10px] font-semibold md:px-3 md:py-2 md:text-xs ${
-              lightMode ? "border-white/60 text-white" : "border-zinc-200 text-zinc-700"
+              useLightText ? "border-white/60 text-white" : "border-zinc-200 text-zinc-700"
             }`}
           >
             {switchLabel}
@@ -88,7 +99,7 @@ export default function Header({ locale, messages }: HeaderProps) {
           <Link
             href={withLocale(locale, "/donation")}
             className={`rounded-full px-3 py-1.5 text-[10px] font-semibold md:px-4 md:py-2 md:text-xs ${
-              lightMode ? "bg-white/90 text-zinc-900" : "bg-amber-500 text-black"
+              useLightText ? "bg-white/90 text-zinc-900" : "bg-amber-500 text-black"
             }`}
           >
             {messages.header.donate}
@@ -96,15 +107,15 @@ export default function Header({ locale, messages }: HeaderProps) {
         </div>
       </div>
 
-      <div className={`border-t md:hidden ${lightMode ? "border-white/20" : "border-zinc-200"}`}>
+      <div className={`border-t md:hidden ${useLightText ? "border-white/20" : "border-zinc-200"}`}>
         <div className={`mx-auto flex max-w-6xl flex-wrap gap-4 px-6 py-3 text-sm ${
-          lightMode ? "text-zinc-200" : "text-zinc-700"
+          useLightText ? "text-zinc-200" : "text-zinc-700"
         }`}>
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={lightMode ? "hover:text-white" : "hover:text-zinc-900"}
+              className={useLightText ? "hover:text-white" : "hover:text-zinc-900"}
             >
               {item.label}
             </Link>
