@@ -1,0 +1,76 @@
+import { getMessages, Locale } from "@/lib/i18n";
+
+function formatGoalTitle(title: string, isEnglish: boolean, titleLines: string[] = []) {
+  if (!isEnglish) return title;
+  if (titleLines.length === 2) {
+    return (
+      <>
+        <span className="block whitespace-nowrap">{titleLines[0]}</span>
+        <span className="block whitespace-nowrap">{titleLines[1]}</span>
+      </>
+    );
+  }
+  const words = title.split(" ");
+  if (words.length <= 2) {
+    return (
+      <>
+        <span className="block whitespace-nowrap">{title}</span>
+        <span className="block">&nbsp;</span>
+      </>
+    );
+  }
+  const midpoint = Math.ceil(words.length / 2);
+  const line1 = words.slice(0, midpoint).join(" ");
+  const line2 = words.slice(midpoint).join(" ");
+  return (
+    <>
+      <span className="block whitespace-nowrap">{line1}</span>
+      <span className="block whitespace-nowrap">{line2}</span>
+    </>
+  );
+}
+
+export default function AlignWithGodSection({ locale }: { locale: Locale }) {
+  const isEnglish = locale === "en";
+  const messages = getMessages(locale);
+  const section = messages.alignWithGod;
+
+  return (
+    <section className="bg-amber-50 text-zinc-900">
+      <div className="mx-auto max-w-6xl px-6 py-14">
+        <div className="space-y-8">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            <div className="space-y-4 border-t border-zinc-200 pt-6">
+              <div className="text-xs uppercase tracking-widest text-zinc-500">{section.title}</div>
+              <div className="text-4xl font-semibold leading-none tracking-wide text-red-700 sm:text-5xl">
+                {section.headline.map((item) => (
+                  <div key={item}>{item}</div>
+                ))}
+              </div>
+            </div>
+
+            {section.goals.map((item, index) => (
+              <div key={item.title} className="space-y-3 border-t border-zinc-200 pt-4 text-left">
+                <div className="flex items-baseline justify-between gap-4">
+                  <div className="text-xs uppercase tracking-widest text-zinc-500">
+                    ({String(index + 1).padStart(2, "0")})
+                  </div>
+                  <div
+                    className={`w-full max-w-[320px] text-right font-semibold leading-snug ${
+                      isEnglish ? "text-base sm:text-lg" : "text-lg sm:text-xl"
+                    }`}
+                  >
+                    {formatGoalTitle(item.title, isEnglish, item.titleLines)}
+                  </div>
+                </div>
+                <div className="text-sm font-semibold text-zinc-900">{item.note}</div>
+                <div className="pt-3 text-sm text-zinc-700">{item.verse}</div>
+                <div className="text-right text-sm text-zinc-500">{item.ref}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

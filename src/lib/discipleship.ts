@@ -9,6 +9,7 @@ export type Program = {
   typeEn: string;
   summaryZh: string;
   summaryEn: string;
+  homeImage?: string;
   detailUrl?: string;
   applyUrl?: string;
   status: ProgramStatus;
@@ -48,6 +49,7 @@ export const programs: Program[] = [
       "以四福音至使徒行传为主轴，系统认识基督生平五个阶段，并理解圣经历史、政治与地理背景。",
     summaryEn:
       "A structured study from the Gospels to Acts, focusing on the five stages of Christ's life with biblical historical and geographical context.",
+    homeImage: "/images/christ-life.jpeg",
     detailUrl:
       "https://newbethelrc.org/%E5%9F%BA%E7%9D%A3%E7%94%9F%E5%B9%B3%E8%AF%BE%E7%A8%8B%E8%AF%A6%E6%83%85/",
     applyUrl: sharedApplyFormUrl,
@@ -64,6 +66,7 @@ export const programs: Program[] = [
       "以使徒保罗宣教旅程与13卷书信为主轴，建立教义与神学基础，装备宣教和教导工人。",
     summaryEn:
       "An advanced track built on Paul's missionary journeys and 13 epistles, strengthening doctrine and theology for teaching and mission work.",
+    homeImage: "/images/paulLetters.jpeg",
     detailUrl:
       "https://newbethelrc.org/%E4%BF%9D%E7%BD%97%E7%94%9F%E5%B9%B3%E4%B8%8E%E4%B9%A6%E4%BF%A1%E8%AF%BE%E7%A8%8B%E8%AF%A6%E6%83%85/",
     applyUrl: sharedApplyFormUrl,
@@ -82,6 +85,7 @@ export const programs: Program[] = [
       "以全景方式连结新旧约主题，帮助学员将各卷书置于整本圣经救恩脉络中理解。",
     summaryEn:
       "A panoramic Bible curriculum connecting Old and New Testament themes to see Scripture within God's redemptive storyline.",
+    homeImage: "/images/discipleship.png",
     detailUrl:
       "https://newbethelrc.org/%E5%85%A8%E6%99%AF%E5%9C%A3%E7%BB%8F%E8%AF%BE%E7%A8%8B%E8%AF%A6%E6%83%85/",
     applyUrl: sharedApplyFormUrl,
@@ -272,4 +276,10 @@ export function findDetailById(id: string): DetailBlock | undefined {
 
 export function hasLocalDetail(id: string): boolean {
   return detailBlocks.some((item) => item.id === id);
+}
+
+export function getFeaturedDiscipleshipPrograms(limit = 3): Program[] {
+  return programs
+    .filter((item) => item.track === "discipleship" && item.status === "ready")
+    .slice(0, limit);
 }
