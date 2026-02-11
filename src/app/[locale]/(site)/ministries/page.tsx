@@ -1,50 +1,35 @@
 import MinistriesHeroMap from "@/components/MinistriesHeroMap";
 import MinistryCarousel from "@/components/MinistryCarousel";
-import { getMessages, normalizeLocale, withLocale } from "@/lib/i18n";
-type ArchiveItem = {
-  category: string;
-  subcategory: string;
-  title: string;
-  date: string;
-  summary: string;
-  imageUrl: string;
-  videoUrl: string;
-  link: string;
-};
+import { fixedTopSections, getFixedTopTitle } from "@/lib/ministries-top-sections";
+import { getMinistriesList } from "@/lib/ministries";
+import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
 
-const sections = [
-  {
-    slug: "mission",
-    titleEn: "Mission",
-    titleZh: "宣教事工",
-    descEn: "Cross-cultural and community outreach ministries.",
-    descZh: "跨文化与社区关怀的宣教与服务。",
-  },
-  {
-    slug: "youth",
-    titleEn: "Youth",
-    titleZh: "青年事工",
-    descEn: "Equip youth and build the next generation of disciples.",
-    descZh: "装备青年、建造下一代门徒。",
-  },
-  {
-    slug: "family",
-    titleEn: "Family",
-    titleZh: "家庭事工",
-    descEn: "Support families and marriages for growth and renewal.",
-    descZh: "支持家庭与婚姻的成长与更新。",
-  },
-];
+export const revalidate = 60;
 
 export default async function MinistriesIndex({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
   const archiveDetailsLabel = normalizedLocale === "en" ? "View details" : "查看详情";
-  const slides = messages.home.carousel.map((item) => ({
-    ...item,
-    src: "/images/hero.jpeg",
-  }));
+  const items = await getMinistriesList();
+
+  const slides = items
+    .filter((item) => item.fields.heroImage?.node?.sourceUrl && item.section.top)
+    .slice(0, 8)
+    .map((item) => {
+      const title = pickLocalized(normalizedLocale, {
+        en: item.fields.titleEn,
+        zh: item.fields.titleZh,
+        fallback: item.slug,
+      });
+      const subtitle = item.section.top ? getFixedTopTitle(item.section.top, normalizedLocale) : item.section.topName || "";
+      return {
+        title,
+        subtitle,
+        src: item.fields.heroImage?.node?.sourceUrl as string,
+        href: withLocale(normalizedLocale, `/ministries/${item.section.top}/${item.slug}`),
+      };
+    });
 
   return (
     <main className="pb-10">
@@ -53,7 +38,7 @@ export default async function MinistriesIndex({ params }: { params: Promise<{ lo
           <MinistriesHeroMap className="absolute inset-0 h-full w-full" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-black/70" />
         </div>
-        <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-24 md:pt-32">
+        <div className="absolute inset-0 flex items-center justify-center px-6 pt-24 text-center md:pt-32">
           <div className="max-w-3xl space-y-4">
             <h1 className="text-3xl font-semibold md:text-5xl">{messages.ministries.indexTitle}</h1>
             <p className="text-base text-zinc-200 md:text-lg">{messages.ministries.indexBody}</p>
@@ -61,38 +46,45 @@ export default async function MinistriesIndex({ params }: { params: Promise<{ lo
         </div>
       </section>
 
-
-      <div className="mx-auto max-w-6xl px-6 pt-10 md:pt-16 space-y-14">
-        <section className="space-y-6">
- 
-          <div className="grid gap-6 md:grid-cols-3">
-            {sections.map((item) => {
-              const title = normalizedLocale === "en" ? item.titleEn : item.titleZh;
-              const desc = normalizedLocale === "en" ? item.descEn : item.descZh;
-              return (
-                <a
-                  key={item.slug}
-                  href={withLocale(normalizedLocale, `/ministries/${item.slug}`)}
-                  className="group rounded-xl border border-zinc-200 bg-white p-6 transition hover:border-zinc-300 hover:shadow-sm"
-                >
-                  <div className="text-lg font-semibold">{title}</div>
-                  <div className="text-sm text-zinc-500">{normalizedLocale === "en" ? item.titleZh : item.titleEn}</div>
-                  <p className="mt-3 text-sm text-zinc-600">{desc}</p>
-                  <span className="mt-4 inline-flex text-sm font-medium text-zinc-900 underline">
-                    {messages.ministries.detailsCta}
-                  </span>
-                </a>
-              );
-            })}
-          </div>
-        </section>
       <section className="w-full">
-        <MinistryCarousel slides={slides} />
+        <div className="grid grid-cols-1 gap-0 md:grid-cols-3">
+          {fixedTopSections.map((item) => (
+            <a
+              key={item.slug}
+              href={withLocale(normalizedLocale, `/ministries/${item.slug}`)}
+              className="group relative block min-h-[300px] overflow-hidden md:min-h-[420px]"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={item.imageSrc}
+                alt={normalizedLocale === "en" ? item.titleEn : item.titleZh}
+                className="h-full w-full object-cover object-center transition duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
+              <div className="absolute bottom-0 left-0 z-10 max-w-[90%] space-y-2 p-6 text-white md:p-8">
+                <h2 className="text-2xl font-semibold md:text-3xl">
+                  {normalizedLocale === "en" ? item.titleEn : item.titleZh}
+                </h2>
+                <p className="text-sm text-zinc-100 md:text-base">
+                  {normalizedLocale === "en" ? item.descEn : item.descZh}
+                </p>
+                <span className="inline-flex text-sm font-medium underline underline-offset-2">
+                  {messages.ministries.detailsCta}
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
       </section>
 
+      <div className="mx-auto max-w-6xl space-y-14 px-6 pt-10 md:pt-16">
+        {slides.length > 0 ? (
+          <section className="w-full">
+            <MinistryCarousel slides={slides} detailsLabel={messages.ministries.detailsCta} />
+          </section>
+        ) : null}
 
         <section className="rounded-2xl border border-dashed border-zinc-300 bg-zinc-50 p-8">
-         
           <h2 className="mt-2 text-2xl font-semibold">{messages.ministries.archiveTitle}</h2>
           <p className="mt-2 text-sm text-zinc-600">{messages.ministries.archiveBody}</p>
           <a

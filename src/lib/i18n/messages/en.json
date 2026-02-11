@@ -97,10 +97,10 @@
         { "title": "Life of Paul & Epistles", "desc": "Grow in truth and disciple character." },
         { "title": "Leadership Training", "desc": "Equip teams for healthy ministry." }
       ],
-      "detailsCta": "Discipleship details"
+      "detailsCta": "View details"
     },
     "audio": {
-      "title": "Media Library",
+      "title": "Media Library", 
       "cta": "View all",
       "cards": [
         { "title": "Journey of Faith", "subtitle": "Speaker: David" },
@@ -148,7 +148,7 @@
       "Renewed Heart and Mind",
       "Christ Centered Lifestyle"
     ],
-    "teamTitle": "Ministry & Leadership",
+    "teamTitle": "BRC Board",
     "teamCta": "View ministry details",
     "team": [
       { "name": "林雄堅 牧师", "role": "Ministry Leader" },
@@ -158,6 +158,61 @@
     "joinTitle": "Walk With Us",
     "joinBody": "Partner through prayer and giving to renew cities and nations.",
     "joinCta": "Give"
+  },
+  "alignWithGod": {
+    "title": "2026 BRC Goals",
+    "headline": ["ALIGN", "WITH", "GOD"],
+    "goals": [
+      {
+        "title": "Seek First God's Kingdom and Righteousness",
+        "titleLines": [],
+        "ref": "Matthew 6:33",
+        "verse": "\"But seek first his kingdom and his righteousness, and all these things will be given to you as well.\"",
+        "note": "We do not plan our lives first and then ask God to bless them; we align with His kingdom and His will first."
+      },
+      {
+        "title": "Commit Your Way to the Lord",
+        "titleLines": [],
+        "ref": "Proverbs 3:5–6",
+        "verse": "\"Trust in the LORD with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.\"",
+        "note": "Alignment means surrendering our own control and letting God lead."
+      },
+      {
+        "title": "Be Transformed by the Renewing of Your Mind",
+        "titleLines": ["Be Transformed by the", "Renewing of Your Mind"],
+        "ref": "Romans 12:2",
+        "verse": "\"Do not conform to the pattern of this world, but be transformed by the renewing of your mind. Then you will be able to test and approve what God's will is-his good, pleasing and perfect will.\"",
+        "note": "True alignment starts with renewing our way of thinking."
+      },
+      {
+        "title": "The Lord Directs Our Steps",
+        "titleLines": [],
+        "ref": "Psalm 37:23",
+        "verse": "\"The LORD makes firm the steps of the one who delights in him; he may stumble, but he will not fall, for the LORD upholds him with his hand.\"",
+        "note": "When we align with God, our steps are calibrated by Him."
+      },
+      {
+        "title": "Obedience Brings Blessing",
+        "titleLines": [],
+        "ref": "Deuteronomy 28:1–2 (selected)",
+        "verse": "\"If you fully obey the LORD your God and carefully follow all his commands... all these blessings will come on you and accompany you.\"",
+        "note": "Alignment is not a slogan; it is a life of obedience."
+      },
+      {
+        "title": "Not My Will, but Yours",
+        "titleLines": [],
+        "ref": "Luke 22:42",
+        "verse": "\"Yet not my will, but yours be done.\"",
+        "note": "This is the deepest example of alignment with God."
+      },
+      {
+        "title": "The Lord Is Our Foundation",
+        "titleLines": [],
+        "ref": "Psalm 127:1",
+        "verse": "\"Unless the LORD builds the house, the builders labor in vain.\"",
+        "note": "Without aligning with God, even great effort can fall short."
+      }
+    ]
   },
   "ministries": {
     "indexTitle": "Ministries",
