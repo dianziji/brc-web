@@ -1,7 +1,7 @@
 import MinistriesHeroMap from "@/components/MinistriesHeroMap";
 import MinistryCarousel from "@/components/MinistryCarousel";
 import { fixedTopSections, getFixedTopTitle } from "@/lib/ministries-top-sections";
-import { getMinistriesList } from "@/lib/ministries";
+import { getMinistriesListSafe } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
 
 export const revalidate = 60;
@@ -11,7 +11,7 @@ export default async function MinistriesIndex({ params }: { params: Promise<{ lo
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
   const archiveDetailsLabel = normalizedLocale === "en" ? "View details" : "查看详情";
-  const items = await getMinistriesList();
+  const items = await getMinistriesListSafe();
 
   const slides = items
     .filter((item) => item.fields.heroImage?.node?.sourceUrl && item.section.top)

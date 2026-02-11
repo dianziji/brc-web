@@ -4,7 +4,7 @@ import HomeContactForm from "@/components/HomeContactForm";
 import MinistryCarousel from "@/components/MinistryCarousel";
 import { getFeaturedDiscipleshipPrograms, hasLocalDetail } from "@/lib/discipleship";
 import { getFixedTopTitle } from "@/lib/ministries-top-sections";
-import { getMinistriesList } from "@/lib/ministries";
+import { getMinistriesListSafe } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
 
 function excerpt(text: string, maxLength: number) {
@@ -16,7 +16,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const { locale } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
-  const ministryItems = await getMinistriesList();
+  const ministryItems = await getMinistriesListSafe();
   const wpSlides = ministryItems
     .filter((item) => item.fields.heroImage?.node?.sourceUrl && item.section.top)
     .slice(0, 8)

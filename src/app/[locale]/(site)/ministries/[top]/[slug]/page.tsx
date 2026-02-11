@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getMinistryDetail } from "@/lib/ministries";
+import { getMinistryDetailSafe } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
 import { sanitizeRichHtml } from "@/lib/sanitize-html";
 
@@ -13,7 +13,7 @@ export default async function Page({
   const { locale, top, slug } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
-  const data = await getMinistryDetail(slug);
+  const data = await getMinistryDetailSafe(slug);
   const backLink = withLocale(normalizedLocale, `/ministries/${top}`);
   const backLabel = messages.common.back.replace(/^←\s*/, "");
   const websiteLabel = normalizedLocale === "en" ? "Visit ministry website" : "查看事工网站";

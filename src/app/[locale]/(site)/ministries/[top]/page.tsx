@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getFixedTopSection, getFixedTopTitle } from "@/lib/ministries-top-sections";
-import { getMinistriesList } from "@/lib/ministries";
+import { getMinistriesListSafe } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
 
 export const revalidate = 60;
@@ -17,7 +17,7 @@ export default async function Page({
   const { locale, top } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
-  const items = await getMinistriesList(top);
+  const items = await getMinistriesListSafe(top);
   const topSection = getFixedTopSection(top);
   const topTitle = getFixedTopTitle(top, normalizedLocale);
   const topDesc = topSection

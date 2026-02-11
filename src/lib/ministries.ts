@@ -290,6 +290,15 @@ export async function getMinistriesList(top?: string | null): Promise<MinistryLi
     });
 }
 
+export async function getMinistriesListSafe(top?: string | null): Promise<MinistryListItem[]> {
+  try {
+    return await getMinistriesList(top);
+  } catch (error) {
+    console.error("[ministries] getMinistriesListSafe failed", error);
+    return [];
+  }
+}
+
 export async function getMinistryDetail(slug: string): Promise<MinistryDetail | null> {
   const candidates = externalFieldCandidates();
   let fallbackPublishedNode: DetailNode | null = null;
@@ -355,4 +364,13 @@ export async function getMinistryDetail(slug: string): Promise<MinistryDetail | 
       parent: null,
     },
   };
+}
+
+export async function getMinistryDetailSafe(slug: string): Promise<MinistryDetail | null> {
+  try {
+    return await getMinistryDetail(slug);
+  } catch (error) {
+    console.error("[ministries] getMinistryDetailSafe failed", { slug, error });
+    return null;
+  }
 }
