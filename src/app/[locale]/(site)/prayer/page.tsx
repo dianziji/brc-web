@@ -11,7 +11,7 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
       <section className="relative w-full overflow-hidden bg-zinc-900 text-white">
         <div className="relative h-[320px] w-full md:h-[480px]">
           <Image
-            src="/images/PrayerRoom.jpeg"
+            src="/images/prayerRoom.jpeg"
             alt="Prayer Room"
             fill
             className="object-cover object-center"

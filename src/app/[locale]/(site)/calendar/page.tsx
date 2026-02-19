@@ -3,59 +3,11 @@
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { calendarEvents } from "@/content/calendar/events";
 import { getMessages, normalizeLocale, type Locale } from "@/lib/i18n";
 
-type EventItem = {
-  id: string;
-  titleEn: string;
-  titleZh: string;
-  date: string; // YYYY-MM-DD
-  time: string;
-  location: string;
-  image: string;
-};
-
-const events: EventItem[] = [
-  {
-    id: "event-vision-night",
-    titleEn: "Vision Night",
-    titleZh: "异象之夜",
-    date: "2026-02-02",
-    time: "7:30 PM",
-    location: "Main Sanctuary",
-    image: "/images/hero.jpeg",
-  },
-  {
-    id: "event-youth-camp",
-    titleEn: "Youth Camp",
-    titleZh: "青年成长营",
-    date: "2026-02-09",
-    time: "9:00 AM",
-    location: "Camp Center",
-    image: "/images/hero.jpeg",
-  },
-  {
-    id: "event-family-night",
-    titleEn: "Family Night",
-    titleZh: "家庭事工之夜",
-    date: "2026-02-16",
-    time: "6:30 PM",
-    location: "Fellowship Hall",
-    image: "/images/hero.jpeg",
-  },
-  {
-    id: "event-mission-briefing",
-    titleEn: "Mission Briefing",
-    titleZh: "宣教分享会",
-    date: "2026-02-23",
-    time: "1:00 PM",
-    location: "Room 201",
-    image: "/images/hero.jpeg",
-  },
-];
-
 function formatDateLabel(date: Date, locale: Locale) {
-  return date.toLocaleDateString(locale === "en" ? "en-US" : "zh-CN", {
+  return date.toLocaleDateString(locale === "en" ? "en-US" : "zh-TW", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -74,15 +26,17 @@ export default function CalendarPage() {
   const rawLocale = Array.isArray(params?.locale) ? params?.locale[0] : params?.locale;
   const locale = normalizeLocale(rawLocale);
   const messages = getMessages(locale);
-  const today = new Date();
-  const [currentMonth, setCurrentMonth] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
-  const [selectedDate, setSelectedDate] = useState(toDateKey(today));
+  const [currentMonth, setCurrentMonth] = useState(() => {
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), 1);
+  });
+  const [selectedDate, setSelectedDate] = useState(() => toDateKey(new Date()));
   const [slideIndex, setSlideIndex] = useState(0);
+  const todayKey = useMemo(() => toDateKey(new Date()), []);
 
   const upcoming = useMemo(() => {
-    const nowKey = toDateKey(today);
-    return events.filter((event) => event.date >= nowKey).sort((a, b) => a.date.localeCompare(b.date));
-  }, [today]);
+    return calendarEvents.filter((event) => event.date >= todayKey).sort((a, b) => a.date.localeCompare(b.date));
+  }, [todayKey]);
 
   useEffect(() => {
     if (upcoming.length <= 1) return;
@@ -92,7 +46,7 @@ export default function CalendarPage() {
     return () => window.clearInterval(id);
   }, [upcoming.length]);
 
-  const activeSlide = upcoming[slideIndex] ?? events[0];
+  const activeSlide = upcoming[slideIndex] ?? calendarEvents[0];
   const activeTitle = locale === "en" ? activeSlide.titleEn : activeSlide.titleZh;
   const activeSubtitle = locale === "en" ? activeSlide.titleZh : activeSlide.titleEn;
 
@@ -111,7 +65,7 @@ export default function CalendarPage() {
     return cells;
   }, [currentMonth]);
 
-  const selectedEvents = events.filter((event) => event.date === selectedDate);
+  const selectedEvents = calendarEvents.filter((event) => event.date === selectedDate);
   const selectedDateLabel = formatDateLabel(new Date(selectedDate), locale);
 
   return (
@@ -159,7 +113,7 @@ export default function CalendarPage() {
               {messages.calendar.prev}
             </button>
             <div className="text-lg font-semibold">
-              {currentMonth.toLocaleDateString(locale === "en" ? "en-US" : "zh-CN", { month: "long", year: "numeric" })}
+              {currentMonth.toLocaleDateString(locale === "en" ? "en-US" : "zh-TW", { month: "long", year: "numeric" })}
             </div>
             <button
               className="text-sm text-zinc-600 hover:text-zinc-900"
@@ -183,7 +137,7 @@ export default function CalendarPage() {
                 return <div key={key} className="h-12 rounded-lg bg-transparent" />;
               }
               const dateKey = toDateKey(date);
-              const hasEvent = events.some((event) => event.date === dateKey);
+              const hasEvent = calendarEvents.some((event) => event.date === dateKey);
               const isSelected = dateKey === selectedDate;
               return (
                 <button

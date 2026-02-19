@@ -1,34 +1,67 @@
+import sanitizeHtml from "sanitize-html";
+
+const ALLOWED_TAGS = [
+  "p",
+  "br",
+  "hr",
+  "strong",
+  "em",
+  "b",
+  "i",
+  "u",
+  "s",
+  "ul",
+  "ol",
+  "li",
+  "blockquote",
+  "code",
+  "pre",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "a",
+  "span",
+] as const;
+
+const ALLOWED_TARGETS = new Set(["_blank", "_self", "_parent", "_top"]);
+
 export function sanitizeRichHtml(input: string): string {
   if (!input) return "";
 
-  let output = input;
+  return sanitizeHtml(input, {
+    allowedTags: [...ALLOWED_TAGS],
+    allowedAttributes: {
+      a: ["href", "title", "target", "rel"],
+    },
+    allowedSchemes: ["http", "https", "mailto", "tel"],
+    allowedSchemesAppliedToAttributes: ["href"],
+    allowProtocolRelative: false,
+    disallowedTagsMode: "discard",
+    transformTags: {
+      a: (tagName, attribs) => {
+        const href = attribs.href?.trim();
+        const title = attribs.title?.trim();
+        const target = attribs.target?.trim();
+        const isExternalHttp = typeof href === "string" && /^https?:\/\//i.test(href);
 
-  // Remove comments first.
-  output = output.replace(/<!--[\s\S]*?-->/g, "");
+        const nextAttribs: Record<string, string> = {};
+        if (href) nextAttribs.href = href;
+        if (title) nextAttribs.title = title.slice(0, 300);
 
-  // Remove high-risk tags and their contents.
-  output = output.replace(
-    /<\s*(script|style|iframe|object|embed|svg|math|form|input|button|textarea|select|option|link|meta|base)\b[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi,
-    ""
-  );
+        if (isExternalHttp) {
+          nextAttribs.target = "_blank";
+          nextAttribs.rel = "noopener noreferrer";
+        } else if (target && ALLOWED_TARGETS.has(target)) {
+          nextAttribs.target = target;
+        }
 
-  // Remove standalone high-risk tags.
-  output = output.replace(
-    /<\s*(script|style|iframe|object|embed|svg|math|form|input|button|textarea|select|option|link|meta|base)\b[^>]*\/?>/gi,
-    ""
-  );
-
-  // Remove inline event handlers.
-  output = output.replace(/\son\w+\s*=\s*(\"[^\"]*\"|'[^']*'|[^\s>]+)/gi, "");
-
-  // Remove style attributes to avoid CSS-based injection vectors.
-  output = output.replace(/\sstyle\s*=\s*(\"[^\"]*\"|'[^']*'|[^\s>]+)/gi, "");
-
-  // Block javascript:/vbscript:/data:text/html URLs in href/src.
-  output = output.replace(
-    /\s(href|src)\s*=\s*(\"|')\s*(javascript:|vbscript:|data:text\/html)[\s\S]*?\2/gi,
-    " $1=\"#\""
-  );
-
-  return output;
+        return { tagName, attribs: nextAttribs };
+      },
+    },
+    // Drop empty/invalid anchors and keep inner text.
+    exclusiveFilter: (frame) => frame.tag === "a" && !frame.attribs.href ? "excludeTag" : false,
+  });
 }

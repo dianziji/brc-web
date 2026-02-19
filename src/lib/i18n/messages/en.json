@@ -43,9 +43,9 @@
       "subtitle": "Renewed Lives · Serving Nations"
     },
     "carousel": [
-      { "title": "Life Impact Ministries", "subtitle": "生命影响力事工" },
+      { "title": "Life Impact Ministries", "subtitle": "生命影響力事工" },
       { "title": "Cross Culture Ministries", "subtitle": "跨文化宣教" },
-      { "title": "CHISTA", "subtitle": "基督徒学生行动" }
+      { "title": "CHISTA", "subtitle": "基督徒學生行動" }
     ],
     "mission": {
       "title": "Mission",
@@ -151,9 +151,9 @@
     "teamTitle": "BRC Board",
     "teamCta": "View ministry details",
     "team": [
-      { "name": "林雄堅 牧师", "role": "Ministry Leader" },
-      { "name": "彭榮仁 牧师", "role": "Ministry Leader" },
-      { "name": "鄭隆保 牧师", "role": "Ministry Leader" }
+      { "name": "林雄堅 牧師", "role": "Ministry Leader" },
+      { "name": "彭榮仁 牧師", "role": "Ministry Leader" },
+      { "name": "鄭隆保 牧師", "role": "Ministry Leader" }
     ],
     "joinTitle": "Walk With Us",
     "joinBody": "Partner through prayer and giving to renew cities and nations.",

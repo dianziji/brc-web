@@ -1,28 +1,13 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { pickLocalized } from "@/lib/i18n";
-
-type ArchiveItem = {
-  category: string;
-  categoryEn?: string;
-  subcategory: string;
-  subcategoryEn?: string;
-  title: string;
-  titleEn?: string;
-  date: string;
-  dateEn?: string;
-  summary: string;
-  summaryEn?: string;
-  imageUrl: string;
-  videoUrl: string;
-  link: string;
-};
+import type { ArchiveItem } from "@/content/ministries/archive";
+import { pickLocalized, type Locale } from "@/lib/i18n";
 
 type ArchiveGridProps = {
   items: ArchiveItem[];
   detailsLabel: string;
-  locale: string;
+  locale: Locale;
 };
 
 export default function ArchiveGrid({ items, detailsLabel, locale }: ArchiveGridProps) {
@@ -39,35 +24,35 @@ export default function ArchiveGrid({ items, detailsLabel, locale }: ArchiveGrid
   const activeItem = activeIndex !== null ? cards[activeIndex] : null;
   const activeSummary =
     activeItem &&
-    pickLocalized(locale as "zh" | "en", {
+    pickLocalized(locale, {
       zh: activeItem.summary,
       en: activeItem.summaryEn,
       fallback: activeItem.summary,
     });
   const activeCategory =
     activeItem &&
-    pickLocalized(locale as "zh" | "en", {
+    pickLocalized(locale, {
       zh: activeItem.category,
       en: activeItem.categoryEn,
       fallback: activeItem.category,
     });
   const activeSubcategory =
     activeItem &&
-    pickLocalized(locale as "zh" | "en", {
+    pickLocalized(locale, {
       zh: activeItem.subcategory,
       en: activeItem.subcategoryEn,
       fallback: activeItem.subcategory,
     });
   const activeTitle =
     activeItem &&
-    pickLocalized(locale as "zh" | "en", {
+    pickLocalized(locale, {
       zh: activeItem.title,
       en: activeItem.titleEn,
       fallback: activeItem.title,
     });
   const activeDate =
     activeItem &&
-    pickLocalized(locale as "zh" | "en", {
+    pickLocalized(locale, {
       zh: activeItem.date,
       en: activeItem.dateEn,
       fallback: activeItem.date,
@@ -140,20 +125,20 @@ export default function ArchiveGrid({ items, detailsLabel, locale }: ArchiveGrid
               />
             )}
             <div className="mt-2 text-[10px] uppercase tracking-wide text-zinc-500">
-              {pickLocalized(locale as "zh" | "en", {
+              {pickLocalized(locale, {
                 zh: item.category,
                 en: item.categoryEn,
                 fallback: item.category,
               })}{" "}
               ·{" "}
-              {pickLocalized(locale as "zh" | "en", {
+              {pickLocalized(locale, {
                 zh: item.subcategory,
                 en: item.subcategoryEn,
                 fallback: item.subcategory,
               }) || "—"}
             </div>
             <div className="mt-1 text-xs font-semibold text-zinc-900">
-              {pickLocalized(locale as "zh" | "en", {
+              {pickLocalized(locale, {
                 zh: item.title,
                 en: item.titleEn,
                 fallback: item.title,
@@ -161,7 +146,7 @@ export default function ArchiveGrid({ items, detailsLabel, locale }: ArchiveGrid
             </div>
             {item.date ? (
               <div className="mt-1 text-xs text-zinc-500">
-                {pickLocalized(locale as "zh" | "en", {
+                {pickLocalized(locale, {
                   zh: item.date,
                   en: item.dateEn,
                   fallback: item.date,
@@ -233,7 +218,7 @@ export default function ArchiveGrid({ items, detailsLabel, locale }: ArchiveGrid
                   className="mt-5 inline-flex text-sm font-medium text-zinc-900 underline"
                   href={activeItem.link}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                 >
                   {detailsLabel}
                 </a>

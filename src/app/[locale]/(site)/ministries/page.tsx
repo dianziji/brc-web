@@ -1,7 +1,7 @@
 import MinistriesHeroMap from "@/components/MinistriesHeroMap";
 import MinistryCarousel from "@/components/MinistryCarousel";
-import { fixedTopSections, getFixedTopTitle } from "@/lib/ministries-top-sections";
-import { getMinistriesListSafe } from "@/lib/ministries";
+import { fixedTopSections, getFixedTopTitle } from "@/content/ministries/top-sections";
+import { getMinistriesListSafeResult } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
 
 export const revalidate = 60;
@@ -10,8 +10,16 @@ export default async function MinistriesIndex({ params }: { params: Promise<{ lo
   const { locale } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
-  const archiveDetailsLabel = normalizedLocale === "en" ? "View details" : "查看详情";
-  const items = await getMinistriesListSafe();
+  const archiveDetailsLabel = normalizedLocale === "en" ? "View details" : "查看詳情";
+  const { items, degraded } = await getMinistriesListSafeResult();
+  const retryLink = withLocale(normalizedLocale, "/ministries");
+  const degradedTitle =
+    normalizedLocale === "en" ? "Some ministry content is temporarily unavailable." : "部分事工內容暫時不可用。";
+  const degradedBody =
+    normalizedLocale === "en"
+      ? "We are retrying in the background. You can refresh to try again."
+      : "我們正在背景重試，你可以重新整理再試一次。";
+  const retryLabel = normalizedLocale === "en" ? "Retry now" : "立即重試";
 
   const slides = items
     .filter((item) => item.fields.heroImage?.node?.sourceUrl && item.section.top)
@@ -78,6 +86,16 @@ export default async function MinistriesIndex({ params }: { params: Promise<{ lo
       </section>
 
       <div className="mx-auto max-w-6xl space-y-14 px-6 pt-10 md:pt-16">
+        {degraded ? (
+          <section className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-900">
+            <h2 className="text-base font-semibold">{degradedTitle}</h2>
+            <p className="mt-1 text-sm">{degradedBody}</p>
+            <a className="mt-3 inline-flex text-sm font-medium underline" href={retryLink}>
+              {retryLabel}
+            </a>
+          </section>
+        ) : null}
+
         {slides.length > 0 ? (
           <section className="w-full">
             <MinistryCarousel slides={slides} detailsLabel={messages.ministries.detailsCta} />

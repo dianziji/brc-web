@@ -1,7 +1,8 @@
 // src/lib/ministries.ts
 import "server-only";
-import { wpgraphql } from "@/lib/wpgraphql";
-import { pickLeafSection, getTopSectionSlug, SectionNode } from "@/lib/sections";
+import { unstable_cache } from "next/cache";
+import { WpGraphQLRequestError, wpgraphql } from "@/lib/wpgraphql";
+import { getTopSectionSlug, pickLeafSection, SectionNode } from "@/lib/sections";
 
 type MinistryFields = {
   titleEn?: string;
@@ -44,17 +45,25 @@ export type MinistryDetail = {
   };
 };
 
+export type MinistriesSafeListResult = {
+  items: MinistryListItem[];
+  degraded: boolean;
+  errorType: string | null;
+};
+
+export type MinistriesSafeDetailResult = {
+  data: MinistryDetail | null;
+  degraded: boolean;
+  errorType: string | null;
+};
+
+const MINISTRY_REVALIDATE_SECONDS = 60;
+const DEFAULT_EXTERNAL_URL_FIELD = "website";
 const PRIMARY_EXTERNAL_URL_FIELD =
-  process.env.WP_MINISTRY_EXTERNAL_URL_FIELD?.trim() || "website";
+  process.env.WP_MINISTRY_EXTERNAL_URL_FIELD?.trim() || DEFAULT_EXTERNAL_URL_FIELD;
 const FALLBACK_EXTERNAL_URL_FIELD = "linkUrl";
 
-function externalFieldCandidates(): string[] {
-  const out = [PRIMARY_EXTERNAL_URL_FIELD];
-  if (!out.includes(FALLBACK_EXTERNAL_URL_FIELD)) {
-    out.push(FALLBACK_EXTERNAL_URL_FIELD);
-  }
-  return out;
-}
+let resolvedExternalUrlFieldPromise: Promise<string | null> | null = null;
 
 const LIST_QUERY = /* GraphQL */ `
 query MinistriesList($first: Int!) {
@@ -147,6 +156,20 @@ query OneMinistryFromList($slug: String!) {
 `;
 }
 
+function buildExternalFieldProbeQuery(field: string): string {
+  return /* GraphQL */ `
+query ProbeExternalField {
+  ministries(first: 1) {
+    nodes {
+      ministryFields {
+        ${field}
+      }
+    }
+  }
+}
+`;
+}
+
 type ListGQL = {
   ministries: {
     nodes: Array<{
@@ -169,6 +192,36 @@ type DetailFromListGQL = {
     nodes: DetailNode[];
   };
 };
+
+type ProbeExternalFieldGQL = {
+  ministries: {
+    nodes: Array<{
+      ministryFields: Record<string, unknown>;
+    }>;
+  };
+};
+
+function externalFieldCandidates(): string[] {
+  const isValidFieldName = (field: string): boolean => /^[A-Za-z_][A-Za-z0-9_]*$/.test(field);
+  const out = [PRIMARY_EXTERNAL_URL_FIELD];
+  if (!out.includes(FALLBACK_EXTERNAL_URL_FIELD)) {
+    out.push(FALLBACK_EXTERNAL_URL_FIELD);
+  }
+  const valid = out.filter(isValidFieldName);
+  if (valid.length !== out.length) {
+    console.warn("[ministries] invalid external-url field name configured, ignoring invalid candidate");
+  }
+  return valid;
+}
+
+function resetResolvedExternalUrlField(): void {
+  resolvedExternalUrlFieldPromise = null;
+}
+
+function getErrorType(error: unknown): string {
+  if (error instanceof WpGraphQLRequestError) return error.type;
+  return "unknown";
+}
 
 function normalizeExternalUrl(value: unknown): string | null {
   if (typeof value !== "string") return null;
@@ -214,6 +267,51 @@ function mapDetailNode(node: DetailNode, resolvedExternalUrl: string | null): Mi
   };
 }
 
+async function probeExternalUrlField(field: string): Promise<boolean> {
+  try {
+    await wpgraphql<ProbeExternalFieldGQL>(buildExternalFieldProbeQuery(field), undefined, {
+      revalidate: MINISTRY_REVALIDATE_SECONDS,
+      label: `wpgraphql:ministries-probe:${field}`,
+    });
+    return true;
+  } catch (error) {
+    if (isUnknownFieldError(error)) return false;
+    throw error;
+  }
+}
+
+async function resolveExternalUrlField(): Promise<string | null> {
+  if (!resolvedExternalUrlFieldPromise) {
+    resolvedExternalUrlFieldPromise = (async () => {
+      const candidates = externalFieldCandidates();
+      for (const field of candidates) {
+        try {
+          const supported = await probeExternalUrlField(field);
+          if (supported) {
+            console.log(
+              `[ministries] external-url-field resolved field=${field} fallbackUsed=${field !== PRIMARY_EXTERNAL_URL_FIELD}`
+            );
+            return field;
+          }
+          console.warn(`[ministries] external-url-field unsupported field=${field}`);
+        } catch (error) {
+          console.error("[ministries] external-url-field probe failed", {
+            field,
+            errorType: getErrorType(error),
+            error,
+          });
+          break;
+        }
+      }
+
+      console.warn("[ministries] external-url-field not available, fallback to base detail query");
+      return null;
+    })();
+  }
+
+  return resolvedExternalUrlFieldPromise;
+}
+
 async function fetchDetailBySlug(
   slug: string,
   externalField?: string
@@ -222,7 +320,12 @@ async function fetchDetailBySlug(
     const data = await wpgraphql<DetailBySlugGQL>(
       buildDetailBySlugQuery(externalField),
       { slug },
-      { revalidate: 60, label: externalField ? `wpgraphql:ministries-detail:${externalField}` : "wpgraphql:ministries-detail" }
+      {
+        revalidate: MINISTRY_REVALIDATE_SECONDS,
+        label: externalField
+          ? `wpgraphql:ministries-detail:${externalField}`
+          : "wpgraphql:ministries-detail",
+      }
     );
     return { unsupportedField: false, node: data.ministryBy };
   } catch (error) {
@@ -242,7 +345,7 @@ async function fetchDetailFromList(
       buildDetailFromListQuery(externalField),
       { slug },
       {
-        revalidate: 60,
+        revalidate: MINISTRY_REVALIDATE_SECONDS,
         label: externalField
           ? `wpgraphql:ministries-detail:list:${externalField}`
           : "wpgraphql:ministries-detail:list",
@@ -257,11 +360,11 @@ async function fetchDetailFromList(
   }
 }
 
-export async function getMinistriesList(top?: string | null): Promise<MinistryListItem[]> {
+async function getMinistriesListUncached(top?: string | null): Promise<MinistryListItem[]> {
   const data = await wpgraphql<ListGQL>(
     LIST_QUERY,
     { first: 50 },
-    { revalidate: 60, label: "wpgraphql:ministries-list" }
+    { revalidate: MINISTRY_REVALIDATE_SECONDS, label: "wpgraphql:ministries-list" }
   );
 
   return data.ministries.nodes
@@ -290,65 +393,13 @@ export async function getMinistriesList(top?: string | null): Promise<MinistryLi
     });
 }
 
-export async function getMinistriesListSafe(top?: string | null): Promise<MinistryListItem[]> {
-  try {
-    return await getMinistriesList(top);
-  } catch (error) {
-    console.error("[ministries] getMinistriesListSafe failed", error);
-    return [];
-  }
-}
+const getMinistriesListCached = unstable_cache(
+  async (top: string | null) => getMinistriesListUncached(top),
+  ["ministries:list:v1"],
+  { revalidate: MINISTRY_REVALIDATE_SECONDS, tags: ["ministries", "ministries-list"] }
+);
 
-export async function getMinistryDetail(slug: string): Promise<MinistryDetail | null> {
-  const candidates = externalFieldCandidates();
-  let fallbackPublishedNode: DetailNode | null = null;
-
-  for (const field of candidates) {
-    const bySlug = await fetchDetailBySlug(slug, field);
-    if (bySlug.unsupportedField) continue;
-
-    if (bySlug.node) {
-      if (!isPublished(bySlug.node.status)) return null;
-      fallbackPublishedNode = fallbackPublishedNode ?? bySlug.node;
-
-      const maybeUrl = normalizeExternalUrl(bySlug.node.ministryFields.externalUrl);
-      if (maybeUrl) {
-        return mapDetailNode(bySlug.node, maybeUrl);
-      }
-      continue;
-    }
-
-    const byList = await fetchDetailFromList(slug, field);
-    if (byList.unsupportedField) continue;
-
-    if (byList.node) {
-      if (!isPublished(byList.node.status)) return null;
-      fallbackPublishedNode = fallbackPublishedNode ?? byList.node;
-
-      const maybeUrl = normalizeExternalUrl(byList.node.ministryFields.externalUrl);
-      if (maybeUrl) {
-        return mapDetailNode(byList.node, maybeUrl);
-      }
-    }
-  }
-
-  if (fallbackPublishedNode) {
-    return mapDetailNode(fallbackPublishedNode, null);
-  }
-
-  // Base fallback: query detail without external-url field projection.
-  const baseBySlug = await fetchDetailBySlug(slug);
-  if (baseBySlug.node) {
-    if (!isPublished(baseBySlug.node.status)) return null;
-    return mapDetailNode(baseBySlug.node, null);
-  }
-
-  const baseByList = await fetchDetailFromList(slug);
-  if (baseByList.node) {
-    if (!isPublished(baseByList.node.status)) return null;
-    return mapDetailNode(baseByList.node, null);
-  }
-
+async function getMinistryDetailFromListFallback(slug: string): Promise<MinistryDetail | null> {
   // Last-resort fallback for environments where detail queries are inconsistent by slug.
   const list = await getMinistriesList();
   const fromList = list.find((item) => item.slug === slug);
@@ -366,11 +417,112 @@ export async function getMinistryDetail(slug: string): Promise<MinistryDetail | 
   };
 }
 
-export async function getMinistryDetailSafe(slug: string): Promise<MinistryDetail | null> {
-  try {
-    return await getMinistryDetail(slug);
-  } catch (error) {
-    console.error("[ministries] getMinistryDetailSafe failed", { slug, error });
+async function getMinistryDetailUncachedByField(
+  slug: string,
+  externalField: string | null,
+  allowRetryWithoutField: boolean
+): Promise<MinistryDetail | null> {
+  const bySlug = await fetchDetailBySlug(slug, externalField ?? undefined);
+  if (bySlug.unsupportedField) {
+    if (allowRetryWithoutField) {
+      resetResolvedExternalUrlField();
+      return getMinistryDetailUncachedByField(slug, null, false);
+    }
     return null;
+  }
+
+  if (bySlug.node) {
+    if (!isPublished(bySlug.node.status)) return null;
+    const url = normalizeExternalUrl(bySlug.node.ministryFields.externalUrl);
+    return mapDetailNode(bySlug.node, url);
+  }
+
+  const byList = await fetchDetailFromList(slug, externalField ?? undefined);
+  if (byList.unsupportedField) {
+    if (allowRetryWithoutField) {
+      resetResolvedExternalUrlField();
+      return getMinistryDetailUncachedByField(slug, null, false);
+    }
+    return null;
+  }
+
+  if (byList.node) {
+    if (!isPublished(byList.node.status)) return null;
+    const url = normalizeExternalUrl(byList.node.ministryFields.externalUrl);
+    return mapDetailNode(byList.node, url);
+  }
+
+  return getMinistryDetailFromListFallback(slug);
+}
+
+async function getMinistryDetailUncached(slug: string): Promise<MinistryDetail | null> {
+  const externalField = await resolveExternalUrlField();
+  return getMinistryDetailUncachedByField(slug, externalField, true);
+}
+
+const getMinistryDetailCached = unstable_cache(
+  async (slug: string) => getMinistryDetailUncached(slug),
+  ["ministries:detail:v1"],
+  { revalidate: MINISTRY_REVALIDATE_SECONDS, tags: ["ministries", "ministries-detail"] }
+);
+
+export async function getMinistriesList(top?: string | null): Promise<MinistryListItem[]> {
+  const startedAt = Date.now();
+  const route = top ? `/ministries?top=${top}` : "/ministries";
+  try {
+    return await getMinistriesListCached(top ?? null);
+  } finally {
+    const elapsed = Date.now() - startedAt;
+    console.log(`[ministries] route=${route} elapsed=${elapsed}ms cacheHit=unknown`);
+  }
+}
+
+export async function getMinistriesListSafe(top?: string | null): Promise<MinistryListItem[]> {
+  const result = await getMinistriesListSafeResult(top);
+  return result.items;
+}
+
+export async function getMinistriesListSafeResult(top?: string | null): Promise<MinistriesSafeListResult> {
+  try {
+    const items = await getMinistriesList(top);
+    return { items, degraded: false, errorType: null };
+  } catch (error) {
+    const errorType = getErrorType(error);
+    console.error("[ministries] getMinistriesListSafe failed", {
+      top,
+      errorType,
+      error,
+    });
+    return { items: [], degraded: true, errorType };
+  }
+}
+
+export async function getMinistryDetail(slug: string): Promise<MinistryDetail | null> {
+  const startedAt = Date.now();
+  try {
+    return await getMinistryDetailCached(slug);
+  } finally {
+    const elapsed = Date.now() - startedAt;
+    console.log(`[ministries] route=/ministries/[slug] slug=${slug} elapsed=${elapsed}ms cacheHit=unknown`);
+  }
+}
+
+export async function getMinistryDetailSafe(slug: string): Promise<MinistryDetail | null> {
+  const result = await getMinistryDetailSafeResult(slug);
+  return result.data;
+}
+
+export async function getMinistryDetailSafeResult(slug: string): Promise<MinistriesSafeDetailResult> {
+  try {
+    const data = await getMinistryDetail(slug);
+    return { data, degraded: false, errorType: null };
+  } catch (error) {
+    const errorType = getErrorType(error);
+    console.error("[ministries] getMinistryDetailSafe failed", {
+      slug,
+      errorType,
+      error,
+    });
+    return { data: null, degraded: true, errorType };
   }
 }

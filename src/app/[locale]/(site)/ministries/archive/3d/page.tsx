@@ -1,28 +1,6 @@
-import archiveItems from "@/data/ministryArchive.json";
 import ArchiveScene3D from "@/components/ArchiveScene3D";
+import { getSortedArchiveItems } from "@/content/ministries/archive";
 import { getMessages, normalizeLocale, withLocale } from "@/lib/i18n";
-
-type ArchiveItem = {
-  category: string;
-  subcategory: string;
-  title: string;
-  date: string;
-  summary: string;
-  summaryEn?: string;
-  imageUrl: string;
-  videoUrl: string;
-  link: string;
-};
-
-function parseDateKey(value: string) {
-  if (!value) return 0;
-  const match = String(value).match(/(19|20)\d{2}/g);
-  if (!match) return 0;
-  const year = parseInt(match[0], 10);
-  const monthMatch = String(value).match(/(0?[1-9]|1[0-2])/);
-  const month = monthMatch ? parseInt(monthMatch[0], 10) : 1;
-  return year * 100 + month;
-}
 
 export default async function MinistriesArchive3DPage({
   params,
@@ -32,10 +10,8 @@ export default async function MinistriesArchive3DPage({
   const { locale } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
-  const archive = (archiveItems as ArchiveItem[]).slice().sort((a, b) => {
-    return parseDateKey(b.date) - parseDateKey(a.date);
-  });
-  const detailsLabel = normalizedLocale === "en" ? "View details" : "查看详情";
+  const archive = getSortedArchiveItems();
+  const detailsLabel = normalizedLocale === "en" ? "View details" : "查看詳情";
 
   return (
     <main className="bg-zinc-950 text-white">
@@ -50,7 +26,7 @@ export default async function MinistriesArchive3DPage({
             className="rounded-full border border-zinc-700 px-4 py-2 text-xs font-medium text-zinc-100 transition hover:border-zinc-500"
             href={withLocale(normalizedLocale, "/ministries/archive")}
           >
-            {normalizedLocale === "en" ? "View grid" : "查看平铺"}
+            {normalizedLocale === "en" ? "View grid" : "查看平鋪"}
           </a>
         </div>
       </section>

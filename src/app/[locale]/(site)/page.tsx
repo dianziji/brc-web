@@ -3,7 +3,7 @@ import AlignWithGodSection from "@/components/AlignWithGodSection";
 import HomeContactForm from "@/components/HomeContactForm";
 import MinistryCarousel from "@/components/MinistryCarousel";
 import { getFeaturedDiscipleshipPrograms, hasLocalDetail } from "@/lib/discipleship";
-import { getFixedTopTitle } from "@/lib/ministries-top-sections";
+import { getFixedTopTitle } from "@/content/ministries/top-sections";
 import { getMinistriesListSafe } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
 
@@ -67,13 +67,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <video
             className="h-full w-full object-cover object-center"
             autoPlay
-            muted
             loop
+            muted
             playsInline
-            preload="metadata"
+             preload="auto"
+             suppressHydrationWarning
             
           >
-            <source src="/videos/hero-test.mp4" type="video/mp4" />
+            <source src="/videos/brc-hero.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/80 via-zinc-800/70 to-zinc-700/60" />
         </div>

@@ -4,6 +4,7 @@ import zh from "@/lib/i18n/messages/zh.json";
 export const locales = ["zh", "en"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "zh";
+export type Localized<T> = { zh: T; en: T };
 
 export type Messages = typeof zh;
 
@@ -39,4 +40,8 @@ export function pickLocalized(
   const enValue = options.en ?? undefined;
   if (locale === "en") return enValue || zhValue || options.fallback || "";
   return zhValue || enValue || options.fallback || "";
+}
+
+export function pickLocalizedValue<T>(locale: Locale, value: Localized<T>): T {
+  return locale === "en" ? value.en : value.zh;
 }

@@ -8,12 +8,12 @@ export type SectionNode = {
   export function pickLeafSection(sections: SectionNode[]): SectionNode | null {
     if (!sections?.length) return null;
   
-    // 你现在会同时勾：Youth（parent=null）+ CHISTA（parent!=null）
-    // 规则：优先选择“有 parent 的”作为 leaf（更具体的那个）
+    // 你現在會同時勾：Youth（parent=null）+ CHISTA（parent!=null）
+    // 規則：優先選擇“有 parent 的”作為 leaf（更具體的那個）
     const withParent = sections.filter(s => s.parent?.node?.slug);
     if (withParent.length > 0) return withParent[0];
   
-    // 如果只有顶层（极少），就用它
+    // 如果只有頂層（極少），就用它
     return sections[0];
   }
   

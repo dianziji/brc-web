@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { getFixedTopSection, getFixedTopTitle } from "@/lib/ministries-top-sections";
-import { getMinistriesListSafe } from "@/lib/ministries";
+import { getFixedTopSection, getFixedTopTitle } from "@/content/ministries/top-sections";
+import { getMinistriesListSafeResult } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
 
 export const revalidate = 60;
@@ -17,7 +17,7 @@ export default async function Page({
   const { locale, top } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
-  const items = await getMinistriesListSafe(top);
+  const { items, degraded } = await getMinistriesListSafeResult(top);
   const topSection = getFixedTopSection(top);
   const topTitle = getFixedTopTitle(top, normalizedLocale);
   const topDesc = topSection
@@ -26,6 +26,15 @@ export default async function Page({
       : topSection.descZh
     : messages.ministries.highlightBody;
   const backLabel = messages.ministries.back.replace(/^←\s*/, "");
+  const retryLink = withLocale(normalizedLocale, `/ministries/${top}`);
+  const degradedTitle =
+    normalizedLocale === "en" ? "This section is temporarily unavailable." : "此分類內容暫時不可用。";
+  const degradedBody =
+    normalizedLocale === "en"
+      ? "The content service timed out. Please retry in a moment."
+      : "內容服務請求超時，請稍後重試。";
+  const retryLabel = normalizedLocale === "en" ? "Retry now" : "立即重試";
+  const comingSoonLabel = normalizedLocale === "en" ? "Content is coming soon." : "內容準備中，敬請期待。";
 
   return (
     <main className="pb-10">
@@ -62,9 +71,19 @@ export default async function Page({
         </Link>
 
         {items.length === 0 ? (
-          <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-            {messages.common.notFound}
-          </div>
+          degraded ? (
+            <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-900">
+              <h2 className="text-sm font-semibold">{degradedTitle}</h2>
+              <p className="mt-1 text-sm">{degradedBody}</p>
+              <a className="mt-3 inline-flex text-sm font-medium underline" href={retryLink}>
+                {retryLabel}
+              </a>
+            </div>
+          ) : (
+            <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-700">
+              {comingSoonLabel}
+            </div>
+          )
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {items.map((item) => {
