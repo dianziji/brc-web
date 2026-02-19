@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { getMinistryDetailSafe } from "@/lib/ministries";
+import { redirect } from "next/navigation";
+import { getMinistryDetailSafeResult } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
 import { sanitizeRichHtml } from "@/lib/sanitize-html";
 
@@ -13,10 +14,25 @@ export default async function Page({
   const { locale, top, slug } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
-  const data = await getMinistryDetailSafe(slug);
-  const backLink = withLocale(normalizedLocale, `/ministries/${top}`);
+  const detailResult = await getMinistryDetailSafeResult(slug);
+  const data = detailResult.data;
   const backLabel = messages.common.back.replace(/^←\s*/, "");
-  const websiteLabel = normalizedLocale === "en" ? "Visit ministry website" : "查看事工网站";
+  const websiteLabel = normalizedLocale === "en" ? "Visit ministry website" : "查看事工網站";
+
+  const canonicalTop = data?.section.top ?? top;
+  if (data?.section.top && data.section.top !== top) {
+    redirect(withLocale(normalizedLocale, `/ministries/${data.section.top}/${slug}`));
+  }
+
+  const backLink = withLocale(normalizedLocale, `/ministries/${canonicalTop}`);
+  const retryLink = withLocale(normalizedLocale, `/ministries/${top}/${slug}`);
+  const degradedTitle =
+    normalizedLocale === "en" ? "This content is temporarily unavailable." : "此內容暫時不可用。";
+  const degradedBody =
+    normalizedLocale === "en"
+      ? "The content service timed out. Please retry in a moment."
+      : "內容服務請求超時，請稍後重試。";
+  const retryLabel = normalizedLocale === "en" ? "Retry now" : "立即重試";
 
   if (!data) {
     return (
@@ -33,9 +49,19 @@ export default async function Page({
           </span>
           <span>{backLabel}</span>
         </Link>
-        <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
-          {messages.common.notFound}
-        </div>
+        {detailResult.degraded ? (
+          <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-900">
+            <h2 className="text-sm font-semibold">{degradedTitle}</h2>
+            <p className="mt-1 text-sm">{degradedBody}</p>
+            <Link className="mt-3 inline-flex text-sm font-medium underline" href={retryLink}>
+              {retryLabel}
+            </Link>
+          </div>
+        ) : (
+          <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+            {messages.common.notFound}
+          </div>
+        )}
       </main>
     );
   }
@@ -81,7 +107,7 @@ export default async function Page({
                 <a
                   href={websiteUrl}
                   target="_blank"
-                  rel="noreferrer noopener"
+                  rel="noopener noreferrer"
                   className="group inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-800 shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-400 hover:shadow"
                 >
                   <span

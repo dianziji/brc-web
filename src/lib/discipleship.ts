@@ -43,10 +43,10 @@ export const programs: Program[] = [
     track: "discipleship",
     nameZh: "基督生平",
     nameEn: "Life of Christ",
-    typeZh: "BRC TEE 核心课程",
+    typeZh: "BRC TEE 核心課程",
     typeEn: "BRC TEE Core Track",
     summaryZh:
-      "以四福音至使徒行传为主轴，系统认识基督生平五个阶段，并理解圣经历史、政治与地理背景。",
+      "以四福音至使徒行傳為主軸，系統認識基督生平五個階段，並理解聖經歷史、政治與地理背景。",
     summaryEn:
       "A structured study from the Gospels to Acts, focusing on the five stages of Christ's life with biblical historical and geographical context.",
     homeImage: "/images/christ-life.jpeg",
@@ -58,12 +58,12 @@ export const programs: Program[] = [
   {
     id: "paul-life-letters",
     track: "discipleship",
-    nameZh: "保罗生平与书信",
+    nameZh: "保羅生平與書信",
     nameEn: "Paul's Life and Epistles",
-    typeZh: "BRC TEE 进阶课程",
+    typeZh: "BRC TEE 進階課程",
     typeEn: "BRC TEE Advanced Track",
     summaryZh:
-      "以使徒保罗宣教旅程与13卷书信为主轴，建立教义与神学基础，装备宣教和教导工人。",
+      "以使徒保羅宣教旅程與13卷書信為主軸，建立教義與神學基礎，裝備宣教和教導工人。",
     summaryEn:
       "An advanced track built on Paul's missionary journeys and 13 epistles, strengthening doctrine and theology for teaching and mission work.",
     homeImage: "/images/paulLetters.jpeg",
@@ -71,18 +71,18 @@ export const programs: Program[] = [
       "https://newbethelrc.org/%E4%BF%9D%E7%BD%97%E7%94%9F%E5%B9%B3%E4%B8%8E%E4%B9%A6%E4%BF%A1%E8%AF%BE%E7%A8%8B%E8%AF%A6%E6%83%85/",
     applyUrl: sharedApplyFormUrl,
     status: "ready",
-    prereqZh: "建议先完成：基督生平",
+    prereqZh: "建議先完成：基督生平",
     prereqEn: "Recommended prerequisite: Life of Christ",
   },
   {
     id: "bethel-series",
     track: "discipleship",
-    nameZh: "伯特利圣经系列（全景圣经课程）",
+    nameZh: "伯特利聖經系列（全景聖經課程）",
     nameEn: "The Bethel Series (Panoramic Bible)",
-    typeZh: "BRC 圣经系列",
+    typeZh: "BRC 聖經系列",
     typeEn: "BRC Bible Series",
     summaryZh:
-      "以全景方式连结新旧约主题，帮助学员将各卷书置于整本圣经救恩脉络中理解。",
+      "以全景方式連結新舊約主題，幫助學員將各卷書置於整本聖經救恩脈絡中理解。",
     summaryEn:
       "A panoramic Bible curriculum connecting Old and New Testament themes to see Scripture within God's redemptive storyline.",
     homeImage: "/images/discipleship.png",
@@ -94,12 +94,12 @@ export const programs: Program[] = [
   {
     id: "pentateuch",
     track: "discipleship",
-    nameZh: "摩西五经",
+    nameZh: "摩西五經",
     nameEn: "Pentateuch",
-    typeZh: "BRC TEE 进阶课程",
+    typeZh: "BRC TEE 進階課程",
     typeEn: "BRC TEE Advanced Track",
     summaryZh:
-      "从创世记到申命记，串联亚伯拉罕家族、出埃及与律法，建立旧约根基。",
+      "從創世記到申命記，串聯亞伯拉罕家族、出埃及與律法，建立舊約根基。",
     summaryEn:
       "A focused study from Genesis to Deuteronomy, connecting Abraham's family, Exodus, and the Law.",
     detailUrl: "https://newbethelrc.org/underconstruction/",
@@ -109,12 +109,12 @@ export const programs: Program[] = [
   {
     id: "zume",
     track: "equipping",
-    nameZh: "天国酵母（Zume）",
+    nameZh: "天國酵母（Zume）",
     nameEn: "Zume Training",
-    typeZh: "网络训练（外部）",
+    typeZh: "網絡訓練（外部）",
     typeEn: "External Online Training",
     summaryZh:
-      "装备信徒在当代成为门徒倍增的酵母，带出生生不息的主门徒，推动神国扩展。",
+      "裝備信徒在當代成為門徒倍增的酵母，帶出生生不息的主門徒，推動神國擴展。",
     summaryEn:
       "An online disciple-multiplication pathway equipping believers to make reproducing disciples in everyday life.",
     detailUrl: "https://zume.training/zhcn/about/",
@@ -123,12 +123,12 @@ export const programs: Program[] = [
   {
     id: "coworker",
     track: "equipping",
-    nameZh: "同工训练",
+    nameZh: "同工訓練",
     nameEn: "Coworker Training",
-    typeZh: "BRC 内部训练",
+    typeZh: "BRC 內部訓練",
     typeEn: "BRC Internal Training",
     summaryZh:
-      "不定期开设灵魂关怀读书会、敬拜赞美研习会等，帮助同工持续成长与彼此学习。",
+      "不定期開設靈魂關懷讀書會、敬拜讚美研習會等，幫助同工持續成長與彼此學習。",
     summaryEn:
       "Periodic internal trainings such as soul-care reading groups and worship workshops for ongoing coworker formation.",
     detailUrl: "https://newbethelrc.org/underconstruction/",
@@ -137,11 +137,11 @@ export const programs: Program[] = [
   {
     id: "leadership",
     track: "equipping",
-    nameZh: "领袖培训",
+    nameZh: "領袖培訓",
     nameEn: "Leadership Development",
-    typeZh: "BRC 领袖课程",
+    typeZh: "BRC 領袖課程",
     typeEn: "BRC Leadership Track",
-    summaryZh: "领袖培育课程（当前使用外部资源），用于强化异象、组织与带领能力。",
+    summaryZh: "領袖培育課程（當前使用外部資源），用於強化異象、組織與帶領能力。",
     summaryEn:
       "Leadership development track currently linked to an external resource for vision, team, and leadership skills.",
     detailUrl: "https://www.globalleadership.org/",
@@ -152,23 +152,23 @@ export const programs: Program[] = [
 export const detailBlocks: DetailBlock[] = [
   {
     id: "christ-life",
-    titleZh: "TEE「基督生平」课程",
+    titleZh: "TEE「基督生平」課程",
     titleEn: 'TEE "Life of Christ"',
-    subtitleZh: "S.E.A.N. TEE 门徒训练 — 核心课程",
+    subtitleZh: "S.E.A.N. TEE 門徒訓練 — 核心課程",
     subtitleEn: "S.E.A.N. TEE Discipleship — Core Course",
     purposeZh:
-      "教导学员更清楚认识耶稣基督和十字架救赎，成为有使命感并能清楚传讲福音的门徒。",
+      "教導學員更清楚認識耶穌基督和十字架救贖，成為有使命感並能清楚傳講福音的門徒。",
     purposeEn:
       "To help learners clearly know Christ and the cross, and become mission-minded disciples who can communicate the gospel clearly.",
-    targetZh: "以跨文化门训为导向，培训当地教牧老师，更有效装备普世宣教。",
+    targetZh: "以跨文化門訓為導向，培訓當地教牧老師，更有效裝備普世宣教。",
     targetEn:
       "Cross-cultural discipleship orientation for training local pastors/teachers and equipping global mission more effectively.",
     pointsZh: [
-      "系统查考四福音（以马太福音为主轴）至使徒行传。",
-      "建立系统神学基础：神论、人论、三位一体、救赎论、圣灵论。",
-      "应用性主题圣经课程，快速训练门徒并复制师资。",
-      "简明护教学训练，掌握圣经统一性。",
-      "整全门徒栽培课程，配合教导技巧训练。",
+      "系統查考四福音（以馬太福音為主軸）至使徒行傳。",
+      "建立系統神學基礎：神論、人論、三位一體、救贖論、聖靈論。",
+      "應用性主題聖經課程，快速訓練門徒並復制師資。",
+      "簡明護教學訓練，掌握聖經統一性。",
+      "整全門徒栽培課程，配合教導技巧訓練。",
     ],
     pointsEn: [
       "Systematic study from the Gospels (Matthew-centered) to Acts.",
@@ -178,10 +178,10 @@ export const detailBlocks: DetailBlock[] = [
       "Holistic discipleship formation with teaching-skills practice.",
     ],
     scheduleZh: [
-      "共六册，每册十个单元；每周一个单元。",
-      "每三个月完成一册，完整课程约一年半（可弹性安排）。",
-      "小班制（约15人），网络或实体授课，含期中/期末测验。",
-      "成绩合格颁发结业证书。",
+      "共六冊，每冊十個單元；每周一個單元。",
+      "每三個月完成一冊，完整課程約一年半（可彈性安排）。",
+      "小班制（約15人），網絡或實體授課，含期中/期末測驗。",
+      "成績合格頒發結業證書。",
     ],
     scheduleEn: [
       "Six volumes, ten units each; one unit per week.",
@@ -193,22 +193,22 @@ export const detailBlocks: DetailBlock[] = [
   },
   {
     id: "paul-life-letters",
-    titleZh: "TEE「保罗生平与书信」课程",
+    titleZh: "TEE「保羅生平與書信」課程",
     titleEn: 'TEE "Paul\'s Life and Epistles"',
-    subtitleZh: "S.E.A.N. TEE 门徒训练 — 进阶课程",
+    subtitleZh: "S.E.A.N. TEE 門徒訓練 — 進階課程",
     subtitleEn: "S.E.A.N. TEE Discipleship — Advanced Course",
     purposeZh:
-      "延续核心门训，透过保罗生平与书信建立更完整的教义与神学装备，强化宣教与教导能力。",
+      "延續核心門訓，透過保羅生平與書信建立更完整的教義與神學裝備，強化宣教與教導能力。",
     purposeEn:
       "An advanced follow-up track using Paul's life and letters to deepen doctrine/theology and strengthen mission and teaching capacity.",
-    targetZh: "以宣教与传福音使命为定位，培养可教导、可差派、可复制的工人。",
+    targetZh: "以宣教與傳福音使命為定位，培養可教導、可差派、可復制的工人。",
     targetEn:
       "Mission and evangelism oriented, forming workers who can teach, be sent, and multiply.",
     pointsZh: [
-      "系统查考保罗宣教旅程、被囚与殉道，以及相关13卷书信。",
-      "深度探讨保罗生命转化与呼召。",
-      "建立神论、圣灵论、救恩论、基督论、教会论、末世论框架。",
-      "连接基督与教会关系，落实恩典时代信徒生活。",
+      "系統查考保羅宣教旅程、被囚與殉道，以及相關13卷書信。",
+      "深度探討保羅生命轉化與呼召。",
+      "建立神論、聖靈論、救恩論、基督論、教會論、末世論框架。",
+      "連接基督與教會關系，落實恩典時代信徒生活。",
     ],
     pointsEn: [
       "Systematic study of Paul's journeys, imprisonment/martyrdom, and 13 epistles.",
@@ -217,10 +217,10 @@ export const detailBlocks: DetailBlock[] = [
       "Application to Christian life and church identity in the age of grace.",
     ],
     scheduleZh: [
-      "共3册，30课，每册期末考。",
-      "每周一课（90分钟），约9个月完成（可弹性安排）。",
-      "学员课前自学并完成练习，课堂强调讨论与分享。",
-      "成绩合格颁发结业证书。",
+      "共3冊，30課，每冊期末考。",
+      "每周一課（90分鐘），約9個月完成（可彈性安排）。",
+      "學員課前自學並完成練習，課堂強調討論與分享。",
+      "成績合格頒發結業證書。",
     ],
     scheduleEn: [
       "3 volumes, 30 lessons total, with end-of-volume exams.",
@@ -231,23 +231,23 @@ export const detailBlocks: DetailBlock[] = [
   },
   {
     id: "bethel-series",
-    titleZh: "《全景圣经课程》",
+    titleZh: "《全景聖經課程》",
     titleEn: "The Bethel Series (Panoramic Bible)",
-    subtitleZh: "BRC 圣经系列新旧约课程",
+    subtitleZh: "BRC 聖經系列新舊約課程",
     subtitleEn: "BRC Old/New Testament Bible Series",
     purposeZh:
-      "提供一套全面且严谨的福音派研经课程，帮助学员以全景方式连结整本圣经。",
+      "提供一套全面且嚴謹的福音派研經課程，幫助學員以全景方式連結整本聖經。",
     purposeEn:
       "A comprehensive evangelical Bible curriculum helping learners connect all parts of Scripture through a panoramic framework.",
     targetZh:
-      "学员修毕后可将圣经各卷与整本圣经主题联系，并参与教会成人主日学及小组带领。",
+      "學員修畢後可將聖經各卷與整本聖經主題聯繫，並參與教會成人主日學及小組帶領。",
     targetEn:
       "After completion, learners can connect each biblical part to the whole and serve in adult teaching and small-group leadership.",
     pointsZh: [
-      "旧约+新约共40课，两年制训练（约2.5小时/课）。",
-      "强调“像希伯来人那样思考”，建立救恩历史框架。",
-      "图文并茂、内容严谨，兼顾神学深度与教学可用性。",
-      "全球多语言、多教会采用，长期实践验证。",
+      "舊約+新約共40課，兩年制訓練（約2.5小時/課）。",
+      "強調“像希伯來人那樣思考”，建立救恩歷史框架。",
+      "圖文並茂、內容嚴謹，兼顧神學深度與教學可用性。",
+      "全球多語言、多教會採用，長期實踐驗證。",
     ],
     pointsEn: [
       "40 lessons across OT/NT, two-year track (~2.5 hours per lesson).",
@@ -256,8 +256,8 @@ export const detailBlocks: DetailBlock[] = [
       "Widely adopted globally with long-term practical validation.",
     ],
     scheduleZh: [
-      "两年课程，每课含小测验与作业。",
-      "完成全套学习后可承担成人主日学老师、团契同工或小组负责人。",
+      "兩年課程，每課含小測驗與作業。",
+      "完成全套學習後可承擔成人主日學老師、團契同工或小組負責人。",
     ],
     scheduleEn: [
       "Two-year curriculum, each lesson includes quiz and assignments.",

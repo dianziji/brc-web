@@ -8,6 +8,8 @@ type MinistriesHeroMapProps = {
   className?: string;
 };
 
+type RegisterMapPayload = Parameters<typeof echarts.registerMap>[1];
+
 export default function MinistriesHeroMap({ className }: MinistriesHeroMapProps) {
   const chartRef = useRef<HTMLDivElement | null>(null);
 
@@ -31,7 +33,7 @@ export default function MinistriesHeroMap({ className }: MinistriesHeroMapProps)
     const loadMap = async () => {
       const response = await fetch("/maps/world.json");
       const geoJson = await response.json();
-      echarts.registerMap("world", geoJson as unknown as any);
+      echarts.registerMap("world", geoJson as RegisterMapPayload);
 
       chart = echarts.init(el);
       chart.setOption({

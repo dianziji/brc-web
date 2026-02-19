@@ -1,10 +1,11 @@
 import Image from "next/image";
+import { getDonationPortalConfig } from "@/lib/donation";
 import { getMessages, normalizeLocale } from "@/lib/i18n";
 
 export default async function DonationPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const messages = getMessages(normalizeLocale(locale));
-  const donationFormUrl = "https://newbethelrc.org/donations/donation-form/";
+  const donationConfig = getDonationPortalConfig();
 
   return (
     <main className="pb-0">
@@ -75,7 +76,9 @@ export default async function DonationPage({ params }: { params: Promise<{ local
                   {messages.donation.buttonLabel}
                 </div>
                 <a
-                  href={donationFormUrl}
+                  href={donationConfig.donateUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full bg-amber-500 px-6 py-3 text-sm font-semibold text-black"
                 >
                   {messages.donation.buttonLabel}

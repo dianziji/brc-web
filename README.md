@@ -36,7 +36,7 @@ API (BFF):
 ## Bilingual Implementation
 
 - Locale routing is implemented under `src/app/[locale]`.
-- `src/middleware.ts` redirects missing locale paths to `/zh` and stores
+- `src/proxy.ts` redirects missing locale paths to `/zh` and stores
   `NEXT_LOCALE` in cookies.
 - Dictionaries live in `src/lib/i18n/messages/zh.json` and `en.json`.
 - Header language switch toggles the locale while preserving the path.
@@ -87,8 +87,23 @@ Create `.env.local`:
 
 ```
 WP_GRAPHQL_URL=https://your-wordpress-site/graphql
+WP_GRAPHQL_TIMEOUT_MS=8000
+WP_GRAPHQL_RETRY_COUNT=1
+WP_GRAPHQL_RETRY_BACKOFF_MS=300
+DONATION_PROVIDER=legacy_wp
+DONATION_LEGACY_FORM_URL=https://newbethelrc.org/donations/donation-form/
+DONATION_SUPABASE_PORTAL_URL=
 SITE_URL=https://your-site-domain.com
 ```
+
+Notes:
+
+- `WP_GRAPHQL_TIMEOUT_MS`: timeout per WP request in milliseconds.
+- `WP_GRAPHQL_RETRY_COUNT`: retry attempts for timeout/network failures (recommended 0-1).
+- `WP_GRAPHQL_RETRY_BACKOFF_MS`: linear backoff base milliseconds between retries.
+- `DONATION_PROVIDER`: donation provider mode (`legacy_wp` or `supabase_portal`).
+- `DONATION_LEGACY_FORM_URL`: fallback donation URL for legacy WP flow.
+- `DONATION_SUPABASE_PORTAL_URL`: future Supabase portal URL used when `DONATION_PROVIDER=supabase_portal`.
 
 ## Development
 
@@ -110,6 +125,9 @@ Open http://localhost:3000 (will redirect to `/zh`).
 - `src/app/api/ministries/route.ts` - list endpoint
 - `src/app/api/ministries/[slug]/route.ts` - detail endpoint
 - `src/lib/wpgraphql.ts` - WPGraphQL client
+- `src/lib/donation` - donation provider adapter layer
+- `src/lib/auth` - auth session foundation (Supabase-ready)
+- `src/lib/rbac` - role/permission matrix foundation
 - `src/lib/i18n` - locale utilities + dictionaries
 - `src/lib/sections.ts` - section selection helpers
 

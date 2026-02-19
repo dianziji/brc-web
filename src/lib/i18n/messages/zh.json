@@ -2,13 +2,13 @@
   "nav": {
     "home": "主頁",
     "about": "關於我們",
-    "calendar": "活动日历",
+    "calendar": "活動日歷",
     "prayer": "禱告室",
     "ministries": "BRC事工",
     "trainings": "門徒訓練",
     "audio": "音訊庫",
     "donation": "奉獻支持",
-    "contact": "联系我们"
+    "contact": "聯繫我們"
   },
   "header": {
     "title": "Bethel Renewal Center",
@@ -23,123 +23,123 @@
     "location": "Lake Hiawatha, NJ placeholder",
     "email": "info@brc.org placeholder",
     "phone": "(973) 000-0000 placeholder",
-    "contactCta": "联系我们",
-    "quickLinks": "快速链接",
-    "subscribeTitle": "订阅更新",
-    "subscribeDesc": "获取最新活动与讲道资讯。",
+    "contactCta": "聯繫我們",
+    "quickLinks": "快速連結",
+    "subscribeTitle": "訂閱更新",
+    "subscribeDesc": "獲取最新活動與講道資訊。",
     "emailPlaceholder": "your@email.com",
-    "subscribeButton": "订阅",
+    "subscribeButton": "訂閱",
     "copyright": "© {year} Bethel Renewal Center. All rights reserved."
   },
   "common": {
     "comingSoon": "Coming soon",
     "back": "← 返回",
-    "notFound": "未找到相关事工。",
+    "notFound": "未找到相關事工。",
     "errorPrefix": "Ministries API error:"
   },
   "home": {
     "hero": {
       "title": "伯特利中心",
-      "subtitle": "更新生命 · 服事列国"
+      "subtitle": "更新生命 · 服事列國"
     },
     "carousel": [
-      { "title": "生命影响力事工", "subtitle": "Life Impact Ministries" },
+      { "title": "生命影響力事工", "subtitle": "Life Impact Ministries" },
       { "title": "跨文化宣教", "subtitle": "Cross Culture Ministries" },
-      { "title": "基督徒学生行动", "subtitle": "CHISTA" }
+      { "title": "基督徒學生行動", "subtitle": "CHISTA" }
     ],
     "mission": {
       "title": "使命",
-      "body": "以推動敬拜讚美與祷告為核心，以連結各教會為使命，舉辦各樣活動推動敬拜讚美運動，恢復神在美東的榮耀同在。到各處宣傳建立美東眾教會聯結，幫助有需要的個人、家庭、群體及教會。提供教導、訓練、資源，鼓勵常常一同禱告敬拜、舉辦特會、佈道會，直至興旺教會。"
+      "body": "以推動敬拜讚美與禱告為核心，以連結各教會為使命，舉辦各樣活動推動敬拜讚美運動，恢復神在美東的榮耀同在。到各處宣傳建立美東眾教會聯結，幫助有需要的個人、家庭、群體及教會。提供教導、訓練、資源，鼓勵常常一同禱告敬拜、舉辦特會、佈道會，直至興旺教會。"
     },
     "vision": {
-      "title": "异象",
-      "body1": "成为一个跨文化、跨世代的合一网络，培育敬拜与祷告的生活方式，并协同众教会同心建立属灵家园。",
-      "body2": "在美國東岸及世界各地要與弟兄姐妹連結，藉著敬拜讚美及祷告來尋求神的旨意，進入神的命定，更新這個世代。"
+      "title": "異象",
+      "body1": "成為一個跨文化、跨世代的合一網絡，培育敬拜與禱告的生活方式，並協同眾教會同心建立屬靈家園。",
+      "body2": "在美國東岸及世界各地要與弟兄姐妹連結，藉著敬拜讚美及禱告來尋求神的旨意，進入神的命定，更新這個世代。"
     },
     "stats": [
-      { "value": "120+", "label": "合作机构" },
-      { "value": "200+", "label": "志愿者" },
-      { "value": "30+", "label": "年度项目" },
+      { "value": "120+", "label": "合作機構" },
+      { "value": "200+", "label": "志願者" },
+      { "value": "30+", "label": "年度項目" },
       { "value": "5,000+", "label": "受益人群" }
     ],
     "about": {
-      "title": "关于我们",
-      "body": "我们是一个多文化、多语言的 NGO 组织，专注于社区关怀与跨文化服务，通过长期项目推动教育、关怀与生命更新。",
-      "cta": "关于我们"
+      "title": "關於我們",
+      "body": "我們是一個多文化、多語言的 NGO 組織，專注於社區關懷與跨文化服務，通過長期項目推動教育、關懷與生命更新。",
+      "cta": "關於我們"
     },
     "ministries": {
-      "title": "重点事工",
+      "title": "重點事工",
       "cta": "查看全部"
     },
     "events": {
-      "title": "近期活动",
+      "title": "近期活動",
       "cta": "查看全部",
       "cards": [
-        { "title": "社区关怀义诊", "subtitle": "本周六 9:00 AM" },
-        { "title": "青年成长营", "subtitle": "本周日 2:00 PM" },
-        { "title": "国际伙伴分享会", "subtitle": "下周五 7:30 PM" }
+        { "title": "社區關懷義診", "subtitle": "本周六 9:00 AM" },
+        { "title": "青年成長營", "subtitle": "本周日 2:00 PM" },
+        { "title": "國際伙伴分享會", "subtitle": "下周五 7:30 PM" }
       ],
-      "detailsCta": "了解详情"
+      "detailsCta": "了解詳情"
     },
     "prayer": {
-      "title": "祷告室",
-      "body": "祷告室为有需要的人提供陪伴与代祷，欢迎预约或现场参与。",
-      "cta": "了解祷告室",
-      "hoursTitle": "开放时间",
+      "title": "禱告室",
+      "body": "禱告室為有需要的人提供陪伴與代禱，歡迎預約或現場參與。",
+      "cta": "了解禱告室",
+      "hoursTitle": "開放時間",
       "hours1": "周二至周六 10:00 AM - 6:00 PM",
-      "hours2": "预约电话：(973) 000-0000"
+      "hours2": "預約電話：(973) 000-0000"
     },
     "trainings": {
-      "title": "门徒训练",
+      "title": "門徒訓練",
       "cta": "查看全部",
       "cards": [
-        { "title": "基督生平", "desc": "扎根福音，建立属灵生命基础。" },
-        { "title": "保罗生平与书信", "desc": "认识真理，建立门徒品格与使命。" },
-        { "title": "领袖培训", "desc": "装备同工，建立健康团队与事奉。" }
+        { "title": "基督生平", "desc": "扎根福音，建立屬靈生命基礎。" },
+        { "title": "保羅生平與書信", "desc": "認識真理，建立門徒品格與使命。" },
+        { "title": "領袖培訓", "desc": "裝備同工，建立健康團隊與事奉。" }
       ],
-      "detailsCta": "查看详情"
+      "detailsCta": "查看詳情"
     },
     "audio": {
-      "title": "音讯库",
+      "title": "音訊庫",
       "cta": "查看全部",
       "cards": [
-        { "title": "信心的旅程", "subtitle": "讲员：David" },
-        { "title": "更新的生命", "subtitle": "讲员：Grace" },
-        { "title": "爱中彼此建造", "subtitle": "讲员：John" }
+        { "title": "信心的旅程", "subtitle": "講員：David" },
+        { "title": "更新的生命", "subtitle": "講員：Grace" },
+        { "title": "愛中彼此建造", "subtitle": "講員：John" }
       ],
-      "detailsCta": "观看讲道"
+      "detailsCta": "觀看講道"
     },
     "donation": {
-      "title": "支持我们的使命",
-      "body": "你的奉献支持帮助我们持续服事社区与列国。",
-      "cta": "立即奉献"
+      "title": "支持我們的使命",
+      "body": "你的奉獻支持幫助我們持續服事社區與列國。",
+      "cta": "立即奉獻"
     },
     "contact": {
-      "title": "联系我们",
+      "title": "聯繫我們",
       "address": "地址：Bethel Renewal Center, Lake Hiawatha, NJ",
-      "email": "邮箱：info@brc.org",
-      "phone": "电话：(973) 000-0000",
+      "email": "郵箱：info@brc.org",
+      "phone": "電話：(973) 000-0000",
       "namePlaceholder": "姓名",
-      "emailPlaceholder": "邮箱",
-      "messagePlaceholder": "留言内容",
-      "submit": "提交问题"
+      "emailPlaceholder": "郵箱",
+      "messagePlaceholder": "留言內容",
+      "submit": "提交問題"
     }
   },
   "about": {
     "heroTitle": "關於伯特利中心",
     "heroSubtitle": "Bethel Renewal Center",
-    "heroBody": "BRC 是位於北美紐澤西的資源型機構，專注推動敬拜、祷告與跨文化連結，透過活動、訓練與合作，服事城市與列國。",
-    "storyTitle": "我们的故事",
+    "heroBody": "BRC 是位於北美紐澤西的資源型機構，專注推動敬拜、禱告與跨文化連結，透過活動、訓練與合作，服事城市與列國。",
+    "storyTitle": "我們的故事",
     "storyBody": "伯特利中心(簡稱BRC)位於北美紐澤西，是一個建造新婦教會的資源中心，附設敬拜禱告室。我們將致力於推動敬拜禱告相關的活動以及教會的連結。將協助各教會機構舉辦活動，歡迎連絡洽詢。希望透過全心熱切的敬拜讚美禱告，超越形式、世代、語言、種族、教派，同心合意的尋求。期待活出活潑生命的life-style，在其中天天都歡喜快樂，大有信心、隨處傳福音，時時禱告，並且得勝。到處傳遞敬拜禱告的異象，並且要和眾教會聯結一起同心建立大衛倒塌的帳幕。",
     "missionTitle": "使命",
-    "missionBody": "以推動敬拜讚美與祷告為核心，以連結各教會為使命，舉辦各樣活動推動敬拜讚美運動，恢復神在美東的榮耀同在。到各處宣傳建立美東眾教會聯結，幫助有需要的個人、家庭、群體及教會。提供教導、訓練、資源，鼓勵常常一同禱告敬拜、舉辦特會、佈道會，直至興旺教會。",
-    "visionTitle": "异象",
-    "visionBody": "成为一个跨文化、跨世代的合一网络，培育敬拜与祷告的生活方式，并协同众教会同心建立属灵家园。",
-    "directionTitle": "我们的方向",
-    "directionBody": "在美國東岸及世界各地要與弟兄姐妹連結，藉著敬拜讚美及祷告來尋求神的旨意，進入神的命定，更新這個世代。",
-    "valuesTitle": "核心价值",
+    "missionBody": "以推動敬拜讚美與禱告為核心，以連結各教會為使命，舉辦各樣活動推動敬拜讚美運動，恢復神在美東的榮耀同在。到各處宣傳建立美東眾教會聯結，幫助有需要的個人、家庭、群體及教會。提供教導、訓練、資源，鼓勵常常一同禱告敬拜、舉辦特會、佈道會，直至興旺教會。",
+    "visionTitle": "異象",
+    "visionBody": "成為一個跨文化、跨世代的合一網絡，培育敬拜與禱告的生活方式，並協同眾教會同心建立屬靈家園。",
+    "directionTitle": "我們的方向",
+    "directionBody": "在美國東岸及世界各地要與弟兄姐妹連結，藉著敬拜讚美及禱告來尋求神的旨意，進入神的命定，更新這個世代。",
+    "valuesTitle": "核心價值",
     "values": [
-      "Bridal Minded 新婦的思维",
+      "Bridal Minded 新婦的思維",
       "Equipping Saints 裝備聖徒",
       "Truth Abiding 持守真理",
       "Holiness Unto the Lord 歸耶和華為聖",
@@ -148,19 +148,19 @@
       "Renewed Heart and Mind 心意更新而變化",
       "Christ Centered Lifestyle 以基督為中心的生活方式"
     ],
-    "teamTitle": "BRC董事会",
-    "teamCta": "查看事工详情",
+    "teamTitle": "BRC董事會",
+    "teamCta": "查看事工詳情",
     "team": [
-      { "name": "林雄堅 牧师", "role": "事工领袖" },
-      { "name": "彭榮仁 牧师", "role": "事工领袖" },
-      { "name": "鄭隆保 牧师", "role": "事工领袖" }
+      { "name": "林雄堅 牧師", "role": "事工領袖" },
+      { "name": "彭榮仁 牧師", "role": "事工領袖" },
+      { "name": "鄭隆保 牧師", "role": "事工領袖" }
     ],
-    "joinTitle": "与我们同行",
-    "joinBody": "透过合作、代祷与奉献，一起参与城市与列国的更新。",
-    "joinCta": "奉献支持"
+    "joinTitle": "與我們同行",
+    "joinBody": "透過合作、代禱與奉獻，一起參與城市與列國的更新。",
+    "joinCta": "奉獻支持"
   },
   "alignWithGod": {
-    "title": "2026 BRC 目标",
+    "title": "2026 BRC 目標",
     "headline": ["與神", "對齊"],
     "goals": [
       {
@@ -216,84 +216,84 @@
   },
   "ministries": {
     "indexTitle": "BRC 事工",
-    "indexBody": "BRC的事工遍布全球超过22个国家和地区。",
+    "indexBody": "BRC的事工遍布全球超過22個國家和地區。",
     "highlightTitle": "重要事工",
-    "highlightBody": "各地事工与见证的重点展示。",
-    "sectionTitle": "事工板块",
-    "archiveTitle": "过往事工",
-    "archiveBody": "这里将展示已归档的过往事工与见证，稍后将继续补充内容。",
-    "detailsCta": "查看详情",
+    "highlightBody": "各地事工與見證的重點展示。",
+    "sectionTitle": "事工板塊",
+    "archiveTitle": "過往事工",
+    "archiveBody": "這裡將展示已歸檔的過往事工與見證，稍後將繼續補充內容。",
+    "detailsCta": "查看詳情",
     "listTitle": "事工列表",
     "notFoundTitle": "Ministry not found.",
     "back": "← 返回"
   },
   "calendar": {
-    "title": "事工活动日历",
-    "desc": "查看即将举行的活动，并根据日期查找详细安排。",
-    "selectedDate": "选择日期",
-    "empty": "今天没有安排的事工或活动。",
+    "title": "事工活動日歷",
+    "desc": "查看即將舉行的活動，並根據日期查找詳細安排。",
+    "selectedDate": "選擇日期",
+    "empty": "今天沒有安排的事工或活動。",
     "prev": "← 上月",
     "next": "下月 →",
     "weekDays": ["日", "一", "二", "三", "四", "五", "六"]
   },
   "pages": {
-    "audio": "音讯库",
-    "calendar": "事工活动日历",
-    "contact": "联系我们",
-    "donation": "奉献支持",
-    "prayer": "祷告室",
-    "trainings": "门徒训练"
+    "audio": "音訊庫",
+    "calendar": "事工活動日歷",
+    "contact": "聯繫我們",
+    "donation": "奉獻支持",
+    "prayer": "禱告室",
+    "trainings": "門徒訓練"
   },
   "donation": {
-    "title": "奉献支持",
-    "subtitle": "伯特利中心是符合 IRS 501(c)(3) 的非营利慈善机构，奉献可用于抵税。",
+    "title": "奉獻支持",
+    "subtitle": "伯特利中心是符合 IRS 501(c)(3) 的非營利慈善機構，奉獻可用於抵稅。",
     "orgNote": "Bethel Renewal Center is an IRS 501(c)(3) Non-Profit Organization. Donations are tax deductible.",
     "buttonLabel": "Donate Now",
-    "verseTitle": "奉献经文",
-    "verseText": "「各人要随本心所酌定的，不要作难，不要勉强，因为捐得乐意的人是　神所喜爱的。」",
-    "verseRef": "哥林多后书 9:7",
-    "payableTitle": "支票抬头",
+    "verseTitle": "奉獻經文",
+    "verseText": "「各人要隨本心所酌定的，不要作難，不要勉強，因為捐得樂意的人是　神所喜愛的。」",
+    "verseRef": "哥林多後書 9:7",
+    "payableTitle": "支票抬頭",
     "payableValue": "Bethel Renewal Center",
-    "mailTitle": "邮寄地址",
+    "mailTitle": "郵寄地址",
     "mailValue": "Bethel Renewal Center, P.O.Box 186, Lake Hiawatha, NJ 07034",
-    "digitalTitle": "线上转账",
+    "digitalTitle": "線上轉賬",
     "paypal": "Paypal：brc@bethelrc.org",
     "zelle": "Zelle：BRC@BETHELRC.ORG",
-    "wire": "Wire Transfer：finance@bethelrc.org（请来信索取详情）",
-    "notesTitle": "奉献注意事项",
+    "wire": "Wire Transfer：finance@bethelrc.org（請來信索取詳情）",
+    "notesTitle": "奉獻注意事項",
     "notes": [
-      "使用信用卡/Paypal 捐款会产生 2-3% 手续费。",
-      "请在备注中注明奉献支持的具体事工。"
+      "使用信用卡/Paypal 捐款會產生 2-3% 手續費。",
+      "請在備注中注明奉獻支持的具體事工。"
     ],
     "testMode": "Notice: Test mode is enabled. While in test mode no live donations are processed.",
-    "disclaimer": "您的奉献是基于以下理解：伯特利中心对所有奉献款项的使用拥有完全的酌情权与控制权。"
+    "disclaimer": "您的奉獻是基於以下理解：伯特利中心對所有奉獻款項的使用擁有完全的酌情權與控制權。"
   },
   "prayer": {
-    "heroTitle": "祷告室",
-    "heroBody": "伯特利中心邀请全球守望祷告，与不同城市、不同国家的团队一起，建立持续不断的敬拜与祷告祭坛。",
+    "heroTitle": "禱告室",
+    "heroBody": "伯特利中心邀請全球守望禱告，與不同城市、不同國家的團隊一起，建立持續不斷的敬拜與禱告祭壇。",
     "cards": [
       {
-        "title": "24 小时祷告祭坛",
-        "body": "24/7 全球敬拜赞美祷告宣教祭坛，全年无休，按纽约美东时间（EST）轮流守望。",
-        "detail1": "形式：Zoom 线上 24 小时不间断祷告会",
-        "detail2": "基准时间：纽约美东时间（EST）",
-        "cta1": "加入祷告会",
-        "cta2": "目前已经认领时段列表",
+        "title": "24 小時禱告祭壇",
+        "body": "24/7 全球敬拜讚美禱告宣教祭壇，全年無休，按紐約美東時間（EST）輪流守望。",
+        "detail1": "形式：Zoom 線上 24 小時不間斷禱告會",
+        "detail2": "基準時間：紐約美東時間（EST）",
+        "cta1": "加入禱告會",
+        "cta2": "目前已經認領時段列表",
         "note": "為避免產生雜音干擾聚會，上線後請關閉麥克風(或按 mute)保持靜音，要說話的時候再打開即可。"
       },
       {
-        "title": "伯特利中心祷告平台",
-        "body": "周间美东时间早上 7:00 专题分享，周二晚祷美东时间 8:00 开始。",
-        "detail1": "内容：本周专题分享及祷告焦点",
-        "detail2": "入口：可在音讯库查询过往分享",
-        "cta1": "本周专题分享"
+        "title": "伯特利中心禱告平台",
+        "body": "周間美東時間早上 7:00 專題分享，周二晚禱美東時間 8:00 開始。",
+        "detail1": "內容：本周專題分享及禱告焦點",
+        "detail2": "入口：可在音訊庫查詢過往分享",
+        "cta1": "本周專題分享"
       },
       {
-        "title": "RPG 复兴祷告特会",
-        "body": "复兴祷告特会每日美东时间早上 8:30 开始，邀请你一同参与。",
-        "detail1": "时间：周一至周日 8:30 AM（EST）",
-        "detail2": "形式：线上聚集与祷告",
-        "cta1": "加入复兴祷告特会"
+        "title": "RPG 復興禱告特會",
+        "body": "復興禱告特會每日美東時間早上 8:30 開始，邀請你一同參與。",
+        "detail1": "時間：周一至周日 8:30 AM（EST）",
+        "detail2": "形式：線上聚集與禱告",
+        "cta1": "加入復興禱告特會"
       }
     ],
     "contact": {

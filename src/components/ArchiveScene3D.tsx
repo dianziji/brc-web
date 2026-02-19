@@ -1,28 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { pickLocalized } from "@/lib/i18n";
-
-type ArchiveItem = {
-  category: string;
-  categoryEn?: string;
-  subcategory: string;
-  subcategoryEn?: string;
-  title: string;
-  titleEn?: string;
-  date: string;
-  dateEn?: string;
-  summary: string;
-  summaryEn?: string;
-  imageUrl: string;
-  videoUrl: string;
-  link: string;
-};
+import type { ArchiveItem } from "@/content/ministries/archive";
+import { pickLocalized, type Locale } from "@/lib/i18n";
 
 type ArchiveScene3DProps = {
   items: ArchiveItem[];
   detailsLabel: string;
-  locale: string;
+  locale: Locale;
 };
 
 type CardLayout = {
@@ -149,7 +134,7 @@ export default function ArchiveScene3D({ items, detailsLabel, locale }: ArchiveS
       view.removeEventListener("mouseleave", onMouseLeave);
       cancelAnimationFrame(frame);
     };
-  }, [layout]);
+  }, [minZ]);
 
   return (
     // Viewport -> camera -> scene structure keeps 3D transforms manageable.
@@ -171,27 +156,27 @@ export default function ArchiveScene3D({ items, detailsLabel, locale }: ArchiveS
               opacity: `${depthFade}`,
             };
 
-            const summary = pickLocalized(locale as "zh" | "en", {
+            const summary = pickLocalized(locale, {
               zh: item.summary,
               en: item.summaryEn,
               fallback: item.summary,
             });
-            const category = pickLocalized(locale as "zh" | "en", {
+            const category = pickLocalized(locale, {
               zh: item.category,
               en: item.categoryEn,
               fallback: item.category,
             });
-            const subcategory = pickLocalized(locale as "zh" | "en", {
+            const subcategory = pickLocalized(locale, {
               zh: item.subcategory,
               en: item.subcategoryEn,
               fallback: item.subcategory,
             });
-            const title = pickLocalized(locale as "zh" | "en", {
+            const title = pickLocalized(locale, {
               zh: item.title,
               en: item.titleEn,
               fallback: item.title,
             });
-            const date = pickLocalized(locale as "zh" | "en", {
+            const date = pickLocalized(locale, {
               zh: item.date,
               en: item.dateEn,
               fallback: item.date,
@@ -242,7 +227,7 @@ export default function ArchiveScene3D({ items, detailsLabel, locale }: ArchiveS
                         className="mt-3 inline-flex text-xs font-medium text-zinc-100 underline"
                         href={item.link}
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         onClick={(event) => event.stopPropagation()}
                       >
                         {detailsLabel}

@@ -28,10 +28,10 @@ export default function HomeContactForm({
     event.preventDefault();
 
     const subject =
-      locale === "zh" ? "BRC 网站联系表单" : "BRC Website Contact Form";
+      locale === "zh" ? "BRC 網站聯繫表單" : "BRC Website Contact Form";
     const body = [
       locale === "zh" ? `姓名: ${name}` : `Name: ${name}`,
-      locale === "zh" ? `邮箱: ${email}` : `Email: ${email}`,
+      locale === "zh" ? `郵箱: ${email}` : `Email: ${email}`,
       "",
       locale === "zh" ? "留言:" : "Message:",
       message,

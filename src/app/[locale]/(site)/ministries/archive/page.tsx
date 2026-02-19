@@ -1,29 +1,7 @@
 import Image from "next/image";
-import archiveItems from "@/data/ministryArchive.json";
 import ArchiveGrid from "@/components/ArchiveGrid";
+import { getSortedArchiveItems } from "@/content/ministries/archive";
 import { getMessages, normalizeLocale } from "@/lib/i18n";
-
-type ArchiveItem = {
-  category: string;
-  subcategory: string;
-  title: string;
-  date: string;
-  summary: string;
-  summaryEn?: string;
-  imageUrl: string;
-  videoUrl: string;
-  link: string;
-};
-
-function parseDateKey(value: string) {
-  if (!value) return 0;
-  const match = String(value).match(/(19|20)\d{2}/g);
-  if (!match) return 0;
-  const year = parseInt(match[0], 10);
-  const monthMatch = String(value).match(/(0?[1-9]|1[0-2])/);
-  const month = monthMatch ? parseInt(monthMatch[0], 10) : 1;
-  return year * 100 + month;
-}
 
 export default async function MinistriesArchivePage({
   params,
@@ -33,10 +11,8 @@ export default async function MinistriesArchivePage({
   const { locale } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
-  const archive = (archiveItems as ArchiveItem[]).slice().sort((a, b) => {
-    return parseDateKey(b.date) - parseDateKey(a.date);
-  });
-  const detailsLabel = normalizedLocale === "en" ? "View details" : "查看详情";
+  const archive = getSortedArchiveItems();
+  const detailsLabel = normalizedLocale === "en" ? "View details" : "查看詳情";
 
   return (
     <main className="bg-zinc-50 text-zinc-900">

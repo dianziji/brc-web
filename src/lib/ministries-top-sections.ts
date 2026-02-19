@@ -1,50 +1,6 @@
-import type { Locale } from "@/lib/i18n";
-
-export type FixedTopSection = {
-  slug: string;
-  titleZh: string;
-  titleEn: string;
-  descZh: string;
-  descEn: string;
-  imageSrc: string;
-};
-
-export const fixedTopSections: FixedTopSection[] = [
-  {
-    slug: "missions",
-    titleZh: "宣教事工",
-    titleEn: "Mission",
-    descZh: "跨文化与社区关怀的宣教与服务。",
-    descEn: "Cross-cultural and community outreach ministries.",
-    imageSrc: "/images/mission.jpeg",
-  },
-  {
-    slug: "youth",
-    titleZh: "青年事工",
-    titleEn: "Youth",
-    descZh: "装备青年、建造下一代门徒。",
-    descEn: "Equip youth and build the next generation of disciples.",
-    imageSrc: "/images/youthMinistry2.jpeg",
-  },
-  {
-    slug: "family",
-    titleZh: "家庭事工",
-    titleEn: "Family",
-    descZh: "支持家庭与婚姻的成长与更新。",
-    descEn: "Support families and marriages for growth and renewal.",
-    imageSrc: "/images/familyMinistry.jpeg",
-  },
-];
-
-export function getFixedTopSection(top: string): FixedTopSection | null {
-  if (top === "mission") {
-    return fixedTopSections.find((item) => item.slug === "missions") || null;
-  }
-  return fixedTopSections.find((item) => item.slug === top) || null;
-}
-
-export function getFixedTopTitle(top: string, locale: Locale): string {
-  const item = getFixedTopSection(top);
-  if (item) return locale === "en" ? item.titleEn : item.titleZh;
-  return top.replace(/[-_]/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
-}
+export {
+  fixedTopSections,
+  getFixedTopSection,
+  getFixedTopTitle,
+  type FixedTopSection,
+} from "@/content/ministries/top-sections";
