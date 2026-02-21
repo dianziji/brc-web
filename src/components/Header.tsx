@@ -32,14 +32,38 @@ export default function Header({ locale, messages }: HeaderProps) {
   const useLightText = isTransparentHeader && !transparentHeaderUsesDarkText;
   const navItems = useMemo(
     () => [
-      { label: messages.nav.home, href: withLocale(locale, "/") },
-      { label: messages.nav.about, href: withLocale(locale, "/about") },
-      { label: messages.nav.calendar, href: withLocale(locale, "/calendar") },
-      { label: messages.nav.prayer, href: withLocale(locale, "/prayer") },
-      { label: messages.nav.ministries, href: withLocale(locale, "/ministries") },
-      { label: messages.nav.trainings, href: withLocale(locale, "/discipleship") },
+      {
+        label: messages.nav.home,
+        mobileLabel: messages.navMobile.home,
+        href: withLocale(locale, "/"),
+      },
+      {
+        label: messages.nav.about,
+        mobileLabel: messages.navMobile.about,
+        href: withLocale(locale, "/about"),
+      },
+      {
+        label: messages.nav.calendar,
+        mobileLabel: messages.navMobile.calendar,
+        href: withLocale(locale, "/calendar"),
+      },
+      {
+        label: messages.nav.prayer,
+        mobileLabel: messages.navMobile.prayer,
+        href: withLocale(locale, "/prayer"),
+      },
+      {
+        label: messages.nav.ministries,
+        mobileLabel: messages.navMobile.ministries,
+        href: withLocale(locale, "/ministries"),
+      },
+      {
+        label: messages.nav.trainings,
+        mobileLabel: messages.navMobile.trainings,
+        href: withLocale(locale, "/discipleship"),
+      },
     ],
-    [locale, messages.nav]
+    [locale, messages.nav, messages.navMobile]
   );
 
   const switchLocale = locale === "en" ? "zh" : "en";
@@ -108,18 +132,20 @@ export default function Header({ locale, messages }: HeaderProps) {
       </div>
 
       <div className={`border-t md:hidden ${useLightText ? "border-white/20" : "border-zinc-200"}`}>
-        <div className={`mx-auto flex max-w-6xl flex-wrap gap-4 px-6 py-3 text-sm ${
-          useLightText ? "text-zinc-200" : "text-zinc-700"
-        }`}>
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={useLightText ? "hover:text-white" : "hover:text-zinc-900"}
-            >
-              {item.label}
-            </Link>
-          ))}
+        <div className={`mx-auto max-w-6xl px-2 py-1.5 ${useLightText ? "text-zinc-200" : "text-zinc-700"}`}>
+          <nav className="grid grid-cols-6 gap-1 text-[10px] leading-tight">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`inline-flex min-h-11 min-w-0 items-center justify-center rounded-lg px-1 text-center break-words ${
+                  useLightText ? "hover:bg-white/10 hover:text-white" : "hover:bg-zinc-100 hover:text-zinc-900"
+                }`}
+              >
+                {item.mobileLabel}
+              </Link>
+            ))}
+          </nav>
         </div>
       </div>
     </header>

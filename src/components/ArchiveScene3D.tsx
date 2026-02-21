@@ -80,6 +80,7 @@ export default function ArchiveScene3D({ items, detailsLabel, locale }: ArchiveS
     let currentZ = 0;
     let currentX = 0;
     let currentY = 0;
+    let lastTouchY: number | null = null;
     let frame = 0;
 
     const maxTravel = Math.abs(minZ) + 600;
@@ -107,6 +108,26 @@ export default function ArchiveScene3D({ items, detailsLabel, locale }: ArchiveS
       targetY = 0;
     };
 
+    // Touch-drag fallback so mobile users can move through depth.
+    const onTouchStart = (event: TouchEvent) => {
+      if (event.touches.length !== 1) return;
+      lastTouchY = event.touches[0]?.clientY ?? null;
+    };
+
+    const onTouchMove = (event: TouchEvent) => {
+      if (event.touches.length !== 1 || lastTouchY === null) return;
+      event.preventDefault();
+      const currentTouchY = event.touches[0]?.clientY ?? lastTouchY;
+      const delta = lastTouchY - currentTouchY;
+      const next = targetZ + delta * 1.2;
+      targetZ = clamp(next, 0, maxTravel);
+      lastTouchY = currentTouchY;
+    };
+
+    const onTouchEnd = () => {
+      lastTouchY = null;
+    };
+
     // RAF loop with lerp smoothing for premium motion.
     const tick = () => {
       if (!reducedMotion) {
@@ -126,12 +147,20 @@ export default function ArchiveScene3D({ items, detailsLabel, locale }: ArchiveS
     view.addEventListener("wheel", onWheel, { passive: false });
     view.addEventListener("mousemove", onMouseMove);
     view.addEventListener("mouseleave", onMouseLeave);
+    view.addEventListener("touchstart", onTouchStart, { passive: true });
+    view.addEventListener("touchmove", onTouchMove, { passive: false });
+    view.addEventListener("touchend", onTouchEnd);
+    view.addEventListener("touchcancel", onTouchEnd);
     frame = requestAnimationFrame(tick);
 
     return () => {
       view.removeEventListener("wheel", onWheel);
       view.removeEventListener("mousemove", onMouseMove);
       view.removeEventListener("mouseleave", onMouseLeave);
+      view.removeEventListener("touchstart", onTouchStart);
+      view.removeEventListener("touchmove", onTouchMove);
+      view.removeEventListener("touchend", onTouchEnd);
+      view.removeEventListener("touchcancel", onTouchEnd);
       cancelAnimationFrame(frame);
     };
   }, [minZ]);

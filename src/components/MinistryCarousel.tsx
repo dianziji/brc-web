@@ -36,11 +36,11 @@ export default function MinistryCarousel({ slides, detailsLabel }: MinistryCarou
 
   return (
     <div className="w-full">
-      <div className="relative h-[420px] w-full overflow-hidden bg-zinc-100">
+      <div className="relative h-[280px] w-full overflow-hidden bg-zinc-100 sm:h-[340px] md:h-[420px]">
         <Image src={active.src} alt={active.title} fill className="object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
         <div className="absolute bottom-6 left-6 right-6 text-white">
-          <div className="text-2xl font-semibold">{active.title}</div>
+          <div className="text-xl font-semibold sm:text-2xl">{active.title}</div>
           <div className="mt-1 text-sm text-zinc-200">{active.subtitle}</div>
           {active.href && detailsLabel ? (
             <Link
@@ -58,10 +58,14 @@ export default function MinistryCarousel({ slides, detailsLabel }: MinistryCarou
             key={`${slide.title}-${i}`}
             aria-label={`Go to slide ${i + 1}`}
             onClick={() => setIndex(i)}
-            className={`h-2 w-2 rounded-full transition ${
-              i === index ? "bg-zinc-900" : "bg-zinc-300"
-            }`}
-          />
+            className="inline-flex h-8 w-8 items-center justify-center"
+          >
+            <span
+              className={`h-2 w-2 rounded-full transition ${
+                i === index ? "bg-zinc-900" : "bg-zinc-300"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>

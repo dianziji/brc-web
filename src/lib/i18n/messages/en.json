@@ -10,6 +10,14 @@
     "donation": "Donate",
     "contact": "Contact"
   },
+  "navMobile": {
+    "home": "Home",
+    "about": "About",
+    "calendar": "Events",
+    "prayer": "Prayer",
+    "ministries": "Ministry",
+    "trainings": "Training"
+  },
   "header": {
     "title": "Bethel Renewal Center",
     "subtitle": "伯特利中心",

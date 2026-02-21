@@ -113,7 +113,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               <h2 className="text-3xl font-semibold">{messages.home.mission.title}</h2>
               <div className="space-y-1 text-sm leading-relaxed text-zinc-600">
                 {splitFixedLines(messages.home.mission.body).map((line) => (
-                  <p key={line} className="md:whitespace-nowrap">
+                  <p key={line} className="lg:whitespace-nowrap">
                     {line}
                   </p>
                 ))}
@@ -130,7 +130,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               <h2 className="text-3xl font-semibold">{messages.home.vision.title}</h2>
               <div className="space-y-1 text-sm leading-relaxed text-zinc-600">
                 {splitFixedLines(messages.home.vision.body).map((line) => (
-                  <p key={line} className="md:whitespace-nowrap">
+                  <p key={line} className="lg:whitespace-nowrap">
                     {line}
                   </p>
                 ))}
