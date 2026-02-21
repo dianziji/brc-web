@@ -5,8 +5,8 @@ function formatGoalTitle(title: string, isEnglish: boolean, titleLines: string[]
   if (titleLines.length === 2) {
     return (
       <>
-        <span className="block whitespace-nowrap">{titleLines[0]}</span>
-        <span className="block whitespace-nowrap">{titleLines[1]}</span>
+        <span className="block">{titleLines[0]}</span>
+        <span className="block">{titleLines[1]}</span>
       </>
     );
   }
@@ -24,8 +24,8 @@ function formatGoalTitle(title: string, isEnglish: boolean, titleLines: string[]
   const line2 = words.slice(midpoint).join(" ");
   return (
     <>
-      <span className="block whitespace-nowrap">{line1}</span>
-      <span className="block whitespace-nowrap">{line2}</span>
+      <span className="block">{line1}</span>
+      <span className="block">{line2}</span>
     </>
   );
 }
@@ -51,14 +51,15 @@ export default function AlignWithGodSection({ locale }: { locale: Locale }) {
 
             {section.goals.map((item, index) => (
               <div key={item.title} className="space-y-3 border-t border-zinc-200 pt-4 text-left">
-                <div className="flex items-baseline justify-between gap-4">
+                <div className="flex items-start justify-between gap-4">
                   <div className="text-xs uppercase tracking-widest text-zinc-500">
                     ({String(index + 1).padStart(2, "0")})
                   </div>
                   <div
-                    className={`w-full max-w-[320px] text-right font-semibold leading-snug ${
+                    className={`min-w-0 w-full max-w-[320px] text-right font-semibold leading-snug ${
                       isEnglish ? "text-base sm:text-lg" : "text-lg sm:text-xl"
                     }`}
+                    style={{ textWrap: "pretty" }}
                   >
                     {formatGoalTitle(item.title, isEnglish, item.titleLines)}
                   </div>

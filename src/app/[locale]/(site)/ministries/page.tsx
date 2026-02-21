@@ -1,6 +1,8 @@
 import MinistriesHeroMap from "@/components/MinistriesHeroMap";
 import MinistryCarousel from "@/components/MinistryCarousel";
+import AppImage from "@/components/AppImage";
 import { fixedTopSections, getFixedTopTitle } from "@/content/ministries/top-sections";
+import { resolveCmsImageUrl } from "@/lib/cms-media";
 import { getMinistriesListSafeResult } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
 
@@ -22,9 +24,9 @@ export default async function MinistriesIndex({ params }: { params: Promise<{ lo
   const retryLabel = normalizedLocale === "en" ? "Retry now" : "立即重試";
 
   const slides = items
-    .filter((item) => item.fields.heroImage?.node?.sourceUrl && item.section.top)
-    .slice(0, 8)
     .map((item) => {
+      const heroSrc = resolveCmsImageUrl(item.fields.heroImage?.node?.sourceUrl);
+      if (!heroSrc || !item.section.top) return null;
       const title = pickLocalized(normalizedLocale, {
         en: item.fields.titleEn,
         zh: item.fields.titleZh,
@@ -34,10 +36,12 @@ export default async function MinistriesIndex({ params }: { params: Promise<{ lo
       return {
         title,
         subtitle,
-        src: item.fields.heroImage?.node?.sourceUrl as string,
+        src: heroSrc,
         href: withLocale(normalizedLocale, `/ministries/${item.section.top}/${item.slug}`),
       };
-    });
+    })
+    .filter((item): item is NonNullable<typeof item> => Boolean(item))
+    .slice(0, 8);
 
   return (
     <main className="pb-10">
@@ -62,11 +66,12 @@ export default async function MinistriesIndex({ params }: { params: Promise<{ lo
               href={withLocale(normalizedLocale, `/ministries/${item.slug}`)}
               className="group relative block min-h-[300px] overflow-hidden md:min-h-[420px]"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={item.imageSrc}
+              <AppImage
+                mediaKey={item.imageKey}
+                locale={normalizedLocale}
                 alt={normalizedLocale === "en" ? item.titleEn : item.titleZh}
-                className="h-full w-full object-cover object-center transition duration-500 group-hover:scale-105"
+                fill
+                className="object-cover object-center transition duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
               <div className="absolute bottom-0 left-0 z-10 max-w-[90%] space-y-2 p-6 text-white md:p-8">

@@ -1,23 +1,18 @@
-import Image from "next/image";
+import AppImage from "@/components/AppImage";
 import { getDonationPortalConfig } from "@/lib/donation";
 import { getMessages, normalizeLocale } from "@/lib/i18n";
 
 export default async function DonationPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const messages = getMessages(normalizeLocale(locale));
+  const normalizedLocale = normalizeLocale(locale);
+  const messages = getMessages(normalizedLocale);
   const donationConfig = getDonationPortalConfig();
 
   return (
     <main className="pb-0">
       <section className="relative w-full overflow-hidden bg-zinc-900 text-white">
         <div className="relative h-[260px] w-full sm:h-[360px] md:h-[450px]">
-          <Image
-            src="/images/donation_hero.png"
-            alt="Donation"
-            fill
-            className="object-cover object-center"
-            priority
-          />
+          <AppImage mediaKey="donationHero" locale={normalizedLocale} fill className="object-cover object-center" priority />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/60" />
         </div>
         <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-24 md:pt-32">

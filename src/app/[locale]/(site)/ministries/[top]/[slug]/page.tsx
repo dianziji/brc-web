@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { resolveCmsImageUrl } from "@/lib/cms-media";
 import { getMinistryDetailSafeResult } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
 import { sanitizeRichHtml } from "@/lib/sanitize-html";
@@ -77,16 +78,18 @@ export default async function Page({
   });
   const safeSummaryHtml = sanitizeRichHtml(summary);
   const websiteUrl = data.fields.externalUrl ?? "";
+  const heroSrc = resolveCmsImageUrl(data.fields.heroImage?.node?.sourceUrl);
+  const heroAlt = data.fields.heroImage?.node?.altText || title;
 
   return (
     <main className="bg-white pt-20 md:pt-24">
       <section className="grid min-h-[calc(100vh-5rem)] md:grid-cols-2">
         <div className="relative min-h-[300px] md:min-h-[calc(100vh-6rem)]">
-          {data.fields.heroImage?.node?.sourceUrl ? (
+          {heroSrc ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={data.fields.heroImage.node.sourceUrl}
-              alt={data.fields.heroImage.node.altText || title}
+              src={heroSrc}
+              alt={heroAlt}
               className="h-full w-full object-cover object-center"
             />
           ) : (
