@@ -69,7 +69,7 @@ export default function CalendarPage() {
   const selectedDateLabel = formatDateLabel(new Date(selectedDate), locale);
 
   return (
-    <main className="mx-auto max-w-6xl px-6 pt-28 pb-12 md:pt-32 space-y-12">
+    <main className="mx-auto max-w-6xl px-6 pt-36 pb-12 md:pt-32 space-y-12">
       <section className="space-y-6">
         <div>
           <h1 className="text-3xl font-semibold">{messages.calendar.title}</h1>
@@ -77,27 +77,31 @@ export default function CalendarPage() {
         </div>
 
         <div className="relative overflow-hidden rounded-2xl border bg-zinc-900 text-white">
-          <div className="relative h-[360px] w-full">
+          <div className="relative h-[260px] w-full sm:h-[320px] md:h-[360px]">
             <Image src={activeSlide.image} alt={activeTitle} fill className="object-cover object-center" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           </div>
-          <div className="absolute inset-x-6 bottom-6 space-y-2">
-            <div className="text-2xl font-semibold">{activeTitle}</div>
+          <div className="absolute inset-x-4 bottom-4 space-y-1.5 sm:inset-x-6 sm:bottom-6 sm:space-y-2">
+            <div className="text-lg font-semibold sm:text-2xl">{activeTitle}</div>
             <div className="text-sm text-zinc-200">{activeSubtitle}</div>
             <div className="text-sm text-zinc-300">
               {activeSlide.date} · {activeSlide.time} · {activeSlide.location}
             </div>
           </div>
-          <div className="absolute right-6 top-6 flex items-center gap-2">
+          <div className="absolute right-3 top-3 flex items-center gap-1.5 sm:right-6 sm:top-6 sm:gap-2">
             {upcoming.map((event, index) => (
               <button
                 key={event.id}
                 aria-label={`Go to slide ${index + 1}`}
                 onClick={() => setSlideIndex(index)}
-                className={`h-2 w-2 rounded-full transition ${
-                  index === slideIndex ? "bg-white" : "bg-white/40"
-                }`}
-              />
+                className="inline-flex h-8 w-8 items-center justify-center sm:h-6 sm:w-6"
+              >
+                <span
+                  className={`h-2 w-2 rounded-full transition ${
+                    index === slideIndex ? "bg-white" : "bg-white/40"
+                  }`}
+                />
+              </button>
             ))}
           </div>
         </div>
@@ -107,7 +111,7 @@ export default function CalendarPage() {
         <div className="rounded-2xl border border-zinc-200 bg-white p-6">
           <div className="flex items-center justify-between">
             <button
-              className="text-sm text-zinc-600 hover:text-zinc-900"
+              className="inline-flex min-h-11 items-center text-sm text-zinc-600 hover:text-zinc-900"
               onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))}
             >
               {messages.calendar.prev}
@@ -116,14 +120,14 @@ export default function CalendarPage() {
               {currentMonth.toLocaleDateString(locale === "en" ? "en-US" : "zh-TW", { month: "long", year: "numeric" })}
             </div>
             <button
-              className="text-sm text-zinc-600 hover:text-zinc-900"
+              className="inline-flex min-h-11 items-center text-sm text-zinc-600 hover:text-zinc-900"
               onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1))}
             >
               {messages.calendar.next}
             </button>
           </div>
 
-          <div className="mt-6 grid grid-cols-7 gap-2 text-xs text-zinc-500">
+          <div className="mt-6 grid grid-cols-7 gap-1.5 text-[11px] text-zinc-500 sm:gap-2 sm:text-xs">
             {messages.calendar.weekDays.map((day) => (
               <div key={day} className="text-center uppercase tracking-wide">
                 {day}
@@ -131,10 +135,10 @@ export default function CalendarPage() {
             ))}
           </div>
 
-          <div className="mt-3 grid grid-cols-7 gap-2 text-sm">
+          <div className="mt-3 grid grid-cols-7 gap-1.5 text-xs sm:gap-2 sm:text-sm">
             {calendarDays.map(({ date, key }) => {
               if (!date) {
-                return <div key={key} className="h-12 rounded-lg bg-transparent" />;
+                return <div key={key} className="h-10 rounded-lg bg-transparent sm:h-12" />;
               }
               const dateKey = toDateKey(date);
               const hasEvent = calendarEvents.some((event) => event.date === dateKey);
@@ -143,7 +147,7 @@ export default function CalendarPage() {
                 <button
                   key={key}
                   onClick={() => setSelectedDate(dateKey)}
-                  className={`flex h-12 items-center justify-center rounded-lg border text-sm transition ${
+                  className={`flex h-10 items-center justify-center rounded-lg border text-xs transition sm:h-12 sm:text-sm ${
                     isSelected ? "border-amber-500 bg-amber-50 text-amber-800" : "border-transparent hover:border-zinc-200"
                   }`}
                 >

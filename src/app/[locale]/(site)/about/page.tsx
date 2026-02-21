@@ -67,7 +67,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <h2 className="text-3xl font-semibold">{messages.about.missionTitle}</h2>
               <div className="space-y-1 text-sm leading-relaxed text-zinc-600">
                 {splitFixedLines(messages.about.missionBody).map((line) => (
-                  <p key={line} className="md:whitespace-nowrap">
+                  <p key={line} className="lg:whitespace-nowrap">
                     {line}
                   </p>
                 ))}
@@ -77,7 +77,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <h2 className="text-3xl font-semibold">{messages.about.visionTitle}</h2>
               <div className="space-y-1 text-sm leading-relaxed text-zinc-600">
                 {splitFixedLines(messages.about.visionBody).map((line) => (
-                  <p key={line} className="md:whitespace-nowrap">
+                  <p key={line} className="lg:whitespace-nowrap">
                     {line}
                   </p>
                 ))}

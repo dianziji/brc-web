@@ -10,6 +10,14 @@
     "donation": "奉獻支持",
     "contact": "聯繫我們"
   },
+  "navMobile": {
+    "home": "主頁",
+    "about": "關於",
+    "calendar": "日曆",
+    "prayer": "禱告",
+    "ministries": "事工",
+    "trainings": "訓練"
+  },
   "header": {
     "title": "Bethel Renewal Center",
     "subtitle": "伯特利中心",

@@ -32,7 +32,10 @@ export default async function MinistriesArchive3DPage({
       </section>
 
       <section className="mx-auto max-w-6xl px-6 pb-16">
-        <div className="min-h-[120vh]">
+        <p className="mb-4 text-xs text-zinc-400 md:hidden">
+          {normalizedLocale === "en" ? "Swipe up/down to move in depth" : "上下滑動以切換景深"}
+        </p>
+        <div className="min-h-[70vh] md:min-h-[120vh]">
           <ArchiveScene3D items={archive} detailsLabel={detailsLabel} locale={normalizedLocale} />
         </div>
       </section>
