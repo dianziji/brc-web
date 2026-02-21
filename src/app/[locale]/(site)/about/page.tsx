@@ -1,6 +1,13 @@
-import Image from "next/image";
+import AppImage from "@/components/AppImage";
 import AlignWithGodSection from "@/components/AlignWithGodSection";
 import { getMessages, normalizeLocale, withLocale } from "@/lib/i18n";
+
+function splitFixedLines(text: string): string[] {
+  return text
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
+}
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -11,12 +18,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
     <main className="pb-16">
       <section className="relative w-full overflow-hidden bg-zinc-900 text-white">
         <div className="relative h-[320px] w-full md:h-[480px]">
-          <Image
-            src="/images/hand_b&w.jpeg"
-            alt="About BRC"
-            fill
-            className="object-cover object-center"
-          />
+          <AppImage mediaKey="aboutHero" locale={normalizedLocale} fill className="object-cover object-center" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/60" />
         </div>
         <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-24 md:pt-32">
@@ -45,35 +47,41 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           </div>
         </div>
         <div className="relative min-h-[320px] w-full md:min-h-[520px]">
-          <Image
-            src="/images/BRCstory.jpeg"
-            alt="BRC Story"
-            fill
-            className="object-cover object-center"
-            priority
-          />
+          <AppImage mediaKey="aboutStory" locale={normalizedLocale} fill className="object-cover object-center"  />
         </div>
 
       </section>
       <section className="grid lg:grid-cols-2">
         <div className="relative min-h-[320px] w-full md:min-h-[520px]">
-          <Image
-            src="/images/mission&vision.jpeg"
-            alt="Mission and Vision"
+          <AppImage
+            mediaKey="aboutMissionVision"
+            locale={normalizedLocale}
             fill
             className="object-cover object-center"
-            priority
+      
           />
         </div>
         <div className="bg-white px-6 py-24 lg:px-12">
-          <div className="mx-auto max-w-xl space-y-8">
+          <div className="mx-auto max-w-2xl space-y-8">
             <div className="space-y-4">
               <h2 className="text-3xl font-semibold">{messages.about.missionTitle}</h2>
-              <p className="text-sm text-zinc-600">{messages.about.missionBody}</p>
+              <div className="space-y-1 text-sm leading-relaxed text-zinc-600">
+                {splitFixedLines(messages.about.missionBody).map((line) => (
+                  <p key={line} className="md:whitespace-nowrap">
+                    {line}
+                  </p>
+                ))}
+              </div>
             </div>
             <div className="space-y-4">
               <h2 className="text-3xl font-semibold">{messages.about.visionTitle}</h2>
-              <p className="text-sm text-zinc-600">{messages.about.visionBody}</p>
+              <div className="space-y-1 text-sm leading-relaxed text-zinc-600">
+                {splitFixedLines(messages.about.visionBody).map((line) => (
+                  <p key={line} className="md:whitespace-nowrap">
+                    {line}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         </div>

@@ -1,5 +1,7 @@
 import Link from "next/link";
+import AppImage from "@/components/AppImage";
 import { getFixedTopSection, getFixedTopTitle } from "@/content/ministries/top-sections";
+import { resolveCmsImageUrl } from "@/lib/cms-media";
 import { getMinistriesListSafeResult } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
 
@@ -41,8 +43,7 @@ export default async function Page({
       <section className="relative w-full overflow-hidden bg-zinc-950 text-white">
         <div className="relative h-[280px] w-full md:h-[360px]">
           {topSection ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={topSection.imageSrc} alt={topTitle} className="h-full w-full object-cover object-center" />
+            <AppImage mediaKey={topSection.imageKey} locale={normalizedLocale} alt={topTitle} fill className="object-cover object-center" />
           ) : (
             <div className="h-full w-full bg-zinc-800" />
           )}
@@ -99,6 +100,8 @@ export default async function Page({
                 })
               );
               const link = withLocale(normalizedLocale, `/ministries/${top}/${item.slug}`);
+              const heroSrc = resolveCmsImageUrl(item.fields.heroImage?.node?.sourceUrl);
+              const heroAlt = item.fields.heroImage?.node?.altText || title;
 
               return (
                 <a
@@ -106,11 +109,11 @@ export default async function Page({
                   href={link}
                   className="group overflow-hidden rounded-xl border border-zinc-200 bg-white transition hover:shadow-sm"
                 >
-                  {item.fields.heroImage?.node?.sourceUrl ? (
+                  {heroSrc ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
-                      src={item.fields.heroImage.node.sourceUrl}
-                      alt={item.fields.heroImage.node.altText || title}
+                      src={heroSrc}
+                      alt={heroAlt}
                       className="h-44 w-full object-cover object-center"
                     />
                   ) : (

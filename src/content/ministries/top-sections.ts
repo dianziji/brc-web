@@ -1,4 +1,5 @@
 import type { Locale } from "@/lib/i18n";
+import type { MediaKey } from "@/content/media";
 
 export type FixedTopSection = {
   slug: string;
@@ -6,7 +7,7 @@ export type FixedTopSection = {
   titleEn: string;
   descZh: string;
   descEn: string;
-  imageSrc: string;
+  imageKey: MediaKey;
 };
 
 export const fixedTopSections: FixedTopSection[] = [
@@ -16,7 +17,7 @@ export const fixedTopSections: FixedTopSection[] = [
     titleEn: "Mission",
     descZh: "跨文化與社區關懷的宣教與服務。",
     descEn: "Cross-cultural and community outreach ministries.",
-    imageSrc: "/images/mission.jpeg",
+    imageKey: "ministriesTopMissions",
   },
   {
     slug: "youth",
@@ -24,7 +25,7 @@ export const fixedTopSections: FixedTopSection[] = [
     titleEn: "Youth",
     descZh: "裝備青年、建造下一代門徒。",
     descEn: "Equip youth and build the next generation of disciples.",
-    imageSrc: "/images/youthMinistry2.jpeg",
+    imageKey: "ministriesTopYouth",
   },
   {
     slug: "family",
@@ -32,7 +33,7 @@ export const fixedTopSections: FixedTopSection[] = [
     titleEn: "Family",
     descZh: "支持家庭與婚姻的成長與更新。",
     descEn: "Support families and marriages for growth and renewal.",
-    imageSrc: "/images/familyMinistry.jpeg",
+    imageKey: "ministriesTopFamily",
   },
 ];
 

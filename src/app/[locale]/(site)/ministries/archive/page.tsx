@@ -1,4 +1,4 @@
-import Image from "next/image";
+import AppImage from "@/components/AppImage";
 import ArchiveGrid from "@/components/ArchiveGrid";
 import { getSortedArchiveItems } from "@/content/ministries/archive";
 import { getMessages, normalizeLocale } from "@/lib/i18n";
@@ -18,12 +18,7 @@ export default async function MinistriesArchivePage({
     <main className="bg-zinc-50 text-zinc-900">
       <section className="relative w-full overflow-hidden bg-zinc-900 text-white">
         <div className="relative h-[320px] w-full md:h-[480px]">
-          <Image
-            src="/images/AdobeStock_462139672.jpeg"
-            alt="Archive Ministries"
-            fill
-            className="object-cover object-center"
-          />
+          <AppImage mediaKey="ministriesArchiveHero" locale={normalizedLocale} fill className="object-cover object-center" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/60" />
         </div>
         <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-24 md:pt-32">

@@ -20,9 +20,9 @@
   "footer": {
     "title": "Bethel Renewal Center",
     "subtitle": "伯特利中心",
-    "location": "Lake Hiawatha, NJ placeholder",
-    "email": "info@brc.org placeholder",
-    "phone": "(973) 000-0000 placeholder",
+    "location": "Lake Hiawatha, NJ 07034",
+    "email": "info@brc.org p",
+    "phone": "(862)-261-0116",
     "contactCta": "Contact Us",
     "quickLinks": "Quick Links",
     "subscribeTitle": "Subscribe",
@@ -49,13 +49,11 @@
     ],
     "mission": {
       "title": "Mission",
-      "body": "Rooted in worship and prayer, we connect churches and serve communities through gatherings, training, and shared mission. We seek God together, build unity across generations and cultures, and raise up lives for His purposes."
+      "body": "Equip believers and leaders to grow in truth and in life\n Building cross-cultural, cross-generational, and cross-disciplinary connections and cooperation\n Propagating the gospel and kingdom values through training, media, innovation, and practice\n Becoming a catalyst for church, mission, and workplace transformation"
     },
     "vision": {
       "title": "Vision",
-      "body1": "To become a multi-cultural, multi-generational network, cultivating a lifestyle of worship and prayer while building a spiritual home together.",
-      "body2": "We connect believers across the East Coast and beyond, seeking God through worship and prayer to walk in His calling and renew this generation."
-    },
+      "body": "Align with God \n Become a cross-generational, cross-cultural, and cross-disciplinary platform of blessing\n Raise up disciples, Equip leaders, Impact society\n Bear witness to God’s Kingdom among the nations"    },
     "stats": [
       { "value": "120+", "label": "Partner Organizations" },
       { "value": "200+", "label": "Volunteers" },
@@ -87,7 +85,7 @@
       "cta": "Learn about prayer room",
       "hoursTitle": "Hours",
       "hours1": "Tue–Sat 10:00 AM - 6:00 PM",
-      "hours2": "Appointment: (973) 000-0000"
+      "hours2": "Appointment: (862)-261-0116"
     },
     "trainings": {
       "title": "Discipleship",
@@ -118,7 +116,7 @@
       "title": "Contact Us",
       "address": "Address: Bethel Renewal Center, Lake Hiawatha, NJ",
       "email": "Email: info@brc.org",
-      "phone": "Phone: (973) 000-0000",
+      "phone": "Phone: (862)-261-0116",
       "namePlaceholder": "Name",
       "emailPlaceholder": "Email",
       "messagePlaceholder": "Message",
@@ -130,11 +128,12 @@
     "heroSubtitle": "Bethel Renewal Center",
     "heroBody": "BRC is a resource-based ministry in New Jersey, devoted to worship, prayer, and cross-cultural connection through events, training, and partnerships that serve cities and nations.",
     "storyTitle": "Our Story",
-    "storyBody": "We advance worship and prayer initiatives and connect churches and organizations, building partnerships across generations and cultures.",
+    "storyBody": "Bethel Resource Center (BRC), located in New Jersey, North America, is a resource center dedicated to building the Bride of Christ, with an affiliated worship and prayer room. We are committed to promoting worship and prayer initiatives and fostering connections among churches. We also assist churches and ministry organizations in hosting events, and welcome inquiries. Through wholehearted and fervent worship, praise, and prayer, we seek to go beyond form, generation, language, ethnicity, and denomination, pursuing unity in one accord. We long to live out a vibrant lifestyle of faith—rejoicing daily, walking in confidence, sharing the Gospel wherever we go, praying continually, and living in victory. We are called to carry the vision of worship and prayer everywhere and to unite with churches to rebuild the fallen tent of David together in one heart and purpose.",
     "missionTitle": "Mission",
-    "missionBody": "Rooted in worship and prayer, we connect churches and serve communities through gatherings, training, and shared mission, seeking God together and building unity across generations and cultures.",
+    "missionBody":  "Equip believers and leaders to grow in truth and in life\n Building cross-cultural, cross-generational, and cross-disciplinary connections and cooperation\n Propagating the gospel and kingdom values through training, media, innovation, and practice\n Becoming a catalyst for church, mission, and workplace transformation",
     "visionTitle": "Vision",
-    "visionBody": "To become a multi-cultural, multi-generational network, cultivating a lifestyle of worship and prayer while building a spiritual home together.",
+    "visionBody": "Align with God \n Become a cross-generational, cross-cultural, and cross-disciplinary platform of blessing\n Raise up disciples, Equip leaders, Impact society\n Bear witness to God’s Kingdom among the nations",
+
     "directionTitle": "Our Direction",
     "directionBody": "We connect believers across the East Coast and beyond, seeking God through worship and prayer to walk in His calling and renew this generation.",
     "valuesTitle": "Core Values",
@@ -164,7 +163,7 @@
     "headline": ["ALIGN", "WITH", "GOD"],
     "goals": [
       {
-        "title": "Seek First God's Kingdom and Righteousness",
+        "title": "Seek God's Kingdom and Righteousness",
         "titleLines": [],
         "ref": "Matthew 6:33",
         "verse": "\"But seek first his kingdom and his righteousness, and all these things will be given to you as well.\"",
@@ -277,29 +276,73 @@
         "body": "A 24/7 global altar of worship and prayer, rotating by Eastern Time (EST).",
         "detail1": "Format: Zoom 24/7 prayer gathering",
         "detail2": "Time zone: Eastern Time (EST)",
-        "cta1": "Join prayer meeting",
-        "cta2": "View time slot list",
+        "cta1": "Join Zoom Prayer",
+        "cta2": "Prayer meeting details",
+        "cta3": "View claimed time slots",
+        "cta4": "",
+        "cta5": "",
         "note": "To avoid background noise, please mute your microphone after joining and unmute only when speaking."
       },
       {
         "title": "BRC Prayer Platform",
         "body": "Weekday 7:00 AM sharing and Tuesday 8:00 PM prayer (EST).",
         "detail1": "Content: weekly focus and prayer points",
-        "detail2": "Access: find recordings in the media library",
-        "cta1": "This week's sharing"
+        "detail2": "Access: click the link for this week's sharing and prayer focus",
+        "cta1": "Join Zoom Prayer",
+        "cta2": "Morning Prayer Join Guide",
+        "cta3": "",
+        "cta4": "View this week's sharing and prayer focus",
+        "cta5": "",
+        "note": ""
       },
       {
         "title": "RPG Revival Prayer Gathering",
         "body": "Daily 8:30 AM (EST) prayer gathering. Join us in revival prayer.",
         "detail1": "Time: Mon–Sun 8:30 AM (EST)",
         "detail2": "Format: online gathering and prayer",
-        "cta1": "Join the prayer gathering"
+        "cta1": "Join Zoom Gathering",
+        "cta2": "View event poster",
+        "cta3": "",
+        "cta4": "",
+        "cta5": "",
+        "note": ""
       }
     ],
+    "morningGuide": {
+      "title": "How to Join Morning Prayer",
+      "subtitle": "Key instructions are now available directly on this page.",
+      "zoomLinkLabel": "Open Morning Prayer Zoom",
+      "scheduleTitle": "Meeting Times (ET)",
+      "schedule": [
+        "Weekday 7:00 AM themed sharing",
+        "Tuesday 8:00 PM evening prayer",
+        "Use the same Zoom entry to join"
+      ],
+      "stepsTitle": "Join Steps",
+      "steps": [
+        "Click the \"Join Zoom Prayer\" button to enter directly.",
+        "If Zoom is not installed, install the desktop/mobile app first.",
+        "Mute your microphone after joining, then unmute only when speaking.",
+        "Use a display name like \"Region-Name\" to help team coordination."
+      ],
+      "notesTitle": "Online Prayer Notes",
+      "notes": [
+        "Keep prayer concise and focused; avoid repeated wording or too many topics at once.",
+        "Try to keep each spoken prayer within 1-2 minutes.",
+        "After you pray, allow those who have not prayed yet to go first.",
+        "Due to system limitations, one person should pray at a time to reduce audio noise.",
+        "Besides receiving prayer topics, ask the Holy Spirit how to pray for each topic.",
+        "Listen to one another's prayers and discern together."
+      ],
+      "shareTitle": "Share PDF",
+      "shareBody": "If you want to forward the original handout, use this external PDF link.",
+      "shareLinkLabel": "Share PDF (external link)",
+      "closeLabel": "Close"
+    },
     "contact": {
       "address": "Bethel Renewal Center, Lake Hiawatha, NJ 07034",
       "email": "info@brc.org",
-      "phone": "(973) 000-0000"
+      "phone": "(862)-261-0116"
     }
   }
 }

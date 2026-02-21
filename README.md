@@ -130,6 +130,9 @@ Open http://localhost:3000 (will redirect to `/zh`).
 - `src/lib/rbac` - role/permission matrix foundation
 - `src/lib/i18n` - locale utilities + dictionaries
 - `src/lib/sections.ts` - section selection helpers
+- `src/content/media.ts` - centralized static media registry (local assets)
+- `src/lib/cms-media.ts` - CMS/remote image URL normalization helper
+- `src/components/AppImage.tsx` - wrapper for rendering static media keys via `next/image`
 
 ## Notes
 

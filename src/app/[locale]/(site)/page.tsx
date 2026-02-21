@@ -1,7 +1,10 @@
 import Image from "next/image";
 import AlignWithGodSection from "@/components/AlignWithGodSection";
+import AppImage from "@/components/AppImage";
 import HomeContactForm from "@/components/HomeContactForm";
 import MinistryCarousel from "@/components/MinistryCarousel";
+import { getMediaSrc } from "@/content/media";
+import { resolveCmsImageUrl } from "@/lib/cms-media";
 import { getFeaturedDiscipleshipPrograms, hasLocalDetail } from "@/lib/discipleship";
 import { getFixedTopTitle } from "@/content/ministries/top-sections";
 import { getMinistriesListSafe } from "@/lib/ministries";
@@ -12,15 +15,22 @@ function excerpt(text: string, maxLength: number) {
   return `${text.slice(0, maxLength).trim()}...`;
 }
 
+function splitFixedLines(text: string): string[] {
+  return text
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
+}
+
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
   const ministryItems = await getMinistriesListSafe();
   const wpSlides = ministryItems
-    .filter((item) => item.fields.heroImage?.node?.sourceUrl && item.section.top)
-    .slice(0, 8)
     .map((item) => {
+      const heroSrc = resolveCmsImageUrl(item.fields.heroImage?.node?.sourceUrl);
+      if (!heroSrc || !item.section.top) return null;
       const title = pickLocalized(normalizedLocale, {
         en: item.fields.titleEn,
         zh: item.fields.titleZh,
@@ -32,16 +42,18 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       return {
         title,
         subtitle,
-        src: item.fields.heroImage?.node?.sourceUrl as string,
+        src: heroSrc,
         href: withLocale(normalizedLocale, `/ministries/${item.section.top}/${item.slug}`),
       };
-    });
+    })
+    .filter((item): item is NonNullable<typeof item> => Boolean(item))
+    .slice(0, 8);
   const slides =
     wpSlides.length > 0
       ? wpSlides
       : messages.home.carousel.map((item) => ({
           ...item,
-          src: "/images/hero.jpeg",
+          src: getMediaSrc("heroFallback"),
           href: withLocale(normalizedLocale, "/ministries"),
         }));
   const featuredTrainings = getFeaturedDiscipleshipPrograms(3).map((item) => {
@@ -93,18 +105,19 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="bg-zinc-50 min-h-[35vh]">
         <div className="grid md:grid-cols-2 md:min-h-[35vh]">
           <div className="relative min-h-[240px] md:min-h-[35vh]">
-            <Image
-              src="/images/mission.jpeg"
-              alt="Mission"
-              fill
-              className="object-cover object-center"
-            />
+            <AppImage mediaKey="homeMission" locale={normalizedLocale} fill className="object-cover object-center" />
           </div>
           
           <div className="flex items-center">
-            <div className="mx-auto max-w-xl space-y-4 px-6 py-10 md:py-14">
+            <div className="mx-auto max-w-2xl space-y-4 px-6 py-10 md:py-14">
               <h2 className="text-3xl font-semibold">{messages.home.mission.title}</h2>
-              <p className="text-sm text-zinc-600">{messages.home.mission.body}</p>
+              <div className="space-y-1 text-sm leading-relaxed text-zinc-600">
+                {splitFixedLines(messages.home.mission.body).map((line) => (
+                  <p key={line} className="md:whitespace-nowrap">
+                    {line}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -113,19 +126,20 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="bg-white min-h-[35vh]">
         <div className="grid md:grid-cols-2 md:min-h-[35vh]">
           <div className="flex items-center">
-            <div className="mx-auto max-w-xl space-y-4 px-6 py-10 md:py-14">
+            <div className="mx-auto max-w-2xl space-y-4 px-6 py-10 md:py-14">
               <h2 className="text-3xl font-semibold">{messages.home.vision.title}</h2>
-              <p className="text-sm text-zinc-600">{messages.home.vision.body1}</p>
-              <p className="text-sm text-zinc-600">{messages.home.vision.body2}</p>
+              <div className="space-y-1 text-sm leading-relaxed text-zinc-600">
+                {splitFixedLines(messages.home.vision.body).map((line) => (
+                  <p key={line} className="md:whitespace-nowrap">
+                    {line}
+                  </p>
+                ))}
+              </div>
+           
             </div>
           </div>
           <div className="relative min-h-[240px] md:min-h-[35vh]">
-            <Image
-              src="/images/vision.jpeg"
-              alt="Vision"
-              fill
-              className="object-cover object-center"
-            />
+            <AppImage mediaKey="homeVision" locale={normalizedLocale} fill className="object-cover object-center" />
           </div>
         </div>
       </section>
@@ -150,12 +164,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="bg-white min-h-[35vh]">
         <div className="grid md:grid-cols-2 md:items-center">
           <div className="relative min-h-[480px] w-full md:min-h-[35vh]">
-            <Image
-              src="/images/prayerRoom.jpeg"
-              alt="Prayer Room"
-              fill
-              className="object-cover object-center"
-            />
+            <AppImage mediaKey="homePrayerRoom" locale={normalizedLocale} fill className="object-cover object-center" />
           </div>
           <div className="flex items-center">
             <div className="mx-auto max-w-xl space-y-4 px-6 py-10 md:py-14">

@@ -13,6 +13,14 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "bethelrc.org",
+      },
+      {
+        protocol: "https",
+        hostname: "www.bethelrc.org",
+      },
+      {
+        protocol: "https",
         hostname: "**.wp.com",
       },
     ],

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import AppImage from "@/components/AppImage";
 import Link from "next/link";
 import {
   discipleshipLearningStepLabel,
@@ -55,7 +55,7 @@ export default async function DiscipleshipPage({ params }: { params: Promise<{ l
     <main className="pb-16">
       <section className="relative w-full overflow-hidden bg-zinc-900 text-white">
         <div className="relative h-[320px] w-full md:h-[480px]">
-          <Image src="/images/discipleship.png" alt="Discipleship" fill className="object-cover object-center" />
+          <AppImage mediaKey="discipleshipHero" locale={normalizedLocale} fill className="object-cover object-center" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/45 to-black/70" />
         </div>
         <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-24 md:pt-32">
