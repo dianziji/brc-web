@@ -6,6 +6,7 @@ import MinistryCarousel from "@/components/MinistryCarousel";
 import { getMediaSrc } from "@/content/media";
 import { resolveCmsImageUrl } from "@/lib/cms-media";
 import { getFeaturedDiscipleshipPrograms, hasLocalDetail } from "@/lib/discipleship";
+import { getCalendarEventsSafeResult } from "@/lib/events";
 import { getFixedTopTitle } from "@/content/ministries/top-sections";
 import { getMinistriesListSafe } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
@@ -22,11 +23,41 @@ function splitFixedLines(text: string): string[] {
     .filter((line) => line.length > 0);
 }
 
+function toTodayKey(): string {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, "0");
+  const d = String(now.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function parseDateKey(dateKey: string): Date | null {
+  const matched = dateKey.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!matched) return null;
+  const y = Number(matched[1]);
+  const m = Number(matched[2]);
+  const d = Number(matched[3]);
+  if (!Number.isInteger(y) || !Number.isInteger(m) || !Number.isInteger(d)) return null;
+  if (m < 1 || m > 12 || d < 1 || d > 31) return null;
+  return new Date(y, m - 1, d);
+}
+
+function formatDateLabel(dateKey: string, locale: "zh" | "en"): string {
+  const date = parseDateKey(dateKey);
+  if (!date) return dateKey;
+  return date.toLocaleDateString(locale === "en" ? "en-US" : "zh-TW", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    weekday: "short",
+  });
+}
+
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
-  const ministryItems = await getMinistriesListSafe();
+  const [ministryItems, eventResult] = await Promise.all([getMinistriesListSafe(), getCalendarEventsSafeResult()]);
   const wpSlides = ministryItems
     .map((item) => {
       const heroSrc = resolveCmsImageUrl(item.fields.heroImage?.node?.sourceUrl);
@@ -71,6 +102,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       imageSrc: item.homeImage ?? "/images/discipleship.png",
     };
   });
+  const todayKey = toTodayKey();
+  const upcomingEvents = eventResult.items.filter((item) => item.date >= todayKey).slice(0, 3);
 
   return (
     <main className="min-h-screen bg-white text-zinc-900">
@@ -192,6 +225,44 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
       </section>
 
+      {upcomingEvents.length > 0 ? (
+        <section className="bg-white">
+          <div className="mx-auto max-w-6xl px-6 py-12">
+            <div className="flex items-end justify-between">
+              <h2 className="text-3xl font-semibold">{messages.home.events.title}</h2>
+              <a className="text-sm text-zinc-700 underline" href={withLocale(normalizedLocale, "/calendar")}>
+                {messages.home.events.cta}
+              </a>
+            </div>
+            <div className="mt-6 grid gap-6 md:grid-cols-3">
+              {upcomingEvents.map((item) => {
+                const title = normalizedLocale === "en" ? item.titleEn : item.titleZh;
+                const subtitle = normalizedLocale === "en" ? item.titleZh : item.titleEn;
+                const dateLabel = formatDateLabel(item.date, normalizedLocale);
+                const meta = [dateLabel, item.time, item.location].filter((value) => value && value.length > 0).join(" · ");
+                return (
+                  <article key={item.id} className="overflow-hidden rounded-2xl border border-zinc-200 bg-white">
+                    <div className="relative h-44 w-full bg-zinc-100">
+                      <Image src={item.image} alt={title} fill className="object-cover object-center" />
+                    </div>
+                    <div className="space-y-2 p-5">
+                      <div className="text-lg font-semibold text-zinc-900">{title}</div>
+                      <div className="text-sm text-zinc-500">{subtitle}</div>
+                      <div className="text-sm text-zinc-600">{meta}</div>
+                      <a
+                        className="inline-flex pt-1 text-sm font-medium text-zinc-900 underline"
+                        href={withLocale(normalizedLocale, `/events/${item.id}`)}
+                      >
+                        {messages.home.events.detailsCta}
+                      </a>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="bg-zinc-50">
         <div className="mx-auto max-w-6xl px-6 py-12">

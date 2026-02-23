@@ -15,6 +15,7 @@ const FALLBACK_EVENT_IMAGE = "/images/hero.jpeg";
 const DRAFT_STATUSES = new Set<EventLifecycleStatus>(["DRAFT"]);
 const ARCHIVED_STATUSES = new Set<EventLifecycleStatus>(["ARCHIVED"]);
 const DEFAULT_EVENT_DISPLAY_TIME_ZONE = "America/New_York";
+const USE_WALL_CLOCK_EVENT_TIME = process.env.EVENT_TIME_DISPLAY_MODE?.trim().toLowerCase() !== "timezone";
 
 type EventFieldImage =
   | string
@@ -524,6 +525,144 @@ query EventsListMinimal($first: Int!) {
 }
 `;
 
+const EVENTS_QUERY_MINIMAL_MIXED_MEDIA_NODE_FRAGMENT_REG_LOWER = /* GraphQL */ `
+query EventsListMinimalMixedMediaNodeFragmentRegLower($first: Int!) {
+  events(first: $first) {
+    nodes {
+      id
+      slug
+      status
+      date
+      title
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+      eventFields {
+        startAt: startat
+        registrationMode: registrationmode
+        registrationUrl: registrationurl
+        primaryMinistrySlug: primaryministryslug
+        relatedMinistrySlugs: relatedministryslugs
+        coverImage {
+          node {
+            id
+            ... on MediaItem {
+              sourceUrl
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
+const EVENTS_QUERY_MINIMAL_MIXED_MEDIA_NODE_FRAGMENT_REG_MINISTRY_CAMEL = /* GraphQL */ `
+query EventsListMinimalMixedMediaNodeFragmentRegMinistryCamel($first: Int!) {
+  events(first: $first) {
+    nodes {
+      id
+      slug
+      status
+      date
+      title
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+      eventFields {
+        startAt: startat
+        registrationMode
+        registrationUrl
+        primaryMinistrySlug
+        relatedMinistrySlugs
+        coverImage {
+          node {
+            id
+            ... on MediaItem {
+              sourceUrl
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
+const EVENTS_QUERY_MINIMAL_MIXED_MEDIA_NODE_FRAGMENT_REG_MINISTRY_LOWER = /* GraphQL */ `
+query EventsListMinimalMixedMediaNodeFragmentRegMinistryLower($first: Int!) {
+  events(first: $first) {
+    nodes {
+      id
+      slug
+      status
+      date
+      title
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+      eventFields {
+        startAt: startat
+        registrationMode: registrationmode
+        registrationUrl: registrationurl
+        primaryMinistrySlug: primaryministryslug
+        relatedMinistrySlugs: relatedministryslugs
+        coverImage {
+          node {
+            id
+            ... on MediaItem {
+              sourceUrl
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
+const EVENTS_QUERY_MINIMAL_MIXED_MEDIA_NODE_FRAGMENT_REG_CAMEL = /* GraphQL */ `
+query EventsListMinimalMixedMediaNodeFragmentRegCamel($first: Int!) {
+  events(first: $first) {
+    nodes {
+      id
+      slug
+      status
+      date
+      title
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+      eventFields {
+        startAt: startat
+        registrationMode
+        registrationUrl
+        coverImage {
+          node {
+            id
+            ... on MediaItem {
+              sourceUrl
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
 const EVENTS_QUERY_MINIMAL_MIXED_MEDIA_NODE_FRAGMENT = /* GraphQL */ `
 query EventsListMinimalMixedMediaNodeFragment($first: Int!) {
   events(first: $first) {
@@ -936,15 +1075,15 @@ function normalizeLifecycleStatus(raw?: string | null): EventLifecycleStatus | u
   return undefined;
 }
 
-function normalizeRegistrationMode(raw?: string | null): EventRegistrationMode | undefined {
-  if (!raw) return undefined;
+function normalizeRegistrationMode(raw?: unknown): EventRegistrationMode | undefined {
+  if (typeof raw !== "string") return undefined;
   const normalized = raw.trim().toLowerCase();
   if (normalized === "external" || normalized === "internal") return normalized;
   return undefined;
 }
 
-function normalizePaymentMode(raw?: string | null): EventPaymentMode | undefined {
-  if (!raw) return undefined;
+function normalizePaymentMode(raw?: unknown): EventPaymentMode | undefined {
+  if (typeof raw !== "string") return undefined;
   const normalized = raw.trim().toLowerCase();
   if (normalized === "none" || normalized === "fee" || normalized === "donation") return normalized;
   return undefined;
@@ -984,6 +1123,9 @@ function toDateKey(input?: string | null): string | null {
   const trimmed = input.trim();
   if (!trimmed) return null;
 
+  const matched = trimmed.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (matched) return `${matched[1]}-${matched[2]}-${matched[3]}`;
+
   const dateOnlyMatched = trimmed.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (dateOnlyMatched) return `${dateOnlyMatched[1]}-${dateOnlyMatched[2]}-${dateOnlyMatched[3]}`;
 
@@ -991,14 +1133,36 @@ function toDateKey(input?: string | null): string | null {
   if (Number.isNaN(date.getTime())) return null;
   const byTimeZone = toDateKeyInTimeZone(date);
   if (byTimeZone) return byTimeZone;
-
-  const matched = trimmed.match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if (matched) return `${matched[1]}-${matched[2]}-${matched[3]}`;
   return null;
+}
+
+function toTwelveHourTimeLabel(hour24: number, minute: number): string {
+  const period = hour24 >= 12 ? "PM" : "AM";
+  const hour12 = hour24 % 12 || 12;
+  const minuteText = String(minute).padStart(2, "0");
+  return `${hour12}:${minuteText} ${period}`;
 }
 
 function isoToTimeLabel(input?: string | null): string | null {
   if (!input) return null;
+  if (USE_WALL_CLOCK_EVENT_TIME) {
+    const matched = input.match(/T(\d{2}):(\d{2})/);
+    if (matched) {
+      const hour24 = Number(matched[1]);
+      const minute = Number(matched[2]);
+      if (
+        Number.isInteger(hour24) &&
+        Number.isInteger(minute) &&
+        hour24 >= 0 &&
+        hour24 <= 23 &&
+        minute >= 0 &&
+        minute <= 59
+      ) {
+        return toTwelveHourTimeLabel(hour24, minute);
+      }
+    }
+  }
+
   const date = new Date(input);
   if (!Number.isFinite(date.getTime())) return null;
   return new Intl.DateTimeFormat("en-US", {
@@ -1010,7 +1174,7 @@ function isoToTimeLabel(input?: string | null): string | null {
 }
 
 function normalizeTimeLabel(fields?: EventFields | null): string {
-  const explicit = fields?.time?.trim();
+  const explicit = typeof fields?.time === "string" ? fields.time.trim() : "";
   if (explicit) return explicit;
 
   const start = isoToTimeLabel(fields?.startAt);
@@ -1021,11 +1185,22 @@ function normalizeTimeLabel(fields?: EventFields | null): string {
 }
 
 function normalizeLocation(fields?: EventFields | null): string {
-  return fields?.location?.trim() || "";
+  return normalizeText(fields?.location) || "";
 }
 
-function normalizeText(input?: string | null): string | undefined {
-  const trimmed = input?.trim();
+function normalizeText(input?: unknown): string | undefined {
+  if (typeof input === "object" && input !== null) {
+    if ("url" in input && typeof (input as { url?: unknown }).url === "string") {
+      const urlTrimmed = (input as { url: string }).url.trim();
+      return urlTrimmed ? urlTrimmed : undefined;
+    }
+    if ("href" in input && typeof (input as { href?: unknown }).href === "string") {
+      const hrefTrimmed = (input as { href: string }).href.trim();
+      return hrefTrimmed ? hrefTrimmed : undefined;
+    }
+  }
+  if (typeof input !== "string") return undefined;
+  const trimmed = input.trim();
   return trimmed ? trimmed : undefined;
 }
 
@@ -1061,6 +1236,21 @@ function normalizeRelatedMinistrySlugs(value: unknown): string[] | undefined {
   }
 
   return undefined;
+}
+
+function canonicalizeSlug(value: string): string {
+  return value.trim().toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+
+function slugMatches(left: string | undefined, right: string): boolean {
+  if (!left) return false;
+  const leftNormalized = left.trim().toLowerCase();
+  const rightNormalized = right.trim().toLowerCase();
+  if (!leftNormalized || !rightNormalized) return false;
+  if (leftNormalized === rightNormalized) return true;
+  const leftCanonical = canonicalizeSlug(leftNormalized);
+  const rightCanonical = canonicalizeSlug(rightNormalized);
+  return Boolean(leftCanonical && rightCanonical && leftCanonical === rightCanonical);
 }
 
 function parseDate(value?: string): Date | null {
@@ -1158,6 +1348,16 @@ async function queryWpEvents(): Promise<EventsGQL> {
 
     const attempts: Array<{ query: string; label: string }> = [
       { query: EVENTS_QUERY_FULL_LOWER, label: "wpgraphql:events-list:full-lower" },
+      {
+        query: EVENTS_QUERY_MINIMAL_MIXED_MEDIA_NODE_FRAGMENT_REG_MINISTRY_LOWER,
+        label: "wpgraphql:events-list:minimal-mixed-media-node-fragment-reg-ministry-lower",
+      },
+      {
+        query: EVENTS_QUERY_MINIMAL_MIXED_MEDIA_NODE_FRAGMENT_REG_MINISTRY_CAMEL,
+        label: "wpgraphql:events-list:minimal-mixed-media-node-fragment-reg-ministry-camel",
+      },
+      { query: EVENTS_QUERY_MINIMAL_MIXED_MEDIA_NODE_FRAGMENT_REG_LOWER, label: "wpgraphql:events-list:minimal-mixed-media-node-fragment-reg-lower" },
+      { query: EVENTS_QUERY_MINIMAL_MIXED_MEDIA_NODE_FRAGMENT_REG_CAMEL, label: "wpgraphql:events-list:minimal-mixed-media-node-fragment-reg-camel" },
       { query: EVENTS_QUERY_MINIMAL_MIXED_MEDIA_NODE_FRAGMENT, label: "wpgraphql:events-list:minimal-mixed-media-node-fragment" },
       { query: EVENTS_QUERY_MINIMAL_MIXED_MEDIA_NODE, label: "wpgraphql:events-list:minimal-mixed-media-node" },
       { query: EVENTS_QUERY_MINIMAL_MIXED_MEDIA, label: "wpgraphql:events-list:minimal-mixed-media" },
@@ -1262,8 +1462,8 @@ export async function getEventsByMinistry(
   const all = await getAllEvents();
 
   const items = all.filter((item) => {
-    const primaryMatched = item.primaryMinistrySlug?.toLowerCase() === normalized;
-    const relatedMatched = item.relatedMinistrySlugs?.some((slug) => slug.toLowerCase() === normalized) || false;
+    const primaryMatched = slugMatches(item.primaryMinistrySlug, normalized);
+    const relatedMatched = item.relatedMinistrySlugs?.some((slug) => slugMatches(slug, normalized)) || false;
     const archivedMatched = includeArchived ? true : !isArchivedEvent(item);
     return (primaryMatched || relatedMatched) && archivedMatched;
   });
@@ -1312,8 +1512,8 @@ export async function getEventsByMinistrySafeResult(
   const limit = options?.limit ?? 6;
   const items = result.items
     .filter((item) => {
-      const primaryMatched = item.primaryMinistrySlug?.toLowerCase() === normalized;
-      const relatedMatched = item.relatedMinistrySlugs?.some((slug) => slug.toLowerCase() === normalized) || false;
+      const primaryMatched = slugMatches(item.primaryMinistrySlug, normalized);
+      const relatedMatched = item.relatedMinistrySlugs?.some((slug) => slugMatches(slug, normalized)) || false;
       const archivedMatched = includeArchived ? true : !isArchivedEvent(item);
       return (primaryMatched || relatedMatched) && archivedMatched;
     })
