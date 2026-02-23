@@ -242,7 +242,28 @@
     "empty": "今天沒有安排的事工或活動。",
     "prev": "← 上月",
     "next": "下月 →",
-    "weekDays": ["日", "一", "二", "三", "四", "五", "六"]
+    "weekDays": ["日", "一", "二", "三", "四", "五", "六"],
+    "detailsCta": "查看詳情",
+    "registerCta": "報名參加",
+    "donateCta": "奉獻支持",
+    "viewArchive": "查看活動歸檔"
+  },
+  "eventModule": {
+    "archiveTitle": "活動歸檔",
+    "archiveDesc": "查看已結束活動，並持續支持相關事工。",
+    "archiveEmpty": "目前尚無歸檔活動。",
+    "backToCalendar": "返回活動日曆",
+    "summaryFallback": "活動詳情將稍後更新。",
+    "registerUnavailable": "報名資訊將稍後公布。",
+    "registerCta": "前往報名",
+    "donateCta": "支持此活動",
+    "detailsCta": "查看詳情",
+    "relatedMinistry": "相關事工",
+    "linkedEventsTitle": "關聯活動",
+    "linkedEventsBody": "此事工相關的近期活動與歸檔活動。",
+    "linkedEventsEmpty": "目前尚無關聯活動。",
+    "upcomingLabel": "近期活動",
+    "archivedLabel": "歸檔活動"
   },
   "pages": {
     "audio": "音訊庫",

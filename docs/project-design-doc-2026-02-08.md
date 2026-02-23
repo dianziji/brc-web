@@ -302,7 +302,8 @@ flowchart LR
 
 ## 12.2 新增一个 calendar 活动
 
-1. `src/content/calendar/events.ts` 增加 `CalendarEventItem`。
+1. 优先在 WordPress 新增/发布 `Event` 内容（`events` + `eventFields`）。
+2. 仅在 WP 临时不可用时，才改 `src/content/calendar/events.ts` 作为 fallback。
 
 ## 12.3 修改 ministries 顶部三大分类（Mission/Youth/Family）
 

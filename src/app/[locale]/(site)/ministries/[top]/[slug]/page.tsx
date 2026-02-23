@@ -1,11 +1,64 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { resolveCmsImageUrl } from "@/lib/cms-media";
+import { getEventsByMinistrySafeResult, isArchivedEvent } from "@/lib/events";
 import { getMinistryDetailSafeResult } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
 import { sanitizeRichHtml } from "@/lib/sanitize-html";
 
 export const revalidate = 60;
+
+function toTodayKey(): string {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, "0");
+  const d = String(now.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function withQueryParams(path: string, params: Record<string, string | undefined>): string {
+  const [base, search] = path.split("?");
+  const query = new URLSearchParams(search || "");
+  for (const [key, value] of Object.entries(params)) {
+    if (!value) continue;
+    query.set(key, value);
+  }
+  const nextQuery = query.toString();
+  return nextQuery ? `${base}?${nextQuery}` : base;
+}
+
+function resolveDonationHref(
+  locale: "zh" | "en",
+  event: {
+    id: string;
+    donationLink?: string;
+    donationPurposeCode?: string;
+  }
+): string {
+  const fallback = withQueryParams(withLocale(locale, "/donation"), {
+    eventSlug: event.id,
+    purposeCode: event.donationPurposeCode,
+    source: "ministry_detail",
+  });
+  const raw = event.donationLink?.trim();
+  if (!raw) return fallback;
+  if (/^https?:\/\//i.test(raw)) return raw;
+  if (raw.startsWith("/zh/") || raw.startsWith("/en/")) {
+    return withQueryParams(raw, {
+      eventSlug: event.id,
+      purposeCode: event.donationPurposeCode,
+      source: "ministry_detail",
+    });
+  }
+  if (raw.startsWith("/")) {
+    return withQueryParams(withLocale(locale, raw), {
+      eventSlug: event.id,
+      purposeCode: event.donationPurposeCode,
+      source: "ministry_detail",
+    });
+  }
+  return raw;
+}
 
 export default async function Page({
   params,
@@ -16,6 +69,7 @@ export default async function Page({
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
   const detailResult = await getMinistryDetailSafeResult(slug);
+  const ministryEventsResult = await getEventsByMinistrySafeResult(slug, { includeArchived: true, limit: 10 });
   const data = detailResult.data;
   const backLabel = messages.common.back.replace(/^←\s*/, "");
   const websiteLabel = normalizedLocale === "en" ? "Visit ministry website" : "查看事工網站";
@@ -34,6 +88,10 @@ export default async function Page({
       ? "The content service timed out. Please retry in a moment."
       : "內容服務請求超時，請稍後重試。";
   const retryLabel = normalizedLocale === "en" ? "Retry now" : "立即重試";
+  const eventsDegradedNotice =
+    normalizedLocale === "en"
+      ? "WordPress event service is temporarily degraded. Fallback data is displayed."
+      : "WordPress 活動服務暫時降級，當前顯示備援資料。";
 
   if (!data) {
     return (
@@ -80,6 +138,12 @@ export default async function Page({
   const websiteUrl = data.fields.externalUrl ?? "";
   const heroSrc = resolveCmsImageUrl(data.fields.heroImage?.node?.sourceUrl);
   const heroAlt = data.fields.heroImage?.node?.altText || title;
+  const todayKey = toTodayKey();
+  const upcomingEvents = ministryEventsResult.items
+    .filter((event) => !isArchivedEvent(event) && event.date >= todayKey)
+    .slice(0, 3);
+  const archivedEvents = ministryEventsResult.items.filter((event) => isArchivedEvent(event)).slice(0, 3);
+  const hasLinkedEvents = upcomingEvents.length > 0 || archivedEvents.length > 0;
 
   return (
     <main className="bg-white pt-20 md:pt-24">
@@ -139,6 +203,101 @@ export default async function Page({
           </div>
         </div>
       </section>
+
+      {hasLinkedEvents || ministryEventsResult.degraded ? (
+        <section className="mx-auto max-w-6xl px-6 pb-12">
+          <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6">
+            <h2 className="text-2xl font-semibold text-zinc-900">{messages.eventModule.linkedEventsTitle}</h2>
+            <p className="mt-2 text-sm text-zinc-600">{messages.eventModule.linkedEventsBody}</p>
+
+            {ministryEventsResult.degraded ? (
+              <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+                {eventsDegradedNotice}
+              </div>
+            ) : null}
+
+            {hasLinkedEvents ? (
+              <div className="mt-6 grid gap-6 lg:grid-cols-2">
+                <div className="space-y-3">
+                  <div className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                    {messages.eventModule.upcomingLabel}
+                  </div>
+                  {upcomingEvents.length === 0 ? (
+                    <div className="rounded-lg border border-dashed border-zinc-300 bg-white p-4 text-sm text-zinc-600">
+                      {messages.eventModule.linkedEventsEmpty}
+                    </div>
+                  ) : (
+                    upcomingEvents.map((event) => (
+                      <article key={event.id} className="rounded-lg border border-zinc-200 bg-white p-4">
+                        <div className="text-base font-semibold">{normalizedLocale === "en" ? event.titleEn : event.titleZh}</div>
+                        <div className="mt-1 text-sm text-zinc-600">
+                          {[event.date, event.time, event.location].filter((item) => item && item.length > 0).join(" · ")}
+                        </div>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <Link
+                            href={withLocale(normalizedLocale, `/events/${event.id}`)}
+                            className="inline-flex rounded-full border border-zinc-300 px-3 py-1.5 text-xs font-semibold text-zinc-800"
+                          >
+                            {messages.eventModule.detailsCta}
+                          </Link>
+                          <a
+                            href={resolveDonationHref(normalizedLocale, event)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex rounded-full border border-zinc-300 px-3 py-1.5 text-xs font-semibold text-zinc-800"
+                          >
+                            {messages.eventModule.donateCta}
+                          </a>
+                        </div>
+                      </article>
+                    ))
+                  )}
+                </div>
+
+                <div className="space-y-3">
+                  <div className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                    {messages.eventModule.archivedLabel}
+                  </div>
+                  {archivedEvents.length === 0 ? (
+                    <div className="rounded-lg border border-dashed border-zinc-300 bg-white p-4 text-sm text-zinc-600">
+                      {messages.eventModule.linkedEventsEmpty}
+                    </div>
+                  ) : (
+                    archivedEvents.map((event) => (
+                      <article key={event.id} className="rounded-lg border border-zinc-200 bg-white p-4">
+                        <div className="text-base font-semibold">{normalizedLocale === "en" ? event.titleEn : event.titleZh}</div>
+                        <div className="mt-1 text-sm text-zinc-600">
+                          {[event.date, event.time, event.location].filter((item) => item && item.length > 0).join(" · ")}
+                        </div>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <Link
+                            href={withLocale(normalizedLocale, `/events/archive/${event.id}`)}
+                            className="inline-flex rounded-full border border-zinc-300 px-3 py-1.5 text-xs font-semibold text-zinc-800"
+                          >
+                            {messages.eventModule.detailsCta}
+                          </Link>
+                          <a
+                            href={resolveDonationHref(normalizedLocale, event)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex rounded-full border border-zinc-300 px-3 py-1.5 text-xs font-semibold text-zinc-800"
+                          >
+                            {messages.eventModule.donateCta}
+                          </a>
+                        </div>
+                      </article>
+                    ))
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="mt-6 rounded-lg border border-dashed border-zinc-300 bg-white p-4 text-sm text-zinc-600">
+                {messages.eventModule.linkedEventsEmpty}
+              </div>
+            )}
+          </div>
+        </section>
+      ) : null}
     </main>
   );
 }
