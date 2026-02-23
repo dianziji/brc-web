@@ -81,6 +81,33 @@ Taxonomy:
 - Nested terms are supported: top-level (e.g. `youth`) and leaf (e.g. `chista`).
 - The app derives `section.top` from the parent term when present.
 
+## Calendar Events (WordPress First, Local Fallback)
+
+Calendar events are now expected to come from WordPress GraphQL first.
+If WP is temporarily unavailable, the app falls back to local mock events in
+`src/content/calendar/events.ts`.
+
+Recommended WP setup:
+
+- Create an `Event` custom post type exposed to WPGraphQL (query root: `events`).
+- Add ACF group `eventFields` (also exposed to GraphQL) with:
+  - `titleZh` / `titleEn`
+  - `startAt` / `endAt` (datetime)
+  - `time` (optional text override)
+  - `location`
+  - `coverImage` (optional)
+
+Frontend read path:
+
+- Server data adapter: `src/lib/events.ts`
+- Calendar page: `src/app/[locale]/(site)/calendar/page.tsx`
+- Calendar UI: `src/components/CalendarPageClient.tsx`
+
+Operational guidance:
+
+- Normal content updates should be done in WP (publish/unpublish/edit Event posts).
+- Keep `src/content/calendar/events.ts` as emergency fallback data, not primary content.
+
 ## Environment
 
 Create `.env.local`:

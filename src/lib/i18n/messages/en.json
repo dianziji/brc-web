@@ -241,7 +241,28 @@
     "empty": "No events scheduled for this day.",
     "prev": "← Prev",
     "next": "Next →",
-    "weekDays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    "weekDays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "detailsCta": "View details",
+    "registerCta": "Register",
+    "donateCta": "Donate",
+    "viewArchive": "Browse event archive"
+  },
+  "eventModule": {
+    "archiveTitle": "Event Archive",
+    "archiveDesc": "Browse completed events and continue to support related ministries.",
+    "archiveEmpty": "No archived events yet.",
+    "backToCalendar": "Back to calendar",
+    "summaryFallback": "Event details will be updated soon.",
+    "registerUnavailable": "Registration details will be announced soon.",
+    "registerCta": "Open registration",
+    "donateCta": "Support this event",
+    "detailsCta": "View details",
+    "relatedMinistry": "Related ministry",
+    "linkedEventsTitle": "Related events",
+    "linkedEventsBody": "Upcoming and archived events connected with this ministry.",
+    "linkedEventsEmpty": "No linked events available yet.",
+    "upcomingLabel": "Upcoming",
+    "archivedLabel": "Archived"
   },
   "pages": {
     "audio": "Media Library",

@@ -71,11 +71,27 @@ test("canonical top redirect is in place for ministry detail route", () => {
   assert.ok(detailPage.includes("data.section.top !== top"));
 });
 
-test("calendar events source is centralized under src/content", () => {
+test("calendar events source is centralized with wp adapter and local fallback", () => {
   const calendarPage = read("src/app/[locale]/(site)/calendar/page.tsx");
-  assert.ok(calendarPage.includes('from "@/content/calendar/events"'));
-  assert.ok(!calendarPage.includes("const events:"));
+  const eventsLib = read("src/lib/events.ts");
+  assert.ok(calendarPage.includes('from "@/lib/events"'));
+  assert.ok(calendarPage.includes("getCalendarEventsSafeResult"));
+  assert.ok(eventsLib.includes('from "@/content/calendar/events"'));
+  assert.ok(eventsLib.includes("getLocalFallbackEvents"));
   assert.equal(exists("src/content/calendar/events.ts"), true);
+});
+
+test("event phase-a routes and ministry linkage are in place", () => {
+  const ministryDetailPage = read("src/app/[locale]/(site)/ministries/[top]/[slug]/page.tsx");
+  const eventDetailPage = read("src/app/[locale]/(site)/events/[slug]/page.tsx");
+  const eventArchivePage = read("src/app/[locale]/(site)/events/archive/page.tsx");
+
+  assert.equal(exists("src/app/[locale]/(site)/events/[slug]/page.tsx"), true);
+  assert.equal(exists("src/app/[locale]/(site)/events/archive/page.tsx"), true);
+  assert.ok(ministryDetailPage.includes("getEventsByMinistrySafeResult"));
+  assert.ok(ministryDetailPage.includes("/events/archive/"));
+  assert.ok(eventDetailPage.includes("getEventBySlugSafeResult"));
+  assert.ok(eventArchivePage.includes("getArchivedEventsSafeResult"));
 });
 
 test("discipleship overview content is centralized under src/content", () => {
