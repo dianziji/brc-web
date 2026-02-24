@@ -37,12 +37,12 @@ export default function AlignWithGodSection({ locale }: { locale: Locale }) {
 
   return (
     <section className="bg-amber-50 text-zinc-900">
-      <div className="mx-auto max-w-6xl px-6 py-14">
-        <div className="space-y-8">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            <div className="space-y-4 border-t border-zinc-200 pt-6">
-              <div className="text-xs uppercase tracking-widest text-zinc-500">{section.title}</div>
-              <div className="text-4xl font-semibold leading-none tracking-wide text-red-700 sm:text-5xl">
+      <div className="mx-auto max-w-6xl px-6 py-8 md:py-14">
+        <div className="space-y-5 md:space-y-8">
+          <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+            <div className="space-y-3 border-t border-zinc-200 pt-4 md:space-y-4 md:pt-6">
+              <div className="text-[10px] uppercase tracking-widest text-zinc-500 md:text-xs">{section.title}</div>
+              <div className="text-3xl font-semibold leading-none tracking-wide text-red-700 sm:text-4xl md:text-5xl">
                 {section.headline.map((item) => (
                   <div key={item}>{item}</div>
                 ))}
@@ -50,23 +50,23 @@ export default function AlignWithGodSection({ locale }: { locale: Locale }) {
             </div>
 
             {section.goals.map((item, index) => (
-              <div key={item.title} className="space-y-3 border-t border-zinc-200 pt-4 text-left">
+              <div key={item.title} className="space-y-2 border-t border-zinc-200 pt-3 text-left md:space-y-3 md:pt-4">
                 <div className="flex items-start justify-between gap-4">
-                  <div className="text-xs uppercase tracking-widest text-zinc-500">
+                  <div className="text-[10px] uppercase tracking-widest text-zinc-500 md:text-xs">
                     ({String(index + 1).padStart(2, "0")})
                   </div>
                   <div
                     className={`min-w-0 w-full max-w-[320px] text-right font-semibold leading-snug ${
-                      isEnglish ? "text-base sm:text-lg" : "text-lg sm:text-xl"
+                      isEnglish ? "text-sm sm:text-base md:text-lg" : "text-sm sm:text-base md:text-xl"
                     }`}
                     style={{ textWrap: "pretty" }}
                   >
                     {formatGoalTitle(item.title, isEnglish, item.titleLines)}
                   </div>
                 </div>
-                <div className="text-sm font-semibold text-zinc-900">{item.note}</div>
-                <div className="pt-3 text-sm text-zinc-700">{item.verse}</div>
-                <div className="text-right text-sm text-zinc-500">{item.ref}</div>
+                <div className="text-[10px] font-semibold leading-relaxed text-zinc-900 md:text-sm">{item.note}</div>
+                <div className="pt-1 text-[10px] leading-relaxed text-zinc-700 md:pt-3 md:text-sm">{item.verse}</div>
+                <div className="text-right text-[10px] text-zinc-500 md:text-sm">{item.ref}</div>
               </div>
             ))}
           </div>
