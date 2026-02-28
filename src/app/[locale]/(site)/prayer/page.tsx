@@ -1,4 +1,9 @@
 import type { MediaKey } from "@/content/media";
+import {
+  PRAYER_CARD_LINK_CONFIG,
+  PRAYER_MORNING_PDF_URL,
+  PRAYER_WEEKLY_SHARING_DOC_URL,
+} from "@/content/prayer/links";
 import AppImage from "@/components/AppImage";
 import { getMessages, normalizeLocale } from "@/lib/i18n";
 import MorningPrayerGuideModal from "@/components/MorningPrayerGuideModal";
@@ -8,10 +13,6 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
   const cards = messages.prayer.cards;
-  const morningPrayerPdfHref =
-    "https://www.bethelrc.org/images/stories/feature/MP/%E5%A6%82%E4%BD%95%E5%8A%A0%E5%85%A5BRC%E6%99%A8%E7%A6%B1ZoomMeeting.pdf";
-  const weeklySharingDocHref =
-    "https://docs.google.com/document/d/10o7j7-wkujRHFk2_nz_W8V8aVXOnRbagzTUDS_oEDSc/edit?usp=sharing";
   const prayerCardMediaKeys: MediaKey[] = ["prayerCardAltar", "prayerCardPlatform", "prayerCardRpg"];
   const prayerCardImageWrapClassNames = ["h-48 md:h-52", "h-48 md:h-52", "h-48 md:h-52"];
   const prayerCardImageClassNames = [
@@ -19,31 +20,16 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
     "object-cover object-[center_28%]",
     "object-cover object-center",
   ];
-  const cardLinks = [
-    {
-      primaryHref: "https://us06web.zoom.us/j/88081177356?pwd=txHMfslJe9WPc4laR8eAm7NnGOnk5V.1",
-      secondary: [
-        { href: "https://bethelrc.org/index.php/9-feature/312-24x7-prayer", label: cards[0].cta2 },
-        {
-          href: "https://docs.google.com/spreadsheets/d/1bHV9o1poaXOmpEF5rai40jMv30KphtcB/edit?gid=1236658947#gid=1236658947",
-          label: cards[0].cta3,
-        },
-      ],
-    },
-    {
-      primaryHref: "https://zoom.us/j/561386692?pwd=T0dWYi9HMFZMSUZ0SzJ6bld6cFJIUT09",
-      secondary: [],
-    },
-    {
-      primaryHref: "https://us02web.zoom.us/j/86451938132?pwd=bXhXeG4wSXd-HV0dwRWNMd-m5PY1p5Zz09",
-      secondary: [
-        {
-          href: "https://i0.wp.com/bethelrc.org/home3/bethelrc/NewBRC/home3/bethelrc/NewBRC/wp-content/uploads/2025/07/RPG-IMAGE1.jpg?ssl=1",
-          label: cards[2].cta2,
-        },
-      ],
-    },
-  ];
+  const cardLinks = PRAYER_CARD_LINK_CONFIG.map((config, index) => {
+    const card = cards[index] as Record<string, string> | undefined;
+    return {
+      primaryHref: config.primaryHref,
+      secondary: config.secondary.map((item) => ({
+        href: item.href,
+        label: card?.[item.labelField] ?? "",
+      })),
+    };
+  });
 
   return (
     <main className="pb-16">
@@ -64,7 +50,7 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
         <section className="grid gap-6 md:grid-cols-3">
           {cards.map((card, index) => {
             const links = cardLinks[index];
-            const secondaryLinks = links.secondary.filter((link) => Boolean(link.label));
+            const secondaryLinks = links.secondary.filter((link) => Boolean(link.label && link.href));
 
             return (
               <div key={`${card.title}-${index}`} className="rounded-2xl border border-zinc-200 bg-white p-6 space-y-4">
@@ -85,24 +71,26 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
                 <p className="text-sm text-zinc-600">{card.body}</p>
                 <div className="text-sm text-zinc-500 space-y-1">
                   <div>{card.detail1}</div>
-                  <div>{card.detail2}</div>
+                  <div className="whitespace-pre-line">{card.detail2}</div>
                 </div>
 
-                <a
-                  className="inline-flex w-full items-center justify-center rounded-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-zinc-700"
-                  href={links.primaryHref}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {card.cta1}
-                </a>
+                {card.cta1 && links.primaryHref ? (
+                  <a
+                    className="inline-flex w-full items-center justify-center rounded-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-zinc-700"
+                    href={links.primaryHref}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {card.cta1}
+                  </a>
+                ) : null}
 
                 {index === 1 ? (
                   <MorningPrayerGuideModal
                     guide={messages.prayer.morningGuide}
                     triggerLabel={card.cta2}
                     zoomHref={links.primaryHref}
-                    shareHref={morningPrayerPdfHref}
+                    shareHref={PRAYER_MORNING_PDF_URL}
                   />
                 ) : null}
 
@@ -110,7 +98,7 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
                   <div className="space-y-1">
                     <a
                       className="block text-sm font-medium text-zinc-900 underline underline-offset-2"
-                      href={weeklySharingDocHref}
+                      href={PRAYER_WEEKLY_SHARING_DOC_URL}
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -135,7 +123,7 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
                   </div>
                 ) : null}
 
-                {card.note ? <p className="text-sm text-zinc-500">{card.note}</p> : null}
+                {card.note ? <p className="whitespace-pre-line text-sm text-zinc-500">{card.note}</p> : null}
               </div>
             );
           })}
