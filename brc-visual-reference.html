@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BRC 视觉更新参考手册</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #faf9f7;
+      --surface: #ffffff;
+      --border: #e8e4df;
+      --text: #1a1714;
+      --text-muted: #7a726b;
+      --text-light: #b0a89f;
+      --accent: #8b6f47;
+      --accent-light: #d4b896;
+      --accent-bg: #fdf5ec;
+      --red: #9b2c2c;
+      --green: #2d6a4f;
+      --blue: #1d4ed8;
+      --tag-bg: #f0ebe4;
+      --radius: 4px;
+      --radius-lg: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAVIGATION ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(250, 249, 247, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+    }
+    nav .nav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+    }
+    nav .nav-brand {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    nav .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    nav .nav-links a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav .nav-links a:hover { color: var(--text); }
+
+    /* ─── LAYOUT ─── */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 80px 0 60px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero .label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.8;
+    }
+    .hero .meta {
+      margin-top: 32px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .hero .meta-item {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    .hero .meta-item span {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ─── SECTION ─── */
+    .section {
+      padding: 72px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-child { border-bottom: none; }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .section-number {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      min-width: 40px;
+    }
+    .section-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    /* ─── AUDIT SECTION ─── */
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .audit-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+    .audit-card .severity {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .severity.high { background: #fef2f2; color: #b91c1c; }
+    .severity.medium { background: #fffbeb; color: #92400e; }
+    .severity.low { background: #f0fdf4; color: #166534; }
+    .audit-card h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .audit-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .audit-card .fix {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    /* ─── DESIGNER CARDS ─── */
+    .designer-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .designer-card {
+      background: var(--surface);
+      padding: 24px 28px;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      gap: 20px;
+      align-items: start;
+      transition: background 0.15s;
+    }
+    .designer-card:hover { background: var(--accent-bg); }
+    .designer-num {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-light);
+      letter-spacing: 0.05em;
+      padding-top: 2px;
+    }
+    .designer-info h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .designer-info .role {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .designer-info p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .designer-info .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
+      background: var(--tag-bg);
+      color: var(--text-muted);
+      border-radius: 20px;
+    }
+    .tag.match {
+      background: #fdf5ec;
+      color: var(--accent);
+    }
+    .designer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+      padding: 7px 14px;
+      border: 1px solid var(--accent-light);
+      border-radius: 20px;
+      transition: all 0.2s;
+      margin-top: 2px;
+    }
+    .designer-link:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .brc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #166534;
+      background: #dcfce7;
+      padding: 3px 9px;
+      border-radius: 20px;
+      margin-top: 10px;
+    }
+
+    /* ─── PLAN SECTION ─── */
+    .phase-list {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .phase {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .phase:last-child { border-bottom: none; padding-bottom: 0; }
+    .phase-meta {
+      position: sticky;
+      top: 80px;
+      align-self: start;
+    }
+    .phase-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 8px;
+    }
+    .phase-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+    .phase-effort {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .phase-effort strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+    .phase-content h4 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      margin-top: 20px;
+    }
+    .phase-content h4:first-child { margin-top: 0; }
+    .task-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .task-list li {
+      display: flex;
+      gap: 12px;
+      font-size: 14px;
+      line-height: 1.55;
+      padding: 10px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .task-list li::before {
+      content: '→';
+      color: var(--accent);
+      flex-shrink: 0;
+      font-weight: 600;
+    }
+    .code {
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 12px;
+      background: var(--tag-bg);
+      color: var(--text);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+    .color-swatch {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-right: 4px;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    .font-preview {
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-top: 8px;
+    }
+    .font-preview .fp-label {
+      font-size: 11px;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .font-preview .fp-sample-serif {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--text);
+    }
+    .font-preview .fp-sample-sans {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ─── CALLOUT ─── */
+    .callout {
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-light);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      margin: 16px 0;
+    }
+    .callout strong { color: var(--text); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 700px) {
+      .container { padding: 0 20px; }
+      .designer-card {
+        grid-template-columns: 28px 1fr;
+        grid-template-rows: auto auto;
+      }
+      .designer-link { grid-column: 2; margin-top: 10px; }
+      .phase { grid-template-columns: 1fr; gap: 16px; }
+      .phase-meta { position: static; }
+      nav .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">BRC 视觉参考手册</a>
+    <ul class="nav-links">
+      <li><a href="#audit">现状审查</a></li>
+      <li><a href="#frontend">前端大神</a></li>
+      <li><a href="#uiux">UI/UX 大神</a></li>
+      <li><a href="#plan">更新计划</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="container">
+  <div class="hero">
+    <div class="label">BRC Official Website · 视觉设计参考文件</div>
+    <h1>设计参考 &<br/>视觉更新计划</h1>
+    <p>为 BRC 教会官方网站收集的前端与 UI/UX 设计参考资源，附带当前视觉问题审查与分阶段更新路线图。</p>
+    <div class="meta">
+      <div class="meta-item">版本 <span>v1.0</span></div>
+      <div class="meta-item">适用框架 <span>Next.js + Tailwind CSS</span></div>
+      <div class="meta-item">语言 <span>中文 / English 双语</span></div>
+      <div class="meta-item">⭐ = 与 BRC 项目高度适配</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 0: AUDIT ── -->
+<div class="container" id="audit">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">00</div>
+      <h2 class="section-title">当前视觉问题审查</h2>
+    </div>
+
+    <div class="callout">
+      <strong>诊断说明：</strong>以下问题基于对源代码（globals.css、layout.tsx、各组件）的直接分析。严重程度分为「高」（影响品牌感知）、「中」（体验断层）、「低」（细节打磨）三级。
+    </div>
+
+    <div class="audit-grid" style="margin-top: 24px;">
+
+      <div class="audit-card">
+        <div class="severity high">● 高</div>
+        <h3>字体系统缺失</h3>
+        <p><code class="code">layout.tsx</code> 没有引入任何 web font。<code class="code">globals.css</code> 的 body 最终 fallback 到 <code class="code">Arial, Helvetica, sans-serif</code>。Geist 字体变量虽然声明了，但没有通过 <code class="code">next/font</code> 正确加载，导致中文完全依赖系统字体，没有设计感。</p>
+        <div class="fix">→ 修复：引入 next/font/google，配置中英文字体对</div>
+      </div>
+
+      <div class="audit-card">
+        <div class="severity high">● 高</div>
+        <h3>颜色体系缺乏品牌感</h3>
+        <p>目前的 <code class="code">red-700</code> 作为主 accent，在 zinc 灰色系中显得突兀而刺眼——对教会网站而言，应该传递温暖、神圣、群体感，而红色缺乏这种温度。amber-500 的 CTA 按钮与 red-700 标题之间也没有清晰的颜色层级逻辑。</p>
+        <div class="fix">→ 修复：建立暖金 + 深绿/深蓝的品牌色系，替换生硬的红色</div>
+      </div>
+
+      <div class="audit-card">
+        <div class="severity high">● 高</div>
+        <h3>各 section 缺乏视觉一致性</h3>
+        <p>首页由若干视觉语言完全不同的 section 拼接：轮播图（深色叠加）、amber-50 的 AlignWithGod section、白底联系表单、深色 3D 档案库……像是几个不同网站拼在一起，没有统一的设计语言。</p>
+        <div class="fix">→ 修复：建立统一的 section 设计模版，规范背景色/分隔方式</div>
+      </div>
+
+      <div class="audit-card">
+        <div class="severity medium">● 中</div>
+        <h3>轮播图设计过于基础</h3>
+        <p><code class="code">MinistryCarousel</code> 使用简单的 <code class="code">bg-gradient-to-t from-black/60</code> 叠加，图片下方的标题字体小、行距密、无衬线字体，缺乏大气感。切换指示点（小圆点）视觉上也很弱。</p>
+        <div class="fix">→ 修复：升级为电影感构图，大号标题 + 衬线字体 + 更精致的指示器</div>
+      </div>
+
+      <div class="audit-card">
+        <div class="severity medium">● 中</div>
+        <h3>表单缺乏视觉精致感</h3>
+        <p><code class="code">HomeContactForm</code> 使用 <code class="code">bg-white/80</code> 背景，输入框是底部单线条设计（仅 <code class="code">border-b</code>），无 focus 动画，提交按钮无圆角（<code class="code">bg-amber-500</code> 方形），整体感觉粗糙。</p>
+        <div class="fix">→ 修复：加入 focus ring、平滑过渡动画、圆角按钮</div>
+      </div>
+
+      <div class="audit-card">
+        <div class="severity medium">● 中</div>
+        <h3>排版层级不清晰</h3>
+        <p>页面内字体大小跳跃杂乱：tracking-widest 的 10px 小标签 + 5xl 的大标题 + 普通 text-sm 正文混用，没有经过设计的 type scale。中文内容的字重和行高也未针对中文阅读习惯优化。</p>
+        <div class="fix">→ 修复：建立 8px 基准的 type scale，中文 line-height ≥ 1.8</div>
+      </div>
+
+      <div class="audit-card">
+        <div class="severity medium">● 中</div>
+        <h3>Header 与页面内容的视觉关系断层</h3>
+        <p>透明 header 在不同页面表现不一致（部分深色文字、部分浅色文字），滚动后突然变为实色 header 的过渡缺乏 backdrop-blur 等现代效果，过渡感突兀。</p>
+        <div class="fix">→ 修复：统一 scroll 过渡，加入 backdrop-blur + 渐变过渡</div>
+      </div>
+
+      <div class="audit-card">
+        <div class="severity low">● 低</div>
+        <h3>Footer 缺乏品牌表达</h3>
+        <p><code class="code">bg-zinc-50</code> 的 footer 极为平淡，没有品牌 logo 展示、没有视觉分隔，订阅区块的 input+button 排列也比较生硬，缺乏精致感。</p>
+        <div class="fix">→ 修复：加入品牌 logo 区、更有设计感的分隔线、深色背景选项</div>
+      </div>
+
+      <div class="audit-card">
+        <div class="severity low">● 低</div>
+        <h3>缺乏微交互与动效系统</h3>
+        <p>目前只有 3D 档案库有动画，其他组件几乎没有 hover 状态、page transition、或 scroll-triggered 动画，导致页面感觉静止和廉价。</p>
+        <div class="fix">→ 修复：为导航链接、卡片、按钮添加一致的微交互系统</div>
+      </div>
+
+      <div class="audit-card">
+        <div class="severity low">● 低</div>
+        <h3>SEO Metadata 是占位符</h3>
+        <p><code class="code">title: "BRC"</code>, <code class="code">description: "BRC website"</code>——完全没有品牌表达，也不利于搜索引擎收录和社群分享（Open Graph 图像也缺失）。</p>
+        <div class="fix">→ 修复：完善 metadata，加入 OG image 生成</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ── SECTION 1: FRONTEND DESIGNERS ── -->
+<div class="container" id="frontend">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">01</div>
+      <h2 class="section-title">10 位前端设计大神</h2>
+    </div>
+
+    <div class="designer-grid">
+
+      <!-- 1. Bruno Simon -->
+      <div class="designer-card">
+        <div class="designer-num">01</div>
+        <div class="designer-info">
+          <h3>Bruno Simon</h3>
+          <div class="role">Creative Developer · 法国 · Three.js 课程作者</div>
+          <p>把整个 portfolio 做成一个可以驾车探索的 3D 世界，用 Three.js + Cannon.js 物理引擎实现。全球最受关注的创意 developer，Awwwards 年度最佳网站得主。代表作：3D 游戏式 portfolio，Awwwards 评委会奖。</p>
+          <div class="tags">
+            <span class="tag">Three.js</span>
+            <span class="tag">WebGL</span>
+            <span class="tag">3D</span>
+            <span class="tag">创意交互</span>
+            <span class="tag">Blender</span>
+          </div>
+          <div class="brc-badge">⭐ BRC 参考点：3D 档案库 ArchiveScene3D 的灵感来源，可借鉴其 perspective + physics 的交互逻辑</div>
+        </div>
+        <a href="https://bruno-simon.com/" target="_blank" class="designer-link">访问网站 ↗</a>
+      </div>
+
+      <!-- 2. Cassie Evans -->
+      <div class="designer-card">
+        <div class="designer-num">02</div>
+        <div class="designer-info">
+          <h3>Cassie Evans</h3>
+          <div class="role">Creative Developer · GreenSock · SVG Animation 专家</div>
+          <p>背景横跨平面设计与动态设计，用 GSAP 制作令人惊叹的 SVG 动画。她的 portfolio 充满色彩和运动感，是「让网页再次充满趣味」的代表人物。擅长以动画讲述内容故事。</p>
+          <div class="tags">
+            <span class="tag">SVG Animation</span>
+            <span class="tag">GSAP</span>
+            <span class="tag">CSS</span>
+            <span class="tag">创意设计</span>
+          </div>
+          <div class="brc-badge">⭐ BRC 参考点：导航 hover 动画、Hero section 文字入场动画、section 之间的 scroll-triggered 过渡</div>
+        </div>
+        <a href="https://cassie.codes/" target="_blank" class="designer-link">访问网站 ↗</a>
+      </div>
+
+      <!-- 3. Josh W. Comeau -->
+      <div class="designer-card">
+        <div class="designer-num">03</div>
+        <div class="designer-info">
+          <h3>Josh W. Comeau</h3>
+          <div class="role">Indie Educator · CSS for JavaScript Developers 作者</div>
+          <p>他的个人网站和课程平台本身就是设计范本：极其精致的排版、playful 的交互细节（cursor 跟随光晕）、清晰的内容层级。擅长把 CSS 原理用视觉化方式展示，网站可读性极高。</p>
+          <div class="tags">
+            <span class="tag">CSS</span>
+            <span class="tag">React</span>
+            <span class="tag">排版</span>
+            <span class="tag">交互细节</span>
+          </div>
+          <div class="brc-badge">⭐ BRC 参考点：高度参考——排版系统、spacing 逻辑、表单设计、按钮 hover 效果，直接可用于 BRC 优化</div>
+        </div>
+        <a href="https://www.joshwcomeau.com/" target="_blank" class="designer-link">访问网站 ↗</a>
+      </div>
+
+      <!-- 4. Rauno Freiberg -->
+      <div class="designer-card">
+        <div class="designer-num">04</div>
+        <div class="designer-info">
+          <h3>Rauno Freiberg</h3>
+          <div class="role">Design Engineer · Vercel / Linear 系风格</div>
+          <p>Design Engineer 代表人物之一，网站以 OS 风格界面为概念，dark mode 配色极其克制精准，navigation dock 动画令人印象深刻。Vercel、Linear 的那种极简精致风格的核心影响者。</p>
+          <div class="tags">
+            <span class="tag">极简 UI</span>
+            <span class="tag">Dark Mode</span>
+            <span class="tag">微交互</span>
+            <span class="tag">Design System</span>
+          </div>
+        </div>
+        <a href="https://rauno.me/" target="_blank" class="designer-link">访问网站 ↗</a>
+      </div>
+
+      <!-- 5. Emil Kowalski -->
+      <div class="designer-card">
+        <div class="designer-num">05</div>
+        <div class="designer-info">
+          <h3>Emil Kowalski</h3>
+          <div class="role">Design Engineer · 开源 UI 组件作者</div>
+          <p>制作了一批被广泛使用的 UI 组件（包括精致的 Toast、Dialog 等），portfolio 以 minimalism 和 motion 的高度结合著称。他的 /design 页汇集了他欣赏的所有网站，是极佳的 reference collection。</p>
+          <div class="tags">
+            <span class="tag">Motion UI</span>
+            <span class="tag">组件设计</span>
+            <span class="tag">极简主义</span>
+          </div>
+          <div class="brc-badge">⭐ BRC 参考点：参考他的 Toast 通知组件、Dialog 设计，以及整体 motion 系统</div>
+        </div>
+        <a href="https://emilkowal.ski/" target="_blank" class="designer-link">访问网站 ↗</a>
+      </div>
+
+      <!-- 6. Jhey Tompkins -->
+      <div class="designer-card">
+        <div class="designer-num">06</div>
+        <div class="designer-info">
+          <h3>Jhey Tompkins</h3>
+          <div class="role">Design Engineer · Google · CodePen 超级用户</div>
+          <p>Google 的 Design Engineer，以 pure CSS 制作各种令人惊叹的创意 demo 而闻名。他在 CodePen 上发布了数百个创意 UI 实验，展示了 CSS 的极限可能。让「CSS 也能做到这些」成为他的标志。</p>
+          <div class="tags">
+            <span class="tag">CSS Magic</span>
+            <span class="tag">Creative Coding</span>
+            <span class="tag">动画</span>
+            <span class="tag">CodePen</span>
+          </div>
+        </div>
+        <a href="https://jhey.dev/" target="_blank" class="designer-link">访问网站 ↗</a>
+      </div>
+
+      <!-- 7. Sara Soueidan -->
+      <div class="designer-card">
+        <div class="designer-num">07</div>
+        <div class="designer-info">
+          <h3>Sara Soueidan</h3>
+          <div class="role">Inclusive Design Engineer · 无障碍 CSS 专家</div>
+          <p>最受推崇的无障碍设计工程师之一，擅长 SVG 和 CSS 的高级运用，尤其关注 inclusive design（包容性设计）。她的网站本身就是可访问性、排版与 CSS 精度的范本，被 Mozilla、Google 广泛引用。</p>
+          <div class="tags">
+            <span class="tag">无障碍设计</span>
+            <span class="tag">SVG</span>
+            <span class="tag">CSS</span>
+            <span class="tag">Inclusive Design</span>
+          </div>
+          <div class="brc-badge">⭐ BRC 参考点：双语网站的 focus 管理、键盘导航、高对比度配色——对 BRC 服务多样化群体非常重要</div>
+        </div>
+        <a href="https://www.sarasoueidan.com/" target="_blank" class="designer-link">访问网站 ↗</a>
+      </div>
+
+      <!-- 8. Maggie Appleton -->
+      <div class="designer-card">
+        <div class="designer-num">08</div>
+        <div class="designer-info">
+          <h3>Maggie Appleton</h3>
+          <div class="role">Design Engineer · GitHub Next · Visual Essay 创作者</div>
+          <p>设计师 + 人类学家 + 前端开发三位一体。她的 digital garden 以手绘插画、视觉化排版和丰富的内容叙事著称，是「内容驱动型」网站设计的最佳参考——和 BRC 以内容和群体为核心的定位高度吻合。</p>
+          <div class="tags">
+            <span class="tag">内容设计</span>
+            <span class="tag">插画</span>
+            <span class="tag">排版</span>
+            <span class="tag">Digital Garden</span>
+          </div>
+          <div class="brc-badge">⭐ BRC 参考点：高度参考——内容层级组织方式、段落排版、有温度的视觉语言，非常适合教会网站</div>
+        </div>
+        <a href="https://maggieappleton.com/" target="_blank" class="designer-link">访问网站 ↗</a>
+      </div>
+
+      <!-- 9. Kevin Powell -->
+      <div class="designer-card">
+        <div class="designer-num">09</div>
+        <div class="designer-info">
+          <h3>Kevin Powell</h3>
+          <div class="role">CSS Evangelist · YouTube 教育者 · Frontend Masters</div>
+          <p>被称为「CSS 布道者」，YouTube 频道专注 CSS 教育，有超过 80 万订阅者。他强调「用 CSS 思考」而非对抗 CSS，作品以结构清晰、响应式设计优雅著称。他的教学内容直接可用于改善 BRC 的 layout 问题。</p>
+          <div class="tags">
+            <span class="tag">CSS Layout</span>
+            <span class="tag">响应式设计</span>
+            <span class="tag">CSS Grid</span>
+            <span class="tag">Flexbox</span>
+          </div>
+          <div class="brc-badge">⭐ BRC 参考点：参考他的「Every Layout」系列，优化 BRC 各 section 的响应式 grid 布局</div>
+        </div>
+        <a href="https://www.kevinpowell.co/" target="_blank" class="designer-link">访问网站 ↗</a>
+      </div>
+
+      <!-- 10. Paco Coursey -->
+      <div class="designer-card">
+        <div class="designer-num">10</div>
+        <div class="designer-info">
+          <h3>Paco Coursey</h3>
+          <div class="role">Design Engineer · 精致 UI 实验家</div>
+          <p>以极简主义和对细节的偏执著称，他的 paco.me 是极简美学的极致体现：几乎没有多余元素，但每一个细节（文字、间距、hover 效果）都经过精心打磨。与 Rauno 和 Emil 并列被称为「design engineering 三杰」。</p>
+          <div class="tags">
+            <span class="tag">极简主义</span>
+            <span class="tag">UI 细节</span>
+            <span class="tag">微交互</span>
+          </div>
+        </div>
+        <a href="https://paco.me/" target="_blank" class="designer-link">访问网站 ↗</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ── SECTION 2: UI/UX DESIGNERS ── -->
+<div class="container" id="uiux">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">02</div>
+      <h2 class="section-title">5 位 UI/UX 设计大神</h2>
+    </div>
+
+    <div class="designer-grid">
+
+      <!-- 1. Steve Schoger -->
+      <div class="designer-card">
+        <div class="designer-num">01</div>
+        <div class="designer-info">
+          <h3>Steve Schoger</h3>
+          <div class="role">Visual Designer · Tailwind Labs · Refactoring UI 联合作者</div>
+          <p>Tailwind CSS 背后的设计大脑，Heroicons 创作者，《Refactoring UI》联合作者。以「把丑陋的 UI 快速变美」而闻名于 Twitter，他的设计方法论完全基于「系统性思维」——颜色、排版、间距都用系统来管理。他的 Dribbble 上有大量精美 UI 参考。他的设计和 BRC 使用的 Tailwind 完全对应，是最直接可借鉴的对象。</p>
+          <div class="tags">
+            <span class="tag">UI 系统</span>
+            <span class="tag">颜色理论</span>
+            <span class="tag">排版</span>
+            <span class="tag">Tailwind UI</span>
+          </div>
+          <div class="brc-badge">⭐ BRC 最高参考——《Refactoring UI》是直接可用于改善 BRC 每个 UI 细节的工具书。Dribbble: steveschoger</div>
+        </div>
+        <a href="https://dribbble.com/steveschoger" target="_blank" class="designer-link">查看作品 ↗</a>
+      </div>
+
+      <!-- 2. Tobias van Schneider -->
+      <div class="designer-card">
+        <div class="designer-num">02</div>
+        <div class="designer-info">
+          <h3>Tobias van Schneider</h3>
+          <div class="role">Creative Director · DESK Magazine 创始人 · Semplice 联合创始人</div>
+          <p>曾任 Spotify 首席创意官、Beats by Dre 设计总监，现运营「DESK Magazine」——一本设计界的高品质电子刊物。他的设计观：<strong>排版是设计的灵魂</strong>，每个字体选择都是设计决策。他整理了数百个以排版为核心的优秀 portfolio，是研究「如何用排版建立品牌感」的最佳入口。</p>
+          <div class="tags">
+            <span class="tag">品牌设计</span>
+            <span class="tag">Editorial 排版</span>
+            <span class="tag">创意指导</span>
+            <span class="tag">Portfolio 文化</span>
+          </div>
+          <div class="brc-badge">⭐ BRC 参考点：参考他对「排版建立品牌性格」的系列文章，提升 BRC 整体的字体选择和视觉气质</div>
+        </div>
+        <a href="https://vanschneider.com/" target="_blank" class="designer-link">访问网站 ↗</a>
+      </div>
+
+      <!-- 3. Adam Wathan (Refactoring UI) -->
+      <div class="designer-card">
+        <div class="designer-num">03</div>
+        <div class="designer-info">
+          <h3>Adam Wathan + Steve Schoger</h3>
+          <div class="role">Tailwind CSS 创始人 · Refactoring UI 作者</div>
+          <p>《Refactoring UI》是所有用 Tailwind 构建界面的开发者必读的 UI 设计书。核心方法论：<strong>用系统替代直觉</strong>——不要问「这个应该用什么颜色」，而是先建立一个 10 色梯度的颜色系统，再从中取用。他们的颜色/排版/间距系统与 BRC 的 Tailwind 代码完全对应，改造成本最低。</p>
+          <div class="tags">
+            <span class="tag">颜色系统</span>
+            <span class="tag">间距系统</span>
+            <span class="tag">视觉层级</span>
+            <span class="tag">Design System</span>
+          </div>
+          <div class="brc-badge">⭐ BRC 最核心参考——必读书目。直接可以对应代码实施，推荐购买：refactoringui.com</div>
+        </div>
+        <a href="https://refactoringui.com/" target="_blank" class="designer-link">查看资源 ↗</a>
+      </div>
+
+      <!-- 4. Andy Bell - Every Layout -->
+      <div class="designer-card">
+        <div class="designer-num">04</div>
+        <div class="designer-info">
+          <h3>Andy Bell</h3>
+          <div class="role">Inclusive Design 专家 · Set Studio 创始人 · Every Layout 作者</div>
+          <p>与 Heydon Pickering 合著《Every Layout》，主张「用 CSS 内在算法思考布局，而非硬编码」。他为 Google、NHS（英国国家医疗系统）、Harley-Davidson 构建过设计系统。Set Studio 的作品以「对所有人都有效的精美网站」著称，网站包容性和视觉美感并重，非常适合服务多元群体的教会网站参考。</p>
+          <div class="tags">
+            <span class="tag">CSS Layout</span>
+            <span class="tag">设计系统</span>
+            <span class="tag">无障碍</span>
+            <span class="tag">包容性设计</span>
+          </div>
+          <div class="brc-badge">⭐ BRC 参考点：参考 Every Layout 重构 BRC 各页面的 section 布局，让其真正响应式且无需 magic numbers</div>
+        </div>
+        <a href="https://every-layout.dev/" target="_blank" class="designer-link">访问网站 ↗</a>
+      </div>
+
+      <!-- 5. Maggie Appleton (UX angle) -->
+      <div class="designer-card">
+        <div class="designer-num">05</div>
+        <div class="designer-info">
+          <h3>Siddharth Arun</h3>
+          <div class="role">Design Engineer · arun.is · 设计细节观察者</div>
+          <p>在 arun.is 上发布了大量关于「好的设计背后不可见的细节」的深度文章，包括 Figma、Apple、Stripe 的微交互分析。他整理了一个「Design Engineering Resources」合集，是 design + engineering 交叉领域最系统的学习资源库之一。他的写作帮助你建立「为什么这个设计感觉好」的品位系统。</p>
+          <div class="tags">
+            <span class="tag">设计观察</span>
+            <span class="tag">微交互分析</span>
+            <span class="tag">Design Engineering</span>
+            <span class="tag">品位培养</span>
+          </div>
+          <div class="brc-badge">⭐ BRC 参考点：通过他的分析文章，训练「设计眼光」，建立 BRC 自己的设计决策框架</div>
+        </div>
+        <a href="https://arun.is/" target="_blank" class="designer-link">访问网站 ↗</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ── SECTION 3: PLAN ── -->
+<div class="container" id="plan">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">03</div>
+      <h2 class="section-title">BRC 视觉更新计划</h2>
+    </div>
+
+    <div class="callout">
+      <strong>更新原则：</strong>BRC 是教会社群网站，视觉目标应是「温暖、庄重、现代、包容」——不是酷炫的创意机构，也不是冰冷的科技公司。每次更新都要问：<em>「这个改动是否让人感到被欢迎、被接纳？」</em>
+    </div>
+
+    <div class="phase-list" style="margin-top: 40px;">
+
+      <!-- PHASE 1 -->
+      <div class="phase">
+        <div class="phase-meta">
+          <div class="phase-label">Phase 1 · 基础</div>
+          <div class="phase-title">品牌字体<br/>& 颜色系统</div>
+          <div class="phase-effort">工作量 <strong>中</strong><br/>优先级 <strong>最高</strong><br/>参考 <strong>Steve Schoger</strong></div>
+        </div>
+        <div class="phase-content">
+          <h4>字体升级</h4>
+          <ul class="task-list">
+            <li>在 <code class="code">layout.tsx</code> 中引入 <code class="code">next/font/google</code>，加载 <strong>Lora</strong>（衬线体，用于标题/圣经经文）和 <strong>Inter</strong>（无衬线，用于正文和导航），同时配置 <code class="code">Noto Serif SC / Noto Sans SC</code> 作为中文字体</li>
+            <li>建立 type scale：xs(12) / sm(14) / base(16) / lg(18) / xl(20) / 2xl(24) / 3xl(30) / 4xl(36) / 5xl(48)，中文内容统一 <code class="code">line-height: 1.85</code></li>
+            <li>用 CSS 变量 <code class="code">--font-heading</code> 和 <code class="code">--font-body</code> 在 Tailwind config 中注册，替换所有 hardcoded font 声明</li>
+          </ul>
+          <h4>颜色系统重构</h4>
+          <ul class="task-list">
+            <li>用 <strong>暖金色系</strong>（amber/warm gold）替代现有 red-700：<code class="code">primary-900 → #78350f</code>、<code class="code">primary-700 → #b45309</code>、<code class="code">primary-500 → #d97706</code>、<code class="code">primary-100 → #fef3c7</code>，建立完整 10 步色阶</li>
+            <li>加入 <strong>深森绿</strong> 作为副色（沉稳、群体感）：<code class="code">secondary-900 → #1a3a2a</code>，用于 footer 背景或 hero overlay</li>
+            <li>在 <code class="code">globals.css</code> 定义 <code class="code">--color-brand-*</code> 系列变量，同步到 <code class="code">tailwind.config.ts</code> 的 <code class="code">theme.extend.colors</code></li>
+          </ul>
+          <div style="margin-top: 16px;">
+            <div class="font-preview">
+              <div class="fp-label">推荐字体组合预览</div>
+              <div class="fp-sample-serif">与神同行 · Align With God</div>
+              <div class="fp-sample-sans">正文使用 Inter，清晰易读，现代感与温度并存。Chinese body text uses Noto Sans SC for optimal readability across bilingual content.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 2 -->
+      <div class="phase">
+        <div class="phase-meta">
+          <div class="phase-label">Phase 2 · 导航</div>
+          <div class="phase-title">Header 精致化</div>
+          <div class="phase-effort">工作量 <strong>小</strong><br/>优先级 <strong>高</strong><br/>参考 <strong>Rauno Freiberg<br/>Emil Kowalski</strong></div>
+        </div>
+        <div class="phase-content">
+          <h4>滚动行为升级</h4>
+          <ul class="task-list">
+            <li>透明 header 滚动后改为 <code class="code">backdrop-blur-md</code> + <code class="code">bg-white/80</code>，加 <code class="code">transition-all duration-300</code>，消除突兀的颜色切换</li>
+            <li>为导航链接加入 active 状态的底部指示线（<code class="code">2px</code> 的 <code class="code">border-b</code>），用 <code class="code">transition</code> 驱动 width 从 0 到 100%</li>
+            <li>语言切换按钮加入 icon（地球仪 SVG），提升可识别性</li>
+          </ul>
+          <h4>移动端菜单</h4>
+          <ul class="task-list">
+            <li>移动端抽屉菜单加入 GSAP 或 CSS <code class="code">@keyframes</code> 的平滑 slide-in，替代现有的直接显示</li>
+            <li>菜单打开时背景加 <code class="code">backdrop-blur</code> 遮罩，提升层次感</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PHASE 3 -->
+      <div class="phase">
+        <div class="phase-meta">
+          <div class="phase-label">Phase 3 · 首页</div>
+          <div class="phase-title">Hero Section<br/>视觉升级</div>
+          <div class="phase-effort">工作量 <strong>中</strong><br/>优先级 <strong>高</strong><br/>参考 <strong>Cassie Evans<br/>Maggie Appleton</strong></div>
+        </div>
+        <div class="phase-content">
+          <h4>MinistryCarousel 升级</h4>
+          <ul class="task-list">
+            <li>图片高度从 <code class="code">h-[420px]</code> 升级为全屏 <code class="code">h-[70vh] min-h-[500px]</code>，创造电影级的视觉冲击</li>
+            <li>标题字体改为 Lora 衬线体（或 Noto Serif TC），字号放大到 <code class="code">text-4xl md:text-6xl</code>，加入 <code class="code">drop-shadow</code> 提升可读性</li>
+            <li>渐变叠加从 <code class="code">from-black/60</code> 改为 <code class="code">from-black/70 via-black/30 to-transparent</code>，同时在图片左侧加一条竖向品牌色线条（2px 高光）</li>
+            <li>切换指示器改为细长横条（progress bar 风格，宽度根据剩余时间动态缩短），更有设计感</li>
+          </ul>
+          <h4>AlignWithGod Section</h4>
+          <ul class="task-list">
+            <li>背景从 <code class="code">bg-amber-50</code> 改为更饱和的 <code class="code">bg-stone-100</code> 或深色 <code class="code">bg-stone-900 text-white</code> 方案，让 section 在页面中「锚定」而不飘</li>
+            <li>数字编号用 <code class="code">font-feature-settings: "onum"</code> 开启 old-style numerals，或直接换为大号罗马数字（Ⅰ Ⅱ Ⅲ），增加神圣感</li>
+            <li>引用经文部分加入左侧引号装饰（CSS <code class="code">::before</code>），用品牌金色渲染</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PHASE 4 -->
+      <div class="phase">
+        <div class="phase-meta">
+          <div class="phase-label">Phase 4 · 组件</div>
+          <div class="phase-title">全局组件<br/>精致化</div>
+          <div class="phase-effort">工作量 <strong>中</strong><br/>优先级 <strong>中</strong><br/>参考 <strong>Steve Schoger<br/>Josh Comeau</strong></div>
+        </div>
+        <div class="phase-content">
+          <h4>表单升级</h4>
+          <ul class="task-list">
+            <li><code class="code">HomeContactForm</code> 输入框改为全边框风格（加 <code class="code">rounded-md border border-stone-200</code>），focus 状态加 <code class="code">ring-2 ring-amber-500/30</code> 发光效果</li>
+            <li>提交按钮加 <code class="code">rounded-md</code>，hover 时轻微 <code class="code">translateY(-1px)</code> + <code class="code">shadow-md</code>，增加可点击的物理反馈感</li>
+            <li>加入表单提交成功的内联反馈状态（替代直接跳 mailto 的体验断层）</li>
+          </ul>
+          <h4>卡片 & 列表</h4>
+          <ul class="task-list">
+            <li>所有 Ministry 卡片统一加入 <code class="code">group hover:shadow-lg transition-shadow duration-200</code> 以及图片的 <code class="code">group-hover:scale-105 transition-transform</code></li>
+            <li>建立统一的 Card 组件，包含：上图、下文字区、tag chip、CTA 链接——替代各页面散乱的卡片实现</li>
+          </ul>
+          <h4>按钮系统</h4>
+          <ul class="task-list">
+            <li>建立 3 种按钮变体：Primary（实色填充）、Secondary（描边）、Ghost（无背景）——统一应用于全站</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PHASE 5 -->
+      <div class="phase">
+        <div class="phase-meta">
+          <div class="phase-label">Phase 5 · 动效</div>
+          <div class="phase-title">微交互 &<br/>Scroll Animation</div>
+          <div class="phase-effort">工作量 <strong>中偏大</strong><br/>优先级 <strong>中</strong><br/>参考 <strong>Cassie Evans<br/>Jhey Tompkins</strong></div>
+        </div>
+        <div class="phase-content">
+          <h4>Scroll-triggered 动画</h4>
+          <ul class="task-list">
+            <li>使用 CSS <code class="code">@keyframes</code> + <code class="code">IntersectionObserver</code>（或 Framer Motion 的 <code class="code">whileInView</code>），为各 section 标题加入 fade-up 入场动画（<code class="code">translateY(24px) opacity-0 → translateY(0) opacity-1</code>，持续 400ms）</li>
+            <li>AlignWithGod 的 4 个 goal card 加入 staggered 入场（每个延迟 80ms），增加编排感</li>
+          </ul>
+          <h4>页面过渡</h4>
+          <ul class="task-list">
+            <li>在 Next.js App Router 中加入 View Transitions API（或 Framer Motion AnimatePresence）实现路由切换的淡入淡出</li>
+          </ul>
+          <h4>细节微交互</h4>
+          <ul class="task-list">
+            <li>导航 Logo hover 时轻微 scale（<code class="code">1 → 1.02</code>），Nav links hover 时颜色 + 下划线同时过渡</li>
+            <li>Footer 订阅按钮加入发送动画（点击后图标从「→」变为「✓」，持续 1 秒后复原）</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PHASE 6 -->
+      <div class="phase">
+        <div class="phase-meta">
+          <div class="phase-label">Phase 6 · Footer</div>
+          <div class="phase-title">Footer &<br/>品牌收尾</div>
+          <div class="phase-effort">工作量 <strong>小</strong><br/>优先级 <strong>低</strong><br/>参考 <strong>Maggie Appleton<br/>Tobias van Schneider</strong></div>
+        </div>
+        <div class="phase-content">
+          <h4>深色 Footer 方案</h4>
+          <ul class="task-list">
+            <li>将 footer 背景改为 <code class="code">bg-stone-900 text-stone-100</code>，营造「落地」感——整个页面从浅到深，footer 作为视觉锚点</li>
+            <li>加入品牌 Logo（SVG）+ 教会信念声明（一句话）作为 footer 的视觉焦点</li>
+            <li>分隔线改为品牌色（<code class="code">border-amber-700/30</code>），在深色背景上微妙呈现</li>
+          </ul>
+          <h4>SEO & Metadata</h4>
+          <ul class="task-list">
+            <li>更新 <code class="code">layout.tsx</code> 的 metadata，包含完整 title、description、OG image（使用 Next.js ImageResponse 生成动态 OG 图片）</li>
+            <li>为各页面添加 structured data（Schema.org 的 <code class="code">Organization</code> 和 <code class="code">Event</code> 类型）</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SUMMARY TABLE -->
+    <div style="margin-top: 56px;">
+      <h3 style="font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 600; margin-bottom: 24px;">执行优先级总览</h3>
+      <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+        <thead>
+          <tr style="border-bottom: 2px solid var(--border);">
+            <th style="text-align: left; padding: 10px 16px; font-weight: 600; color: var(--text-muted);">Phase</th>
+            <th style="text-align: left; padding: 10px 16px; font-weight: 600; color: var(--text-muted);">内容</th>
+            <th style="text-align: left; padding: 10px 16px; font-weight: 600; color: var(--text-muted);">视觉提升幅度</th>
+            <th style="text-align: left; padding: 10px 16px; font-weight: 600; color: var(--text-muted);">工作量</th>
+            <th style="text-align: left; padding: 10px 16px; font-weight: 600; color: var(--text-muted);">推荐顺序</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--border); background: var(--surface);">
+            <td style="padding: 12px 16px;">Phase 1</td>
+            <td style="padding: 12px 16px;">字体 + 颜色系统</td>
+            <td style="padding: 12px 16px; color: #b91c1c; font-weight: 600;">★★★★★ 最大</td>
+            <td style="padding: 12px 16px;">中（3–5天）</td>
+            <td style="padding: 12px 16px; font-weight: 600;">① 第一</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 12px 16px;">Phase 2</td>
+            <td style="padding: 12px 16px;">Header 精致化</td>
+            <td style="padding: 12px 16px;">★★★☆☆</td>
+            <td style="padding: 12px 16px;">小（1–2天）</td>
+            <td style="padding: 12px 16px; font-weight: 600;">② 第二</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border); background: var(--surface);">
+            <td style="padding: 12px 16px;">Phase 3</td>
+            <td style="padding: 12px 16px;">Hero Section</td>
+            <td style="padding: 12px 16px; color: #92400e; font-weight: 600;">★★★★☆ 大</td>
+            <td style="padding: 12px 16px;">中（3–4天）</td>
+            <td style="padding: 12px 16px; font-weight: 600;">③ 第三</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 12px 16px;">Phase 4</td>
+            <td style="padding: 12px 16px;">全局组件</td>
+            <td style="padding: 12px 16px;">★★★☆☆</td>
+            <td style="padding: 12px 16px;">中（3–5天）</td>
+            <td style="padding: 12px 16px; font-weight: 600;">④ 第四</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border); background: var(--surface);">
+            <td style="padding: 12px 16px;">Phase 5</td>
+            <td style="padding: 12px 16px;">动效系统</td>
+            <td style="padding: 12px 16px;">★★★★☆ 大</td>
+            <td style="padding: 12px 16px;">中偏大（5–7天）</td>
+            <td style="padding: 12px 16px; font-weight: 600;">⑤ 第五</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 12px 16px;">Phase 6</td>
+            <td style="padding: 12px 16px;">Footer + SEO</td>
+            <td style="padding: 12px 16px;">★★☆☆☆</td>
+            <td style="padding: 12px 16px;">小（1–2天）</td>
+            <td style="padding: 12px 16px; font-weight: 600;">⑥ 最后</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <p>BRC 视觉参考手册 · 2026 · 由 Claude 整理</p>
+  </div>
+</footer>
+
+</body>
+</html>

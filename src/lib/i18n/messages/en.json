@@ -158,9 +158,9 @@
     "teamTitle": "BRC Board",
     "teamCta": "View ministry details",
     "team": [
-      { "name": "林雄堅 牧師", "role": "Ministry Leader" },
-      { "name": "彭榮仁 牧師", "role": "Ministry Leader" },
-      { "name": "鄭隆保 牧師", "role": "Ministry Leader" }
+      { "name": "Huang Mingfa, Pastor", "role": "BRC Coordinator" },
+      { "name": "Qiu Yanhui, Sister", "role": "Ministry Leader" },
+      { "name": "xxxx, Pastor", "role": "Ministry Leader" }
     ],
     "joinTitle": "Walk With Us",
     "joinBody": "Partner through prayer and giving to renew cities and nations.",
@@ -286,14 +286,14 @@
     "mailValue": "Bethel Renewal Center, P.O.Box 186, Lake Hiawatha, NJ 07034",
     "digitalTitle": "Digital Giving",
     "paypal": "Paypal: brc@bethelrc.org",
-    "zelle": "Zelle: BRC@BETHELRC.ORG",
-    "wire": "Wire Transfer: finance@bethelrc.org (email for details)",
+    "zelle": "Zelle: brc@bethelrc.org",
+    "wire": "Wire Transfer: brc@bethelrc.org (email for Wire Transfer account details)",
     "notesTitle": "Donation Notes",
     "notes": [
       "Paying by credit card/Paypal incurs a 2-3% processing fee.",
       "Please specify the ministry you support in the memo."
     ],
-    "testMode": "Notice: Test mode is enabled. While in test mode no live donations are processed.",
+   
     "disclaimer": "Your contribution is solicited with the understanding that Bethel Renewal Center has complete discretion and control over the use of all donated funds."
   },
   "prayer": {
