@@ -159,9 +159,9 @@
     "teamTitle": "BRC董事會",
     "teamCta": "查看事工詳情",
     "team": [
-      { "name": "林雄堅 牧師", "role": "事工領袖" },
-      { "name": "彭榮仁 牧師", "role": "事工領袖" },
-      { "name": "鄭隆保 牧師", "role": "事工領袖" }
+      { "name": "黃明發 牧師", "role": "BRC 總召集人" },
+      { "name": "邱燕惠 姐妹", "role": "事工領袖" },
+      { "name": "xxxx 牧師", "role": "事工領袖" }
     ],
     "joinTitle": "與我們同行",
     "joinBody": "透過合作、代禱與奉獻，一起參與城市與列國的更新。",
@@ -287,14 +287,14 @@
     "mailValue": "Bethel Renewal Center, P.O.Box 186, Lake Hiawatha, NJ 07034",
     "digitalTitle": "線上轉賬",
     "paypal": "Paypal：brc@bethelrc.org",
-    "zelle": "Zelle：BRC@BETHELRC.ORG",
-    "wire": "Wire Transfer：finance@bethelrc.org（請來信索取詳情）",
+    "zelle": "Zelle：brc@bethelrc.org",
+    "wire": "Wire Transfer：brc@bethelrc.org（請來信索取Wire Transfer的账户詳情）",
     "notesTitle": "奉獻注意事項",
     "notes": [
       "使用信用卡/Paypal 捐款會產生 2-3% 手續費。",
       "請在備注中注明奉獻支持的具體事工。"
     ],
-    "testMode": "Notice: Test mode is enabled. While in test mode no live donations are processed.",
+    
     "disclaimer": "您的奉獻是基於以下理解：伯特利中心對所有奉獻款項的使用擁有完全的酌情權與控制權。"
   },
   "prayer": {

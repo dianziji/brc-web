@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>BRC · 图片 & Section 视觉规范</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#0c0b0a;font-family:'Inter',sans-serif;color:#fff;-webkit-font-smoothing:antialiased}
+
+/* ── NAV ── */
+.top-nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(12,11,10,0.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:52px;
+}
+.nav-brand{font-size:12px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.06em;text-transform:uppercase}
+.nav-tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:8px 0}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{
+  font-size:11px;font-weight:500;letter-spacing:.04em;white-space:nowrap;
+  padding:5px 14px;border-radius:20px;cursor:pointer;
+  background:transparent;border:1px solid rgba(255,255,255,0.08);
+  color:rgba(255,255,255,.4);transition:all .2s;
+}
+.nav-tab.active{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.2)}
+.nav-tab:hover:not(.active){color:rgba(255,255,255,.7)}
+
+/* ── LAYOUT ── */
+.page{display:none;padding:0 0 100px}
+.page.active{display:block}
+.inner{max-width:1100px;margin:0 auto;padding:0 28px}
+
+/* ── INTRO ── */
+.page-intro{padding:52px 0 40px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:48px}
+.page-intro .eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:14px}
+.page-intro h2{font-family:'Lora',serif;font-size:clamp(24px,3.5vw,38px);font-weight:700;line-height:1.15;letter-spacing:-.01em;margin-bottom:14px}
+.page-intro p{font-size:14px;color:rgba(255,255,255,.4);line-height:1.75;max-width:540px}
+
+/* ── CHAOS GRID ── */
+.chaos-label{
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:#ef4444;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);
+  display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;margin-bottom:16px;
+}
+.clean-label{
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:#22c55e;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);
+  display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;margin-bottom:16px;
+}
+.rule-label{
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:#d97706;background:rgba(217,119,6,.1);border:1px solid rgba(217,119,6,.2);
+  display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;margin-bottom:16px;
+}
+
+/* ── CALLOUT ── */
+.callout{
+  background:rgba(217,119,6,.06);border:1px solid rgba(217,119,6,.15);
+  border-left:3px solid #d97706;border-radius:6px;padding:14px 18px;
+  font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:28px;
+}
+.callout strong{color:#d97706}
+.callout code{font-family:monospace;font-size:12px;background:rgba(255,255,255,.07);padding:1px 5px;border-radius:3px;color:rgba(255,255,255,.7)}
+
+/* ── SECTION DIVIDER ── */
+.divider{height:1px;background:rgba(255,255,255,.06);margin:48px 0}
+
+/* ── CONTEXT HEADER ── */
+.ctx{
+  display:flex;align-items:center;gap:12px;margin-bottom:20px;
+}
+.ctx-num{font-size:11px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.2);min-width:28px}
+.ctx-title{font-size:16px;font-weight:600;color:rgba(255,255,255,.85)}
+.ctx-note{font-size:12px;color:rgba(255,255,255,.3);margin-left:auto}
+
+/* ── COMPARISON ROW ── */
+.cmp-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px}
+.cmp-row.triple{grid-template-columns:1fr 1fr 1fr}
+.cmp-box{border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.07)}
+.cmp-box .cmp-top{padding:8px 14px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between}
+.cmp-box .cmp-content{background:#1a1917}
+.cmp-box.bad .cmp-top{background:rgba(239,68,68,.06)}
+.cmp-box.bad .cmp-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#ef4444}
+.cmp-box.good .cmp-top{background:rgba(34,197,94,.05)}
+.cmp-box.good .cmp-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#22c55e}
+.cmp-box .cmp-code{font-family:monospace;font-size:10px;color:rgba(255,255,255,.2);max-width:60%;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ── DESIGN RULE BOX ── */
+.rule-box{
+  background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);
+  border-radius:10px;padding:20px 24px;margin-bottom:32px;
+}
+.rule-box h4{font-size:13px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.rule-box h4::before{content:'规则';font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(217,119,6,.15);color:#d97706;padding:2px 8px;border-radius:10px}
+.rule-table{width:100%;border-collapse:collapse;font-size:12px}
+.rule-table th{text-align:left;padding:8px 12px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.25);border-bottom:1px solid rgba(255,255,255,.07)}
+.rule-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top;line-height:1.5}
+.rule-table tr:last-child td{border-bottom:none}
+.rule-table .t-name{color:rgba(255,255,255,.7);font-weight:500}
+.rule-table .t-class{font-family:monospace;color:#d97706;font-size:11px}
+.rule-table .t-desc{color:rgba(255,255,255,.35)}
+.rule-table .t-example{color:rgba(255,255,255,.4);font-size:11px}
+
+/* ════════════════════
+   MOCK STYLES: BEFORE
+   ════════════════════ */
+
+/* bad: mixed radius cards */
+.bad-card-sm{
+  background:#fff;border-radius:6px;overflow:hidden;border:1px solid #e5e7eb;
+  font-family:Arial,sans-serif;
+}
+.bad-card-sm img{width:100%;height:80px;object-fit:cover;display:block;border-radius:0}
+.bad-card-sm .body{padding:8px;font-size:11px;color:#374151}
+
+.bad-card-lg{
+  background:#fff;border-radius:16px;overflow:hidden;border:1px solid #e5e7eb;
+  font-family:Arial,sans-serif;
+}
+.bad-card-lg img{width:100%;height:160px;object-fit:cover;display:block}
+.bad-card-lg .body{padding:12px;font-size:12px;color:#374151}
+
+.bad-card-pill{
+  background:#fff;border-radius:50px;overflow:hidden;border:1px solid #e5e7eb;
+  font-family:Arial,sans-serif;padding:12px;display:flex;gap:10px;align-items:center;
+}
+.bad-card-pill img{width:50px;height:50px;object-fit:cover;border-radius:50%;flex-shrink:0}
+.bad-card-pill .txt{font-size:11px;color:#374151}
+
+.bad-hero{position:relative;overflow:hidden;background:#18181b}
+.bad-hero img{width:100%;height:180px;object-fit:cover;border-radius:0;display:block}
+.bad-hero-text{position:absolute;bottom:12px;left:12px;font-family:Arial,sans-serif;color:#fff}
+.bad-hero-text .t{font-size:18px;font-weight:700}
+.bad-hero-text .s{font-size:11px;opacity:.7}
+
+/* ════════════════════
+   MOCK STYLES: AFTER
+   ════════════════════ */
+
+/* Tier 1: Full-bleed */
+.hero-fullbleed{
+  position:relative;overflow:hidden;
+}
+.hero-fullbleed img{width:100%;height:200px;object-fit:cover;display:block}
+.hero-fullbleed::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.3) 50%, transparent 100%);
+}
+.hero-fullbleed .text{
+  position:absolute;bottom:0;left:0;right:0;z-index:1;padding:20px 20px 18px;
+}
+.hero-fullbleed .text .cat{
+  font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:#fbbf24;margin-bottom:8px;font-family:'Inter',sans-serif;
+}
+.hero-fullbleed .text .title{
+  font-family:'Lora',Georgia,serif;font-size:22px;font-weight:700;
+  color:#fff;line-height:1.15;
+}
+.hero-fullbleed .text .sub{
+  font-size:11px;color:rgba(255,255,255,.6);margin-top:4px;font-family:'Inter',sans-serif;
+}
+.hero-fullbleed .accent-line{
+  position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,transparent 10%, #d97706 50%, transparent 90%);
+  z-index:2;
+}
+.hero-fullbleed .prog{
+  position:absolute;bottom:8px;right:16px;z-index:2;
+  display:flex;gap:6px;align-items:center;
+}
+.prog-bar{height:2px;border-radius:1px;background:rgba(255,255,255,.25)}
+.prog-bar.on{background:#d97706;width:36px}
+.prog-bar:not(.on){width:16px}
+
+/* Tier 2: Feature card (rounded-2xl) */
+.feat-card{
+  background:#fff;border-radius:16px;overflow:hidden;
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow:0 2px 12px rgba(0,0,0,.06);
+}
+.feat-card img{width:100%;height:160px;object-fit:cover;display:block}
+.feat-card .body{padding:16px;font-family:'Inter',sans-serif}
+.feat-card .body .cat{
+  font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:#a08050;margin-bottom:8px;
+}
+.feat-card .body .title{font-size:14px;font-weight:600;color:#1c1a17;line-height:1.35;margin-bottom:6px;font-family:'Lora',serif}
+.feat-card .body .desc{font-size:12px;color:#78716c;line-height:1.6}
+.feat-card .body .cta{
+  display:inline-flex;align-items:center;gap:5px;margin-top:12px;
+  font-size:11px;font-weight:600;color:#b45309;letter-spacing:.02em;
+}
+
+/* Tier 3: Thumb (rounded-xl small) */
+.thumb-card{
+  background:#fff;border-radius:10px;overflow:hidden;
+  border:1px solid rgba(0,0,0,.07);
+  display:flex;align-items:center;gap:0;
+}
+.thumb-card img{width:80px;height:80px;object-fit:cover;display:block;flex-shrink:0}
+.thumb-card .body{padding:10px 12px;font-family:'Inter',sans-serif}
+.thumb-card .body .title{font-size:12px;font-weight:600;color:#1c1a17;margin-bottom:3px}
+.thumb-card .body .sub{font-size:11px;color:#a08050}
+
+/* Section tier samples */
+.sec-dark{background:#0f0e0c;padding:20px}
+.sec-mid{background:#1c1a17;padding:20px}
+.sec-light{background:#faf9f7;padding:20px}
+.sec-brand{background:#78350f;padding:20px}
+.sec-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px;font-family:'Inter',sans-serif}
+.sec-use{font-size:12px;color:rgba(255,255,255,.6);font-family:'Inter',sans-serif}
+.sec-use.dark-text{color:rgba(0,0,0,.5)}
+
+/* radius demo */
+.rad-demo{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:10px;
+}
+.rad-item{text-align:center}
+.rad-swatch{
+  height:60px;background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);margin-bottom:6px;
+}
+.rad-swatch.r-0{border-radius:0}
+.rad-swatch.r-md{border-radius:6px}
+.rad-swatch.r-lg{border-radius:8px}
+.rad-swatch.r-xl{border-radius:12px}
+.rad-swatch.r-2xl{border-radius:16px}
+.rad-swatch.r-full{border-radius:9999px}
+.rad-label{font-size:10px;color:rgba(255,255,255,.35);font-family:monospace}
+.rad-use{font-size:9px;color:rgba(255,255,255,.2);margin-top:2px;font-family:'Inter',sans-serif}
+
+/* gradient overlay swatches */
+.grad-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.grad-swatch{
+  flex:1;min-width:130px;height:100px;border-radius:8px;overflow:hidden;
+  position:relative;border:1px solid rgba(255,255,255,.08);
+}
+.grad-swatch img{width:100%;height:100%;object-fit:cover}
+.grad-swatch .overlay{position:absolute;inset:0}
+.grad-swatch .name{
+  position:absolute;bottom:8px;left:0;right:0;text-align:center;
+  font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.7);font-family:'Inter',sans-serif;
+}
+
+/* section bg demo */
+.section-demo-row{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+.sd-cell{padding:14px 10px;text-align:center}
+.sd-label{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.sd-hex{font-family:monospace;font-size:9px;margin-bottom:4px}
+.sd-use{font-size:9px;opacity:.6}
+
+/* page flow preview */
+.page-flow{border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+.pf-section{position:relative;overflow:hidden}
+.pf-label{
+  position:absolute;top:8px;right:10px;z-index:10;
+  font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  background:rgba(0,0,0,.5);backdrop-filter:blur(4px);color:rgba(255,255,255,.6);
+  padding:3px 8px;border-radius:4px;
+}
+
+/* ── CHAOS demo ── */
+.chaos-demo{
+  background:#f8f7f5;border-radius:10px;overflow:hidden;
+  padding:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+}
+
+@media(max-width:700px){
+  .cmp-row{grid-template-columns:1fr}
+  .cmp-row.triple{grid-template-columns:1fr 1fr}
+  .rad-demo{grid-template-columns:repeat(3,1fr)}
+  .section-demo-row{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top-nav">
+  <div class="nav-brand">BRC 视觉规范</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('p-chaos',this)">① 问题在哪里</button>
+    <button class="nav-tab" onclick="showPage('p-rule',this)">② 规则体系</button>
+    <button class="nav-tab" onclick="showPage('p-image',this)">③ 图片三个层级</button>
+    <button class="nav-tab" onclick="showPage('p-section',this)">④ Section 背景系统</button>
+    <button class="nav-tab" onclick="showPage('p-gradient',this)">⑤ 渐变叠加统一</button>
+    <button class="nav-tab" onclick="showPage('p-flow',this)">⑥ 首页完整流向</button>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════
+     PAGE 1: 问题在哪里 (THE CHAOS)
+     ══════════════════════════════════════ -->
+<div class="page active" id="p-chaos">
+<div class="inner">
+<div class="page-intro">
+  <div class="eyebrow">BRC Layout System · 第一步</div>
+  <h2>目前的混乱长什么样子</h2>
+  <p>从代码里抓出来的实际数字——同一个网站，border-radius 有 6 种不同值，图片高度有 10 种不同值，按钮圆角有 5 种风格。</p>
+</div>
+
+<!-- BORDER RADIUS CHAOS -->
+<div class="ctx">
+  <div class="ctx-num">01</div>
+  <div class="ctx-title">Border-radius 用了 6 种不同值</div>
+  <div class="ctx-note">来自实际代码</div>
+</div>
+<div class="chaos-label">● 当前问题</div>
+
+<div style="background:#1a1917;border-radius:10px;padding:20px;margin-bottom:16px">
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;align-items:end">
+    <div style="text-align:center">
+      <div style="height:52px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:0;margin-bottom:8px"></div>
+      <div style="font-family:monospace;font-size:10px;color:#ef4444">rounded-none</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.2);margin-top:3px">HomeContactForm<br/>提交按钮</div>
+    </div>
+    <div style="text-align:center">
+      <div style="height:52px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;margin-bottom:8px"></div>
+      <div style="font-family:monospace;font-size:10px;color:#f97316">rounded-md (6px)</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.2);margin-top:3px">ArchiveGrid 缩略图<br/>Footer 输入框</div>
+    </div>
+    <div style="text-align:center">
+      <div style="height:52px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;margin-bottom:8px"></div>
+      <div style="font-family:monospace;font-size:10px;color:#f97316">rounded-lg (8px)</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.2);margin-top:3px">ArchiveGrid 卡片<br/>Calendar 事件</div>
+    </div>
+    <div style="text-align:center">
+      <div style="height:52px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;margin-bottom:8px"></div>
+      <div style="font-family:monospace;font-size:10px;color:#eab308">rounded-xl (12px)</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.2);margin-top:3px">Prayer 卡片图片<br/>（图片在卡片内）</div>
+    </div>
+    <div style="text-align:center">
+      <div style="height:52px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:16px;margin-bottom:8px"></div>
+      <div style="font-family:monospace;font-size:10px;color:#22c55e">rounded-2xl (16px)</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.2);margin-top:3px">Event 卡片<br/>Prayer 卡片容器<br/>Archive 弹窗</div>
+    </div>
+    <div style="text-align:center">
+      <div style="height:52px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:9999px;margin-bottom:8px"></div>
+      <div style="font-family:monospace;font-size:10px;color:#a78bfa">rounded-full</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.2);margin-top:3px">Header 奉献按钮<br/>About 页 CTA</div>
+    </div>
+  </div>
+</div>
+
+<div class="callout"><strong>结果：</strong>在同一个 Prayer 卡片里，<code>外层容器是 rounded-2xl</code>，<code>内部图片是 rounded-xl</code>，差了 4px——这种不一致用户感受不出来，但会让整体「感觉不对」。</div>
+
+<div class="divider"></div>
+
+<!-- IMAGE HEIGHT CHAOS -->
+<div class="ctx">
+  <div class="ctx-num">02</div>
+  <div class="ctx-title">图片高度有 10 种不同值，没有任何逻辑关系</div>
+</div>
+<div class="chaos-label">● 当前问题</div>
+
+<div style="background:#1a1917;border-radius:10px;padding:20px;margin-bottom:16px">
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <!-- each height bar -->
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-family:monospace;font-size:11px;color:#ef4444;min-width:180px">h-20 (80px)</div>
+      <div style="height:14px;background:#ef4444;border-radius:2px;opacity:.7" data-w="80"></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.3)">ArchiveGrid 缩略图</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-family:monospace;font-size:11px;color:#f97316;min-width:180px">h-32 (128px)</div>
+      <div style="height:14px;background:#f97316;border-radius:2px;opacity:.7;width:128px"></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.3)">ArchiveScene3D 卡片图</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-family:monospace;font-size:11px;color:#f97316;min-width:180px">h-40 (160px)</div>
+      <div style="height:14px;background:#f97316;border-radius:2px;opacity:.7;width:160px"></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.3)">首页 Training 卡片</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-family:monospace;font-size:11px;color:#eab308;min-width:180px">h-44 (176px)</div>
+      <div style="height:14px;background:#eab308;border-radius:2px;opacity:.7;width:176px"></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.3)">首页 Event 卡片</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-family:monospace;font-size:11px;color:#eab308;min-width:180px">h-48~h-52 (192-208px)</div>
+      <div style="height:14px;background:#eab308;border-radius:2px;opacity:.7;width:200px"></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.3)">Prayer 卡片图片</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-family:monospace;font-size:11px;color:#eab308;min-width:180px">h-56 (224px)</div>
+      <div style="height:14px;background:#eab308;border-radius:2px;opacity:.7;width:224px"></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.3)">ArchiveGrid 弹窗图</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-family:monospace;font-size:11px;color:#22c55e;min-width:180px">h-[260~360px] 响应式</div>
+      <div style="height:14px;background:#22c55e;border-radius:2px;opacity:.7;width:310px"></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.3)">Calendar 事件轮播</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-family:monospace;font-size:11px;color:#22c55e;min-width:180px">h-[280~420px] 响应式</div>
+      <div style="height:14px;background:#22c55e;border-radius:2px;opacity:.7;width:350px"></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.3)">MinistryCarousel</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-family:monospace;font-size:11px;color:#a78bfa;min-width:180px">h-[320~480px] 响应式</div>
+      <div style="height:14px;background:#a78bfa;border-radius:2px;opacity:.7;width:400px"></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.3)">About/Prayer/Archive Hero</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-family:monospace;font-size:11px;color:#a78bfa;min-width:180px">min-h-[70vh] 全高</div>
+      <div style="height:14px;background:#a78bfa;border-radius:2px;opacity:.7;width:480px"></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.3)">首页 Hero</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION BG CHAOS -->
+<div class="ctx">
+  <div class="ctx-num">03</div>
+  <div class="ctx-title">Section 背景颜色有 8 种，包含 2 个一次性 hex 值</div>
+</div>
+<div class="chaos-label">● 当前问题</div>
+
+<div style="background:#1a1917;border-radius:10px;overflow:hidden;margin-bottom:16px">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr)">
+    <div style="padding:14px 12px">
+      <div style="height:40px;background:#f9fafb;border-radius:4px;margin-bottom:8px"></div>
+      <div style="font-family:monospace;font-size:10px;color:#ef4444">bg-zinc-50</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.3);margin-top:3px">Footer, About values section</div>
+    </div>
+    <div style="padding:14px 12px">
+      <div style="height:40px;background:#fffbeb;border-radius:4px;margin-bottom:8px"></div>
+      <div style="font-family:monospace;font-size:10px;color:#ef4444">bg-amber-50</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.3);margin-top:3px">AlignWithGod section</div>
+    </div>
+    <div style="padding:14px 12px">
+      <div style="height:40px;background:#18181b;border-radius:4px;margin-bottom:8px"></div>
+      <div style="font-family:monospace;font-size:10px;color:#f97316">bg-zinc-900</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.3);margin-top:3px">Stats section (desktop)</div>
+    </div>
+    <div style="padding:14px 12px">
+      <div style="height:40px;background:#09090b;border-radius:4px;margin-bottom:8px"></div>
+      <div style="font-family:monospace;font-size:10px;color:#f97316">bg-zinc-950</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.3);margin-top:3px">Archive 3D page</div>
+    </div>
+    <div style="padding:14px 12px">
+      <div style="height:40px;background:#171321;border-radius:4px;margin-bottom:8px"></div>
+      <div style="font-family:monospace;font-size:10px;color:#ef4444">bg-[#171321] ⚠️</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.3);margin-top:3px">Stats section (mobile)<br/>一次性自定义值！</div>
+    </div>
+    <div style="padding:14px 12px">
+      <div style="height:40px;background:#0f172a;border-radius:4px;margin-bottom:8px"></div>
+      <div style="font-family:monospace;font-size:10px;color:#ef4444">bg-[#0f172a] ⚠️</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.3);margin-top:3px">3D cards CSS<br/>另一个一次性值！</div>
+    </div>
+    <div style="padding:14px 12px">
+      <div style="height:40px;background:linear-gradient(135deg,#1c1135,#2b1655,#3f1a70);border-radius:4px;margin-bottom:8px"></div>
+      <div style="font-family:monospace;font-size:10px;color:#ef4444">gradient-purple ⚠️</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.3);margin-top:3px">首页 Donation section (mobile)<br/>和其他深色无关联！</div>
+    </div>
+    <div style="padding:14px 12px">
+      <div style="height:40px;background:#f59e0b;border-radius:4px;margin-bottom:8px"></div>
+      <div style="font-family:monospace;font-size:10px;color:#eab308">bg-amber-500</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.3);margin-top:3px">各种按钮，但不统一</div>
+    </div>
+  </div>
+</div>
+<div class="callout"><strong>核心问题：</strong>深色 section 用了 <code>zinc-900</code>、<code>zinc-950</code>、<code>#171321</code>、<code>#0f172a</code> 四种不同的深色——但它们看上去几乎一样。没有人会注意到区别，却会感受到整体「说不清哪里乱」。</div>
+
+</div><!-- /inner -->
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════════
+     PAGE 2: RULE SYSTEM
+     ══════════════════════════════════════ -->
+<div class="page" id="p-rule">
+<div class="inner">
+<div class="page-intro">
+  <div class="eyebrow">BRC Layout System · 第二步</div>
+  <h2>三条核心规则</h2>
+  <p>不需要记住很多东西，只需要三条规则就能解决 90% 的混乱。</p>
+</div>
+
+<!-- RULE 1: Image tiers -->
+<div class="ctx"><div class="ctx-num">规则 1</div><div class="ctx-title">图片使用三个层级，每个层级有固定处理方式</div></div>
+<div class="rule-box">
+  <h4>图片层级规则</h4>
+  <table class="rule-table">
+    <thead><tr><th>层级</th><th>用在哪里</th><th>样式</th><th>圆角</th><th>示例</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="t-name">Tier 1<br/>全出血 Full-bleed</td>
+        <td class="t-desc">页面级 Hero、Section 背景图</td>
+        <td class="t-class">overflow-hidden<br/>fill + object-cover</td>
+        <td class="t-class">❌ 无圆角<br/>(容器边到边)</td>
+        <td class="t-example">MinistryCarousel、首页 Hero、About Hero</td>
+      </tr>
+      <tr>
+        <td class="t-name">Tier 2<br/>功能卡片 Feature Card</td>
+        <td class="t-desc">独立的内容卡片（事工、活动、训练）</td>
+        <td class="t-class">rounded-2xl overflow-hidden<br/>图片占满卡片顶部</td>
+        <td class="t-class">✅ rounded-2xl<br/>(卡片整体)</td>
+        <td class="t-example">Event 卡片、Prayer 卡片、Ministry 卡片</td>
+      </tr>
+      <tr>
+        <td class="t-name">Tier 3<br/>缩略图 Thumbnail</td>
+        <td class="t-desc">列表中的小缩略图，图文并排</td>
+        <td class="t-class">w-[固定宽] h-[固定高]<br/>object-cover rounded-lg</td>
+        <td class="t-class">✅ rounded-lg<br/>(图片本身)</td>
+        <td class="t-example">Archive 列表缩略图、Audio 列表</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- RULE 2: Border radius -->
+<div class="ctx" style="margin-top:32px"><div class="ctx-num">规则 2</div><div class="ctx-title">Border-radius 只用三个值</div></div>
+<div class="rule-box">
+  <h4>圆角系统</h4>
+  <table class="rule-table">
+    <thead><tr><th>值</th><th>px</th><th>用在哪里</th><th>不用在哪里</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="t-class">rounded-none</td>
+        <td class="t-name">0px</td>
+        <td class="t-desc">全出血图片容器、Section 容器（全宽）、分隔线</td>
+        <td class="t-example">❌ 不用于独立卡片</td>
+      </tr>
+      <tr>
+        <td class="t-class">rounded-lg</td>
+        <td class="t-name">8px</td>
+        <td class="t-desc">小型元素：缩略图、input框、小 badge、行内元素</td>
+        <td class="t-example">❌ 不用于大卡片容器</td>
+      </tr>
+      <tr>
+        <td class="t-class">rounded-2xl</td>
+        <td class="t-name">16px</td>
+        <td class="t-desc">所有独立卡片容器（Feature Card、Modal、弹窗）</td>
+        <td class="t-example">❌ 不用于图片缩略图</td>
+      </tr>
+      <tr>
+        <td class="t-class">rounded-full</td>
+        <td class="t-name">9999px</td>
+        <td class="t-desc">只用于按钮（Primary + Secondary）、Tag/Badge</td>
+        <td class="t-example">❌ 不用于卡片或图片</td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="margin-top:14px;font-size:12px;color:rgba(255,255,255,.3)">
+    ⚠️ 删除：<code style="font-family:monospace;font-size:11px;background:rgba(239,68,68,.1);color:#ef4444;padding:1px 5px;border-radius:3px">rounded-md</code>、<code style="font-family:monospace;font-size:11px;background:rgba(239,68,68,.1);color:#ef4444;padding:1px 5px;border-radius:3px">rounded-xl</code>、<code style="font-family:monospace;font-size:11px;background:rgba(239,68,68,.1);color:#ef4444;padding:1px 5px;border-radius:3px">rounded-t-2xl</code>（部分圆角会造成混乱）
+  </div>
+</div>
+
+<!-- RULE 3: Section backgrounds -->
+<div class="ctx" style="margin-top:32px"><div class="ctx-num">规则 3</div><div class="ctx-title">Section 背景只用 5 种，全部来自同一色系</div></div>
+<div class="rule-box">
+  <h4>Section 背景系统</h4>
+  <table class="rule-table">
+    <thead><tr><th>名称</th><th>颜色值</th><th>用在哪里</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="t-name">极深 Stone-950</td>
+        <td class="t-class">#0c0b09</td>
+        <td class="t-desc">页面最深背景（Hero 图片底色、footer）</td>
+      </tr>
+      <tr>
+        <td class="t-name">深 Stone-900</td>
+        <td class="t-class">#1c1a17</td>
+        <td class="t-desc">深色内容 section（AlignWithGod、Stats、Donation）</td>
+      </tr>
+      <tr>
+        <td class="t-name">中 Stone-100</td>
+        <td class="t-class">#f5f0e8</td>
+        <td class="t-desc">浅色强调 section（替换 amber-50）</td>
+      </tr>
+      <tr>
+        <td class="t-name">白 White</td>
+        <td class="t-class">#ffffff</td>
+        <td class="t-desc">卡片内容区、表单背景、默认浅色页面</td>
+      </tr>
+      <tr>
+        <td class="t-name">Brand Gold-800</td>
+        <td class="t-class">#92400e</td>
+        <td class="t-desc">只用于品牌强调区域（CTA section、badge）</td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="margin-top:14px;font-size:12px;color:rgba(255,255,255,.3)">
+    ⚠️ 删除：<code style="font-family:monospace;font-size:11px;background:rgba(239,68,68,.1);color:#ef4444;padding:1px 5px;border-radius:3px">#171321</code>、<code style="font-family:monospace;font-size:11px;background:rgba(239,68,68,.1);color:#ef4444;padding:1px 5px;border-radius:3px">#0f172a</code>、<code style="font-family:monospace;font-size:11px;background:rgba(239,68,68,.1);color:#ef4444;padding:1px 5px;border-radius:3px">purple gradient</code>、<code style="font-family:monospace;font-size:11px;background:rgba(239,68,68,.1);color:#ef4444;padding:1px 5px;border-radius:3px">zinc-50</code>（全替换为 stone 系列）
+  </div>
+</div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE 3: IMAGE TIERS
+     ══════════════════════════════════════ -->
+<div class="page" id="p-image">
+<div class="inner">
+<div class="page-intro">
+  <div class="eyebrow">BRC Layout System · 图片层级</div>
+  <h2>图片三个层级<br/>实际样子</h2>
+  <p>每个层级的真实视觉效果，用 BRC 实际图片展示。</p>
+</div>
+
+<!-- TIER 1 -->
+<div class="ctx"><div class="ctx-num">Tier 1</div><div class="ctx-title">全出血 Full-bleed — 边缘不裁切，无圆角</div></div>
+<div class="clean-label">✓ 正确做法</div>
+<div class="cmp-row">
+  <div>
+    <div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:8px">📌 用于：页面 Hero、MinistryCarousel、Section 背景</div>
+    <div class="hero-fullbleed" style="border-radius:0">
+      <img src="./public/images/hero.jpeg" alt=""/>
+      <div class="accent-line"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.3) 50%, transparent 100%);z-index:1"></div>
+      <div class="text">
+        <div class="cat">BRC 事工</div>
+        <div class="title">生命影響力事工</div>
+        <div class="sub">Life Impact Ministries</div>
+      </div>
+      <div class="prog" style="bottom:10px;right:14px">
+        <div class="prog-bar on"></div>
+        <div class="prog-bar"></div>
+        <div class="prog-bar"></div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:8px">📌 另一张：宣教事工</div>
+    <div class="hero-fullbleed" style="border-radius:0">
+      <img src="./public/images/mission.jpeg" alt=""/>
+      <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.7) 0%, rgba(0,0,0,.25) 55%, transparent 100%);z-index:1"></div>
+      <div class="text">
+        <div class="cat">跨文化宣教</div>
+        <div class="title">Cross Culture Ministries</div>
+        <div class="sub">在列國中見證神的國度</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="callout"><strong>关键特征：</strong>容器没有 border-radius，图片完全填满——正是因为容器是「全宽」的，所以不需要圆角。圆角是给「漂浮在页面中」的元素用的。</div>
+
+<div class="divider"></div>
+
+<!-- TIER 2 -->
+<div class="ctx"><div class="ctx-num">Tier 2</div><div class="ctx-title">功能卡片 Feature Card — rounded-2xl，图片在顶部</div></div>
+<div class="clean-label">✓ 正确做法</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px">
+  <!-- Event card -->
+  <div class="feat-card">
+    <img src="./public/images/youthMinistry2.jpeg" alt=""/>
+    <div class="body">
+      <div class="cat">青年事工</div>
+      <div class="title">青年成長營</div>
+      <div class="desc">本周日 2:00 PM · 裝備年輕一代成為門徒。</div>
+      <div class="cta">查看詳情 →</div>
+    </div>
+  </div>
+  <!-- Prayer card -->
+  <div class="feat-card">
+    <img src="./public/images/prayerRoom.jpeg" alt=""/>
+    <div class="body">
+      <div class="cat">禱告室</div>
+      <div class="title">24 小時禱告祭壇</div>
+      <div class="desc">24/7 全球敬拜讚美禱告，按紐約美東時間輪流守望。</div>
+      <div class="cta">加入禱告會 →</div>
+    </div>
+  </div>
+  <!-- Training card -->
+  <div class="feat-card">
+    <img src="./public/images/discipleship.png" alt=""/>
+    <div class="body">
+      <div class="cat">門徒訓練</div>
+      <div class="title">基督生平</div>
+      <div class="desc">扎根福音，建立屬靈生命基礎。</div>
+      <div class="cta">查看詳情 →</div>
+    </div>
+  </div>
+</div>
+<div class="callout"><strong>关键特征：</strong>卡片「漂浮」在页面中，所以有 <code>rounded-2xl</code>。注意：图片本身没有单独的圆角，因为它被卡片的 <code>overflow:hidden</code> 裁切，顶部自然是圆的——不需要 <code>rounded-t-2xl</code>。这是清除一个多余 class 的机会。</div>
+
+<div class="divider"></div>
+
+<!-- TIER 3 -->
+<div class="ctx"><div class="ctx-num">Tier 3</div><div class="ctx-title">缩略图 Thumbnail — rounded-lg，图文并排</div></div>
+<div class="clean-label">✓ 正确做法</div>
+<div style="display:flex;flex-direction:column;gap:8px;max-width:480px;margin-bottom:16px">
+  <div class="thumb-card">
+    <img src="./public/images/24h.jpeg" alt=""/>
+    <div class="body">
+      <div class="title">信心的旅程</div>
+      <div class="sub">講員：David · 音訊庫</div>
+    </div>
+  </div>
+  <div class="thumb-card">
+    <img src="./public/images/dailyPrayer.jpeg" alt=""/>
+    <div class="body">
+      <div class="title">更新的生命</div>
+      <div class="sub">講員：Grace · 音訊庫</div>
+    </div>
+  </div>
+  <div class="thumb-card">
+    <img src="./public/images/prayerRoom.jpeg" alt=""/>
+    <div class="body">
+      <div class="title">愛中彼此建造</div>
+      <div class="sub">講員：John · 音訊庫</div>
+    </div>
+  </div>
+</div>
+<div class="callout"><strong>关键特征：</strong>图文并排时，整个卡片的圆角是 <code>rounded-lg</code>，图片随容器被裁切，不需要额外设置图片自己的圆角。保持简单。</div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE 4: SECTION BG SYSTEM
+     ══════════════════════════════════════ -->
+<div class="page" id="p-section">
+<div class="inner">
+<div class="page-intro">
+  <div class="eyebrow">BRC Layout System · Section 系统</div>
+  <h2>Section 背景节奏</h2>
+  <p>页面的视觉节奏来自 Section 的深浅交替。现在的问题是深色背景太多种，交替逻辑不清晰。</p>
+</div>
+
+<!-- 5 backgrounds -->
+<div class="ctx"><div class="ctx-num">01</div><div class="ctx-title">5 个官方 Section 背景色</div></div>
+<div class="clean-label">✓ 统一后</div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:2px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.08);margin-bottom:24px">
+  <div style="background:#0c0b09;padding:20px 14px">
+    <div style="font-family:monospace;font-size:10px;color:rgba(255,255,255,.4);margin-bottom:4px">stone-950</div>
+    <div style="font-family:monospace;font-size:10px;color:rgba(255,255,255,.25);margin-bottom:10px">#0c0b09</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.3);line-height:1.6">Hero 底色<br/>Footer</div>
+  </div>
+  <div style="background:#1c1a17;padding:20px 14px">
+    <div style="font-family:monospace;font-size:10px;color:rgba(255,255,255,.4);margin-bottom:4px">stone-900</div>
+    <div style="font-family:monospace;font-size:10px;color:rgba(255,255,255,.25);margin-bottom:10px">#1c1a17</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.3);line-height:1.6">AlignWithGod<br/>Stats<br/>Donation CTA</div>
+  </div>
+  <div style="background:#f5f0e8;padding:20px 14px">
+    <div style="font-family:monospace;font-size:10px;color:rgba(0,0,0,.4);margin-bottom:4px">stone-100</div>
+    <div style="font-family:monospace;font-size:10px;color:rgba(0,0,0,.25);margin-bottom:10px">#f5f0e8</div>
+    <div style="font-size:10px;color:rgba(0,0,0,.4);line-height:1.6">替换 amber-50<br/>浅色强调 section</div>
+  </div>
+  <div style="background:#ffffff;padding:20px 14px;border:1px solid rgba(0,0,0,.08)">
+    <div style="font-family:monospace;font-size:10px;color:rgba(0,0,0,.4);margin-bottom:4px">white</div>
+    <div style="font-family:monospace;font-size:10px;color:rgba(0,0,0,.25);margin-bottom:10px">#ffffff</div>
+    <div style="font-size:10px;color:rgba(0,0,0,.4);line-height:1.6">卡片内容区<br/>默认页面背景</div>
+  </div>
+  <div style="background:#92400e;padding:20px 14px">
+    <div style="font-family:monospace;font-size:10px;color:rgba(255,255,255,.5);margin-bottom:4px">gold-800</div>
+    <div style="font-family:monospace;font-size:10px;color:rgba(255,255,255,.3);margin-bottom:10px">#92400e</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.5);line-height:1.6">品牌强调<br/>（谨慎使用）</div>
+  </div>
+</div>
+
+<!-- RHYTHM DEMO -->
+<div class="ctx" style="margin-top:32px"><div class="ctx-num">02</div><div class="ctx-title">交替节奏：深 → 浅 → 深 → 浅 → 深</div></div>
+<div class="clean-label">✓ 首页 Section 节奏</div>
+<div style="border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.08);font-family:'Inter',sans-serif;margin-bottom:16px">
+  <!-- Hero - dark -->
+  <div style="background:#0c0b09;padding:18px 20px;display:flex;align-items:center;justify-content:space-between">
+    <div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:4px">stone-950</div>
+      <div style="font-family:'Lora',serif;font-size:18px;font-weight:700;color:#fff">Hero 轮播（图片全出血）</div>
+    </div>
+    <div style="font-size:10px;color:rgba(255,255,255,.2)">MinistryCarousel</div>
+  </div>
+  <!-- Stats - dark -->
+  <div style="background:#1c1a17;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.04)">
+    <div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:4px">stone-900</div>
+      <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,.7)">Stats 数据栏</div>
+    </div>
+    <div style="display:flex;gap:20px">
+      <div style="text-align:center"><div style="font-family:'Lora',serif;font-size:20px;font-weight:700;color:#d97706">120+</div><div style="font-size:9px;color:rgba(255,255,255,.3)">合作機構</div></div>
+      <div style="text-align:center"><div style="font-family:'Lora',serif;font-size:20px;font-weight:700;color:#d97706">200+</div><div style="font-size:9px;color:rgba(255,255,255,.3)">志願者</div></div>
+    </div>
+  </div>
+  <!-- Ministries - white/light -->
+  <div style="background:#faf9f7;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(0,0,0,.06)">
+    <div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.2);margin-bottom:4px">white</div>
+      <div style="font-size:14px;font-weight:600;color:#1c1a17">事工卡片 Grid（浅色）</div>
+    </div>
+    <div style="display:flex;gap:6px">
+      <div style="width:60px;height:40px;background:#e5e1d8;border-radius:8px"></div>
+      <div style="width:60px;height:40px;background:#e5e1d8;border-radius:8px"></div>
+      <div style="width:60px;height:40px;background:#e5e1d8;border-radius:8px"></div>
+    </div>
+  </div>
+  <!-- AlignWithGod - dark -->
+  <div style="background:#1c1a17;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.04)">
+    <div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:4px">stone-900（替换 amber-50）</div>
+      <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,.7)">與神對齊 Section</div>
+    </div>
+    <div style="font-family:'Lora',serif;font-size:22px;font-weight:700;color:#d97706">與神對齊</div>
+  </div>
+  <!-- Events - stone-100 -->
+  <div style="background:#f5f0e8;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(0,0,0,.06)">
+    <div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.2);margin-bottom:4px">stone-100（替换 zinc-50）</div>
+      <div style="font-size:14px;font-weight:600;color:#1c1a17">近期活動（浅暖色调）</div>
+    </div>
+    <div style="display:flex;gap:6px">
+      <div style="width:60px;height:40px;background:#e5ddd0;border-radius:8px"></div>
+      <div style="width:60px;height:40px;background:#e5ddd0;border-radius:8px"></div>
+    </div>
+  </div>
+  <!-- Donation - dark brand -->
+  <div style="background:#78350f;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(0,0,0,.1)">
+    <div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px">gold-800（替换紫色 gradient）</div>
+      <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,.85)">奉獻支持 CTA Section</div>
+    </div>
+    <div style="background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:600;padding:7px 16px;border-radius:20px;font-family:'Inter',sans-serif">立即奉獻 →</div>
+  </div>
+  <!-- Contact - dark -->
+  <div style="background:#1c1a17;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.04)">
+    <div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:4px">stone-900</div>
+      <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,.7)">聯繫我們 + Footer</div>
+    </div>
+    <div style="font-size:11px;color:rgba(255,255,255,.3)">页面收尾</div>
+  </div>
+</div>
+<div class="callout"><strong>节奏感：</strong>深色和浅色的交替让页面在滚动时有「呼吸感」。原来的问题是多个深色 section 连在一起（zinc-900 → #171321 → zinc-900），用户感觉不到「我进入了一个新 section」。</div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE 5: GRADIENT OVERLAYS
+     ══════════════════════════════════════ -->
+<div class="page" id="p-gradient">
+<div class="inner">
+<div class="page-intro">
+  <div class="eyebrow">BRC Layout System · 渐变覆层</div>
+  <h2>渐变叠加统一规范</h2>
+  <p>目前有 5 种不同方向、4 种不同强度的渐变在混用。统一后只需要 2 种。</p>
+</div>
+
+<div class="ctx"><div class="ctx-num">01</div><div class="ctx-title">当前混乱：5 种渐变强度</div></div>
+<div class="chaos-label">● 当前问题</div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px">
+  <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.08);position:relative;height:90px">
+    <img src="./public/images/hero.jpeg" style="width:100%;height:100%;object-fit:cover;display:block"/>
+    <div style="position:absolute;inset:0;background:linear-gradient(to b, rgba(0,0,0,.3) 0%, rgba(0,0,0,.4) 50%, rgba(0,0,0,.6) 100%)"></div>
+    <div style="position:absolute;bottom:6px;left:8px;font-size:9px;color:#ef4444;font-family:monospace">from-30% to-60%<br/>About Hero</div>
+  </div>
+  <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.08);position:relative;height:90px">
+    <img src="./public/images/hero.jpeg" style="width:100%;height:100%;object-fit:cover;display:block"/>
+    <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,.15) 0%, rgba(0,0,0,.35) 50%, rgba(0,0,0,.75) 100%)"></div>
+    <div style="position:absolute;bottom:6px;left:8px;font-size:9px;color:#f97316;font-family:monospace">15-35-75%<br/>Mobile scroller</div>
+  </div>
+  <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.08);position:relative;height:90px">
+    <img src="./public/images/hero.jpeg" style="width:100%;height:100%;object-fit:cover;display:block"/>
+    <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.6) 0%, rgba(0,0,0,.2) 50%, transparent 100%)"></div>
+    <div style="position:absolute;bottom:6px;left:8px;font-size:9px;color:#f97316;font-family:monospace">60-20-0%<br/>MinistryCarousel</div>
+  </div>
+  <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.08);position:relative;height:90px">
+    <img src="./public/images/hero.jpeg" style="width:100%;height:100%;object-fit:cover;display:block"/>
+    <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.7) 0%, rgba(0,0,0,.2) 40%, transparent 100%)"></div>
+    <div style="position:absolute;bottom:6px;left:8px;font-size:9px;color:#eab308;font-family:monospace">70-20-0%<br/>Calendar event</div>
+  </div>
+  <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.08);position:relative;height:90px">
+    <img src="./public/images/hero.jpeg" style="width:100%;height:100%;object-fit:cover;display:block"/>
+    <div style="position:absolute;inset:0;background:linear-gradient(to br, rgba(28,26,23,.8) 0%, rgba(28,26,23,.7) 50%, rgba(50,47,43,.6) 100%)"></div>
+    <div style="position:absolute;bottom:6px;left:8px;font-size:9px;color:#ef4444;font-family:monospace">br gradient<br/>首页 Hero?</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="ctx"><div class="ctx-num">02</div><div class="ctx-title">统一后：只用 2 种渐变，各自有固定应用场景</div></div>
+<div class="clean-label">✓ 统一方案</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
+  <!-- Gradient A -->
+  <div>
+    <div style="font-size:12px;font-weight:600;color:rgba(255,255,255,.6);margin-bottom:10px">渐变 A · 底部叠加（文字在下方）</div>
+    <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.08);position:relative;height:160px">
+      <img src="./public/images/youthMinistry2.jpeg" style="width:100%;height:100%;object-fit:cover;display:block"/>
+      <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.78) 0%, rgba(0,0,0,.28) 55%, rgba(0,0,0,0) 100%)"></div>
+      <div style="position:absolute;bottom:14px;left:16px;right:16px;z-index:1">
+        <div style="font-size:9px;font-weight:700;letter-spacing:.14em;color:#fbbf24;font-family:'Inter',sans-serif;margin-bottom:6px">BRC 事工</div>
+        <div style="font-family:'Lora',serif;font-size:18px;font-weight:700;color:#fff;line-height:1.2">生命影響力事工</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;font-family:monospace;font-size:11px;color:#22c55e;background:rgba(34,197,94,.08);padding:8px 12px;border-radius:6px">
+      bg-gradient-to-t from-black/75 via-black/25 to-transparent
+    </div>
+    <div style="margin-top:6px;font-size:11px;color:rgba(255,255,255,.3)">用于：MinistryCarousel, Event 卡片, Feature 卡片（文字在底部）</div>
+  </div>
+  <!-- Gradient B -->
+  <div>
+    <div style="font-size:12px;font-weight:600;color:rgba(255,255,255,.6);margin-bottom:10px">渐变 B · 全方位叠加（文字居中/在顶部）</div>
+    <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.08);position:relative;height:160px">
+      <img src="./public/images/hero.jpeg" style="width:100%;height:100%;object-fit:cover;display:block;object-position:center 30%"/>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,.45) 0%, rgba(0,0,0,.2) 40%, rgba(0,0,0,.55) 100%)"></div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1;text-align:center">
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.6);font-family:'Inter',sans-serif;margin-bottom:8px">伯特利中心</div>
+          <div style="font-family:'Lora',serif;font-size:22px;font-weight:700;color:#fff">更新生命 · 服事列國</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:10px;font-family:monospace;font-size:11px;color:#22c55e;background:rgba(34,197,94,.08);padding:8px 12px;border-radius:6px">
+      bg-gradient-to-b from-black/45 via-black/20 to-black/55
+    </div>
+    <div style="margin-top:6px;font-size:11px;color:rgba(255,255,255,.3)">用于：页面 Hero（文字居中），About Hero，Prayer Hero</div>
+  </div>
+</div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE 6: FULL PAGE FLOW
+     ══════════════════════════════════════ -->
+<div class="page" id="p-flow">
+<div class="inner">
+<div class="page-intro">
+  <div class="eyebrow">BRC Layout System · 首页完整流向</div>
+  <h2>应用规则后<br/>首页长这样</h2>
+  <p>用 BRC 真实内容 + 新规则，展示从上到下的完整节奏。</p>
+</div>
+</div>
+
+<!-- FULL WIDTH PAGE PREVIEW -->
+<div style="max-width:900px;margin:0 auto 60px;padding:0 28px">
+<div class="page-flow">
+
+  <!-- 1. HERO -->
+  <div class="pf-section" style="background:#0c0b09">
+    <div class="pf-label">Hero Carousel · Tier 1 Full-bleed · stone-950</div>
+    <div style="position:relative;height:280px;overflow:hidden">
+      <img src="./public/images/hero.jpeg" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block"/>
+      <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,transparent 10%,#d97706 50%,transparent 90%);z-index:3"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.8) 0%, rgba(0,0,0,.3) 50%, rgba(0,0,0,.08) 100%);z-index:1"></div>
+      <!-- Transparent nav overlay -->
+      <div style="position:absolute;top:0;left:0;right:0;z-index:4;display:flex;align-items:center;justify-content:space-between;padding:14px 24px">
+        <div>
+          <div style="font-family:'Noto Serif TC','Lora',serif;font-size:14px;font-weight:700;color:#fff">Bethel Renewal Center</div>
+          <div style="font-size:10px;color:rgba(255,200,100,.8);font-family:'Inter',sans-serif;letter-spacing:.06em">伯特利中心</div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:center">
+          <span style="font-size:11px;color:rgba(255,255,255,.8);font-family:'Inter',sans-serif">主頁</span>
+          <span style="font-size:11px;color:rgba(255,255,255,.6);font-family:'Inter',sans-serif">BRC事工</span>
+          <span style="font-size:11px;color:rgba(255,255,255,.6);font-family:'Inter',sans-serif">禱告室</span>
+          <span style="font-size:11px;font-weight:600;background:rgba(255,255,255,.15);color:#fff;padding:5px 12px;border-radius:20px;font-family:'Inter',sans-serif">奉獻支持</span>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:24px;left:40px;right:40px;z-index:2">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fbbf24;font-family:'Inter',sans-serif;margin-bottom:10px">BRC 事工</div>
+        <div style="font-family:'Lora',serif;font-size:32px;font-weight:700;color:#fff;line-height:1.1">生命影響力事工</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:6px;font-family:'Inter',sans-serif">Life Impact Ministries</div>
+        <div style="display:flex;gap:8px;margin-top:20px">
+          <div style="height:2px;width:40px;background:#d97706;border-radius:1px"></div>
+          <div style="height:2px;width:18px;background:rgba(255,255,255,.25);border-radius:1px"></div>
+          <div style="height:2px;width:18px;background:rgba(255,255,255,.25);border-radius:1px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. STATS -->
+  <div class="pf-section" style="background:#1c1a17">
+    <div class="pf-label">Stats · stone-900</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);padding:18px 24px">
+      <div style="text-align:center;padding:4px;border-right:1px solid rgba(255,255,255,.06)">
+        <div style="font-family:'Lora',serif;font-size:26px;font-weight:700;color:#d97706">120+</div>
+        <div style="font-size:10px;color:#78716c;font-family:'Inter',sans-serif;margin-top:3px">合作機構</div>
+      </div>
+      <div style="text-align:center;padding:4px;border-right:1px solid rgba(255,255,255,.06)">
+        <div style="font-family:'Lora',serif;font-size:26px;font-weight:700;color:#d97706">200+</div>
+        <div style="font-size:10px;color:#78716c;font-family:'Inter',sans-serif;margin-top:3px">志願者</div>
+      </div>
+      <div style="text-align:center;padding:4px;border-right:1px solid rgba(255,255,255,.06)">
+        <div style="font-family:'Lora',serif;font-size:26px;font-weight:700;color:#d97706">30+</div>
+        <div style="font-size:10px;color:#78716c;font-family:'Inter',sans-serif;margin-top:3px">年度項目</div>
+      </div>
+      <div style="text-align:center;padding:4px">
+        <div style="font-family:'Lora',serif;font-size:26px;font-weight:700;color:#d97706">5,000+</div>
+        <div style="font-size:10px;color:#78716c;font-family:'Inter',sans-serif;margin-top:3px">受益人群</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. MINISTRY CARDS -->
+  <div class="pf-section" style="background:#faf9f7">
+    <div class="pf-label" style="color:rgba(0,0,0,.4)">事工卡片 · white · Tier 2 Cards rounded-2xl</div>
+    <div style="padding:24px 20px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div style="font-family:'Lora',serif;font-size:18px;font-weight:700;color:#1c1a17">重點事工</div>
+        <div style="font-size:11px;font-weight:600;color:#b45309;font-family:'Inter',sans-serif">查看全部 →</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+        <div style="background:#fff;border-radius:16px;overflow:hidden;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 8px rgba(0,0,0,.04)">
+          <img src="./public/images/youthMinistry2.jpeg" style="width:100%;height:100px;object-fit:cover;display:block"/>
+          <div style="padding:10px 12px">
+            <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#a08050;font-family:'Inter',sans-serif;margin-bottom:4px">青年事工</div>
+            <div style="font-family:'Lora',serif;font-size:13px;font-weight:600;color:#1c1a17">生命影響力事工</div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:16px;overflow:hidden;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 8px rgba(0,0,0,.04)">
+          <img src="./public/images/mission.jpeg" style="width:100%;height:100px;object-fit:cover;display:block"/>
+          <div style="padding:10px 12px">
+            <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#a08050;font-family:'Inter',sans-serif;margin-bottom:4px">宣教事工</div>
+            <div style="font-family:'Lora',serif;font-size:13px;font-weight:600;color:#1c1a17">跨文化宣教</div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:16px;overflow:hidden;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 8px rgba(0,0,0,.04)">
+          <img src="./public/images/familyMinistry.jpeg" style="width:100%;height:100px;object-fit:cover;display:block"/>
+          <div style="padding:10px 12px">
+            <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#a08050;font-family:'Inter',sans-serif;margin-bottom:4px">家庭事工</div>
+            <div style="font-family:'Lora',serif;font-size:13px;font-weight:600;color:#1c1a17">CHISTA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. ALIGN WITH GOD -->
+  <div class="pf-section" style="background:#1c1a17">
+    <div class="pf-label">與神對齊 · stone-900（替换 amber-50）</div>
+    <div style="padding:24px 24px">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px">
+        <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:12px">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#a08050;margin-bottom:8px;font-family:'Inter',sans-serif">2026 BRC 目標</div>
+          <div style="font-family:'Lora',serif;font-size:30px;font-weight:700;color:#d97706;line-height:1">與神<br/>對齊</div>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:12px">
+          <div style="font-size:9px;color:#6b5d45;font-family:'Inter',sans-serif;margin-bottom:6px">01</div>
+          <div style="font-family:'Noto Serif TC','Lora',serif;font-size:12px;font-weight:600;color:#f5f0e8;text-align:right;line-height:1.4">先對齊神的<br/>國與義</div>
+          <div style="padding-left:8px;border-left:2px solid #b45309;margin-top:8px">
+            <div style="font-size:10px;color:#78716c;font-style:italic;line-height:1.7;font-family:'Noto Serif TC','Lora',serif">「你們要先求他的國和他的義……」</div>
+          </div>
+          <div style="font-size:9px;color:#6b5d45;text-align:right;margin-top:4px;font-family:'Inter',sans-serif">馬太福音 6:33</div>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:12px">
+          <div style="font-size:9px;color:#6b5d45;font-family:'Inter',sans-serif;margin-bottom:6px">02</div>
+          <div style="font-family:'Noto Serif TC','Lora',serif;font-size:12px;font-weight:600;color:#f5f0e8;text-align:right;line-height:1.4">將道路交<br/>託給主</div>
+          <div style="padding-left:8px;border-left:2px solid #b45309;margin-top:8px">
+            <div style="font-size:10px;color:#78716c;font-style:italic;line-height:1.7;font-family:'Noto Serif TC','Lora',serif">「你要專心仰賴耶和華……」</div>
+          </div>
+          <div style="font-size:9px;color:#6b5d45;text-align:right;margin-top:4px;font-family:'Inter',sans-serif">箴言 3:5–6</div>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:12px">
+          <div style="font-size:9px;color:#6b5d45;font-family:'Inter',sans-serif;margin-bottom:6px">03</div>
+          <div style="font-family:'Noto Serif TC','Lora',serif;font-size:12px;font-weight:600;color:#f5f0e8;text-align:right;line-height:1.4">心意更新<br/>而變化</div>
+          <div style="padding-left:8px;border-left:2px solid #b45309;margin-top:8px">
+            <div style="font-size:10px;color:#78716c;font-style:italic;line-height:1.7;font-family:'Noto Serif TC','Lora',serif">「不要效法這個世界……」</div>
+          </div>
+          <div style="font-size:9px;color:#6b5d45;text-align:right;margin-top:4px;font-family:'Inter',sans-serif">羅馬書 12:2</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. DONATION CTA -->
+  <div class="pf-section" style="background:#78350f">
+    <div class="pf-label">奉獻 CTA · gold-800（替换紫色 gradient）</div>
+    <div style="padding:24px;text-align:center">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;font-family:'Inter',sans-serif">支持我們的使命</div>
+      <div style="font-family:'Lora',serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:6px">你的奉獻支持幫助我們持續服事社區與列國</div>
+      <div style="font-size:12px;color:rgba(255,200,150,.7);margin-bottom:16px;font-family:'Inter',sans-serif">「捐得樂意的人是神所喜愛的。」— 哥林多後書 9:7</div>
+      <div style="display:inline-flex;background:rgba(255,255,255,.15);color:#fff;font-size:12px;font-weight:600;padding:9px 24px;border-radius:20px;font-family:'Inter',sans-serif;border:1px solid rgba(255,255,255,.25)">立即奉獻 →</div>
+    </div>
+  </div>
+
+  <!-- 6. FOOTER -->
+  <div class="pf-section" style="background:#0c0b09">
+    <div class="pf-label">Footer · stone-950</div>
+    <div style="padding:24px;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:20px">
+      <div>
+        <div style="font-family:'Noto Serif TC','Lora',serif;font-size:14px;font-weight:700;color:#f5f0e8;margin-bottom:3px">Bethel Renewal Center</div>
+        <div style="font-size:10px;color:#a08050;letter-spacing:.08em;margin-bottom:10px;font-family:'Inter',sans-serif">伯特利中心</div>
+        <div style="font-size:11px;color:#78716c;line-height:1.8;padding-left:10px;border-left:2px solid #b45309;font-style:italic;font-family:'Noto Serif TC','Lora',serif">更新生命 · 服事列國</div>
+        <div style="font-size:10px;color:#3c3731;line-height:2;margin-top:10px;font-family:'Inter',sans-serif">Lake Hiawatha, NJ 07034<br/>info@brc.org · (862)-261-0116</div>
+      </div>
+      <div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#3c3731;margin-bottom:8px;font-family:'Inter',sans-serif">快速連結</div>
+        <div style="font-size:11px;color:#4a4540;line-height:2.2;font-family:'Inter',sans-serif">主頁<br/>關於我們<br/>活動日歷<br/>BRC事工<br/>奉獻支持</div>
+      </div>
+      <div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#3c3731;margin-bottom:8px;font-family:'Inter',sans-serif">訂閱更新</div>
+        <div style="font-size:11px;color:#4a4540;line-height:1.6;margin-bottom:10px;font-family:'Inter',sans-serif">獲取最新活動與講道資訊。</div>
+        <div style="display:flex;gap:6px">
+          <div style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:6px 10px;font-size:10px;color:#3c3731;font-family:'Inter',sans-serif">your@email.com</div>
+          <div style="background:#b45309;color:#fff;padding:6px 12px;border-radius:6px;font-size:10px;font-weight:600;font-family:'Inter',sans-serif">訂閱</div>
+        </div>
+      </div>
+    </div>
+    <div style="padding:12px 24px;border-top:1px solid rgba(255,255,255,.04)">
+      <div style="font-size:10px;color:#2a2520;font-family:'Inter',sans-serif">© 2026 Bethel Renewal Center · IRS 501(c)(3) Non-Profit Organization</div>
+    </div>
+  </div>
+
+</div><!-- /page-flow -->
+</div><!-- /max-width -->
+
+</div><!-- /page -->
+
+
+<script>
+function showPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

@@ -33,7 +33,7 @@ export default async function DonationPage({ params }: { params: Promise<{ local
               <div className="text-xl font-semibold text-zinc-900">{messages.donation.verseText}</div>
               <div className="text-sm text-zinc-500">{messages.donation.verseRef}</div>
               <div className="pt-6 text-xs text-zinc-500 space-y-1">
-                <div>{messages.donation.testMode}</div>
+               
                 <div>{messages.donation.disclaimer}</div>
               </div>
             </div>

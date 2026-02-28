@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>BRC 视觉样板 · Before / After</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+/* ── SHELL ── */
+body{background:#111;font-family:'Inter',sans-serif;color:#fff;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+/* ── TOP NAV ── */
+.shell-nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,10,0.9);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  padding:0 24px;
+}
+.shell-nav-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  height:50px;
+}
+.shell-nav-brand{font-size:13px;font-weight:600;letter-spacing:.06em;opacity:.9}
+.shell-tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:8px 0}
+.shell-tabs::-webkit-scrollbar{display:none}
+.shell-tab{
+  font-size:11px;font-weight:500;letter-spacing:.04em;
+  padding:5px 12px;border-radius:20px;white-space:nowrap;cursor:pointer;
+  background:transparent;border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.5);transition:all .2s;
+}
+.shell-tab.active{background:rgba(255,255,255,0.1);color:#fff;border-color:rgba(255,255,255,0.25)}
+.shell-tab:hover{color:rgba(255,255,255,0.85)}
+
+/* ── PAGE INTRO ── */
+.intro{
+  max-width:1200px;margin:0 auto;padding:48px 24px 36px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.intro-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:12px}
+.intro h1{font-family:'Lora',Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:600;line-height:1.15;letter-spacing:-.01em;margin-bottom:14px}
+.intro p{font-size:14px;color:rgba(255,255,255,.5);max-width:520px;line-height:1.75}
+
+/* ── SAMPLE PAGES ── */
+.sample-page{display:none;padding:40px 0 80px}
+.sample-page.active{display:block}
+.sample-inner{max-width:1200px;margin:0 auto;padding:0 24px}
+
+.sample-header{margin-bottom:32px}
+.sample-title{font-family:'Lora',Georgia,serif;font-size:22px;font-weight:600;margin-bottom:8px}
+.sample-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6;max-width:600px}
+
+/* ── BEFORE/AFTER TOGGLE ── */
+.ba-wrapper{margin-bottom:48px}
+.ba-toggle{
+  display:inline-flex;align-items:center;gap:2px;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:24px;padding:3px;margin-bottom:20px;
+}
+.ba-btn{
+  font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  padding:6px 18px;border-radius:20px;cursor:pointer;
+  border:none;background:transparent;color:rgba(255,255,255,.4);
+  transition:all .25s;
+}
+.ba-btn.active{
+  background:#fff;color:#111;
+}
+.ba-frame{display:none}
+.ba-frame.active{display:block}
+.ba-label{
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 10px;border-radius:4px;display:inline-block;margin-bottom:10px;
+}
+.ba-label.before{background:rgba(239,68,68,.15);color:#ef4444}
+.ba-label.after{background:rgba(34,197,94,.15);color:#22c55e}
+
+/* ── SECTION DIVIDER ── */
+.s-divider{
+  height:1px;background:rgba(255,255,255,0.07);
+  margin:48px 0;
+}
+
+/* ─────────────────────────────────────
+   MOCK UI COMPONENTS (actual designs)
+   ───────────────────────────────────── */
+
+/* SHARED MOCK VARS */
+.mock{border-radius:10px;overflow:hidden;position:relative}
+
+/* ══ BEFORE styles (current BRC) ══ */
+.bef-header{
+  background:#fff;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 24px;font-family:Arial,sans-serif;
+  border-bottom:1px solid #e5e7eb;
+}
+.bef-header .logo-text{font-size:14px;font-weight:700;color:#171717}
+.bef-header nav{display:flex;gap:18px;align-items:center}
+.bef-header nav a{font-size:12px;color:#374151}
+.bef-header .donate-btn{
+  font-size:11px;font-weight:600;background:#dc2626;color:#fff;
+  padding:5px 12px;border-radius:0;
+}
+
+.bef-hero{
+  position:relative;height:280px;
+  background:#18181b;overflow:hidden;
+}
+.bef-hero img{width:100%;height:100%;object-fit:cover;opacity:.6}
+.bef-hero-text{
+  position:absolute;bottom:20px;left:20px;right:20px;
+  font-family:Arial,sans-serif;color:#fff;
+}
+.bef-hero-text .subtitle{font-size:11px;color:#d4d4d8;margin-bottom:6px}
+.bef-hero-text .title{font-size:22px;font-weight:700}
+.bef-hero-dots{position:absolute;bottom:8px;right:12px;display:flex;gap:6px}
+.bef-hero-dot{width:8px;height:8px;border-radius:50%;background:#fff;opacity:.4}
+.bef-hero-dot.active{opacity:1}
+
+.bef-align{
+  background:#fffbeb;padding:20px;font-family:Arial,sans-serif;
+}
+.bef-align .grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
+.bef-align .col{border-top:1px solid #e5e7eb;padding-top:10px}
+.bef-align .small-label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#6b7280;margin-bottom:6px}
+.bef-align .big-red{font-size:26px;font-weight:700;color:#b91c1c;line-height:1}
+.bef-align .goal-num{font-size:9px;color:#9ca3af}
+.bef-align .goal-title{font-size:12px;font-weight:700;color:#111;text-align:right}
+.bef-align .verse{font-size:10px;color:#374151;line-height:1.5;margin-top:6px}
+.bef-align .verse-ref{font-size:9px;color:#9ca3af;text-align:right;margin-top:4px}
+
+.bef-form{
+  background:#f9fafb;padding:20px;font-family:Arial,sans-serif;
+}
+.bef-form h3{font-size:14px;font-weight:700;color:#111;margin-bottom:14px}
+.bef-form input,.bef-form textarea{
+  width:100%;border:none;border-bottom:1px solid #d1d5db;
+  background:rgba(255,255,255,.8);padding:6px 4px;font-size:12px;
+  font-family:Arial,sans-serif;outline:none;margin-bottom:10px;
+  display:block;color:#111;
+}
+.bef-form textarea{min-height:60px;resize:none}
+.bef-form .submit{
+  width:100%;background:#f59e0b;border:none;color:#000;
+  font-size:12px;font-weight:700;padding:8px;cursor:pointer;
+  border-radius:0;font-family:Arial,sans-serif;
+}
+
+.bef-footer{
+  background:#f4f4f5;padding:24px;font-family:Arial,sans-serif;
+  border-top:1px solid #e4e4e7;
+}
+.bef-footer .grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px}
+.bef-footer .brand{font-size:13px;font-weight:700;color:#111;margin-bottom:4px}
+.bef-footer .info{font-size:11px;color:#6b7280;line-height:1.7}
+.bef-footer .link-title{font-size:11px;font-weight:600;color:#111;margin-bottom:6px}
+.bef-footer .links{font-size:11px;color:#6b7280;line-height:2}
+.bef-footer .email-row{display:flex;gap:6px;margin-top:10px}
+.bef-footer .email-input{flex:1;padding:5px 8px;font-size:11px;border:1px solid #d1d5db;font-family:Arial,sans-serif}
+.bef-footer .email-btn{padding:5px 12px;font-size:11px;background:#18181b;color:#fff;border:none;cursor:pointer;font-family:Arial,sans-serif;border-radius:0}
+.bef-footer .copyright{margin-top:14px;font-size:10px;color:#9ca3af;border-top:1px solid #e4e4e7;padding-top:10px}
+
+/* ══ AFTER styles (new BRC) ══ */
+.aft-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 28px;
+  background:rgba(255,255,255,0.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(0,0,0,0.07);
+  box-shadow:0 1px 12px rgba(0,0,0,0.04);
+}
+.aft-header .logo-area{display:flex;align-items:center;gap:10px}
+.aft-header .logo-text{font-family:'Noto Serif TC','Lora',serif;font-size:15px;font-weight:700;color:#1c1a17;letter-spacing:.02em}
+.aft-header .logo-sub{font-size:11px;color:#a08050;font-family:'Inter',sans-serif;font-weight:500;letter-spacing:.06em}
+.aft-header nav{display:flex;gap:24px;align-items:center}
+.aft-header nav a{
+  font-size:12px;color:#57534e;font-weight:500;
+  position:relative;padding-bottom:2px;transition:color .2s;
+}
+.aft-header nav a::after{
+  content:'';position:absolute;bottom:-2px;left:0;right:0;
+  height:1.5px;background:#b45309;transform:scaleX(0);transform-origin:left;
+  transition:transform .25s ease;
+}
+.aft-header nav a:hover{color:#1c1a17}
+.aft-header nav a:hover::after{transform:scaleX(1)}
+.aft-header nav a.current{color:#b45309}
+.aft-header nav a.current::after{transform:scaleX(1)}
+.aft-header .cta-btn{
+  font-size:11px;font-weight:600;letter-spacing:.04em;
+  background:#b45309;color:#fff;
+  padding:7px 16px;border-radius:20px;
+  transition:all .2s;
+}
+.aft-header .cta-btn:hover{background:#92400e;transform:translateY(-1px);box-shadow:0 4px 12px rgba(180,83,9,.3)}
+.aft-header .lang{font-size:11px;color:#a08050;font-weight:600;margin-left:8px;padding:4px 8px;border:1px solid #d4b896;border-radius:4px}
+
+.aft-hero{
+  position:relative;height:480px;
+  overflow:hidden;background:#0f0e0c;
+}
+.aft-hero img{width:100%;height:100%;object-fit:cover;opacity:.65}
+.aft-hero::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.3) 50%, rgba(0,0,0,.05) 100%);
+}
+.aft-hero-accent{
+  position:absolute;bottom:0;left:28px;top:0;width:2.5px;
+  background:linear-gradient(to bottom, transparent 20%, #d97706 60%, #b45309);
+  z-index:2;
+}
+.aft-hero-text{
+  position:absolute;bottom:32px;left:48px;right:48px;z-index:2;
+  color:#fff;
+}
+.aft-hero-text .category{
+  font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  color:#fbbf24;margin-bottom:12px;
+}
+.aft-hero-text .title{
+  font-family:'Lora',Georgia,serif;font-size:clamp(26px,4vw,42px);font-weight:700;
+  line-height:1.15;letter-spacing:-.01em;
+  text-shadow:0 2px 20px rgba(0,0,0,.4);margin-bottom:6px;
+}
+.aft-hero-text .subtitle{font-size:13px;color:rgba(255,255,255,.65);font-weight:400}
+.aft-hero-text .link{
+  display:inline-flex;align-items:center;gap:6px;margin-top:16px;
+  font-size:12px;font-weight:600;letter-spacing:.04em;
+  border-bottom:1.5px solid rgba(255,255,255,.5);padding-bottom:2px;
+  color:#fff;transition:border-color .2s;
+}
+.aft-hero-progress{
+  position:absolute;bottom:12px;left:48px;z-index:2;
+  display:flex;gap:8px;align-items:center;
+}
+.aft-hero-bar{
+  height:2px;border-radius:1px;background:rgba(255,255,255,.25);
+  transition:all .3s;
+}
+.aft-hero-bar.active{background:#d97706;width:48px}
+.aft-hero-bar:not(.active){width:20px}
+
+.aft-align{
+  background:#1c1a17;padding:24px 28px;
+}
+.aft-align .grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px}
+.aft-align .col{border-top:1px solid rgba(255,255,255,.1);padding-top:14px}
+.aft-align .small-label{
+  font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+  color:#a08050;margin-bottom:10px;
+}
+.aft-align .big-gold{
+  font-family:'Lora',Georgia,serif;
+  font-size:36px;font-weight:700;
+  line-height:1;letter-spacing:-.02em;
+  color:#d97706;
+}
+.aft-align .goal-num{
+  font-size:9px;font-weight:600;color:#6b5d45;letter-spacing:.06em;
+}
+.aft-align .goal-title{
+  font-family:'Noto Serif TC','Lora',serif;
+  font-size:13px;font-weight:600;color:#f5f0e8;text-align:right;line-height:1.4;
+}
+.aft-align .verse{
+  font-family:'Noto Serif TC','Lora',serif;
+  font-size:11px;color:#a08050;line-height:1.7;margin-top:8px;
+  font-style:italic;
+  padding-left:10px;border-left:2px solid #b45309;
+}
+.aft-align .verse-ref{font-size:9px;color:#6b5d45;text-align:right;margin-top:6px;font-family:'Inter',sans-serif}
+.aft-align .note{font-size:10px;color:#78716c;line-height:1.55;margin-top:6px;font-weight:500}
+
+.aft-form{
+  background:linear-gradient(135deg,#1c1a17 0%,#0f0e0c 100%);
+  padding:28px 32px;
+}
+.aft-form h3{
+  font-family:'Lora',Georgia,serif;
+  font-size:20px;font-weight:600;color:#f5f0e8;margin-bottom:4px;
+}
+.aft-form h3 span{color:#d97706}
+.aft-form .sub{font-size:12px;color:#78716c;margin-bottom:20px}
+.aft-form .field{margin-bottom:14px}
+.aft-form .field input,.aft-form .field textarea{
+  width:100%;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:6px;padding:10px 14px;font-size:13px;
+  font-family:'Inter',sans-serif;color:#f5f0e8;outline:none;
+  transition:all .2s;
+}
+.aft-form .field input:focus,.aft-form .field textarea:focus{
+  border-color:rgba(217,119,6,.5);
+  box-shadow:0 0 0 3px rgba(217,119,6,.15);
+  background:rgba(255,255,255,.07);
+}
+.aft-form .field textarea{min-height:72px;resize:none}
+.aft-form .submit{
+  width:100%;background:#b45309;
+  border:none;color:#fff;font-size:13px;font-weight:600;
+  padding:11px;border-radius:8px;cursor:pointer;
+  font-family:'Inter',sans-serif;letter-spacing:.02em;
+  transition:all .25s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.aft-form .submit:hover{background:#92400e;transform:translateY(-1px);box-shadow:0 6px 20px rgba(180,83,9,.35)}
+
+.aft-footer{
+  background:#0f0e0c;padding:36px 28px 24px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.aft-footer .top{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:24px;margin-bottom:28px}
+.aft-footer .brand-block{}
+.aft-footer .brand-name{font-family:'Noto Serif TC','Lora',serif;font-size:16px;font-weight:700;color:#f5f0e8;margin-bottom:3px}
+.aft-footer .brand-sub{font-size:11px;color:#a08050;letter-spacing:.08em;margin-bottom:12px}
+.aft-footer .belief{
+  font-size:12px;color:#78716c;line-height:1.7;
+  padding-left:12px;border-left:2px solid #b45309;
+  font-style:italic;
+}
+.aft-footer .info{font-size:11px;color:#6b5d45;line-height:2.1;margin-top:12px}
+.aft-footer .info a{color:#a08050;transition:color .2s}
+.aft-footer .col-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6b5d45;margin-bottom:10px}
+.aft-footer .links{display:flex;flex-direction:column;gap:8px}
+.aft-footer .links a{font-size:12px;color:#78716c;transition:color .2s}
+.aft-footer .links a:hover{color:#a08050}
+.aft-footer .sub-input{
+  display:flex;gap:8px;margin-top:14px;
+}
+.aft-footer .sub-input input{
+  flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:6px;padding:7px 12px;font-size:11px;color:#f5f0e8;
+  font-family:'Inter',sans-serif;outline:none;
+}
+.aft-footer .sub-input button{
+  padding:7px 16px;background:#b45309;color:#fff;
+  font-size:11px;font-weight:600;border:none;border-radius:6px;cursor:pointer;
+  font-family:'Inter',sans-serif;transition:background .2s;
+}
+.aft-footer .divider{height:1px;background:rgba(255,255,255,.05);margin-bottom:16px}
+.aft-footer .bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.aft-footer .copyright{font-size:11px;color:#3c3731}
+.aft-footer .bottom-links{display:flex;gap:16px}
+.aft-footer .bottom-links a{font-size:11px;color:#6b5d45}
+
+/* ── TYPOGRAPHY SPECIMEN ── */
+.typo-specimen{
+  background:#fff;border-radius:10px;overflow:hidden;
+}
+.typo-half{padding:28px 28px 24px}
+.typo-bef{background:#fff;font-family:Arial,sans-serif;border-right:2px solid #f1f5f9}
+.typo-aft{background:#fff}
+.typo-pair{display:grid;grid-template-columns:1fr 1fr}
+.typo-tag{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.typo-bef .typo-tag{color:#ef4444}
+.typo-aft .typo-tag{color:#22c55e}
+.typo-bef .t-section{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#9ca3af;margin-bottom:3px;font-family:Arial,sans-serif}
+.typo-bef .t-heading{font-size:28px;font-weight:700;color:#b91c1c;line-height:1.1;font-family:Arial,sans-serif;margin-bottom:8px}
+.typo-bef .t-body{font-size:13px;color:#374151;line-height:1.6;font-family:Arial,sans-serif;margin-bottom:10px}
+.typo-bef .t-verse{font-size:12px;color:#374151;line-height:1.65;font-family:Arial,sans-serif;font-style:italic}
+.typo-bef .t-ref{font-size:10px;color:#9ca3af;text-align:right;margin-top:4px;font-family:Arial,sans-serif}
+.typo-bef .t-label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#6b7280;margin-top:16px;margin-bottom:3px;font-family:Arial,sans-serif}
+.typo-bef .t-note{font-size:11px;color:#4b5563;line-height:1.55;font-family:Arial,sans-serif}
+
+.typo-aft .t-section{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#a08050;margin-bottom:5px;font-family:'Inter',sans-serif}
+.typo-aft .t-heading{
+  font-family:'Lora',Georgia,serif;font-size:28px;font-weight:700;
+  color:#d97706;line-height:1.1;letter-spacing:-.01em;margin-bottom:10px;
+}
+.typo-aft .t-body{font-size:13px;color:#57534e;line-height:1.75;font-family:'Inter',sans-serif;margin-bottom:12px}
+.typo-aft .t-verse{
+  font-family:'Noto Serif TC','Lora',Georgia,serif;
+  font-size:12px;color:#78716c;line-height:1.85;font-style:italic;
+  padding-left:12px;border-left:2px solid #d97706;
+}
+.typo-aft .t-ref{font-size:10px;color:#a08050;text-align:right;margin-top:6px;font-family:'Inter',sans-serif}
+.typo-aft .t-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#78716c;margin-top:16px;margin-bottom:5px;font-family:'Inter',sans-serif}
+.typo-aft .t-note{font-size:11px;color:#78716c;line-height:1.65;font-family:'Inter',sans-serif}
+
+/* ── COLOR SYSTEM ── */
+.color-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:16px}
+.color-swatch{border-radius:6px;overflow:hidden}
+.color-swatch .sw{height:48px;width:100%}
+.color-swatch .sw-label{font-size:10px;font-weight:500;padding:5px 7px;background:rgba(0,0,0,.25);color:rgba(255,255,255,.7)}
+.color-section{margin-bottom:24px}
+.color-section-title{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px}
+
+/* ── STATS BAR ── */
+.stats-bef{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  background:#18181b;padding:16px 20px;font-family:Arial,sans-serif;
+}
+.stats-bef .s-val{font-size:22px;font-weight:700;color:#fff;font-family:Arial,sans-serif}
+.stats-bef .s-lab{font-size:11px;color:#9ca3af;margin-top:2px;font-family:Arial,sans-serif}
+
+.stats-aft{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  background:linear-gradient(135deg,#1c1a17,#0f0e0c);
+  padding:20px 24px;border-top:1px solid rgba(255,255,255,.06);
+}
+.stats-aft .s-item{padding:0 4px;position:relative}
+.stats-aft .s-item:not(:last-child)::after{content:'';position:absolute;right:0;top:15%;bottom:15%;width:1px;background:rgba(255,255,255,.06)}
+.stats-aft .s-val{
+  font-family:'Lora',Georgia,serif;font-size:28px;font-weight:700;
+  color:#d97706;line-height:1;margin-bottom:4px;letter-spacing:-.02em;
+}
+.stats-aft .s-lab{font-size:11px;color:#78716c;font-family:'Inter',sans-serif;font-weight:500}
+
+/* ── BUTTONS ── */
+.btn-showcase{display:flex;flex-wrap:wrap;gap:12px;padding:20px;background:#f9f9f7;border-radius:8px}
+.btn-bef-primary{background:#b91c1c;color:#fff;padding:8px 20px;font-size:13px;font-family:Arial,sans-serif;font-weight:700;border:none;border-radius:0;cursor:pointer}
+.btn-bef-secondary{background:transparent;color:#374151;padding:7px 18px;font-size:13px;font-family:Arial,sans-serif;border:1px solid #d1d5db;cursor:pointer;border-radius:0}
+
+.btn-aft-primary{
+  background:#b45309;color:#fff;padding:9px 22px;font-size:13px;
+  font-family:'Inter',sans-serif;font-weight:600;letter-spacing:.02em;
+  border:none;border-radius:20px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(180,83,9,.25);
+  transition:all .2s;
+}
+.btn-aft-primary:hover{background:#92400e;transform:translateY(-1px);box-shadow:0 4px 14px rgba(180,83,9,.35)}
+.btn-aft-secondary{
+  background:transparent;color:#b45309;padding:8px 20px;font-size:13px;
+  font-family:'Inter',sans-serif;font-weight:600;
+  border:1.5px solid #d4b896;border-radius:20px;cursor:pointer;
+  transition:all .2s;
+}
+.btn-aft-secondary:hover{background:#fdf5ec;border-color:#b45309}
+.btn-aft-ghost{
+  background:transparent;color:#78716c;padding:8px 16px;font-size:12px;
+  font-family:'Inter',sans-serif;font-weight:500;
+  border:none;cursor:pointer;
+  transition:color .2s;
+}
+.btn-aft-ghost:hover{color:#1c1a17}
+
+.btn-showcase-dark{display:flex;flex-wrap:wrap;gap:12px;padding:20px;background:#1c1a17;border-radius:8px}
+
+/* ── NOTE BOX ── */
+.note-box{
+  background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.2);
+  border-radius:8px;padding:14px 18px;margin-bottom:24px;
+  font-size:13px;color:rgba(255,255,255,.6);line-height:1.65;
+}
+.note-box strong{color:#d97706}
+
+/* ── CONTEXT LABEL ── */
+.context-label{
+  font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.context-label::before{content:'';flex:1;height:1px;background:rgba(255,255,255,.08)}
+
+/* scroll anchor */
+.anchor{display:block;height:1px;margin-top:-1px}
+
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="shell-nav">
+  <div class="shell-nav-inner">
+    <div class="shell-nav-brand">BRC 视觉样板</div>
+    <div class="shell-tabs" id="tabs">
+      <button class="shell-tab active" onclick="showPage('p1',this)">Phase 1 字体 &amp; 颜色</button>
+      <button class="shell-tab" onclick="showPage('p2',this)">Phase 2 Header</button>
+      <button class="shell-tab" onclick="showPage('p3',this)">Phase 3 Hero 轮播</button>
+      <button class="shell-tab" onclick="showPage('p4',this)">Phase 4 与神对齐</button>
+      <button class="shell-tab" onclick="showPage('p5',this)">Phase 5 联系表单</button>
+      <button class="shell-tab" onclick="showPage('p6',this)">Phase 6 Footer</button>
+      <button class="shell-tab" onclick="showPage('p7',this)">按钮系统</button>
+    </div>
+  </div>
+</nav>
+
+<!-- INTRO -->
+<div class="intro">
+  <div class="intro-label">BRC · Visual Samples · Before / After</div>
+  <h1>看到每一个改动<br/>长什么样子</h1>
+  <p>全部使用 BRC 真实内容制作。点击上方 Tab 切换各 Phase，每个样本都可以在「当前」和「更新后」之间切换对比。</p>
+</div>
+
+<!-- ════════════════════════════════════
+     PAGE 1: TYPOGRAPHY + COLOR
+     ════════════════════════════════════ -->
+<div class="sample-page active" id="p1">
+  <div class="sample-inner">
+    <div class="sample-header" style="margin-top:40px">
+      <div class="sample-title">Phase 1 · 字体系统 &amp; 颜色品牌化</div>
+      <div class="sample-desc">最核心的改动。目前 BRC 用 Arial 作为主字体（因为 Geist 没有正确加载），颜色用 red-700 作为 accent——两者都缺乏教会网站应有的温度。</div>
+    </div>
+
+    <div class="note-box">
+      <strong>改动说明：</strong>引入 Lora（衬线体，用于标题）+ Inter（无衬线，用于正文）+ Noto Serif TC（中文标题），颜色从 <code style="background:rgba(255,255,255,.1);padding:1px 5px;border-radius:3px">red-700</code> 迁移到暖金色系 <code style="background:rgba(255,255,255,.1);padding:1px 5px;border-radius:3px">amber-700</code>。
+    </div>
+
+    <!-- TYPOGRAPHY BEFORE/AFTER -->
+    <div class="ba-wrapper">
+      <div class="ba-toggle" id="toggle-p1">
+        <button class="ba-btn active" onclick="toggleBA('p1','before',this)">当前 BEFORE</button>
+        <button class="ba-btn" onclick="toggleBA('p1','after',this)">更新后 AFTER</button>
+      </div>
+
+      <div class="ba-frame active" id="p1-before">
+        <div class="ba-label before">当前状态</div>
+        <div class="typo-specimen" style="max-width:680px">
+          <div class="typo-half typo-bef">
+            <div class="typo-tag" style="color:#ef4444">当前 · Arial / 无 web font</div>
+            <div class="t-section">2026 BRC 目標</div>
+            <div class="t-heading bef-red" style="font-size:30px;font-weight:700;color:#b91c1c;font-family:Arial,sans-serif">與神<br/>對齊</div>
+            <div class="t-label" style="font-family:Arial,sans-serif;font-size:9px;color:#9ca3af;text-transform:uppercase;letter-spacing:.1em;margin-top:12px">先對齊神的國與義</div>
+            <div class="t-verse" style="font-family:Arial,sans-serif;font-size:12px;color:#374151;line-height:1.65;font-style:normal;margin-top:6px">「你們要先求他的國和他的義，這些東西都要加給你們了。」</div>
+            <div class="t-ref" style="font-family:Arial,sans-serif;font-size:10px;color:#9ca3af;text-align:right;margin-top:4px">馬太福音 6:33</div>
+            <div class="t-note" style="font-family:Arial,sans-serif;font-size:11px;color:#4b5563;line-height:1.55;margin-top:8px">不是先安排自己的人生，再請神祝福；而是先對齊神的國度與心意。</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.3)">感受：字体方正、生硬，缺乏情感温度。红色标题对教会内容而言过于激进。</div>
+      </div>
+
+      <div class="ba-frame" id="p1-after">
+        <div class="ba-label after">更新后</div>
+        <div class="typo-specimen" style="max-width:680px;background:#fff">
+          <div class="typo-half typo-aft" style="padding:28px">
+            <div class="typo-tag" style="color:#22c55e">更新后 · Lora + Inter + Noto Serif TC</div>
+            <div class="t-section">2026 BRC 目標</div>
+            <div class="t-heading" style="font-family:'Lora',Georgia,serif;font-size:36px;font-weight:700;color:#b45309;line-height:1.05;letter-spacing:-.02em">與神<br/>對齊</div>
+            <div class="t-label" style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#a08050;margin-top:16px;margin-bottom:6px;font-family:'Inter',sans-serif">先對齊神的國與義</div>
+            <div style="padding-left:12px;border-left:2.5px solid #d97706;margin-top:8px">
+              <div style="font-family:'Noto Serif TC','Lora',Georgia,serif;font-size:13px;color:#78716c;line-height:1.9;font-style:italic">「你們要先求他的國和他的義，這些東西都要加給你們了。」</div>
+            </div>
+            <div style="font-size:10px;color:#a08050;text-align:right;margin-top:6px;font-family:'Inter',sans-serif">馬太福音 6:33</div>
+            <div style="font-size:12px;color:#78716c;line-height:1.7;margin-top:12px;font-family:'Inter',sans-serif">不是先安排自己的人生，再請神祝福；而是先對齊神的國度與心意。</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.3)">感受：衬线体标题庄重温暖，金色 accent 传递神圣感，竖线引导符号让经文更有仪式感。</div>
+      </div>
+    </div>
+
+    <div class="s-divider"></div>
+
+    <!-- COLOR SYSTEM -->
+    <div class="context-label">颜色品牌系统</div>
+
+    <div class="note-box">
+      <strong>新颜色系统：</strong>主色从 red-700 改为暖金色系（amber），副色引入深森绿（stone-900 background），配合 zinc 中性色保持原有骨架。
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:4px">
+      <!-- Current colors -->
+      <div>
+        <div class="color-section-title">当前颜色（零散，无系统）</div>
+        <div class="color-grid" style="grid-template-columns:repeat(4,1fr)">
+          <div class="color-swatch"><div class="sw" style="background:#b91c1c"></div><div class="sw-label">red-700 accent</div></div>
+          <div class="color-swatch"><div class="sw" style="background:#f59e0b"></div><div class="sw-label">amber-500 CTA</div></div>
+          <div class="color-swatch"><div class="sw" style="background:#fffbeb"></div><div class="sw-label">amber-50 bg</div></div>
+          <div class="color-swatch"><div class="sw" style="background:#18181b"></div><div class="sw-label">zinc-900</div></div>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:rgba(255,255,255,.35)">问题：红色和黄色之间没有逻辑关系，没有完整色阶。</div>
+      </div>
+      <!-- New colors -->
+      <div>
+        <div class="color-section-title">新颜色系统（品牌暖金 + 深石灰）</div>
+        <div class="color-grid" style="grid-template-columns:repeat(5,1fr)">
+          <div class="color-swatch"><div class="sw" style="background:#78350f"></div><div class="sw-label">gold-900</div></div>
+          <div class="color-swatch"><div class="sw" style="background:#92400e"></div><div class="sw-label">gold-800</div></div>
+          <div class="color-swatch"><div class="sw" style="background:#b45309"></div><div class="sw-label">gold-700 ★</div></div>
+          <div class="color-swatch"><div class="sw" style="background:#d97706"></div><div class="sw-label">gold-600</div></div>
+          <div class="color-swatch"><div class="sw" style="background:#fbbf24"></div><div class="sw-label">gold-400</div></div>
+          <div class="color-swatch"><div class="sw" style="background:#0f0e0c"></div><div class="sw-label">stone-950</div></div>
+          <div class="color-swatch"><div class="sw" style="background:#1c1a17"></div><div class="sw-label">stone-900</div></div>
+          <div class="color-swatch"><div class="sw" style="background:#57534e"></div><div class="sw-label">stone-600</div></div>
+          <div class="color-swatch"><div class="sw" style="background:#a8a29e"></div><div class="sw-label">stone-400</div></div>
+          <div class="color-swatch"><div class="sw" style="background:#faf9f7"></div><div class="sw-label">stone-50</div></div>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:rgba(255,255,255,.35)">★ gold-700 (#b45309) 作为主 accent，与 Tailwind amber 系列对应，直接可用。</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PAGE 2: HEADER
+     ════════════════════════════════════ -->
+<div class="sample-page" id="p2">
+  <div class="sample-inner">
+    <div class="sample-header" style="margin-top:40px">
+      <div class="sample-title">Phase 2 · Header 精致化</div>
+      <div class="sample-desc">导航栏是用户每次访问必看到的元素。目前版本使用 Arial，无 backdrop-blur，active 状态不明显。</div>
+    </div>
+
+    <div class="ba-wrapper">
+      <div class="ba-toggle">
+        <button class="ba-btn active" onclick="toggleBA('p2','before',this)">当前 BEFORE</button>
+        <button class="ba-btn" onclick="toggleBA('p2','after',this)">更新后 AFTER</button>
+      </div>
+
+      <div class="ba-frame active" id="p2-before">
+        <div class="ba-label before">当前状态（滚动后的实色 Header）</div>
+        <div class="mock" style="max-width:860px">
+          <div class="bef-header">
+            <div class="logo-text">BRC</div>
+            <nav>
+              <a href="#" style="color:#374151;font-size:12px;font-family:Arial,sans-serif">主頁</a>
+              <a href="#" style="color:#374151;font-size:12px;font-family:Arial,sans-serif">關於我們</a>
+              <a href="#" style="color:#374151;font-size:12px;font-family:Arial,sans-serif">活動日歷</a>
+              <a href="#" style="color:#374151;font-size:12px;font-family:Arial,sans-serif">禱告室</a>
+              <a href="#" style="color:#374151;font-size:12px;font-family:Arial,sans-serif">BRC事工</a>
+              <a href="#" style="color:#374151;font-size:12px;font-family:Arial,sans-serif">門徒訓練</a>
+              <div class="donate-btn" style="background:#dc2626;color:#fff;padding:5px 12px;font-size:11px;font-weight:700;font-family:Arial,sans-serif;border-radius:0">奉獻支持</div>
+              <div style="font-size:11px;color:#374151;font-family:Arial,sans-serif;font-weight:600">EN</div>
+            </nav>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.3)">问题：字体无温度，Logo 只有文字无品牌感，「奉献」按钮方形 + 大红色，导航缺少 active 指示。</div>
+      </div>
+
+      <div class="ba-frame" id="p2-after">
+        <div class="ba-label after">更新后（加入 backdrop-blur + 品牌字体 + active 指示器）</div>
+        <div class="mock" style="max-width:860px">
+          <div class="aft-header">
+            <div class="logo-area">
+              <div>
+                <div class="logo-text">Bethel Renewal Center</div>
+                <div class="logo-sub">伯特利中心</div>
+              </div>
+            </div>
+            <nav>
+              <a href="#" class="current" style="font-family:'Inter',sans-serif;font-size:12px;color:#b45309;position:relative;padding-bottom:3px">主頁<span style="position:absolute;bottom:-2px;left:0;right:0;height:1.5px;background:#b45309;display:block"></span></a>
+              <a href="#" style="font-family:'Inter',sans-serif;font-size:12px;color:#57534e">關於我們</a>
+              <a href="#" style="font-family:'Inter',sans-serif;font-size:12px;color:#57534e">活動日歷</a>
+              <a href="#" style="font-family:'Inter',sans-serif;font-size:12px;color:#57534e">禱告室</a>
+              <a href="#" style="font-family:'Inter',sans-serif;font-size:12px;color:#57534e">BRC事工</a>
+              <a href="#" style="font-family:'Inter',sans-serif;font-size:12px;color:#57534e">門徒訓練</a>
+              <div class="cta-btn" style="font-family:'Inter',sans-serif;font-size:11px;font-weight:600;background:#b45309;color:#fff;padding:7px 16px;border-radius:20px;margin-left:4px">奉獻支持</div>
+              <div class="lang" style="font-family:'Inter',sans-serif;font-size:11px;color:#a08050;font-weight:600;padding:4px 8px;border:1px solid #d4b896;border-radius:4px;margin-left:4px">EN</div>
+            </nav>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.3)">改善：Noto Serif TC logo 有品牌感，active 页面有金色下划线指示，「奉献」按钮改为胶囊形，整体比例更精致。</div>
+      </div>
+    </div>
+
+    <!-- TRANSPARENT HEADER ON HERO -->
+    <div class="s-divider"></div>
+    <div class="context-label">透明 Header（在 Hero 图片上）</div>
+    <div class="note-box"><strong>新增效果：</strong>滚动前透明，滚动后 backdrop-blur 渐变为磨砂白——这是目前最流行的 header 处理方式（参考 Apple、Stripe）。</div>
+    <div class="mock" style="max-width:860px;height:180px;position:relative;overflow:hidden">
+      <img src="./public/images/hero.jpeg" style="width:100%;height:100%;object-fit:cover;object-position:center 30%"/>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.35) 0%,transparent 60%)"></div>
+      <!-- Transparent header on image -->
+      <div style="position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:14px 28px">
+        <div>
+          <div style="font-family:'Noto Serif TC','Lora',serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:.02em">Bethel Renewal Center</div>
+          <div style="font-size:11px;color:rgba(255,200,100,.85);font-family:'Inter',sans-serif;letter-spacing:.06em">伯特利中心</div>
+        </div>
+        <div style="display:flex;gap:20px;align-items:center">
+          <a href="#" style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.85)">主頁</a>
+          <a href="#" style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.7)">BRC事工</a>
+          <a href="#" style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.7)">禱告室</a>
+          <div style="font-family:'Inter',sans-serif;font-size:11px;font-weight:600;background:rgba(255,255,255,.15);backdrop-filter:blur(4px);color:#fff;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.25)">奉獻支持</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PAGE 3: HERO CAROUSEL
+     ════════════════════════════════════ -->
+<div class="sample-page" id="p3">
+  <div class="sample-inner">
+    <div class="sample-header" style="margin-top:40px">
+      <div class="sample-title">Phase 3 · Hero 轮播视觉升级</div>
+      <div class="sample-desc">目前轮播高度只有 420px，标题字体小，渐变平凡。更新后提升到 70vh，衬线大标题，电影感构图。</div>
+    </div>
+
+    <div class="ba-wrapper">
+      <div class="ba-toggle">
+        <button class="ba-btn active" onclick="toggleBA('p3','before',this)">当前 BEFORE</button>
+        <button class="ba-btn" onclick="toggleBA('p3','after',this)">更新后 AFTER</button>
+      </div>
+
+      <div class="ba-frame active" id="p3-before">
+        <div class="ba-label before">当前（h-[420px]，Arial，基础渐变）</div>
+        <div class="mock" style="max-width:860px">
+          <div class="bef-hero">
+            <img src="./public/images/youthMinistry2.jpeg" alt="hero"/>
+            <div class="bef-hero-text">
+              <div class="subtitle" style="font-family:Arial,sans-serif">Life Impact Ministries</div>
+              <div class="title" style="font-family:Arial,sans-serif">生命影響力事工</div>
+              <div style="margin-top:8px;font-size:11px;text-decoration:underline;color:#fff;font-family:Arial,sans-serif">查看詳情</div>
+            </div>
+            <div class="bef-hero-dots">
+              <div class="bef-hero-dot active"></div>
+              <div class="bef-hero-dot"></div>
+              <div class="bef-hero-dot"></div>
+            </div>
+          </div>
+          <!-- Stats -->
+          <div class="stats-bef">
+            <div><div class="s-val">120+</div><div class="s-lab">合作機構</div></div>
+            <div><div class="s-val">200+</div><div class="s-lab">志願者</div></div>
+            <div><div class="s-val">30+</div><div class="s-lab">年度項目</div></div>
+            <div><div class="s-val">5,000+</div><div class="s-lab">受益人群</div></div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.3)">问题：图片太小（仅 280px on mobile），标题视觉重量轻，圆点导航不够有设计感，数据栏字体无温度。</div>
+      </div>
+
+      <div class="ba-frame" id="p3-after">
+        <div class="ba-label after">更新后（vh 高度，Lora 大标题，电影感，进度条导航）</div>
+        <div class="mock" style="max-width:860px">
+          <div class="aft-hero" style="height:420px">
+            <img src="./public/images/youthMinistry2.jpeg" alt="hero"/>
+            <div class="aft-hero-accent"></div>
+            <!-- Inner gradient -->
+            <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.8) 0%, rgba(0,0,0,.35) 50%, rgba(0,0,0,.08) 100%);z-index:1"></div>
+            <div class="aft-hero-text">
+              <div class="category">BRC 事工</div>
+              <div class="title">生命影響力事工</div>
+              <div class="subtitle">Life Impact Ministries</div>
+              <div class="link">查看事工詳情 →</div>
+            </div>
+            <div class="aft-hero-progress">
+              <div class="aft-hero-bar active"></div>
+              <div class="aft-hero-bar"></div>
+              <div class="aft-hero-bar"></div>
+            </div>
+          </div>
+          <!-- Stats upgraded -->
+          <div class="stats-aft">
+            <div class="s-item">
+              <div class="s-val">120+</div>
+              <div class="s-lab">合作機構</div>
+            </div>
+            <div class="s-item">
+              <div class="s-val">200+</div>
+              <div class="s-lab">志願者</div>
+            </div>
+            <div class="s-item">
+              <div class="s-val">30+</div>
+              <div class="s-lab">年度項目</div>
+            </div>
+            <div class="s-item">
+              <div class="s-val">5,000+</div>
+              <div class="s-lab">受益人群</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.3)">改善：衬线大标题立刻提升视觉重量，左侧金色竖线是品牌 accent，进度条式导航取代圆点更有质感，数字用 Lora 衬线体更有仪式感。</div>
+      </div>
+    </div>
+
+    <!-- Second slide sample -->
+    <div class="s-divider"></div>
+    <div class="context-label">第二张轮播 · 跨文化宣教</div>
+    <div class="mock" style="max-width:860px">
+      <div class="aft-hero" style="height:350px">
+        <img src="./public/images/mission.jpeg" alt="mission"/>
+        <div class="aft-hero-accent"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.3) 55%, rgba(0,0,0,.05) 100%);z-index:1"></div>
+        <div class="aft-hero-text">
+          <div class="category">BRC 宣教事工</div>
+          <div class="title">跨文化宣教</div>
+          <div class="subtitle">Cross Culture Ministries</div>
+          <div class="link">了解宣教使命 →</div>
+        </div>
+        <div class="aft-hero-progress">
+          <div class="aft-hero-bar"></div>
+          <div class="aft-hero-bar active"></div>
+          <div class="aft-hero-bar"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PAGE 4: ALIGN WITH GOD
+     ════════════════════════════════════ -->
+<div class="sample-page" id="p4">
+  <div class="sample-inner">
+    <div class="sample-header" style="margin-top:40px">
+      <div class="sample-title">Phase 4 · 「與神對齊」Section</div>
+      <div class="sample-desc">这是 BRC 首页最核心的内容 section。目前 amber-50 背景 + red-700 标题显得割裂，改为深石灰背景后整个 section 有了「锚定感」。</div>
+    </div>
+
+    <div class="ba-wrapper">
+      <div class="ba-toggle">
+        <button class="ba-btn active" onclick="toggleBA('p4','before',this)">当前 BEFORE</button>
+        <button class="ba-btn" onclick="toggleBA('p4','after',this)">更新后 AFTER</button>
+      </div>
+
+      <div class="ba-frame active" id="p4-before">
+        <div class="ba-label before">当前（amber-50 背景 + red-700 + Arial）</div>
+        <div class="mock bef-align" style="max-width:860px">
+          <div class="grid">
+            <div class="col">
+              <div class="small-label">2026 BRC 目標</div>
+              <div class="big-red">與神<br/>對齊</div>
+            </div>
+            <div class="col">
+              <div style="display:flex;justify-content:space-between;align-items:start">
+                <div class="goal-num">(01)</div>
+                <div class="goal-title">先對齊神的國與義</div>
+              </div>
+              <div class="note" style="font-size:10px;font-weight:600;color:#111;margin-top:6px;font-family:Arial,sans-serif">不是先安排自己的人生，再請神祝福。</div>
+              <div class="verse">「你們要先求他的國和他的義，這些東西都要加給你們了。」</div>
+              <div class="verse-ref">馬太福音 6:33</div>
+            </div>
+            <div class="col">
+              <div style="display:flex;justify-content:space-between;align-items:start">
+                <div class="goal-num">(02)</div>
+                <div class="goal-title">將道路交託給主</div>
+              </div>
+              <div class="note" style="font-size:10px;font-weight:600;color:#111;margin-top:6px;font-family:Arial,sans-serif">與神對齊＝放下自我主權。</div>
+              <div class="verse">「你要專心仰賴耶和華，不可倚靠自己的聰明……」</div>
+              <div class="verse-ref">箴言 3:5–6</div>
+            </div>
+            <div class="col">
+              <div style="display:flex;justify-content:space-between;align-items:start">
+                <div class="goal-num">(03)</div>
+                <div class="goal-title">心意更新而變化</div>
+              </div>
+              <div class="note" style="font-size:10px;font-weight:600;color:#111;margin-top:6px;font-family:Arial,sans-serif">真正的對齊從「思想系統」開始。</div>
+              <div class="verse">「不要效法這個世界，只要心意更新而變化……」</div>
+              <div class="verse-ref">羅馬書 12:2</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.3)">问题：背景 amber-50 太浅，与前后 section 融为一片；red-700 标题刺眼；经文引号不明显；整体感觉平淡。</div>
+      </div>
+
+      <div class="ba-frame" id="p4-after">
+        <div class="ba-label after">更新后（深石灰背景 + 金色 + Lora + 经文竖线）</div>
+        <div class="mock aft-align" style="max-width:860px">
+          <div class="grid">
+            <div class="col">
+              <div class="small-label">2026 BRC 目標</div>
+              <div class="big-gold">與神<br/>對齊</div>
+            </div>
+            <div class="col">
+              <div style="display:flex;justify-content:space-between;align-items:start">
+                <div class="goal-num">01</div>
+                <div class="goal-title">先對齊神的國與義</div>
+              </div>
+              <div class="note">不是先安排自己的人生，再請神祝福；而是先對齊神的國度與心意。</div>
+              <div class="verse">「你們要先求他的國和他的義，這些東西都要加給你們了。」</div>
+              <div class="verse-ref">馬太福音 6:33</div>
+            </div>
+            <div class="col">
+              <div style="display:flex;justify-content:space-between;align-items:start">
+                <div class="goal-num">02</div>
+                <div class="goal-title">將道路交託給主</div>
+              </div>
+              <div class="note">與神對齊＝放下自我主權，讓神來導航。</div>
+              <div class="verse">「你要專心仰賴耶和華，不可倚靠自己的聰明……」</div>
+              <div class="verse-ref">箴言 3:5–6</div>
+            </div>
+            <div class="col">
+              <div style="display:flex;justify-content:space-between;align-items:start">
+                <div class="goal-num">03</div>
+                <div class="goal-title">心意更新而變化</div>
+              </div>
+              <div class="note">真正的對齊從「思想系統」開始更新。</div>
+              <div class="verse">「不要效法這個世界，只要心意更新而變化……」</div>
+              <div class="verse-ref">羅馬書 12:2</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.3)">改善：深色背景让这个 section 在整页中「沉下来」，成为视觉锚点。衬线体大标题更庄重，金色竖线经文引导符提升仪式感。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PAGE 5: CONTACT FORM
+     ════════════════════════════════════ -->
+<div class="sample-page" id="p5">
+  <div class="sample-inner">
+    <div class="sample-header" style="margin-top:40px">
+      <div class="sample-title">Phase 5 · 联系表单</div>
+      <div class="sample-desc">当前表单是简单的底部单线输入框，缺乏 focus 状态和任何视觉反馈，提交按钮是方形黄色块。</div>
+    </div>
+
+    <div class="ba-wrapper">
+      <div class="ba-toggle">
+        <button class="ba-btn active" onclick="toggleBA('p5','before',this)">当前 BEFORE</button>
+        <button class="ba-btn" onclick="toggleBA('p5','after',this)">更新后 AFTER</button>
+      </div>
+
+      <div class="ba-frame active" id="p5-before">
+        <div class="ba-label before">当前（底部单线 + 方形黄色按钮）</div>
+        <div class="mock" style="max-width:480px">
+          <div class="bef-form">
+            <h3>聯繫我們</h3>
+            <input placeholder="姓名" type="text"/>
+            <input placeholder="郵箱" type="email"/>
+            <textarea placeholder="留言內容"></textarea>
+            <button class="submit">提交問題</button>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.3)">问题：输入框仅有底线，没有 focus ring，无法区分「哪个字段正在输入」；按钮无圆角，黄色 + 黑字视觉粗糙。</div>
+      </div>
+
+      <div class="ba-frame" id="p5-after">
+        <div class="ba-label after">更新后（全边框 + focus glow + 圆角按钮 + 深色背景）</div>
+        <div class="mock" style="max-width:480px">
+          <div class="aft-form">
+            <h3>聯繫<span>我們</span></h3>
+            <div class="sub">我們樂意為您解答任何問題</div>
+            <div class="field"><input placeholder="姓名" type="text"/></div>
+            <div class="field"><input placeholder="郵箱地址" type="email"/></div>
+            <div class="field"><textarea placeholder="留言內容..."></textarea></div>
+            <button class="submit">提交留言 →</button>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.3)">改善：深色背景让表单区域独立成区域，全边框输入框 + 金色 focus glow 让填写过程有温度，按钮圆角 + hover 阴影提升点击欲望。</div>
+      </div>
+    </div>
+
+    <!-- FOCUS STATE DEMO -->
+    <div class="s-divider"></div>
+    <div class="context-label">Focus 状态演示（点击输入框看效果）</div>
+    <div class="note-box"><strong>核心改动：</strong><code style="background:rgba(255,255,255,.1);padding:1px 5px;border-radius:3px">ring-2 ring-amber-500/30</code> 的金色 focus glow——告诉用户「当前正在这里输入」，是表单可用性的基础。</div>
+    <div class="mock" style="max-width:480px">
+      <div class="aft-form">
+        <div class="field">
+          <input placeholder="點擊這個輸入框，看 focus 效果 ↓" type="text" style="cursor:pointer"/>
+        </div>
+        <div class="field">
+          <textarea placeholder="這個也可以點擊試試" style="cursor:pointer"></textarea>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PAGE 6: FOOTER
+     ════════════════════════════════════ -->
+<div class="sample-page" id="p6">
+  <div class="sample-inner">
+    <div class="sample-header" style="margin-top:40px">
+      <div class="sample-title">Phase 6 · Footer 品牌化</div>
+      <div class="sample-desc">当前 footer 是 zinc-50 浅灰色背景，和整页其他 section 差异不大，没有「收尾」的视觉感。</div>
+    </div>
+
+    <div class="ba-wrapper">
+      <div class="ba-toggle">
+        <button class="ba-btn active" onclick="toggleBA('p6','before',this)">当前 BEFORE</button>
+        <button class="ba-btn" onclick="toggleBA('p6','after',this)">更新后 AFTER</button>
+      </div>
+
+      <div class="ba-frame active" id="p6-before">
+        <div class="ba-label before">当前（zinc-50 浅灰 + Arial + 无品牌）</div>
+        <div class="mock" style="max-width:860px">
+          <div class="bef-footer">
+            <div class="grid">
+              <div>
+                <div class="brand">Bethel Renewal Center</div>
+                <div style="font-size:11px;color:#9ca3af;font-family:Arial,sans-serif;margin-bottom:4px">伯特利中心</div>
+                <div class="info">
+                  Lake Hiawatha, NJ 07034<br/>
+                  info@brc.org<br/>
+                  (862)-261-0116
+                </div>
+                <div style="font-size:11px;font-family:Arial,sans-serif;text-decoration:underline;color:#374151;margin-top:8px">聯繫我們</div>
+              </div>
+              <div>
+                <div class="link-title">快速連結</div>
+                <div class="links">主頁<br/>關於我們<br/>活動日歷<br/>禱告室<br/>BRC事工<br/>門徒訓練<br/>音訊庫<br/>奉獻支持</div>
+              </div>
+              <div>
+                <div class="link-title">訂閱更新</div>
+                <div style="font-size:11px;color:#6b7280;line-height:1.6;font-family:Arial,sans-serif;margin-bottom:8px">獲取最新活動與講道資訊。</div>
+                <div class="email-row">
+                  <input class="email-input" placeholder="your@email.com" type="email"/>
+                  <button class="email-btn">訂閱</button>
+                </div>
+              </div>
+            </div>
+            <div class="copyright">© 2026 Bethel Renewal Center. All rights reserved.</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.3)">问题：浅灰背景和上方内容无视觉分隔感，没有品牌信仰宣言，typography 平淡，整体缺乏「结语」的重量感。</div>
+      </div>
+
+      <div class="ba-frame" id="p6-after">
+        <div class="ba-label after">更新后（深石灰 + 品牌信仰宣言 + 金色分隔 + 完整 typography）</div>
+        <div class="mock" style="max-width:860px">
+          <div class="aft-footer">
+            <div class="top">
+              <div class="brand-block">
+                <div class="brand-name">Bethel Renewal Center</div>
+                <div class="brand-sub">伯特利中心</div>
+                <div class="belief">更新生命 · 服事列國<br/>Building a House of Prayer for All Nations</div>
+                <div class="info">
+                  Lake Hiawatha, NJ 07034<br/>
+                  <a href="#">info@brc.org</a><br/>
+                  (862)-261-0116<br/>
+                  <a href="#" style="margin-top:4px;display:inline-block">聯繫我們 →</a>
+                </div>
+              </div>
+              <div>
+                <div class="col-title">快速連結</div>
+                <div class="links">
+                  <a href="#">主頁</a>
+                  <a href="#">關於我們</a>
+                  <a href="#">活動日歷</a>
+                  <a href="#">禱告室</a>
+                  <a href="#">BRC事工</a>
+                  <a href="#">門徒訓練</a>
+                  <a href="#">音訊庫</a>
+                  <a href="#">奉獻支持</a>
+                </div>
+              </div>
+              <div>
+                <div class="col-title">訂閱更新</div>
+                <div style="font-size:12px;color:#6b5d45;line-height:1.7;font-family:'Inter',sans-serif">獲取最新活動、講道與事工資訊。</div>
+                <div class="sub-input">
+                  <input placeholder="your@email.com" type="email"/>
+                  <button>訂閱</button>
+                </div>
+                <div style="margin-top:16px">
+                  <div class="col-title">關注我們</div>
+                  <div style="display:flex;gap:10px;margin-top:8px">
+                    <div style="width:28px;height:28px;border:1px solid rgba(255,255,255,.1);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#6b5d45;cursor:pointer">FB</div>
+                    <div style="width:28px;height:28px;border:1px solid rgba(255,255,255,.1);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#6b5d45;cursor:pointer">YT</div>
+                    <div style="width:28px;height:28px;border:1px solid rgba(255,255,255,.1);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#6b5d45;cursor:pointer">IG</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="bottom">
+              <div class="copyright">© 2026 Bethel Renewal Center · IRS 501(c)(3) Non-Profit Organization</div>
+              <div class="bottom-links">
+                <a href="#">隱私政策</a>
+                <a href="#">使用條款</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.3)">改善：深色背景给整页一个有重量的视觉结尾，品牌信仰宣言传递 BRC 的使命，金色 accent 和分隔线维系整体色彩系统。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PAGE 7: BUTTON SYSTEM
+     ════════════════════════════════════ -->
+<div class="sample-page" id="p7">
+  <div class="sample-inner">
+    <div class="sample-header" style="margin-top:40px">
+      <div class="sample-title">Phase 4 附 · 全站按钮系统</div>
+      <div class="sample-desc">当前按钮：方形 amber-500，没有统一系统。新版建立三种变体（Primary / Secondary / Ghost），适用于不同语境。</div>
+    </div>
+
+    <div class="note-box">
+      <strong>原则：</strong>全站只使用这 3 种按钮变体，不再散乱地使用各种不同圆角/颜色。把鼠标移到按钮上感受 hover 动画效果。
+    </div>
+
+    <!-- BEFORE buttons -->
+    <div class="context-label">当前按钮（散乱、方形、无系统）</div>
+    <div class="btn-showcase">
+      <button class="btn-bef-primary">奉獻支持</button>
+      <button class="btn-bef-primary" style="background:#f59e0b;color:#000">提交問題</button>
+      <button class="btn-bef-secondary">查看詳情</button>
+      <button style="background:#18181b;color:#fff;padding:8px 18px;font-size:12px;font-family:Arial,sans-serif;border:none;border-radius:0;cursor:pointer">加入禱告</button>
+      <div style="font-size:12px;font-family:Arial,sans-serif;text-decoration:underline;color:#374151;display:flex;align-items:center;cursor:pointer">聯繫我們</div>
+    </div>
+    <div style="margin-top:10px;margin-bottom:32px;font-size:12px;color:rgba(255,255,255,.3)">问题：多种不同风格混用，圆角不一、颜色不统一，无 hover 反馈。</div>
+
+    <!-- AFTER buttons (light bg) -->
+    <div class="context-label">新按钮系统 · 浅色背景下</div>
+    <div class="btn-showcase">
+      <button class="btn-aft-primary">奉獻支持</button>
+      <button class="btn-aft-primary" style="background:#1c1a17">加入禱告</button>
+      <button class="btn-aft-secondary">查看詳情</button>
+      <button class="btn-aft-secondary" style="color:#1c1a17;border-color:#d4cfc9">了解更多</button>
+      <button class="btn-aft-ghost">聯繫我們 →</button>
+    </div>
+
+    <!-- AFTER buttons (dark bg) -->
+    <div class="context-label" style="margin-top:24px">新按钮系统 · 深色背景下</div>
+    <div class="btn-showcase-dark">
+      <button class="btn-aft-primary">奉獻支持</button>
+      <button style="background:rgba(255,255,255,.1);color:#f5f0e8;padding:9px 22px;font-size:13px;font-family:'Inter',sans-serif;font-weight:600;border:1px solid rgba(255,255,255,.15);border-radius:20px;cursor:pointer;transition:all .2s;letter-spacing:.02em">加入禱告會</button>
+      <button style="background:transparent;color:rgba(255,255,255,.6);padding:8px 20px;font-size:13px;font-family:'Inter',sans-serif;font-weight:500;border:1.5px solid rgba(255,255,255,.15);border-radius:20px;cursor:pointer;transition:all .2s">查看詳情</button>
+      <button style="background:transparent;color:#a08050;padding:8px 16px;font-size:12px;font-family:'Inter',sans-serif;font-weight:500;border:none;cursor:pointer;transition:color .2s">聯繫我們 →</button>
+    </div>
+
+    <div class="s-divider"></div>
+
+    <!-- Tags / Badges -->
+    <div class="context-label">标签 / Chips</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;padding:20px;background:#1c1a17;border-radius:8px">
+      <span style="font-size:11px;font-weight:600;letter-spacing:.06em;padding:4px 12px;background:rgba(217,119,6,.15);color:#d97706;border-radius:20px;font-family:'Inter',sans-serif">BRC 事工</span>
+      <span style="font-size:11px;font-weight:600;letter-spacing:.06em;padding:4px 12px;background:rgba(255,255,255,.06);color:#a08050;border-radius:20px;font-family:'Inter',sans-serif">生命影響力</span>
+      <span style="font-size:11px;font-weight:600;letter-spacing:.06em;padding:4px 12px;background:rgba(255,255,255,.06);color:#a08050;border-radius:20px;font-family:'Inter',sans-serif">跨文化宣教</span>
+      <span style="font-size:11px;font-weight:600;letter-spacing:.06em;padding:4px 12px;background:rgba(255,255,255,.06);color:#78716c;border-radius:20px;font-family:'Inter',sans-serif">門徒訓練</span>
+      <span style="font-size:11px;font-weight:500;padding:3px 10px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.45);border-radius:20px;font-family:'Inter',sans-serif">週六 9:00 AM</span>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+function showPage(id, btn) {
+  document.querySelectorAll('.sample-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.shell-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleBA(page, state, btn) {
+  const container = document.getElementById('p'+page.replace('p',''));
+  const bFrame = document.getElementById(page+'-before');
+  const aFrame = document.getElementById(page+'-after');
+  const toggleEl = btn.closest('.ba-toggle');
+  toggleEl.querySelectorAll('.ba-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if(state==='before'){
+    bFrame.classList.add('active');
+    aFrame.classList.remove('active');
+  } else {
+    aFrame.classList.add('active');
+    bFrame.classList.remove('active');
+  }
+}
+</script>
+</body>
+</html>
