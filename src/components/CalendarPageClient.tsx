@@ -140,10 +140,10 @@ export default function CalendarPageClient({
   const selectedDateLabel = formatDateLabel(selectedDate, locale);
 
   return (
-    <main className="mx-auto max-w-6xl px-6 pb-12 pt-36 md:pt-32">
+    <main className="section-container-medium pb-12 pt-36 md:pt-32">
       <div className="space-y-12">
         {degraded ? (
-          <section className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-900">
+          <section className="rounded-xl border border-token bg-accent-weak p-4 text-[var(--accent-strong)]">
             <h2 className="text-base font-semibold">{degradedTitle}</h2>
             <p className="mt-1 text-sm">{degradedBody}</p>
             <a className="mt-3 inline-flex text-sm font-medium underline" href={retryHref}>
@@ -156,14 +156,14 @@ export default function CalendarPageClient({
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h1 className="text-3xl font-semibold">{messages.title}</h1>
-              <p className="mt-2 text-sm text-zinc-600">{messages.desc}</p>
+              <p className="mt-2 text-sm text-body-color-token">{messages.desc}</p>
             </div>
-            <Link className="inline-flex text-sm font-medium text-zinc-700 underline" href={withLocale(locale, "/events/archive")}>
+            <Link className="inline-flex text-sm font-medium text-body-color-token underline" href={withLocale(locale, "/events/archive")}>
               {messages.viewArchive}
             </Link>
           </div>
 
-          <div className="relative overflow-hidden rounded-2xl border bg-zinc-900 text-white">
+          <div className="relative overflow-hidden rounded-2xl border bg-stats-token text-white">
             <div className="relative h-[260px] w-full sm:h-[320px] md:h-[360px]">
               {activeSlide ? (
                 <>
@@ -171,21 +171,21 @@ export default function CalendarPageClient({
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 </>
               ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-700" />
+                <div className="absolute inset-0 bg-stats-token" />
               )}
             </div>
             <div className="absolute inset-x-4 bottom-4 space-y-1.5 sm:inset-x-6 sm:bottom-6 sm:space-y-2">
               {activeSlide ? (
                 <>
                   <div className="text-lg font-semibold sm:text-2xl">{activeTitle}</div>
-                  <div className="text-sm text-zinc-200">{activeSubtitle}</div>
-                  <div className="text-sm text-zinc-300">
+                  <div className="text-sm text-dk-title-token">{activeSubtitle}</div>
+                  <div className="text-sm text-dk-title-token">
                     {[activeSlide.date, activeSlide.time, activeSlide.location].filter((item) => item.length > 0).join(" · ")}
                   </div>
                   <div className="flex flex-wrap gap-2 pt-2">
                     <Link
                       href={withLocale(locale, `/events/${activeSlide.id}`)}
-                      className="inline-flex rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-zinc-900"
+                      className="inline-flex rounded-full bg-surface-a px-3 py-1.5 text-xs font-semibold text-heading-token"
                     >
                       {messages.detailsCta}
                     </Link>
@@ -210,7 +210,7 @@ export default function CalendarPageClient({
                   </div>
                 </>
               ) : (
-                <div className="text-sm text-zinc-200">{messages.empty}</div>
+                <div className="text-sm text-dk-title-token">{messages.empty}</div>
               )}
             </div>
             {slidePool.length > 1 ? (
@@ -224,7 +224,7 @@ export default function CalendarPageClient({
                   >
                     <span
                       className={`h-2 w-2 rounded-full transition ${
-                        index === activeSlideIndex ? "bg-white" : "bg-white/40"
+                        index === activeSlideIndex ? "bg-surface-a" : "bg-surface-a/40"
                       }`}
                     />
                   </button>
@@ -235,10 +235,10 @@ export default function CalendarPageClient({
         </section>
 
         <section className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-2xl border border-zinc-200 bg-white p-6">
+          <div className="rounded-2xl border border-token bg-surface-a p-6">
             <div className="flex items-center justify-between">
               <button
-                className="inline-flex min-h-11 items-center text-sm text-zinc-600 hover:text-zinc-900"
+                className="inline-flex min-h-11 items-center text-sm text-body-color-token hover:text-heading-token"
                 onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))}
               >
                 {messages.prev}
@@ -247,14 +247,14 @@ export default function CalendarPageClient({
                 {currentMonth.toLocaleDateString(locale === "en" ? "en-US" : "zh-TW", { month: "long", year: "numeric" })}
               </div>
               <button
-                className="inline-flex min-h-11 items-center text-sm text-zinc-600 hover:text-zinc-900"
+                className="inline-flex min-h-11 items-center text-sm text-body-color-token hover:text-heading-token"
                 onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1))}
               >
                 {messages.next}
               </button>
             </div>
 
-            <div className="mt-6 grid grid-cols-7 gap-1.5 text-[11px] text-zinc-500 sm:gap-2 sm:text-xs">
+            <div className="mt-6 grid grid-cols-7 gap-1.5 text-[11px] text-muted-token sm:gap-2 sm:text-xs">
               {messages.weekDays.map((day) => (
                 <div key={day} className="text-center uppercase tracking-wide">
                   {day}
@@ -275,13 +275,13 @@ export default function CalendarPageClient({
                     key={key}
                     onClick={() => setSelectedDate(dateKey)}
                     className={`flex h-10 items-center justify-center rounded-lg border text-xs transition sm:h-12 sm:text-sm ${
-                      isSelected ? "border-amber-500 bg-amber-50 text-amber-800" : "border-transparent hover:border-zinc-200"
+                      isSelected ? "border-[var(--accent)] bg-accent-weak text-[var(--accent-strong)]" : "border-transparent hover:border-token"
                     }`}
                   >
                     <span className="relative">
                       {date.getDate()}
                       {hasEvent ? (
-                        <span className="absolute -right-2 -top-1 h-1.5 w-1.5 rounded-full bg-amber-500" />
+                        <span className="absolute -right-2 -top-1 h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
                       ) : null}
                     </span>
                   </button>
@@ -290,32 +290,32 @@ export default function CalendarPageClient({
             </div>
           </div>
 
-          <div className="rounded-2xl border border-zinc-200 bg-white p-6">
-            <div className="text-sm uppercase tracking-wide text-zinc-500">{messages.selectedDate}</div>
+          <div className="rounded-2xl border border-token bg-surface-a p-6">
+            <div className="text-sm uppercase tracking-wide text-muted-token">{messages.selectedDate}</div>
             <div className="mt-2 text-xl font-semibold">{selectedDateLabel}</div>
             <div className="mt-6 space-y-4">
               {selectedEvents.length === 0 ? (
-                <div className="rounded-lg border border-dashed border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-600">
+                <div className="rounded-lg border border-dashed border-token bg-surface-b p-4 text-sm text-body-color-token">
                   {messages.empty}
                 </div>
               ) : (
                 selectedEvents.map((event) => (
-                  <div key={event.id} className="rounded-lg border border-zinc-200 p-4">
+                  <div key={event.id} className="rounded-lg border border-token p-4">
                     <div className="text-lg font-semibold">{locale === "en" ? event.titleEn : event.titleZh}</div>
-                    <div className="text-sm text-zinc-500">{locale === "en" ? event.titleZh : event.titleEn}</div>
+                    <div className="text-sm text-muted-token">{locale === "en" ? event.titleZh : event.titleEn}</div>
                     {(event.summaryEn || event.summaryZh) ? (
-                      <div className="mt-2 text-sm text-zinc-600">
+                      <div className="mt-2 text-sm text-body-color-token">
                         {locale === "en" ? event.summaryEn || event.summaryZh : event.summaryZh || event.summaryEn}
                       </div>
                     ) : null}
-                    <div className="mt-2 text-sm text-zinc-600">
+                    <div className="mt-2 text-sm text-body-color-token">
                       {[event.date, event.time].filter((item) => item.length > 0).join(" · ")}
                     </div>
-                    {event.location ? <div className="text-sm text-zinc-600">{event.location}</div> : null}
+                    {event.location ? <div className="text-sm text-body-color-token">{event.location}</div> : null}
                     <div className="mt-3 flex flex-wrap gap-2">
                       <Link
                         href={withLocale(locale, `/events/${event.id}`)}
-                        className="inline-flex rounded-full border border-zinc-300 px-3 py-1.5 text-xs font-semibold text-zinc-800"
+                        className="inline-flex rounded-full border border-token px-3 py-1.5 text-xs font-semibold text-heading-token"
                       >
                         {messages.detailsCta}
                       </Link>
@@ -324,7 +324,7 @@ export default function CalendarPageClient({
                           href={event.registrationUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex rounded-full border border-zinc-300 px-3 py-1.5 text-xs font-semibold text-zinc-800"
+                          className="inline-flex rounded-full border border-token px-3 py-1.5 text-xs font-semibold text-heading-token"
                         >
                           {messages.registerCta}
                         </a>
@@ -333,7 +333,7 @@ export default function CalendarPageClient({
                         href={resolveDonationHref(event, locale)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex rounded-full border border-zinc-300 px-3 py-1.5 text-xs font-semibold text-zinc-800"
+                        className="inline-flex rounded-full border border-token px-3 py-1.5 text-xs font-semibold text-heading-token"
                       >
                         {messages.donateCta}
                       </a>

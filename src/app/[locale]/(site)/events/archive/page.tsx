@@ -70,17 +70,17 @@ export default async function EventArchivePage({
           {messages.eventModule.backToCalendar}
         </Link>
         <h1 className="text-3xl font-semibold">{messages.eventModule.archiveTitle}</h1>
-        <p className="text-sm text-zinc-600">{messages.eventModule.archiveDesc}</p>
+        <p className="text-sm text-body-color-token">{messages.eventModule.archiveDesc}</p>
       </section>
 
       {result.degraded ? (
-        <section className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+        <section className="rounded-lg border border-token bg-accent-weak p-4 text-sm text-[var(--accent-strong)]">
           {degradedNotice}
         </section>
       ) : null}
 
       {result.items.length === 0 ? (
-        <section className="rounded-xl border border-dashed border-zinc-300 bg-zinc-50 p-8 text-sm text-zinc-600">
+        <section className="rounded-xl border border-dashed border-token bg-surface-b p-8 text-sm text-body-color-token">
           {messages.eventModule.archiveEmpty}
         </section>
       ) : (
@@ -93,22 +93,22 @@ export default async function EventArchivePage({
             const donationHref = resolveDonationHref(normalizedLocale, event);
 
             return (
-              <article key={event.id} className="overflow-hidden rounded-2xl border border-zinc-200 bg-white">
-                <div className="relative h-44 w-full bg-zinc-100">
+              <article key={event.id} className="overflow-hidden rounded-2xl border border-token bg-surface-a">
+                <div className="relative h-44 w-full bg-surface-b">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={event.image} alt={title} className="h-full w-full object-cover object-center" />
                 </div>
                 <div className="space-y-3 p-5">
                   <div className="text-lg font-semibold">{title}</div>
-                  <div className="text-sm text-zinc-500">{subtitle}</div>
-                  <div className="text-sm text-zinc-700">{summary || messages.eventModule.summaryFallback}</div>
-                  <div className="text-sm text-zinc-600">
+                  <div className="text-sm text-muted-token">{subtitle}</div>
+                  <div className="text-sm text-body-color-token">{summary || messages.eventModule.summaryFallback}</div>
+                  <div className="text-sm text-body-color-token">
                     {[event.date, event.time, event.location].filter((item) => item && item.length > 0).join(" · ")}
                   </div>
                   <div className="flex flex-wrap gap-2 pt-1">
                     <Link
                       href={withLocale(normalizedLocale, `/events/${event.id}`)}
-                      className="inline-flex rounded-full border border-zinc-300 px-3 py-1.5 text-xs font-semibold text-zinc-800"
+                      className="inline-flex rounded-full border border-token px-3 py-1.5 text-xs font-semibold text-heading-token"
                     >
                       {messages.eventModule.detailsCta}
                     </Link>
@@ -116,7 +116,7 @@ export default async function EventArchivePage({
                       href={donationHref}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex rounded-full border border-zinc-300 px-3 py-1.5 text-xs font-semibold text-zinc-800"
+                      className="inline-flex rounded-full border border-token px-3 py-1.5 text-xs font-semibold text-heading-token"
                     >
                       {messages.eventModule.donateCta}
                     </a>

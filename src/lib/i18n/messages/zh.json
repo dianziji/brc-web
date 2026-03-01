@@ -48,7 +48,10 @@
   "home": {
     "hero": {
       "title": "伯特利中心",
-      "subtitle": "更新生命 · 服事列國"
+      "subtitle": "更新生命 · 服事列國",
+      "ctaPrimary": "關於我們",
+      "ctaSecondary": "奉獻支持",
+      "scrollDownAria": "滑動到下一區塊"
     },
     "carousel": [
       { "title": "生命影響力事工", "subtitle": "Life Impact Ministries" },
@@ -77,7 +80,9 @@
     },
     "ministries": {
       "title": "重點事工",
-      "cta": "查看全部"
+      "cta": "查看全部",
+      "prevAria": "上一個事工",
+      "nextAria": "下一個事工"
     },
     "events": {
       "title": "近期活動",

@@ -9,14 +9,40 @@ function splitFixedLines(text: string): string[] {
     .filter((line) => line.length > 0);
 }
 
+function splitValueLabel(value: string) {
+  const firstCjkIndex = value.search(/[\u3400-\u9fff]/);
+  if (firstCjkIndex === -1) {
+    return { primary: value.trim(), secondary: "" };
+  }
+  return {
+    primary: value.slice(0, firstCjkIndex).trim(),
+    secondary: value.slice(firstCjkIndex).trim(),
+  };
+}
+
+function getLeadLetter(primary: string) {
+  const matched = primary.match(/[A-Za-z]/);
+  if (matched) return matched[0].toUpperCase();
+  return primary.trim().charAt(0).toUpperCase();
+}
+
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
+  const valuesLead =
+    normalizedLocale === "en"
+      ? "Eight commitments that shape how we build people, teams, and mission."
+      : "八個核心價值，定義我們如何建造生命、團隊與事工。";
+
+  const acrosticLetters = messages.about.values.map((item) => {
+    const { primary } = splitValueLabel(item);
+    return getLeadLetter(primary);
+  });
 
   return (
     <main className="pb-16">
-      <section className="relative w-full overflow-hidden bg-zinc-900 text-white">
+      <section className="relative w-full overflow-hidden bg-stats-token text-white">
         <div className="relative h-[320px] w-full md:h-[480px]">
           <AppImage mediaKey="aboutHero" locale={normalizedLocale} fill className="object-cover object-center" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/60" />
@@ -27,7 +53,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               {messages.about.heroTitle}
         
             </h1>
-            <p className="text-base text-zinc-200 md:text-lg">{messages.about.heroBody}</p>
+            <p className="text-base text-dk-title-token md:text-lg">{messages.about.heroBody}</p>
           </div>
         </div>
       </section>
@@ -35,12 +61,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
 
       <section className="grid lg:grid-cols-2">
-      <div className="bg-white px-6 py-24 lg:px-12">
+      <div className="bg-surface-a px-6 py-24 lg:px-12">
           <div className="mx-auto max-w-xl space-y-8">
             <div className="space-y-4">
            
             <h2 className="text-3xl font-semibold">{messages.about.storyTitle}</h2>
-            <p className="text-sm text-zinc-600">{messages.about.storyBody}</p>
+            <p className="text-sm text-body-color-token">{messages.about.storyBody}</p>
       
             </div>
  
@@ -61,11 +87,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       
           />
         </div>
-        <div className="bg-white px-6 py-24 lg:px-12">
+        <div className="bg-surface-a px-6 py-24 lg:px-12">
           <div className="mx-auto max-w-2xl space-y-8">
             <div className="space-y-4">
               <h2 className="text-3xl font-semibold">{messages.about.missionTitle}</h2>
-              <div className="space-y-1 text-sm leading-relaxed text-zinc-600">
+              <div className="space-y-1 text-sm leading-relaxed text-body-color-token">
                 {splitFixedLines(messages.about.missionBody).map((line) => (
                   <p key={line} className="lg:whitespace-nowrap">
                     {line}
@@ -75,7 +101,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </div>
             <div className="space-y-4">
               <h2 className="text-3xl font-semibold">{messages.about.visionTitle}</h2>
-              <div className="space-y-1 text-sm leading-relaxed text-zinc-600">
+              <div className="space-y-1 text-sm leading-relaxed text-body-color-token">
                 {splitFixedLines(messages.about.visionBody).map((line) => (
                   <p key={line} className="lg:whitespace-nowrap">
                     {line}
@@ -89,27 +115,48 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
       <AlignWithGodSection locale={normalizedLocale} />
 
-      <section className="bg-zinc-50">
-        <div className="mx-auto max-w-6xl px-6 py-14">
-          <div className="grid gap-6 md:grid-cols-2">
-
-            <div className="space-y-4">
-              <h2 className="text-3xl font-semibold">{messages.about.valuesTitle}</h2>
-              <div className="text-sm text-zinc-600 space-y-1">
-                {messages.about.values.map((item) => (
-                  <div key={item}>{item}</div>
-                ))}
-              </div>
+      <section className="bg-rhythm-b section-rhythm-divider">
+        <div className="section-container-medium section-block-tight">
+          <div className="max-w-3xl space-y-3">
+            <h2 className="font-display text-h2-token text-heading-token font-semibold">{messages.about.valuesTitle}</h2>
+         
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              <span className="rounded-full bg-[var(--accent)]/12 px-3 py-1 text-caption-token font-semibold tracking-[0.18em] text-[var(--accent-strong)]">
+                {acrosticLetters.join(" · ")}
+              </span>
+           
             </div>
+            <p className="text-body-token text-body-color-token">{valuesLead}</p>
+          </div>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {messages.about.values.map((item, index) => {
+              const { primary, secondary } = splitValueLabel(item);
+              const leadLetter = getLeadLetter(primary);
+              const leadIndex = primary.toUpperCase().indexOf(leadLetter);
+              const beforeLead = leadIndex >= 0 ? primary.slice(0, leadIndex) : "";
+              const afterLead = leadIndex >= 0 ? primary.slice(leadIndex + 1) : primary.slice(1);
+              return (
+                <article key={item} className="card-base card-base-hover relative overflow-hidden p-4">
+                  <div className="absolute inset-x-0 top-0 h-[2px] bg-[var(--accent-line)]" aria-hidden="true" />
+                  <div className="text-caption-token text-muted-token">({String(index + 1).padStart(2, "0")})</div>
+                  <h3 className="text-h3-token text-heading-token mt-2 font-semibold leading-tight">
+                    {beforeLead}
+                    <span className="text-[var(--accent)]">{leadLetter}</span>
+                    {afterLead}
+                  </h3>
+                  {secondary ? <p className="text-caption-token text-body-color-token mt-2 leading-relaxed">{secondary}</p> : null}
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-12">
+      <section className="section-container-medium section-block-tight">
         <div className="flex items-end justify-between">
           <h2 className="text-3xl font-semibold">{messages.about.teamTitle}</h2>
           <a
-            className="text-sm text-zinc-700 underline"
+            className="text-sm text-body-color-token underline"
             href={withLocale(normalizedLocale, "/ministries")}
           >
             {messages.about.teamCta}
@@ -118,23 +165,23 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="mt-6 grid gap-8 md:grid-cols-3">
           {messages.about.team.map((item) => (
             <div key={item.name} className="group">
-              <div className="h-52 w-full bg-zinc-100" />
+              <div className="h-52 w-full bg-surface-b" />
               <div className="mt-4 text-lg font-medium">{item.name}</div>
-              <div className="mt-1 text-sm text-zinc-600">{item.role}</div>
+              <div className="mt-1 text-sm text-body-color-token">{item.role}</div>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="bg-zinc-900">
-        <div className="mx-auto max-w-6xl px-6 py-14 text-white">
+      <section className="bg-stats-token">
+        <div className="section-container-medium section-block-tight text-white">
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
             <div>
               <h2 className="text-2xl font-semibold">{messages.about.joinTitle}</h2>
-              <p className="mt-2 text-sm text-zinc-300">{messages.about.joinBody}</p>
+              <p className="mt-2 text-sm text-dk-title-token">{messages.about.joinBody}</p>
             </div>
             <a
-              className="inline-flex items-center justify-center rounded-full bg-amber-500 px-6 py-3 text-sm font-semibold text-black"
+              className="btn-base btn-primary focus-ring-token"
               href={withLocale(normalizedLocale, "/donation")}
             >
               {messages.about.joinCta}
