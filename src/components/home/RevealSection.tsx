@@ -15,16 +15,18 @@ export default function RevealSection({
   threshold = 0.18,
   rootMargin = "0px 0px -8% 0px",
 }: RevealSectionProps) {
-  const [revealState, setRevealState] = useState<"idle" | "pending" | "visible">("idle");
+  const [revealState, setRevealState] = useState<"pending" | "visible">("pending");
   const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
-    setRevealState("pending");
+
     if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
-      setRevealState("visible");
-      return;
+      const id = window.requestAnimationFrame(() => {
+        setRevealState("visible");
+      });
+      return () => window.cancelAnimationFrame(id);
     }
 
     const observer = new IntersectionObserver(

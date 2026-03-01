@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { MediaCardProps } from "@/components/home/types";
 
 type Slide = Pick<MediaCardProps, "title" | "subtitle" | "href"> & {
@@ -30,19 +30,22 @@ export default function MinistryCarousel({ slides, detailsLabel }: MinistryCarou
   const [direction, setDirection] = useState<1 | -1>(1);
   const transitionTimerRef = useRef<number | null>(null);
 
-  function startTransition(nextIndex: number, nextDirection: 1 | -1) {
-    if (nextIndex === index) return;
-    if (transitionTimerRef.current !== null) {
-      window.clearTimeout(transitionTimerRef.current);
-    }
-    setPreviousIndex(index);
-    setDirection(nextDirection);
-    setIndex(nextIndex);
-    transitionTimerRef.current = window.setTimeout(() => {
-      setPreviousIndex(null);
-      transitionTimerRef.current = null;
-    }, TRANSITION_MS);
-  }
+  const startTransition = useCallback(
+    (nextIndex: number, nextDirection: 1 | -1) => {
+      if (nextIndex === index) return;
+      if (transitionTimerRef.current !== null) {
+        window.clearTimeout(transitionTimerRef.current);
+      }
+      setPreviousIndex(index);
+      setDirection(nextDirection);
+      setIndex(nextIndex);
+      transitionTimerRef.current = window.setTimeout(() => {
+        setPreviousIndex(null);
+        transitionTimerRef.current = null;
+      }, TRANSITION_MS);
+    },
+    [index],
+  );
 
   useEffect(() => {
     if (effectiveSlides.length <= 1) return;
@@ -51,7 +54,7 @@ export default function MinistryCarousel({ slides, detailsLabel }: MinistryCarou
       startTransition(nextIndex, 1);
     }, 4500);
     return () => window.clearInterval(id);
-  }, [effectiveSlides.length, index]);
+  }, [effectiveSlides.length, index, startTransition]);
 
   useEffect(() => {
     return () => {
