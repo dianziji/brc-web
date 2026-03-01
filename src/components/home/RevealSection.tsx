@@ -22,11 +22,12 @@ export default function RevealSection({
     const node = ref.current;
     if (!node) return;
 
-    if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
-      const id = window.requestAnimationFrame(() => {
+    const hasIntersectionObserver = typeof globalThis.IntersectionObserver !== "undefined";
+    if (!hasIntersectionObserver) {
+      const id = globalThis.setTimeout(() => {
         setRevealState("visible");
-      });
-      return () => window.cancelAnimationFrame(id);
+      }, 0);
+      return () => globalThis.clearTimeout(id);
     }
 
     const observer = new IntersectionObserver(
