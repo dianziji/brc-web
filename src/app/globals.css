@@ -509,7 +509,7 @@ html[lang^="zh"] .font-zh-serif {
   opacity: 0.1;
 }
 
-.header-nav-link[data-active="true"]::after,
+.header-nav-link-active::after,
 .header-nav-link:hover::after {
   transform: scaleX(1);
   opacity: 1;
@@ -519,28 +519,36 @@ html[lang^="zh"] .font-zh-serif {
   transform: translateY(-1px);
 }
 
-.header-nav-link-default[data-active="true"] {
+.header-nav-link-active {
+  font-weight: 600;
+}
+
+.header-nav-link-default.header-nav-link-active {
   color: var(--accent-strong);
   font-weight: 600;
 }
 
-.header-nav-link-default[data-active="false"] {
+.header-nav-link-default.header-nav-link-inactive {
   color: var(--body);
 }
 
-.header-nav-link-default[data-active="false"]:hover {
+.header-nav-link-default.header-nav-link-inactive:hover {
   color: var(--heading);
 }
 
-.header-nav-link-light[data-active="true"] {
-  color: #fff;
+.header-nav-link-light.header-nav-link-active {
+  color: var(--accent-strong);
 }
 
-.header-nav-link-light[data-active="false"] {
+.header-nav-link-light.header-nav-link-active::after {
+  background: var(--accent);
+}
+
+.header-nav-link-light.header-nav-link-inactive {
   color: var(--dk-title);
 }
 
-.header-nav-link-light[data-active="false"]:hover {
+.header-nav-link-light.header-nav-link-inactive:hover {
   color: #fff;
 }
 

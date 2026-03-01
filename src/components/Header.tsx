@@ -14,7 +14,12 @@ type HeaderProps = {
 export default function Header({ locale, messages }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const basePath = stripLocale(pathname);
+  const normalizePath = (path: string) => {
+    const stripped = stripLocale(path);
+    if (stripped === "/") return "/";
+    return stripped.replace(/\/+$/, "");
+  };
+  const basePath = normalizePath(pathname);
   const transparentHeaderPaths = new Set(["/", "/prayer", "/about", "/donation", "/ministries", "/ministries/archive"]);
   const ministryHeroPaths = new Set([
     "/ministries/missions",
@@ -36,31 +41,37 @@ export default function Header({ locale, messages }: HeaderProps) {
         label: messages.nav.home,
         mobileLabel: messages.navMobile.home,
         href: withLocale(locale, "/"),
+        activePatterns: ["/"],
       },
       {
         label: messages.nav.about,
         mobileLabel: messages.navMobile.about,
         href: withLocale(locale, "/about"),
+        activePatterns: ["/about"],
       },
       {
         label: messages.nav.calendar,
         mobileLabel: messages.navMobile.calendar,
         href: withLocale(locale, "/calendar"),
+        activePatterns: ["/calendar", "/events"],
       },
       {
         label: messages.nav.prayer,
         mobileLabel: messages.navMobile.prayer,
         href: withLocale(locale, "/prayer"),
+        activePatterns: ["/prayer"],
       },
       {
         label: messages.nav.ministries,
         mobileLabel: messages.navMobile.ministries,
         href: withLocale(locale, "/ministries"),
+        activePatterns: ["/ministries"],
       },
       {
         label: messages.nav.trainings,
         mobileLabel: messages.navMobile.trainings,
         href: withLocale(locale, "/discipleship"),
+        activePatterns: ["/discipleship", "/trainings"],
       },
     ],
     [locale, messages.nav, messages.navMobile]
@@ -71,11 +82,14 @@ export default function Header({ locale, messages }: HeaderProps) {
   const switchHref = withLocale(switchLocale, basePath);
   const donationHref = withLocale(locale, "/donation");
 
-  const isActiveRoute = (target: string) => {
-    if (target === "/") return basePath === "/";
-    return basePath === target || basePath.startsWith(`${target}/`);
+  const isActiveRoute = (targets: string[]) => {
+    return targets.some((target) => {
+      const normalizedTarget = normalizePath(target);
+      if (normalizedTarget === "/") return basePath === "/";
+      return basePath === normalizedTarget || basePath.startsWith(`${normalizedTarget}/`);
+    });
   };
-  const isDonationPage = isActiveRoute("/donation");
+  const isDonationPage = isActiveRoute(["/donation"]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -109,15 +123,20 @@ export default function Header({ locale, messages }: HeaderProps) {
         </Link>
         <nav className={`hidden items-center gap-6 text-sm md:flex ${useLightText ? "text-dk-title-token" : "text-body-color-token"}`}>
           {navItems.map((item) => {
-            const active = isActiveRoute(stripLocale(item.href));
+            const active = isActiveRoute(item.activePatterns);
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                data-active={active ? "true" : "false"}
                 className={`header-nav-link ${
-                  useLightText ? "header-nav-link-light" : "header-nav-link-default"
+                  useLightText
+                    ? active
+                      ? "header-nav-link-light header-nav-link-active"
+                      : "header-nav-link-light header-nav-link-inactive"
+                    : active
+                      ? "header-nav-link-default header-nav-link-active"
+                      : "header-nav-link-default header-nav-link-inactive"
                 }`}
               >
                 {item.label}
@@ -146,7 +165,7 @@ export default function Header({ locale, messages }: HeaderProps) {
         <div className={`section-container-medium py-1.5 ${useLightText ? "text-dk-title-token" : "text-body-color-token"}`}>
           <nav className="grid grid-cols-6 gap-1 text-[10px] leading-tight">
             {navItems.map((item) => {
-              const active = isActiveRoute(stripLocale(item.href));
+              const active = isActiveRoute(item.activePatterns);
               return (
                 <Link
                   key={item.href}
@@ -155,7 +174,7 @@ export default function Header({ locale, messages }: HeaderProps) {
                   className={`header-nav-mobile-link inline-flex min-h-11 min-w-0 items-center justify-center rounded-lg px-1 text-center break-words ${
                     useLightText
                       ? active
-                        ? "bg-surface-a/20 text-white"
+                        ? "bg-[var(--accent-weak)] text-[var(--accent-strong)] font-semibold"
                         : "hover:bg-surface-a/10 hover:text-white"
                       : active
                         ? "bg-[var(--accent-weak)] text-[var(--accent-strong)] font-semibold"
