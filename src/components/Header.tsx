@@ -115,23 +115,12 @@ export default function Header({ locale, messages }: HeaderProps) {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`relative transition-colors ${
-                  useLightText
-                    ? active
-                      ? "text-white"
-                      : "text-dk-title-token hover:text-white"
-                    : active
-                      ? "text-[var(--accent-strong)] font-semibold"
-                      : "text-body-color-token hover:text-heading-token"
+                data-active={active ? "true" : "false"}
+                className={`header-nav-link ${
+                  useLightText ? "header-nav-link-light" : "header-nav-link-default"
                 }`}
               >
                 {item.label}
-                <span
-                  aria-hidden="true"
-                  className={`absolute -bottom-1 left-0 h-[1.5px] rounded-full transition-all ${
-                    active ? "w-full bg-[var(--accent)]" : "w-0 bg-transparent"
-                  }`}
-                />
               </Link>
             );
           })}
@@ -163,7 +152,7 @@ export default function Header({ locale, messages }: HeaderProps) {
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className={`inline-flex min-h-11 min-w-0 items-center justify-center rounded-lg px-1 text-center break-words transition ${
+                  className={`header-nav-mobile-link inline-flex min-h-11 min-w-0 items-center justify-center rounded-lg px-1 text-center break-words ${
                     useLightText
                       ? active
                         ? "bg-surface-a/20 text-white"

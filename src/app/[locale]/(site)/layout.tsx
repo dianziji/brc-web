@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SiteMotionShell from "@/components/SiteMotionShell";
 import { getMessages, normalizeLocale } from "@/lib/i18n";
 
 export default async function SiteLayout({
@@ -14,12 +15,12 @@ export default async function SiteLayout({
   const messages = getMessages(normalizedLocale);
 
   return (
-    <>
+    <SiteMotionShell>
       <Header locale={normalizedLocale} messages={messages} />
 
       {children}
 
       <Footer locale={normalizedLocale} messages={messages} />
-    </>
+    </SiteMotionShell>
   );
 }
