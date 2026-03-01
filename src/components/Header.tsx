@@ -69,6 +69,13 @@ export default function Header({ locale, messages }: HeaderProps) {
   const switchLocale = locale === "en" ? "zh" : "en";
   const switchLabel = locale === "en" ? messages.header.switchToZh : messages.header.switchToEn;
   const switchHref = withLocale(switchLocale, basePath);
+  const donationHref = withLocale(locale, "/donation");
+
+  const isActiveRoute = (target: string) => {
+    if (target === "/") return basePath === "/";
+    return basePath === target || basePath.startsWith(`${target}/`);
+  };
+  const isDonationPage = isActiveRoute("/donation");
 
   useEffect(() => {
     const onScroll = () => {
@@ -82,69 +89,94 @@ export default function Header({ locale, messages }: HeaderProps) {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
-        isTransparentHeader ? "bg-transparent border-transparent" : "bg-white/90 backdrop-blur border-zinc-200"
+        isTransparentHeader ? "bg-transparent border-transparent" : "bg-surface-a/90 backdrop-blur border-token"
       }`}
     >
 
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 md:px-6 md:py-5">
+      <div className="section-container-medium flex items-center justify-between gap-3 py-4 md:py-5">
         <Link href={withLocale(locale, "/")} className="flex items-center gap-3">
           <div className="relative h-8 w-20 md:h-10 md:w-24">
             <Image src="/images/logo.png" alt="BRC logo" fill className="object-contain" />
           </div>
           <div className="leading-tight">
-            <div className={`text-xs font-semibold md:text-sm ${useLightText ? "text-white" : "text-zinc-900"}`}>
+            <div className={`text-xs font-semibold md:text-sm ${useLightText ? "text-white" : "text-heading-token"}`}>
               {messages.header.title}
             </div>
-            <div className={`text-[10px] md:text-xs ${useLightText ? "text-zinc-200" : "text-zinc-500"}`}>
+            <div className={`text-[10px] md:text-xs ${useLightText ? "text-dk-title-token" : "text-muted-token"}`}>
               {messages.header.subtitle}
             </div>
           </div>
         </Link>
-        <nav className={`hidden items-center gap-6 text-sm md:flex ${useLightText ? "text-zinc-200" : "text-zinc-700"}`}>
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={useLightText ? "hover:text-white" : "hover:text-zinc-900"}
-            >
-              {item.label}
-            </Link>
-          ))}
+        <nav className={`hidden items-center gap-6 text-sm md:flex ${useLightText ? "text-dk-title-token" : "text-body-color-token"}`}>
+          {navItems.map((item) => {
+            const active = isActiveRoute(stripLocale(item.href));
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={`relative transition-colors ${
+                  useLightText
+                    ? active
+                      ? "text-white"
+                      : "text-dk-title-token hover:text-white"
+                    : active
+                      ? "text-[var(--accent-strong)] font-semibold"
+                      : "text-body-color-token hover:text-heading-token"
+                }`}
+              >
+                {item.label}
+                <span
+                  aria-hidden="true"
+                  className={`absolute -bottom-1 left-0 h-[1.5px] rounded-full transition-all ${
+                    active ? "w-full bg-[var(--accent)]" : "w-0 bg-transparent"
+                  }`}
+                />
+              </Link>
+            );
+          })}
         </nav>
-        <div className="flex items-center gap-2 md:gap-3">
+        <div className="flex items-center gap-1 md:gap-[6px]">
           <Link
             href={switchHref}
-            className={`rounded-full border px-2 py-1.5 text-[10px] font-semibold md:px-3 md:py-2 md:text-xs ${
-              useLightText ? "border-white/60 text-white" : "border-zinc-200 text-zinc-700"
-            }`}
+            className={`focus-ring-token header-btn ${useLightText ? "header-btn-secondary-light" : "header-btn-secondary"}`}
           >
             {switchLabel}
           </Link>
           <Link
-            href={withLocale(locale, "/donation")}
-            className={`rounded-full px-3 py-1.5 text-[10px] font-semibold md:px-4 md:py-2 md:text-xs ${
-              useLightText ? "bg-white/90 text-zinc-900" : "bg-amber-500 text-black"
-            }`}
+            href={donationHref}
+            aria-current={isDonationPage ? "page" : undefined}
+            className={`focus-ring-token header-btn header-btn-primary ${isDonationPage ? "header-btn-active" : ""}`}
           >
             {messages.header.donate}
           </Link>
         </div>
       </div>
 
-      <div className={`border-t md:hidden ${useLightText ? "border-white/20" : "border-zinc-200"}`}>
-        <div className={`mx-auto max-w-6xl px-2 py-1.5 ${useLightText ? "text-zinc-200" : "text-zinc-700"}`}>
+      <div className={`border-t md:hidden ${useLightText ? "border-white/20" : "border-token"}`}>
+        <div className={`section-container-medium py-1.5 ${useLightText ? "text-dk-title-token" : "text-body-color-token"}`}>
           <nav className="grid grid-cols-6 gap-1 text-[10px] leading-tight">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`inline-flex min-h-11 min-w-0 items-center justify-center rounded-lg px-1 text-center break-words ${
-                  useLightText ? "hover:bg-white/10 hover:text-white" : "hover:bg-zinc-100 hover:text-zinc-900"
-                }`}
-              >
-                {item.mobileLabel}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const active = isActiveRoute(stripLocale(item.href));
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`inline-flex min-h-11 min-w-0 items-center justify-center rounded-lg px-1 text-center break-words transition ${
+                    useLightText
+                      ? active
+                        ? "bg-surface-a/20 text-white"
+                        : "hover:bg-surface-a/10 hover:text-white"
+                      : active
+                        ? "bg-[var(--accent-weak)] text-[var(--accent-strong)] font-semibold"
+                        : "hover:bg-surface-b hover:text-heading-token"
+                  }`}
+                >
+                  {item.mobileLabel}
+                </Link>
+              );
+            })}
           </nav>
         </div>
       </div>

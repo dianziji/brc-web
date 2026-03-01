@@ -89,8 +89,8 @@ export default function ArchiveGrid({ items, detailsLabel, locale }: ArchiveGrid
     }, 220);
   };
   const fallbackSrc = "/images/logo.png";
-  const fallbackThumbClass = "h-20 w-full rounded-md bg-white object-contain p-2";
-  const fallbackHeroClass = "h-56 w-full rounded-t-2xl bg-white object-contain p-8";
+  const fallbackThumbClass = "h-20 w-full rounded-md bg-surface-a object-contain p-2";
+  const fallbackHeroClass = "h-56 w-full rounded-t-2xl bg-surface-a object-contain p-8";
 
   return (
     <div className="relative">
@@ -98,7 +98,7 @@ export default function ArchiveGrid({ items, detailsLabel, locale }: ArchiveGrid
         {cards.map((item, index) => (
           <article
             key={`${item.category}-${item.title}-${item.date}-grid`}
-            className="group relative cursor-pointer rounded-lg border border-zinc-200 bg-white p-2 text-zinc-800 shadow-sm transition-transform duration-200 hover:-translate-y-1"
+            className="group relative cursor-pointer rounded-lg border border-token bg-surface-a p-2 text-heading-token shadow-sm transition-transform duration-200 hover:-translate-y-1"
             onClick={(event) => openFromImage(index, event.currentTarget)}
           >
             {item.imageUrl ? (
@@ -124,7 +124,7 @@ export default function ArchiveGrid({ items, detailsLabel, locale }: ArchiveGrid
                 loading="lazy"
               />
             )}
-            <div className="mt-2 text-[10px] uppercase tracking-wide text-zinc-500">
+            <div className="mt-2 text-[10px] uppercase tracking-wide text-muted-token">
               {pickLocalized(locale, {
                 zh: item.category,
                 en: item.categoryEn,
@@ -137,7 +137,7 @@ export default function ArchiveGrid({ items, detailsLabel, locale }: ArchiveGrid
                 fallback: item.subcategory,
               }) || "—"}
             </div>
-            <div className="mt-1 text-xs font-semibold text-zinc-900">
+            <div className="mt-1 text-xs font-semibold text-heading-token">
               {pickLocalized(locale, {
                 zh: item.title,
                 en: item.titleEn,
@@ -145,7 +145,7 @@ export default function ArchiveGrid({ items, detailsLabel, locale }: ArchiveGrid
               })}
             </div>
             {item.date ? (
-              <div className="mt-1 text-xs text-zinc-500">
+              <div className="mt-1 text-xs text-muted-token">
                 {pickLocalized(locale, {
                   zh: item.date,
                   en: item.dateEn,
@@ -160,12 +160,12 @@ export default function ArchiveGrid({ items, detailsLabel, locale }: ArchiveGrid
       {activeItem ? (
         <div
           className={`fixed inset-0 z-50 flex items-center justify-center px-4 transition-opacity duration-200 ${
-            isOpen ? "bg-white/70 opacity-100" : "bg-white/0 opacity-0"
+            isOpen ? "bg-surface-a/70 opacity-100" : "bg-surface-a/0 opacity-0"
           }`}
           onClick={closeOverlay}
         >
           <article
-            className={`rounded-2xl border border-zinc-200 bg-white text-zinc-900 shadow-2xl transition-transform duration-200 ${
+            className={`rounded-2xl border border-token bg-surface-a text-heading-token shadow-2xl transition-transform duration-200 ${
               isOpen ? "scale-100" : "scale-95"
             }`}
             style={{
@@ -207,15 +207,15 @@ export default function ArchiveGrid({ items, detailsLabel, locale }: ArchiveGrid
               />
             )}
             <div className="p-6">
-              <div className="text-xs uppercase tracking-wide text-zinc-400">
+              <div className="text-xs uppercase tracking-wide text-muted-token">
                 {activeCategory} · {activeSubcategory || "—"}
               </div>
               <div className="mt-2 text-xl font-semibold">{activeTitle}</div>
-              {activeDate ? <div className="mt-2 text-sm text-zinc-500">{activeDate}</div> : null}
-              {activeSummary ? <p className="mt-4 text-sm text-zinc-600">{activeSummary}</p> : null}
+              {activeDate ? <div className="mt-2 text-sm text-muted-token">{activeDate}</div> : null}
+              {activeSummary ? <p className="mt-4 text-sm text-body-color-token">{activeSummary}</p> : null}
               {activeItem.link ? (
                 <a
-                  className="mt-5 inline-flex text-sm font-medium text-zinc-900 underline"
+                  className="mt-5 inline-flex text-sm font-medium text-heading-token underline"
                   href={activeItem.link}
                   target="_blank"
                   rel="noopener noreferrer"

@@ -40,19 +40,19 @@ export default async function Page({
 
   return (
     <main className="pb-10">
-      <section className="relative w-full overflow-hidden bg-zinc-950 text-white">
+      <section className="relative w-full overflow-hidden bg-align-token text-white">
         <div className="relative h-[280px] w-full md:h-[360px]">
           {topSection ? (
             <AppImage mediaKey={topSection.imageKey} locale={normalizedLocale} alt={topTitle} fill className="object-cover object-center" />
           ) : (
-            <div className="h-full w-full bg-zinc-800" />
+            <div className="h-full w-full bg-stats-token" />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent" />
         </div>
         <div className="absolute inset-0 flex items-end">
           <div className="mx-auto w-full max-w-6xl space-y-2 px-6 pb-8 pt-24 md:pt-28">
             <h1 className="text-3xl font-semibold md:text-5xl">{topTitle}</h1>
-            <p className="max-w-3xl text-sm text-zinc-200 md:text-base">{topDesc}</p>
+            <p className="max-w-3xl text-sm text-dk-title-token md:text-base">{topDesc}</p>
           </div>
         </div>
       </section>
@@ -60,11 +60,11 @@ export default async function Page({
       <section className="mx-auto max-w-6xl space-y-8 px-6 pt-10 md:pt-12">
         <Link
           href={withLocale(normalizedLocale, "/ministries")}
-          className="group inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-800 shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-400 hover:shadow"
+          className="group inline-flex items-center gap-2 rounded-full border border-token bg-surface-a px-4 py-2 text-sm font-medium text-heading-token shadow-sm transition hover:-translate-y-0.5 hover:border-[var(--accent-sub)] hover:shadow"
         >
           <span
             aria-hidden="true"
-            className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-zinc-100 text-xs text-zinc-700 transition group-hover:-translate-x-0.5"
+            className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-surface-b text-xs text-body-color-token transition group-hover:-translate-x-0.5"
           >
             ←
           </span>
@@ -73,7 +73,7 @@ export default async function Page({
 
         {items.length === 0 ? (
           degraded ? (
-            <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-900">
+            <div className="rounded-lg border border-token bg-accent-weak p-4 text-[var(--accent-strong)]">
               <h2 className="text-sm font-semibold">{degradedTitle}</h2>
               <p className="mt-1 text-sm">{degradedBody}</p>
               <a className="mt-3 inline-flex text-sm font-medium underline" href={retryLink}>
@@ -81,7 +81,7 @@ export default async function Page({
               </a>
             </div>
           ) : (
-            <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-700">
+            <div className="rounded-lg border border-token bg-surface-b p-4 text-sm text-body-color-token">
               {comingSoonLabel}
             </div>
           )
@@ -107,7 +107,7 @@ export default async function Page({
                 <a
                   key={item.slug}
                   href={link}
-                  className="group overflow-hidden rounded-xl border border-zinc-200 bg-white transition hover:shadow-sm"
+                  className="group overflow-hidden rounded-xl border border-token bg-surface-a transition hover:shadow-sm"
                 >
                   {heroSrc ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -117,12 +117,12 @@ export default async function Page({
                       className="h-44 w-full object-cover object-center"
                     />
                   ) : (
-                    <div className="h-44 w-full bg-zinc-100" />
+                    <div className="h-44 w-full bg-surface-b" />
                   )}
                   <div className="space-y-3 p-4">
-                    <div className="text-lg font-semibold text-zinc-900">{title}</div>
-                    <p className="line-clamp-3 text-sm text-zinc-600">{summary}</p>
-                    <span className="inline-flex text-sm font-medium text-zinc-900 underline">
+                    <div className="text-lg font-semibold text-heading-token">{title}</div>
+                    <p className="line-clamp-3 text-sm text-body-color-token">{summary}</p>
+                    <span className="inline-flex text-sm font-medium text-heading-token underline">
                       {messages.ministries.detailsCta}
                     </span>
                   </div>

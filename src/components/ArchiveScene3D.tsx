@@ -61,7 +61,7 @@ export default function ArchiveScene3D({ items, detailsLabel, locale }: ArchiveS
   const camRef = useRef<HTMLDivElement | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const fallbackSrc = "/images/logo.png";
-  const fallbackThumbClass = "h-32 w-full rounded-t-2xl bg-white object-contain p-3";
+  const fallbackThumbClass = "h-32 w-full rounded-t-2xl bg-surface-a object-contain p-3";
 
   const cards = useMemo(() => items.slice(0, 50), [items]);
   const layout = useMemo(() => layoutCards(cards), [cards]);
@@ -245,15 +245,15 @@ export default function ArchiveScene3D({ items, detailsLabel, locale }: ArchiveS
                     />
                   )}
                   <div className="p-4">
-                    <div className="text-[11px] uppercase tracking-wide text-zinc-400">
+                    <div className="text-[11px] uppercase tracking-wide text-muted-token">
                       {category} · {subcategory || "—"}
                     </div>
-                    <div className="mt-2 text-sm font-semibold text-zinc-100">{title}</div>
-                    {date ? <div className="mt-1 text-xs text-zinc-400">{date}</div> : null}
-                    <p className="mt-2 text-xs text-zinc-300">{summary}</p>
+                    <div className="mt-2 text-sm font-semibold text-dk-title-token">{title}</div>
+                    {date ? <div className="mt-1 text-xs text-muted-token">{date}</div> : null}
+                    <p className="mt-2 text-xs text-dk-title-token">{summary}</p>
                     {item.link ? (
                       <a
-                        className="mt-3 inline-flex text-xs font-medium text-zinc-100 underline"
+                        className="mt-3 inline-flex text-xs font-medium text-dk-title-token underline"
                         href={item.link}
                         target="_blank"
                         rel="noopener noreferrer"

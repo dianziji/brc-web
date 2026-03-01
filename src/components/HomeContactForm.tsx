@@ -42,10 +42,10 @@ export default function HomeContactForm({
   };
 
   return (
-    <form className="bg-white/80 p-6" onSubmit={handleSubmit}>
+    <form className="card-base p-6" onSubmit={handleSubmit}>
       <div className="grid gap-4">
         <input
-          className="w-full border-b bg-transparent px-1 py-2 text-sm focus:outline-none"
+          className="form-field-line"
           placeholder={namePlaceholder}
           type="text"
           value={name}
@@ -53,7 +53,7 @@ export default function HomeContactForm({
           required
         />
         <input
-          className="w-full border-b bg-transparent px-1 py-2 text-sm focus:outline-none"
+          className="form-field-line"
           placeholder={emailPlaceholder}
           type="email"
           value={email}
@@ -61,13 +61,13 @@ export default function HomeContactForm({
           required
         />
         <textarea
-          className="min-h-[120px] w-full border-b bg-transparent px-1 py-2 text-sm focus:outline-none"
+          className="form-field-line min-h-[120px]"
           placeholder={messagePlaceholder}
           value={message}
           onChange={(event) => setMessage(event.target.value)}
           required
         />
-        <button className="w-full bg-amber-500 px-4 py-2 text-sm font-semibold text-black" type="submit">
+        <button className="btn-base btn-primary focus-ring-token w-full" type="submit">
           {submitLabel}
         </button>
       </div>

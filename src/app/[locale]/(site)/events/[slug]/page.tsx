@@ -73,7 +73,7 @@ export default async function EventDetailPage({
         <Link className="inline-flex text-sm font-medium underline" href={backHref}>
           {messages.eventModule.backToCalendar}
         </Link>
-        <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+        <div className="rounded-lg border border-token bg-accent-weak p-4 text-sm text-[var(--accent-strong)]">
           {messages.common.notFound}
         </div>
       </main>
@@ -101,7 +101,7 @@ export default async function EventDetailPage({
           {messages.eventModule.backToCalendar}
         </Link>
         {isArchived ? (
-          <div className="inline-flex rounded-full border border-zinc-300 px-3 py-1 text-xs font-semibold text-zinc-700">
+          <div className="inline-flex rounded-full border border-token px-3 py-1 text-xs font-semibold text-body-color-token">
             {messages.eventModule.archivedLabel}
           </div>
         ) : (
@@ -112,23 +112,23 @@ export default async function EventDetailPage({
       </div>
 
       <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100">
+        <div className="overflow-hidden rounded-2xl border border-token bg-surface-b">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={event.image} alt={title} className="h-full w-full object-cover object-center" />
         </div>
 
         <div className="space-y-5">
           <h1 className="text-3xl font-semibold">{title}</h1>
-          <div className="text-sm text-zinc-500">{subtitle}</div>
-          <div className="text-sm text-zinc-700">{summary || messages.eventModule.summaryFallback}</div>
-          <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-700">
+          <div className="text-sm text-muted-token">{subtitle}</div>
+          <div className="text-sm text-body-color-token">{summary || messages.eventModule.summaryFallback}</div>
+          <div className="rounded-lg border border-token bg-surface-b p-4 text-sm text-body-color-token">
             <div>{[event.date, event.time].filter((item) => item && item.length > 0).join(" · ")}</div>
             {event.location ? <div className="mt-1">{event.location}</div> : null}
           </div>
           {ministryHref ? (
-            <div className="text-sm text-zinc-600">
+            <div className="text-sm text-body-color-token">
               {messages.eventModule.relatedMinistry}:
-              <Link className="ml-2 font-medium text-zinc-900 underline" href={ministryHref}>
+              <Link className="ml-2 font-medium text-heading-token underline" href={ministryHref}>
                 {event.primaryMinistrySlug}
               </Link>
             </div>
@@ -139,12 +139,12 @@ export default async function EventDetailPage({
                 href={event.registrationUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex rounded-full bg-zinc-900 px-4 py-2 text-sm font-semibold text-white"
+                className="inline-flex rounded-full bg-stats-token px-4 py-2 text-sm font-semibold text-white"
               >
                 {messages.eventModule.registerCta}
               </a>
             ) : (
-              <span className="inline-flex rounded-full border border-zinc-300 px-4 py-2 text-sm text-zinc-500">
+              <span className="inline-flex rounded-full border border-token px-4 py-2 text-sm text-muted-token">
                 {messages.eventModule.registerUnavailable}
               </span>
             )}
@@ -152,7 +152,7 @@ export default async function EventDetailPage({
               href={donationHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex rounded-full border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-800"
+              className="inline-flex rounded-full border border-token px-4 py-2 text-sm font-semibold text-heading-token"
             >
               {messages.eventModule.donateCta}
             </a>
@@ -161,7 +161,7 @@ export default async function EventDetailPage({
       </section>
 
       {result.degraded ? (
-        <section className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+        <section className="rounded-lg border border-token bg-accent-weak p-4 text-sm text-[var(--accent-strong)]">
           {degradedNotice}
         </section>
       ) : null}

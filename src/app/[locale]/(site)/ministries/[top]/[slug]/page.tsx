@@ -135,18 +135,18 @@ export default async function Page({
       <main className="mx-auto max-w-4xl space-y-6 px-6 pb-6 pt-28 md:pt-32">
         <Link
           href={backLink}
-          className="group inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-800 shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-400 hover:shadow"
+          className="group inline-flex items-center gap-2 rounded-full border border-token bg-surface-a px-4 py-2 text-sm font-medium text-heading-token shadow-sm transition hover:-translate-y-0.5 hover:border-[var(--accent-sub)] hover:shadow"
         >
           <span
             aria-hidden="true"
-            className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-zinc-100 text-xs text-zinc-700 transition group-hover:-translate-x-0.5"
+            className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-surface-b text-xs text-body-color-token transition group-hover:-translate-x-0.5"
           >
             ←
           </span>
           <span>{backLabel}</span>
         </Link>
         {detailResult.degraded ? (
-          <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-900">
+          <div className="rounded-lg border border-token bg-accent-weak p-4 text-[var(--accent-strong)]">
             <h2 className="text-sm font-semibold">{degradedTitle}</h2>
             <p className="mt-1 text-sm">{degradedBody}</p>
             <Link className="mt-3 inline-flex text-sm font-medium underline" href={retryLink}>
@@ -154,7 +154,7 @@ export default async function Page({
             </Link>
           </div>
         ) : (
-          <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+          <div className="rounded-lg border border-token bg-accent-weak p-3 text-sm text-[var(--accent-strong)]">
             {messages.common.notFound}
           </div>
         )}
@@ -184,24 +184,24 @@ export default async function Page({
   const openCalendarLabel = normalizedLocale === "en" ? "Open calendar" : "前往活動日曆";
 
   return (
-    <main className="bg-zinc-50 pb-14 pt-20 md:pb-16 md:pt-24">
+    <main className="bg-surface-b pb-14 pt-20 md:pb-16 md:pt-24">
       <section className="mx-auto max-w-6xl px-6">
-        <div className="overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm">
+        <div className="overflow-hidden rounded-3xl border border-token bg-surface-a shadow-sm">
           <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
             <div className="relative min-h-[280px] lg:min-h-[560px]">
               {heroSrc ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={heroSrc} alt={heroAlt} className="h-full w-full object-cover object-center" />
               ) : (
-                <div className="h-full w-full bg-zinc-200" />
+                <div className="h-full w-full bg-surface-b" />
               )}
             </div>
 
             <div className="flex items-start">
               <div className="mx-auto w-full max-w-xl space-y-6 px-6 py-8 md:px-10 md:py-10">
-                <h1 className="text-3xl font-semibold text-zinc-900 md:text-4xl">{title}</h1>
+                <h1 className="text-3xl font-semibold text-heading-token md:text-4xl">{title}</h1>
 
-                <section className="prose max-w-none text-zinc-700">
+                <section className="prose max-w-none text-body-color-token">
                   <div dangerouslySetInnerHTML={{ __html: safeSummaryHtml }} />
                 </section>
 
@@ -211,7 +211,7 @@ export default async function Page({
                       href={websiteUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-800 transition hover:border-zinc-400 hover:bg-zinc-50"
+                      className="inline-flex items-center gap-2 rounded-full border border-token bg-surface-a px-4 py-2 text-sm font-medium text-heading-token transition hover:border-[var(--accent-sub)] hover:bg-surface-b"
                     >
                       <span className="text-xs">↗</span>
                       <span>{websiteLabel}</span>
@@ -220,7 +220,7 @@ export default async function Page({
 
                   <Link
                     href={withLocale(normalizedLocale, "/calendar")}
-                    className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-800 transition hover:border-zinc-400 hover:bg-zinc-50"
+                    className="inline-flex items-center gap-2 rounded-full border border-token bg-surface-a px-4 py-2 text-sm font-medium text-heading-token transition hover:border-[var(--accent-sub)] hover:bg-surface-b"
                   >
                     <span className="text-xs">→</span>
                     <span>{openCalendarLabel}</span>
@@ -228,7 +228,7 @@ export default async function Page({
 
                   <Link
                     href={backLink}
-                    className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-800 transition hover:border-zinc-400 hover:bg-zinc-50"
+                    className="inline-flex items-center gap-2 rounded-full border border-token bg-surface-a px-4 py-2 text-sm font-medium text-heading-token transition hover:border-[var(--accent-sub)] hover:bg-surface-b"
                   >
                     <span className="text-xs">←</span>
                     <span>{backLabel}</span>
@@ -242,19 +242,19 @@ export default async function Page({
 
       {hasLinkedEvents || ministryEventsResult.degraded ? (
         <section className="mx-auto mt-10 max-w-6xl px-6">
-          <div className="rounded-3xl border border-zinc-200 bg-white p-6 md:p-8">
+          <div className="rounded-3xl border border-token bg-surface-a p-6 md:p-8">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="text-2xl font-semibold text-zinc-900">{messages.eventModule.linkedEventsTitle}</h2>
-                <p className="mt-2 text-sm text-zinc-600">{messages.eventModule.linkedEventsBody}</p>
+                <h2 className="text-2xl font-semibold text-heading-token">{messages.eventModule.linkedEventsTitle}</h2>
+                <p className="mt-2 text-sm text-body-color-token">{messages.eventModule.linkedEventsBody}</p>
               </div>
-              <Link className="text-sm font-medium text-zinc-700 underline" href={withLocale(normalizedLocale, "/calendar")}>
+              <Link className="text-sm font-medium text-body-color-token underline" href={withLocale(normalizedLocale, "/calendar")}>
                 {openCalendarLabel}
               </Link>
             </div>
 
             {ministryEventsResult.degraded ? (
-              <div className="mt-5 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+              <div className="mt-5 rounded-lg border border-token bg-accent-weak p-3 text-sm text-[var(--accent-strong)]">
                 {eventsDegradedNotice}
               </div>
             ) : null}
@@ -262,28 +262,28 @@ export default async function Page({
             {hasLinkedEvents ? (
               <div className="mt-7 space-y-8">
                 <section className="space-y-4">
-                  <div className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                  <div className="text-xs font-semibold uppercase tracking-wide text-muted-token">
                     {messages.eventModule.upcomingLabel}
                   </div>
                   {upcomingEvents.length === 0 ? (
-                    <div className="rounded-lg border border-dashed border-zinc-300 bg-zinc-50 p-4 text-sm text-zinc-600">
+                    <div className="rounded-lg border border-dashed border-token bg-surface-b p-4 text-sm text-body-color-token">
                       {messages.eventModule.linkedEventsEmpty}
                     </div>
                   ) : (
                     <div className="grid gap-4 md:grid-cols-2">
                       {upcomingEvents.map((event) => (
-                        <article key={event.id} className="overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50">
+                        <article key={event.id} className="overflow-hidden rounded-2xl border border-token bg-surface-b">
                           <div className="space-y-3 p-4">
-                            <div className="text-base font-semibold text-zinc-900">
+                            <div className="text-base font-semibold text-heading-token">
                               {normalizedLocale === "en" ? event.titleEn : event.titleZh}
                             </div>
-                            <div className="text-sm text-zinc-600">
+                            <div className="text-sm text-body-color-token">
                               {[event.date, event.time, event.location].filter((item) => item && item.length > 0).join(" · ")}
                             </div>
                             <div className="flex flex-wrap gap-2 pt-1">
                               <Link
                                 href={withLocale(normalizedLocale, `/events/${event.id}`)}
-                                className="inline-flex rounded-full border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-zinc-800"
+                                className="inline-flex rounded-full border border-token bg-surface-a px-3 py-1.5 text-xs font-semibold text-heading-token"
                               >
                                 {messages.eventModule.detailsCta}
                               </Link>
@@ -292,7 +292,7 @@ export default async function Page({
                                   href={event.registrationUrl}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex rounded-full border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-zinc-800"
+                                  className="inline-flex rounded-full border border-token bg-surface-a px-3 py-1.5 text-xs font-semibold text-heading-token"
                                 >
                                   {messages.calendar.registerCta}
                                 </a>
@@ -301,7 +301,7 @@ export default async function Page({
                                 href={resolveDonationHref(normalizedLocale, event)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex rounded-full border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-zinc-800"
+                                className="inline-flex rounded-full border border-token bg-surface-a px-3 py-1.5 text-xs font-semibold text-heading-token"
                               >
                                 {messages.eventModule.donateCta}
                               </a>
@@ -315,32 +315,32 @@ export default async function Page({
 
                 <section className="space-y-4">
                   <div className="flex items-center justify-between gap-4">
-                    <div className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                    <div className="text-xs font-semibold uppercase tracking-wide text-muted-token">
                       {messages.eventModule.archivedLabel}
                     </div>
-                    <Link className="text-xs font-medium text-zinc-700 underline" href={withLocale(normalizedLocale, "/events/archive")}>
+                    <Link className="text-xs font-medium text-body-color-token underline" href={withLocale(normalizedLocale, "/events/archive")}>
                       {messages.calendar.viewArchive}
                     </Link>
                   </div>
                   {archivedEvents.length === 0 ? (
-                    <div className="rounded-lg border border-dashed border-zinc-300 bg-zinc-50 p-4 text-sm text-zinc-600">
+                    <div className="rounded-lg border border-dashed border-token bg-surface-b p-4 text-sm text-body-color-token">
                       {messages.eventModule.linkedEventsEmpty}
                     </div>
                   ) : (
                     <div className="grid gap-4 md:grid-cols-2">
                       {archivedEvents.map((event) => (
-                        <article key={event.id} className="overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50">
+                        <article key={event.id} className="overflow-hidden rounded-2xl border border-token bg-surface-b">
                           <div className="space-y-3 p-4">
-                            <div className="text-base font-semibold text-zinc-900">
+                            <div className="text-base font-semibold text-heading-token">
                               {normalizedLocale === "en" ? event.titleEn : event.titleZh}
                             </div>
-                            <div className="text-sm text-zinc-600">
+                            <div className="text-sm text-body-color-token">
                               {[event.date, event.time, event.location].filter((item) => item && item.length > 0).join(" · ")}
                             </div>
                             <div className="flex flex-wrap gap-2 pt-1">
                               <Link
                                 href={withLocale(normalizedLocale, `/events/archive/${event.id}`)}
-                                className="inline-flex rounded-full border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-zinc-800"
+                                className="inline-flex rounded-full border border-token bg-surface-a px-3 py-1.5 text-xs font-semibold text-heading-token"
                               >
                                 {messages.eventModule.detailsCta}
                               </Link>
@@ -348,7 +348,7 @@ export default async function Page({
                                 href={resolveDonationHref(normalizedLocale, event)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex rounded-full border border-zinc-300 bg-white px-3 py-1.5 text-xs font-semibold text-zinc-800"
+                                className="inline-flex rounded-full border border-token bg-surface-a px-3 py-1.5 text-xs font-semibold text-heading-token"
                               >
                                 {messages.eventModule.donateCta}
                               </a>
@@ -361,7 +361,7 @@ export default async function Page({
                 </section>
               </div>
             ) : (
-              <div className="mt-6 rounded-lg border border-dashed border-zinc-300 bg-zinc-50 p-4 text-sm text-zinc-600">
+              <div className="mt-6 rounded-lg border border-dashed border-token bg-surface-b p-4 text-sm text-body-color-token">
                 {messages.eventModule.linkedEventsEmpty}
               </div>
             )}

@@ -12,6 +12,7 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
   const { locale } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
+;
   const cards = messages.prayer.cards;
   const prayerCardMediaKeys: MediaKey[] = ["prayerCardAltar", "prayerCardPlatform", "prayerCardRpg"];
   const prayerCardImageWrapClassNames = ["h-48 md:h-52", "h-48 md:h-52", "h-48 md:h-52"];
@@ -32,8 +33,8 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
   });
 
   return (
-    <main className="pb-16">
-      <section className="relative w-full overflow-hidden bg-zinc-900 text-white">
+    <main className="bg-surface-a pb-16">
+      <section className="relative w-full overflow-hidden bg-stats-token text-white">
         <div className="relative h-[320px] w-full md:h-[480px]">
           <AppImage mediaKey="prayerHero" locale={normalizedLocale} fill className="object-cover object-center" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/60" />
@@ -41,21 +42,24 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
         <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-24 md:pt-32">
           <div className="max-w-3xl space-y-4">
             <h1 className="text-3xl font-semibold md:text-5xl">{messages.prayer.heroTitle}</h1>
-            <p className="text-base text-zinc-200 md:text-lg">{messages.prayer.heroBody}</p>
+            <p className="text-base text-dk-title-token md:text-lg">{messages.prayer.heroBody}</p>
           </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-6 pt-10 md:pt-16 space-y-10 md:space-y-12">
-        <section className="grid gap-6 md:grid-cols-3">
+      <section className="bg-rhythm-b section-rhythm-divider">
+        <div className="section-container-medium section-block-tight space-y-8">
+      
+
+          <section className="grid gap-6 md:grid-cols-3">
           {cards.map((card, index) => {
             const links = cardLinks[index];
             const secondaryLinks = links.secondary.filter((link) => Boolean(link.label && link.href));
 
             return (
-              <div key={`${card.title}-${index}`} className="rounded-2xl border border-zinc-200 bg-white p-6 space-y-4">
+              <article key={`${card.title}-${index}`} className="card-base card-base-hover p-6 space-y-4">
                 <div
-                  className={`relative w-full overflow-hidden rounded-xl bg-zinc-100 ${
+                  className={`relative w-full overflow-hidden rounded-xl bg-surface-b ${
                     prayerCardImageWrapClassNames[index] || "h-40"
                   }`}
                 >
@@ -67,16 +71,16 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
                     className={prayerCardImageClassNames[index] || "object-cover object-center"}
                   />
                 </div>
-                <h2 className="text-xl font-semibold">{card.title}</h2>
-                <p className="text-sm text-zinc-600">{card.body}</p>
-                <div className="text-sm text-zinc-500 space-y-1">
+                <h3 className="text-h3-token text-heading-token font-semibold">{card.title}</h3>
+                <p className="text-body-token text-body-color-token">{card.body}</p>
+                <div className="text-caption-token text-muted-token space-y-1">
                   <div>{card.detail1}</div>
                   <div className="whitespace-pre-line">{card.detail2}</div>
                 </div>
 
                 {card.cta1 && links.primaryHref ? (
                   <a
-                    className="inline-flex w-full items-center justify-center rounded-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-zinc-700"
+                    className="btn-base btn-primary focus-ring-token w-full"
                     href={links.primaryHref}
                     target="_blank"
                     rel="noreferrer"
@@ -97,7 +101,7 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
                 {index === 1 ? (
                   <div className="space-y-1">
                     <a
-                      className="block text-sm font-medium text-zinc-900 underline underline-offset-2"
+                      className="link-primary focus-ring-token block text-sm"
                       href={PRAYER_WEEKLY_SHARING_DOC_URL}
                       target="_blank"
                       rel="noreferrer"
@@ -112,7 +116,7 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
                     {secondaryLinks.map((link) => (
                       <a
                         key={link.href}
-                        className="block text-sm font-medium text-zinc-900 underline underline-offset-2"
+                        className="link-primary focus-ring-token block text-sm"
                         href={link.href}
                         target="_blank"
                         rel="noreferrer"
@@ -123,14 +127,13 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
                   </div>
                 ) : null}
 
-                {card.note ? <p className="whitespace-pre-line text-sm text-zinc-500">{card.note}</p> : null}
-              </div>
+                {card.note ? <p className="text-caption-token border-token border-t pt-3 whitespace-pre-line text-muted-token">{card.note}</p> : null}
+              </article>
             );
           })}
-        </section>
-
-
-      </div>
+          </section>
+        </div>
+      </section>
     </main>
   );
 }

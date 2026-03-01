@@ -46,15 +46,15 @@ export default async function DiscipleshipDetailPage({
 
   return (
     <main className="mx-auto max-w-5xl px-6 pt-28 pb-16 md:pt-32">
-      <Link href={withLocale(normalizedLocale, "/discipleship")} className="text-sm underline text-zinc-700">
+      <Link href={withLocale(normalizedLocale, "/discipleship")} className="text-sm underline text-body-color-token">
         {pickLocalizedValue(normalizedLocale, discipleshipDetailPageCopy.backToDiscipleship)}
       </Link>
 
-      <section className="mt-6 rounded-2xl border border-zinc-200 bg-white p-6 md:p-8">
+      <section className="mt-6 rounded-2xl border border-token bg-surface-a p-6 md:p-8">
         <h1 className="text-3xl font-semibold">{title}</h1>
-        <p className="mt-2 text-sm text-zinc-600">{subtitle}</p>
+        <p className="mt-2 text-sm text-body-color-token">{subtitle}</p>
 
-        {programSummary ? <p className="mt-3 text-sm text-zinc-600">{programSummary}</p> : null}
+        {programSummary ? <p className="mt-3 text-sm text-body-color-token">{programSummary}</p> : null}
 
         <div className="mt-8 grid gap-8 md:grid-cols-2">
           <div className="space-y-4">
@@ -62,13 +62,13 @@ export default async function DiscipleshipDetailPage({
               <h2 className="text-base font-semibold">
                 {pickLocalizedValue(normalizedLocale, discipleshipDetailPageCopy.purposeTitle)}
               </h2>
-              <p className="mt-2 text-sm text-zinc-600">{purpose}</p>
+              <p className="mt-2 text-sm text-body-color-token">{purpose}</p>
             </div>
             <div>
               <h2 className="text-base font-semibold">
                 {pickLocalizedValue(normalizedLocale, discipleshipDetailPageCopy.goalTitle)}
               </h2>
-              <p className="mt-2 text-sm text-zinc-600">{target}</p>
+              <p className="mt-2 text-sm text-body-color-token">{target}</p>
             </div>
           </div>
 
@@ -76,7 +76,7 @@ export default async function DiscipleshipDetailPage({
             <h2 className="text-base font-semibold">
               {pickLocalizedValue(normalizedLocale, discipleshipDetailPageCopy.learningContentTitle)}
             </h2>
-            <ul className="mt-3 space-y-2 text-sm text-zinc-600">
+            <ul className="mt-3 space-y-2 text-sm text-body-color-token">
               {points.map((item) => (
                 <li key={item}>• {item}</li>
               ))}
@@ -84,11 +84,11 @@ export default async function DiscipleshipDetailPage({
           </div>
         </div>
 
-        <div className="mt-8 rounded-xl border border-zinc-200 bg-zinc-50 p-5">
+        <div className="mt-8 rounded-xl border border-token bg-surface-b p-5">
           <h2 className="text-base font-semibold">
             {pickLocalizedValue(normalizedLocale, discipleshipDetailPageCopy.scheduleTitle)}
           </h2>
-          <ul className="mt-3 space-y-2 text-sm text-zinc-600">
+          <ul className="mt-3 space-y-2 text-sm text-body-color-token">
             {schedule.map((item) => (
               <li key={item}>• {item}</li>
             ))}
@@ -100,7 +100,7 @@ export default async function DiscipleshipDetailPage({
                 href={program.applyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex rounded-full bg-amber-500 px-4 py-2 text-sm font-semibold text-black"
+                className="inline-flex rounded-full bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-black"
               >
                 {pickLocalizedValue(normalizedLocale, discipleshipDetailPageCopy.applyCta)}
               </a>
@@ -110,7 +110,7 @@ export default async function DiscipleshipDetailPage({
                 href={detail.referenceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex rounded-full border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700"
+                className="inline-flex rounded-full border border-token px-4 py-2 text-sm font-medium text-body-color-token"
               >
                 {pickLocalizedValue(normalizedLocale, discipleshipDetailPageCopy.externalReferenceCta)}
               </a>
