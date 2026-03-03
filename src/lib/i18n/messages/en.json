@@ -320,7 +320,7 @@
       },
       {
         "title": "BRC Prayer Platform",
-        "body": "Weekday 7:00 AM sharing and Tuesday 8:00 PM prayer (EST).",
+        "body": "Weekday morning prayer, 6:00-8:30 AM (ET).",
         "detail1": "Content: weekly focus and prayer points",
         "detail2": "Access: click the link for this week's sharing and prayer focus",
         "cta1": "Join Zoom Prayer",
@@ -349,8 +349,7 @@
       "zoomLinkLabel": "Open Morning Prayer Zoom",
       "scheduleTitle": "Meeting Times (ET)",
       "schedule": [
-        "Weekday 7:00 AM themed sharing",
-        "Tuesday 8:00 PM evening prayer",
+        "Weekday morning prayer: 6:00-8:30 AM",
         "Use the same Zoom entry to join"
       ],
       "stepsTitle": "Join Steps",
