@@ -43,13 +43,13 @@ export default function AlignWithGodSection({ locale }: { locale: Locale }) {
           <div className="border-dk-token border-t pt-4">
             <div className="text-caption-token text-dk-meta-token uppercase tracking-[0.16em]">{section.title}</div>
             {isEnglish ? (
-              <div className="font-display text-dk-hi-token mt-4 text-4xl font-bold leading-[0.92] sm:text-5xl">
+              <div className="font-display text-donation-cta-token mt-4 text-4xl font-bold leading-[0.92] sm:text-5xl">
                 {section.headline.map((item) => (
                   <div key={item}>{item}</div>
                 ))}
               </div>
             ) : (
-              <div className="font-display text-dk-hi-token mt-4 inline-grid grid-flow-col gap-2 text-[3.25rem] font-bold leading-none sm:text-[4rem]">
+              <div className="font-display text-donation-cta-token mt-4 inline-grid grid-flow-col gap-2 text-[3.25rem] font-bold leading-none sm:text-[4rem]">
                 {section.headline.map((item) => (
                   <span
                     key={item}
@@ -83,10 +83,10 @@ export default function AlignWithGodSection({ locale }: { locale: Locale }) {
                   {item.note}
                 </p>
                 <div className="border-dk-token mt-1 border-l pl-3 text-right">
-                  <p className={`${isEnglish ? "text-caption-token" : "font-zh-serif text-[0.94rem]"} leading-[1.62] text-dk-hi-token`}>
+                  <p className={`${isEnglish ? "text-caption-token" : "font-zh-serif text-[0.94rem]"} leading-[1.62] text-donation-cta-token`}>
                     {item.verse}
                   </p>
-                  <p className="text-caption-token mt-1 text-dk-meta-token">{item.ref}</p>
+                  <p className="text-caption-token text-donation-cta-token mt-1">{item.ref}</p>
                 </div>
               </div>
             </article>

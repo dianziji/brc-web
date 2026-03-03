@@ -23,34 +23,34 @@ export default function Footer({ locale, messages }: FooterProps) {
   );
 
   return (
-    <footer className="border-t border-token bg-footer-token">
+    <footer className="border-t border-white/20 bg-footer-token text-dk-title-token">
       <div className="section-container-medium py-12 md:py-16">
         <div className="grid gap-8 md:gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
           <div className="space-y-3">
-            <div className="font-display text-h3-token text-heading-token font-semibold">{messages.footer.title}</div>
-            <div className="text-caption-token text-muted-token">{messages.footer.subtitle}</div>
-            <div className="text-body-token text-body-color-token space-y-1 pt-2">
+            <div className="font-display text-h3-token text-dk-title-token font-semibold">{messages.footer.title}</div>
+            <div className="text-caption-token text-dk-meta-token">{messages.footer.subtitle}</div>
+            <div className="text-body-token text-dk-title-token space-y-1 pt-2">
               <div>{messages.footer.location}</div>
               <div>{messages.footer.email}</div>
               <div>{messages.footer.phone}</div>
-              <Link className="focus-ring-token link-primary mt-3 inline-flex" href={withLocale(locale, "/contact")}>
+              <Link className="focus-ring-token link-inverse mt-3 inline-flex" href={withLocale(locale, "/contact")}>
                 {messages.footer.contactCta}
               </Link>
             </div>
           </div>
 
-          <div className="text-body-token text-body-color-token">
-            <div className="text-heading-token font-semibold">{messages.footer.quickLinks}</div>
+          <div className="text-body-token text-dk-title-token">
+            <div className="text-dk-hi-token font-semibold">{messages.footer.quickLinks}</div>
             <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-2">
               {navItems.map((item) => (
-                <Link key={item.href} href={item.href} className="focus-ring-token link-muted">
+                <Link key={item.href} href={item.href} className="focus-ring-token transition-colors hover:text-dk-hi-token">
                   {item.label}
                 </Link>
               ))}
             </div>
           </div>
-          <div className="text-body-token text-body-color-token">
-            <div className="text-heading-token font-semibold">{messages.footer.subscribeTitle}</div>
+          <div className="text-body-token text-dk-title-token">
+            <div className="text-dk-hi-token font-semibold">{messages.footer.subscribeTitle}</div>
             <p className="mt-2">{messages.footer.subscribeDesc}</p>
             <div className="mt-4 flex flex-col gap-2 sm:flex-row">
               <input
@@ -64,7 +64,7 @@ export default function Footer({ locale, messages }: FooterProps) {
             </div>
           </div>
         </div>
-        <div className="text-caption-token text-muted-token mt-8">{copyright}</div>
+        <div className="text-caption-token text-dk-meta-token mt-8">{copyright}</div>
       </div>
     </footer>
   );

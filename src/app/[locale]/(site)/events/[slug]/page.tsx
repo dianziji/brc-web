@@ -152,7 +152,7 @@ export default async function EventDetailPage({
               href={donationHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex rounded-full border border-token px-4 py-2 text-sm font-semibold text-heading-token"
+              className="btn-donation-pill inline-flex rounded-full border px-4 py-2 text-sm font-semibold"
             >
               {messages.eventModule.donateCta}
             </a>

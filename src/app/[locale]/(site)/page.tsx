@@ -3,6 +3,7 @@ import AlignWithGodSection from "@/components/AlignWithGodSection";
 import AppImage from "@/components/AppImage";
 import MobileMinistryScroller from "@/components/MobileMinistryScroller";
 import MinistryCarousel from "@/components/MinistryCarousel";
+import ScrollToSectionButton from "@/components/ScrollToSectionButton";
 import RevealSection from "@/components/home/RevealSection";
 import SectionHeader from "@/components/home/SectionHeader";
 import { getMediaSrc } from "@/content/media";
@@ -106,21 +107,22 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   });
   const todayKey = toTodayKey();
   const upcomingEvents = eventResult.items.filter((item) => item.date >= todayKey).slice(0, 3);
+  const donationCtaLabel = "Donate Now";
 
   return (
     <main className="min-h-screen bg-surface-a text-heading-token">
-      <section className="relative min-h-[72vh] overflow-hidden text-white md:hidden">
+      <section className="relative min-h-screen min-h-[100svh] overflow-hidden text-white md:hidden">
         <div className="absolute inset-0">
           <video className="h-full w-full object-cover object-center" autoPlay loop muted playsInline preload="auto" suppressHydrationWarning>
             <source src="/videos/brc-hero.mp4" type="video/mp4" />
           </video>
           <div className="media-overlay-hero absolute inset-0" />
         </div>
-        <div className="relative mx-auto flex min-h-[72vh] max-w-md items-center justify-center px-6 pt-20 text-center">
+        <div className="relative mx-auto flex min-h-screen min-h-[100svh] max-w-md items-center justify-center px-6 pt-20 text-center">
           <div className="w-full max-w-sm">
             <h1 className="font-display text-display-token font-semibold">
               {messages.home.hero.title}
-              <span className="mt-2 block text-base text-dk-title-token">{messages.home.hero.subtitle}</span>
+              <span className="text-donation-cta-token mt-2 block text-base">{messages.home.hero.subtitle}</span>
             </h1>
             <div className="mt-6 flex flex-col gap-3">
               <a
@@ -138,13 +140,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </div>
           </div>
         </div>
-        <a
+        <ScrollToSectionButton
           className="icon-btn-inverse scroll-cue focus-ring-token absolute bottom-5 left-1/2 z-10 -translate-x-1/2"
-          href="#home-next-section"
-          aria-label={messages.home.hero.scrollDownAria}
+          targetId="home-next-section"
+          ariaLabel={messages.home.hero.scrollDownAria}
         >
           <span className="text-lg leading-none">↓</span>
-        </a>
+        </ScrollToSectionButton>
       </section>
 
       <section className="relative hidden min-h-[70vh] overflow-hidden text-white md:block md:min-h-[100vh]">
@@ -164,9 +166,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
         <div className="relative mx-auto max-w-6xl px-6 py-24 md:px-12 md:py-40 min-h-[70vh] md:min-h-[100vh] flex items-center justify-center">
           <div className="mx-auto max-w-4xl text-center">
-            <h1 className="font-display text-display-token mt-4 font-semibold leading-tight md:text-5xl">
+            <h1 className="font-display text-display-token text-dk-title-token mt-4 font-semibold leading-tight md:text-5xl">
               {messages.home.hero.title}
-              <span className="mt-2 block text-lg text-dk-title-token md:text-3xl">
+              <span className="text-donation-cta-token mt-2 block text-lg md:text-3xl">
                 {messages.home.hero.subtitle}
               </span>
             </h1>
@@ -186,27 +188,27 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </div>
           </div>
         </div>
-        <a
+        <ScrollToSectionButton
           className="icon-btn-inverse scroll-cue focus-ring-token absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
-          href="#home-next-section"
-          aria-label={messages.home.hero.scrollDownAria}
+          targetId="home-next-section"
+          ariaLabel={messages.home.hero.scrollDownAria}
         >
           <span className="text-lg leading-none">↓</span>
-        </a>
+        </ScrollToSectionButton>
       </section>
+
+      <div id="home-next-section" className="h-px scroll-mt-20 md:scroll-mt-24" aria-hidden="true" />
 
       <div className="md:hidden">
         <AlignWithGodSection locale={normalizedLocale} />
       </div>
 
-      <div id="home-next-section" className="h-px scroll-mt-20 md:scroll-mt-24" aria-hidden="true" />
-
-      <div className="bg-rhythm-a md:hidden pb-10 pt-5">
-        <RevealSection className="space-y-1">
-          <div className="relative min-h-[220px] overflow-hidden">
+      <div className="bg-rhythm-a md:hidden">
+        <RevealSection className="space-y-0">
+          <div className="relative min-h-[200px] overflow-hidden">
             <AppImage mediaKey="homeMission" locale={normalizedLocale} fill className="object-cover object-center" />
             <div className="media-overlay-medium absolute inset-0" />
-            <div className="relative z-10 space-y-2 px-5 py-5 text-center text-white">
+            <div className="relative z-10 space-y-1.5 px-5 py-4 text-center text-white">
               <h2 className="font-display text-h3-token font-semibold">{messages.home.mission.title}</h2>
               <div className="text-caption-token space-y-1 leading-relaxed text-white/90">
                 {splitFixedLines(messages.home.mission.body).slice(0, 3).map((line) => (
@@ -216,10 +218,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </div>
           </div>
 
-          <div className="relative min-h-[220px] overflow-hidden">
+          <div className="relative min-h-[200px] overflow-hidden">
             <AppImage mediaKey="homeVision" locale={normalizedLocale} fill className="object-cover object-center" />
             <div className="media-overlay-medium absolute inset-0" />
-            <div className="relative z-10 space-y-2 px-5 py-5 text-center text-white">
+            <div className="relative z-10 space-y-1.5 px-5 py-4 text-center text-white">
               <h2 className="font-display text-h3-token font-semibold">{messages.home.vision.title}</h2>
               <div className="text-caption-token space-y-1 leading-relaxed text-white/90">
                 {splitFixedLines(messages.home.vision.body).slice(0, 3).map((line) => (
@@ -230,10 +232,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
         </RevealSection>
 
-        <RevealSection className="bg-stats-token mt-3 text-white">
+        <RevealSection className="bg-stats-token text-white">
           <div className="grid grid-cols-2 divide-x divide-y divide-[rgba(255,220,160,.2)]">
             {messages.home.stats.map((item) => (
-              <div key={item.label} className="flex min-h-[100px] flex-col items-center justify-center px-3 py-3 text-center">
+              <div key={item.label} className="flex min-h-[90px] flex-col items-center justify-center px-3 py-2.5 text-center">
                 <div className="font-display text-dk-hi-token text-2xl font-bold">{item.value}</div>
                 <div className="text-caption-token text-stats-label-token mt-1">{item.label}</div>
               </div>
@@ -241,11 +243,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
         </RevealSection>
 
-        <RevealSection className="section-container-medium mt-6">
-          <article className="card-overlay-card relative min-h-[220px] overflow-hidden">
+        <RevealSection className="section-container-medium py-3">
+          <article className="card-overlay-card relative min-h-[190px] overflow-hidden">
             <AppImage mediaKey="homePrayerRoom" locale={normalizedLocale} fill className="object-cover object-center" />
             <div className="media-overlay-strong absolute inset-0" />
-            <div className="relative z-10 space-y-2 px-5 py-5 text-center text-white">
+            <div className="relative z-10 space-y-1.5 px-5 py-4 text-center text-white">
               <h2 className="font-display text-h3-token font-semibold">{messages.home.prayer.title}</h2>
               <p className="text-caption-token leading-relaxed text-white/90">{messages.home.prayer.body}</p>
               <a className="link-inverse inline-flex justify-center text-sm focus-ring-token" href={withLocale(normalizedLocale, "/prayer")}>
@@ -255,7 +257,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </article>
         </RevealSection>
 
-        <RevealSection className="section-container-medium mt-6">
+        <RevealSection className="section-container-medium mt-3">
           <div>
             <SectionHeader
               title={messages.home.ministries.title}
@@ -269,13 +271,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
           <MobileMinistryScroller
             slides={slides.slice(0, 5)}
-            previousAriaLabel={messages.home.ministries.prevAria}
-            nextAriaLabel={messages.home.ministries.nextAria}
           />
         </RevealSection>
 
         {upcomingEvents.length > 0 ? (
-          <RevealSection className="section-container-medium mt-6">
+          <RevealSection className="section-container-medium mt-3">
             <div>
               <SectionHeader
                 title={messages.home.events.title}
@@ -287,14 +287,17 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 titleClassName="text-h3-token"
               />
             </div>
-            <div className="mt-3 space-y-1">
+            <div
+              className="mt-2.5 flex snap-x gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              aria-label={messages.home.events.title}
+            >
               {upcomingEvents.map((item) => {
                 const title = normalizedLocale === "en" ? item.titleEn : item.titleZh;
                 const meta = [formatDateLabel(item.date, normalizedLocale), item.time, item.location]
                   .filter((value) => value && value.length > 0)
                   .join(" · ");
                 return (
-                  <article key={item.id} className="card-overlay-card relative min-h-[170px] overflow-hidden">
+                  <article key={item.id} className="card-overlay-card relative min-h-[160px] min-w-[88%] snap-start overflow-hidden">
                     <Image src={item.image} alt={title} fill className="object-cover object-center" />
                     <div className="media-overlay-strong absolute inset-0" />
                     <div className="absolute inset-x-0 bottom-0 space-y-1.5 px-4 pb-4 text-center text-white">
@@ -311,7 +314,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </RevealSection>
         ) : null}
 
-        <RevealSection className="section-container-medium mt-6">
+        <RevealSection className="section-container-medium mt-3">
           <div>
             <SectionHeader
               title={messages.home.trainings.title}
@@ -320,31 +323,29 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 href: withLocale(normalizedLocale, "/discipleship"),
                 className: "text-caption-token",
               }}
-              titleClassName="text-h3-token"
-            />
-          </div>
-          <div className="mt-3 space-y-1">
+                titleClassName="text-h3-token"
+              />
+            </div>
+          <div className="mt-2.5 grid grid-cols-3 gap-2" aria-label={messages.home.trainings.title}>
             {featuredTrainings.map((item) => (
-              <a key={item.id} href={item.href} className="card-overlay-card relative block min-h-[150px] overflow-hidden">
+              <a key={item.id} href={item.href} className="card-overlay-card relative block min-h-[118px] overflow-hidden">
                 <Image src={item.imageSrc} alt={item.title} fill className="object-cover object-center" />
                 <div className="media-overlay-strong absolute inset-0" />
-                <div className="absolute inset-x-0 bottom-0 space-y-1 px-4 pb-4 text-center text-white">
-                  <div className="text-sm font-semibold">{item.title}</div>
-                  <p className="text-caption-token leading-relaxed text-white/90">{item.desc}</p>
-                  <span className="inline-flex justify-center text-sm link-inverse">{messages.home.trainings.detailsCta}</span>
+                <div className="absolute inset-x-0 bottom-0 px-2 pb-2 text-center text-white">
+                  <div className="text-xs font-semibold leading-tight">{item.title}</div>
                 </div>
               </a>
             ))}
           </div>
         </RevealSection>
 
-        <RevealSection className="bg-stats-token mt-6">
-          <div className="section-container-medium py-6">
-            <div className="px-1 py-2 text-center">
+        <RevealSection className="bg-stats-token mt-3">
+          <div className="section-container-medium pt-5 pb-0">
+            <div className="px-1 pt-2 pb-4 text-center">
               <h2 className="font-display text-h3-token text-dk-title-token font-semibold">{messages.home.donation.title}</h2>
               <p className="text-body-token text-stats-label-token mt-2">{messages.home.donation.body}</p>
-              <a className="btn-base btn-primary focus-ring-token mt-4 w-full sm:w-auto" href={withLocale(normalizedLocale, "/donation")}>
-                {messages.home.donation.cta}
+              <a className="btn-base btn-donation-cta focus-ring-token mt-4 w-full pb-3 pt-2.5 sm:w-auto" href={withLocale(normalizedLocale, "/donation")}>
+                {donationCtaLabel}
               </a>
             </div>
           </div>
@@ -523,8 +524,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               <h2 className="font-display text-h2-token text-dk-title-token font-semibold">{messages.home.donation.title}</h2>
               <p className="text-body-token text-stats-label-token mt-2">{messages.home.donation.body}</p>
             </div>
-            <a className="btn-base btn-primary focus-ring-token" href={withLocale(normalizedLocale, "/donation")}>
-              {messages.home.donation.cta}
+            <a className="btn-base btn-donation-cta focus-ring-token pt-3 pt-2.5" href={withLocale(normalizedLocale, "/donation")}>
+              {donationCtaLabel}
             </a>
           </div>
         </div>
