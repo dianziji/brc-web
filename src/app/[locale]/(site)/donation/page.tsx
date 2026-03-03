@@ -12,11 +12,11 @@ export default async function DonationPage({ params }: { params: Promise<{ local
   return (
     <main className="bg-surface-a pb-0">
       <section className="relative w-full overflow-hidden bg-stats-token text-white">
-        <div className="relative h-[320px] w-full md:h-[480px]">
+        <div className="relative h-[280px] w-full md:h-[480px]">
           <AppImage mediaKey="donationHero" locale={normalizedLocale} fill className="object-cover object-center" priority />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/45 to-black/70" />
         </div>
-        <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-24 md:pt-32">
+        <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-20 md:pt-32">
           <div className="max-w-3xl space-y-4">
             <h1 className="text-3xl font-semibold md:text-5xl">{messages.donation.title}</h1>
             <p className="text-sm text-dk-title-token md:text-base">
@@ -28,7 +28,7 @@ export default async function DonationPage({ params }: { params: Promise<{ local
 
       <section className="w-full">
         <div className="grid lg:grid-cols-[0.62fr_1.38fr]">
-          <aside className="bg-accent-weak px-6 py-12 md:px-10 md:py-16">
+          <aside className="bg-accent-weak px-6 py-10 md:px-10 md:py-16">
             <div className="mx-auto max-w-xl space-y-6">
               <div className="text-body-token uppercase tracking-widest text-muted-token">{messages.donation.verseTitle}</div>
               <p className="text-h3-token text-heading-token font-semibold leading-snug">{messages.donation.verseText}</p>
@@ -42,7 +42,7 @@ export default async function DonationPage({ params }: { params: Promise<{ local
             </div>
           </aside>
 
-          <section className="bg-accent-weak px-6 py-12 md:px-10 md:py-16">
+          <section className="bg-accent-weak px-6 py-10 md:px-10 md:py-16">
             <div className="mx-auto max-w-3xl">
               <article className="card-base p-5 md:p-7">
                 <div className="space-y-5">
@@ -83,7 +83,7 @@ export default async function DonationPage({ params }: { params: Promise<{ local
                       href={donationConfig.donateUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-base btn-primary focus-ring-token mt-2"
+                      className="btn-base btn-donation-cta focus-ring-token mt-2"
                     >
                       {messages.donation.buttonLabel}
                     </a>

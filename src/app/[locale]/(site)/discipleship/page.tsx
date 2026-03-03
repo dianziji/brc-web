@@ -41,9 +41,6 @@ export default async function DiscipleshipPage({ params }: { params: Promise<{ l
   const { locale } = await params;
   const normalizedLocale = normalizeLocale(locale);
 
-  const readyCount = programs.filter((item) => item.status === "ready").length;
-  const comingSoonCount = programs.filter((item) => item.status === "comingSoon").length;
-  const externalCount = programs.filter((item) => item.status === "external").length;
   const discipleshipPrograms = programs.filter((item) => item.track === "discipleship");
   const equippingPrograms = programs.filter((item) => item.track === "equipping");
   const programsByTrack: Record<DiscipleshipTrackKey, typeof programs> = {
@@ -54,11 +51,11 @@ export default async function DiscipleshipPage({ params }: { params: Promise<{ l
   return (
     <main className="bg-surface-a pb-0">
       <section className="relative w-full overflow-hidden bg-stats-token text-white">
-        <div className="relative h-[320px] w-full md:h-[480px]">
+        <div className="relative h-[280px] w-full md:h-[480px]">
           <AppImage mediaKey="discipleshipHero" locale={normalizedLocale} fill className="object-cover object-center" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/45 to-black/70" />
         </div>
-        <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-24 md:pt-32">
+        <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-20 md:pt-32">
           <div className="max-w-3xl space-y-4">
             <h1 className="text-3xl font-semibold leading-tight md:text-5xl">
               {pickLocalizedValue(normalizedLocale, discipleshipPageCopy.heroTitle)}
@@ -70,40 +67,8 @@ export default async function DiscipleshipPage({ params }: { params: Promise<{ l
         </div>
       </section>
 
-      <section className="bg-rhythm-a section-rhythm-divider">
-        <div className="section-container-medium section-block-tight">
-          <div className="grid gap-4 sm:grid-cols-3">
-            <div className="card-base p-4 md:p-5">
-              <div className="text-h2-token text-heading-token font-semibold">{readyCount}</div>
-              <div className="text-body-token mt-1 text-body-color-token">
-                {pickLocalizedValue(normalizedLocale, discipleshipPageCopy.openPrograms)}
-              </div>
-            </div>
-            <div className="card-base p-4 md:p-5">
-              <div className="text-h2-token text-heading-token font-semibold">{comingSoonCount}</div>
-              <div className="text-body-token mt-1 text-body-color-token">
-                {pickLocalizedValue(normalizedLocale, discipleshipPageCopy.comingSoonPrograms)}
-              </div>
-            </div>
-            <div className="card-base p-4 md:p-5">
-              <div className="text-h2-token text-heading-token font-semibold">{externalCount}</div>
-              <div className="text-body-token mt-1 text-body-color-token">
-                {pickLocalizedValue(normalizedLocale, discipleshipPageCopy.externalTracks)}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="bg-rhythm-b section-rhythm-divider">
         <div className="section-container-medium section-block-tight space-y-6">
-          <SectionHeader
-            title={pickLocalizedValue(normalizedLocale, discipleshipPageCopy.twoTrackTitle)}
-            titleClassName="text-h3-token md:text-h2-token"
-          />
-          <p className="text-body-token text-body-color-token max-w-4xl">
-            {pickLocalizedValue(normalizedLocale, discipleshipPageCopy.twoTrackBody)}
-          </p>
           <div className="grid gap-6 lg:grid-cols-2">
             {discipleshipTrackSections.map((lane) => (
               <div key={lane.key} className="card-base p-5 md:p-6">

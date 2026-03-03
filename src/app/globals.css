@@ -1,8 +1,72 @@
 @import "tailwindcss";
 
 :root,
+html[data-scheme="olive"] {
+  /* Color tokens (Olive default) */
+  --sec-a: #f7f9ef;
+  --sec-b: #e7ecd8;
+  --stats-bg: #818f4e;
+  --align-bg: #234a37;
+  --accent: #818f4e;
+  --accent-sub: #66763d;
+  --accent-weak: #dfe7c6;
+  --accent-strong: #234a37;
+  --accent-line: linear-gradient(180deg, #aab77a 0%, #818f4e 100%);
+  --dk-hi: #e2eac1;
+  --dk-title: #f6faea;
+  --dk-verse: #d2ddad;
+  --dk-meta: #b4c28e;
+  --stats-label: #edf4d8;
+  --dk-border: rgba(176, 197, 137, 0.42);
+  --heading: #1f2a20;
+  --body: #46513d;
+  --muted: #68755f;
+  --border: #cad4ab;
+  --focus-ring: #5f7139;
+  --donation-bg: #e2e9cb;
+  --contact-bg: #d6dfc0;
+  --footer-bg: #234a37;
+  --footer-soft: #dce5c8;
+  --donation-cta: #cc9f4a;
+  --donation-cta-text: #ffffff;
+  --overlay-soft: linear-gradient(180deg, rgba(0, 0, 0, 0.14) 0%, rgba(0, 0, 0, 0.5) 100%);
+  --overlay-medium: linear-gradient(180deg, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0.64) 100%);
+  --overlay-strong: linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.74) 100%);
+  --overlay-hero: linear-gradient(180deg, rgba(0, 0, 0, 0.66) 0%, rgba(0, 0, 0, 0.36) 52%, rgba(0, 0, 0, 0.52) 100%);
+
+  /* Global semantic aliases */
+  --background: var(--sec-a);
+  --foreground: var(--heading);
+
+  /* Typography tokens */
+  --fs-display: clamp(1.875rem, 4.5vw, 2.25rem); /* 30-36 */
+  --fs-h2: clamp(1.375rem, 3.4vw, 1.625rem); /* 22-26 */
+  --fs-h3: clamp(1rem, 2.1vw, 1.125rem); /* 16-18 */
+  --fs-body: clamp(0.875rem, 1.2vw, 1rem); /* 14-16 */
+  --fs-caption: clamp(0.75rem, 1vw, 0.8125rem); /* 12-13 */
+  --lh-title: 1.25;
+  --lh-body: 1.75;
+  --lh-verse: 1.7;
+
+  /* Space, radius, and interaction tokens */
+  --space-section-x: clamp(1rem, 3.8vw, 1.5rem);
+  --space-section-y: clamp(2rem, 5vw, 2.8rem);
+  --space-card-gap: 1rem;
+  --radius-card: 1rem;
+  --radius-button: 0.5rem;
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --touch-target-min: 44px;
+  --touch-target-ideal: 48px;
+  --motion-fast: 0.16s;
+  --motion-enter: 0.6s;
+  --motion-slow: 0.85s;
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-emphasis: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Archived palette from previous Espresso theme (fallback only). */
 html[data-scheme="espresso"] {
-  /* Color tokens (Espresso default) */
   --sec-a: #fdf8f2;
   --sec-b: #faf6f0;
   --stats-bg: #7a4825;
@@ -26,96 +90,15 @@ html[data-scheme="espresso"] {
   --donation-bg: #fef3e2;
   --contact-bg: #f5ede0;
   --footer-bg: #ede5d8;
-  --overlay-soft: linear-gradient(180deg, rgba(0, 0, 0, 0.14) 0%, rgba(0, 0, 0, 0.5) 100%);
-  --overlay-medium: linear-gradient(180deg, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0.64) 100%);
-  --overlay-strong: linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.74) 100%);
-  --overlay-hero: linear-gradient(180deg, rgba(0, 0, 0, 0.66) 0%, rgba(0, 0, 0, 0.36) 52%, rgba(0, 0, 0, 0.52) 100%);
-
-  /* Global semantic aliases */
-  --background: var(--sec-a);
-  --foreground: var(--heading);
-
-  /* Typography tokens */
-  --fs-display: clamp(1.875rem, 4.5vw, 2.25rem); /* 30-36 */
-  --fs-h2: clamp(1.375rem, 3.4vw, 1.625rem); /* 22-26 */
-  --fs-h3: clamp(1rem, 2.1vw, 1.125rem); /* 16-18 */
-  --fs-body: clamp(0.875rem, 1.2vw, 1rem); /* 14-16 */
-  --fs-caption: clamp(0.75rem, 1vw, 0.8125rem); /* 12-13 */
-  --lh-title: 1.25;
-  --lh-body: 1.75;
-  --lh-verse: 1.7;
-
-  /* Space, radius, and interaction tokens */
-  --space-section-x: 1.5rem;
-  --space-section-y: 2.5rem;
-  --space-card-gap: 1rem;
-  --radius-card: 1rem;
-  --radius-button: 0.5rem;
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --touch-target-min: 44px;
-  --touch-target-ideal: 48px;
-  --motion-fast: 0.16s;
-  --motion-enter: 0.6s;
-  --motion-slow: 0.85s;
-  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-emphasis: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --footer-soft: #ede5d8;
+  --donation-cta: #cc9f4a;
+  --donation-cta-text: #ffffff;
 }
 
-html[data-scheme="navy"] {
-  --sec-a: #f5f8ff;
-  --sec-b: #edf3ff;
-  --stats-bg: #1e3a6b;
-  --align-bg: #0d1f40;
-  --accent: #2563eb;
-  --accent-sub: #7aa2ff;
-  --accent-weak: #eff5ff;
-  --accent-strong: #184ecb;
-  --accent-line: linear-gradient(180deg, #bfdbfe 0%, #2563eb 100%);
-  --dk-hi: #bfdbfe;
-  --dk-title: #dbeafe;
-  --dk-verse: #93c5fd;
-  --dk-meta: #a9c6ee;
-  --stats-label: #d3e5ff;
-  --dk-border: rgba(147, 197, 253, 0.35);
-  --heading: #0f172a;
-  --body: #334155;
-  --muted: #475569;
-  --border: #d6e1f5;
-  --focus-ring: #1d4ed8;
-  --donation-bg: #eaf2ff;
-  --contact-bg: #e3ecfa;
-  --footer-bg: #d8e4f5;
-}
-
-html[data-scheme="forest"] {
-  --sec-a: #f4f8f5;
-  --sec-b: #edf5ef;
-  --stats-bg: #2d5a3d;
-  --align-bg: #162e1e;
-  --accent: #16a34a;
-  --accent-sub: #63b67e;
-  --accent-weak: #ebf8f0;
-  --accent-strong: #117a38;
-  --accent-line: linear-gradient(180deg, #bbf7d0 0%, #16a34a 100%);
-  --dk-hi: #bbf7d0;
-  --dk-title: #dcfce7;
-  --dk-verse: #86efac;
-  --dk-meta: #9ad8b0;
-  --stats-label: #c8edd6;
-  --dk-border: rgba(134, 239, 172, 0.32);
-  --heading: #102316;
-  --body: #264134;
-  --muted: #3d5b4c;
-  --border: #d5e4d9;
-  --focus-ring: #15803d;
-  --donation-bg: #ecf8ef;
-  --contact-bg: #e3f3e7;
-  --footer-bg: #d6eadc;
-}
 
 @media (min-width: 640px) {
   :root,
+  html[data-scheme="olive"],
   html[data-scheme="espresso"],
   html[data-scheme="navy"],
   html[data-scheme="forest"] {
@@ -126,6 +109,7 @@ html[data-scheme="forest"] {
 
 @media (min-width: 1024px) {
   :root,
+  html[data-scheme="olive"],
   html[data-scheme="espresso"],
   html[data-scheme="navy"],
   html[data-scheme="forest"] {
@@ -233,19 +217,19 @@ html[lang^="zh"] .font-zh-serif {
 
 .bg-rhythm-a {
   background:
-    radial-gradient(120% 68% at 12% 0%, color-mix(in srgb, var(--accent-weak) 70%, transparent) 0%, transparent 60%),
-    linear-gradient(180deg, var(--sec-a) 0%, color-mix(in srgb, var(--sec-a) 84%, #fff 16%) 100%);
+    radial-gradient(120% 70% at 12% 0%, color-mix(in srgb, var(--accent-weak) 78%, transparent) 0%, transparent 62%),
+    linear-gradient(180deg, color-mix(in srgb, var(--sec-a) 92%, #fff 8%) 0%, color-mix(in srgb, var(--sec-a) 56%, var(--sec-b) 44%) 100%);
 }
 
 .bg-rhythm-b {
   background:
-    radial-gradient(120% 70% at 88% 0%, color-mix(in srgb, var(--accent-weak) 60%, transparent) 0%, transparent 58%),
-    linear-gradient(180deg, var(--sec-b) 0%, color-mix(in srgb, var(--sec-b) 82%, #fff 18%) 100%);
+    radial-gradient(120% 72% at 88% 0%, color-mix(in srgb, var(--accent-weak) 68%, transparent) 0%, transparent 59%),
+    linear-gradient(180deg, color-mix(in srgb, var(--sec-b) 86%, #fff 14%) 0%, color-mix(in srgb, var(--sec-b) 74%, var(--accent-weak) 26%) 100%);
 }
 
 .bg-rhythm-c {
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--donation-bg) 76%, #fff 24%) 0%, var(--donation-bg) 100%);
+    linear-gradient(180deg, color-mix(in srgb, var(--donation-bg) 72%, #fff 28%) 0%, color-mix(in srgb, var(--contact-bg) 68%, var(--donation-bg) 32%) 100%);
 }
 
 .bg-accent-weak {
@@ -300,6 +284,10 @@ html[lang^="zh"] .font-zh-serif {
   color: var(--stats-label);
 }
 
+.text-donation-cta-token {
+  color: var(--donation-cta);
+}
+
 .border-token {
   border-color: var(--border);
 }
@@ -339,7 +327,7 @@ html[lang^="zh"] .font-zh-serif {
 }
 
 .section-block-tight {
-  padding-block: clamp(2.25rem, 4.2vw, 3.25rem);
+  padding-block: clamp(1.75rem, 4.2vw, 3.25rem);
 }
 
 .section-heading-row {
@@ -359,7 +347,13 @@ html[lang^="zh"] .font-zh-serif {
   inset-inline: 0;
   top: 0;
   height: 1px;
-  background: color-mix(in srgb, var(--border) 72%, transparent);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--accent-sub) 36%, var(--border) 64%) 8%,
+    color-mix(in srgb, var(--accent-sub) 36%, var(--border) 64%) 92%,
+    transparent 100%
+  );
 }
 
 @media (max-width: 767px) {
@@ -400,6 +394,30 @@ html[lang^="zh"] .font-zh-serif {
 
 .btn-primary:active {
   transform: translateY(1px);
+}
+
+.btn-donation-cta {
+  background: var(--donation-cta);
+  color: var(--donation-cta-text);
+  border: 1px solid color-mix(in srgb, var(--donation-cta-text) 20%, transparent);
+}
+
+.btn-donation-cta:hover {
+  filter: brightness(0.98);
+}
+
+.btn-donation-cta:active {
+  transform: translateY(1px);
+}
+
+.btn-donation-pill {
+  background: var(--donation-cta);
+  color: var(--donation-cta-text);
+  border-color: color-mix(in srgb, var(--donation-cta-text) 20%, transparent);
+}
+
+.btn-donation-pill:hover {
+  filter: brightness(0.98);
 }
 
 .btn-secondary {
@@ -481,6 +499,16 @@ html[lang^="zh"] .font-zh-serif {
   filter: brightness(0.95);
 }
 
+.header-btn-donation {
+  border-color: color-mix(in srgb, var(--donation-cta-text) 20%, transparent);
+  background: var(--donation-cta);
+  color: var(--donation-cta-text);
+}
+
+.header-btn-donation:hover {
+  filter: brightness(0.98);
+}
+
 .header-btn-active {
   outline: 2px solid var(--accent-sub);
   outline-offset: 1px;
@@ -509,7 +537,6 @@ html[lang^="zh"] .font-zh-serif {
   opacity: 0.1;
 }
 
-.header-nav-link-active::after,
 .header-nav-link:hover::after {
   transform: scaleX(1);
   opacity: 1;
@@ -599,11 +626,11 @@ html[lang^="zh"] .font-zh-serif {
 }
 
 .hero-cta-primary {
-  box-shadow: 0 8px 22px rgba(180, 83, 9, 0.28);
+  box-shadow: 0 8px 22px rgba(35, 74, 55, 0.24);
 }
 
 .hero-cta-primary:hover {
-  box-shadow: 0 12px 30px rgba(180, 83, 9, 0.38);
+  box-shadow: 0 12px 30px rgba(35, 74, 55, 0.34);
 }
 
 .hero-cta-secondary {
@@ -841,8 +868,8 @@ html[lang^="zh"] .font-zh-serif {
 .card-base {
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
-  background: var(--sec-a);
-  box-shadow: var(--shadow-card);
+  background: linear-gradient(180deg, color-mix(in srgb, #fff 64%, var(--sec-a) 36%) 0%, var(--sec-a) 100%);
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .card-base-hover {
@@ -852,6 +879,7 @@ html[lang^="zh"] .font-zh-serif {
 
 .card-base-hover:hover {
   transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent-sub) 40%, var(--border) 60%);
   box-shadow: var(--shadow-card-hover);
 }
 
@@ -859,7 +887,7 @@ html[lang^="zh"] .font-zh-serif {
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
   overflow: hidden;
-  background: var(--sec-a);
+  background: linear-gradient(180deg, color-mix(in srgb, #fff 46%, var(--sec-a) 54%) 0%, var(--sec-a) 100%);
   box-shadow: var(--shadow-card);
 }
 
@@ -869,6 +897,7 @@ html[lang^="zh"] .font-zh-serif {
 }
 
 .card-overlay-card {
+  border: 1px solid color-mix(in srgb, var(--border) 56%, rgba(255, 255, 255, 0.44) 44%);
   border-radius: var(--radius-card);
   overflow: hidden;
   box-shadow: var(--shadow-card);

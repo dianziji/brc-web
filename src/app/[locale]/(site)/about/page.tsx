@@ -41,72 +41,68 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   });
 
   return (
-    <main className="pb-16">
+    <main className="pb-0">
       <section className="relative w-full overflow-hidden bg-stats-token text-white">
-        <div className="relative h-[320px] w-full md:h-[480px]">
+        <div className="relative h-[380px] w-full md:h-[480px]">
           <AppImage mediaKey="aboutHero" locale={normalizedLocale} fill className="object-cover object-center" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/60" />
         </div>
-        <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-24 md:pt-32">
+        <div className="absolute inset-0 flex items-start justify-center px-6 pb-6 pt-32 text-center md:items-center md:pb-0 md:pt-32">
           <div className="max-w-3xl space-y-4">
             <h1 className="text-3xl font-semibold md:text-5xl">
               {messages.about.heroTitle}
         
             </h1>
-            <p className="text-base text-dk-title-token md:text-lg">{messages.about.heroBody}</p>
+            <p className="text-sm text-dk-title-token md:text-lg">{messages.about.heroBody}</p>
+            <p className="text-[10px] leading-relaxed text-dk-meta-token md:text-xs">{messages.about.heroOrgNote}</p>
           </div>
         </div>
       </section>
 
-
-
-      <section className="grid lg:grid-cols-2">
-      <div className="bg-surface-a px-6 py-24 lg:px-12">
-          <div className="mx-auto max-w-xl space-y-8">
-            <div className="space-y-4">
-           
-            <h2 className="text-3xl font-semibold">{messages.about.storyTitle}</h2>
-            <p className="text-sm text-body-color-token">{messages.about.storyBody}</p>
-      
+      <section className="bg-surface-a">
+        <div className="section-container-medium py-10 md:py-14">
+          <div className="grid lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <div className="relative min-h-[240px] w-full overflow-hidden rounded-2xl md:min-h-[520px]">
+              <AppImage mediaKey="aboutStory" locale={normalizedLocale} fill className="object-cover object-center" />
             </div>
- 
-          </div>
-        </div>
-        <div className="relative min-h-[320px] w-full md:min-h-[520px]">
-          <AppImage mediaKey="aboutStory" locale={normalizedLocale} fill className="object-cover object-center"  />
-        </div>
-
-      </section>
-      <section className="grid lg:grid-cols-2">
-        <div className="relative min-h-[320px] w-full md:min-h-[520px]">
-          <AppImage
-            mediaKey="aboutMissionVision"
-            locale={normalizedLocale}
-            fill
-            className="object-cover object-center"
-      
-          />
-        </div>
-        <div className="bg-surface-a px-6 py-24 lg:px-12">
-          <div className="mx-auto max-w-2xl space-y-8">
-            <div className="space-y-4">
-              <h2 className="text-3xl font-semibold">{messages.about.missionTitle}</h2>
-              <div className="space-y-1 text-sm leading-relaxed text-body-color-token">
-                {splitFixedLines(messages.about.missionBody).map((line) => (
-                  <p key={line} className="lg:whitespace-nowrap">
-                    {line}
-                  </p>
-                ))}
+            <div className="relative z-10 mx-4 -mt-12 rounded-2xl border border-token bg-surface-a px-6 py-8 shadow-card lg:mx-0 lg:mt-0 lg:-ml-20 lg:max-w-xl lg:px-10 lg:py-12">
+              <div className="space-y-4">
+                <h2 className="text-3xl font-semibold">{messages.about.storyTitle}</h2>
+                <p className="text-sm text-body-color-token">{messages.about.storyBody}</p>
               </div>
             </div>
-            <div className="space-y-4">
-              <h2 className="text-3xl font-semibold">{messages.about.visionTitle}</h2>
-              <div className="space-y-1 text-sm leading-relaxed text-body-color-token">
-                {splitFixedLines(messages.about.visionBody).map((line) => (
-                  <p key={line} className="lg:whitespace-nowrap">
-                    {line}
-                  </p>
-                ))}
+          </div>
+        </div>
+      </section>
+      <section className="bg-surface-b">
+        <div className="section-container-medium pb-12 pt-4 md:pb-16 md:pt-8">
+          <div className="grid lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div className="relative min-h-[240px] w-full overflow-hidden rounded-2xl md:min-h-[520px] lg:order-2">
+              <AppImage
+                mediaKey="aboutMissionVision"
+                locale={normalizedLocale}
+                fill
+                className="object-cover object-center"
+              />
+            </div>
+            <div className="relative z-10 mx-4 -mt-12 rounded-2xl border border-token bg-surface-a px-6 py-8 shadow-card lg:order-1 lg:mx-0 lg:mt-0 lg:-mr-20 lg:max-w-2xl lg:px-10 lg:py-12">
+              <div className="space-y-8">
+                <div className="space-y-4">
+                  <h2 className="text-3xl font-semibold">{messages.about.missionTitle}</h2>
+                  <div className="space-y-1 text-sm leading-relaxed text-body-color-token">
+                    {splitFixedLines(messages.about.missionBody).map((line) => (
+                      <p key={line}>{line}</p>
+                    ))}
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <h2 className="text-3xl font-semibold">{messages.about.visionTitle}</h2>
+                  <div className="space-y-1 text-sm leading-relaxed text-body-color-token">
+                    {splitFixedLines(messages.about.visionBody).map((line) => (
+                      <p key={line}>{line}</p>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -139,9 +135,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 <article key={item} className="card-base card-base-hover relative overflow-hidden p-4">
                   <div className="absolute inset-x-0 top-0 h-[2px] bg-[var(--accent-line)]" aria-hidden="true" />
                   <div className="text-caption-token text-muted-token">({String(index + 1).padStart(2, "0")})</div>
-                  <h3 className="text-h3-token text-heading-token mt-2 font-semibold leading-tight">
+                  <h3 className="text-h3-token mt-2 font-semibold leading-tight text-[var(--accent)]">
                     {beforeLead}
-                    <span className="text-[var(--accent)]">{leadLetter}</span>
+                    <span className="text-[var(--align-bg)]">{leadLetter}</span>
                     {afterLead}
                   </h3>
                   {secondary ? <p className="text-caption-token text-body-color-token mt-2 leading-relaxed">{secondary}</p> : null}
@@ -181,7 +177,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <p className="mt-2 text-sm text-dk-title-token">{messages.about.joinBody}</p>
             </div>
             <a
-              className="btn-base btn-primary focus-ring-token"
+              className="btn-base btn-donation-cta focus-ring-token"
               href={withLocale(normalizedLocale, "/donation")}
             >
               {messages.about.joinCta}

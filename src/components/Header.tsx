@@ -20,7 +20,15 @@ export default function Header({ locale, messages }: HeaderProps) {
     return stripped.replace(/\/+$/, "");
   };
   const basePath = normalizePath(pathname);
-  const transparentHeaderPaths = new Set(["/", "/prayer", "/about", "/donation", "/ministries", "/ministries/archive"]);
+  const transparentHeaderPaths = new Set([
+    "/",
+    "/prayer",
+    "/about",
+    "/donation",
+    "/ministries",
+    "/ministries/archive",
+    "/discipleship",
+  ]);
   const ministryHeroPaths = new Set([
     "/ministries/missions",
     "/ministries/mission",
@@ -35,6 +43,7 @@ export default function Header({ locale, messages }: HeaderProps) {
   const isTransparentHeader = (transparentHeaderPaths.has(basePath) || ministryHeroPaths.has(basePath)) && !scrolled;
   const transparentHeaderUsesDarkText = transparentHeaderWithDarkTextPaths.has(basePath);
   const useLightText = isTransparentHeader && !transparentHeaderUsesDarkText;
+  const headerLogoSrc = isTransparentHeader ? "/icons/logo-olive-v2.png" : "/icons/logo-source.png";
   const navItems = useMemo(
     () => [
       {
@@ -107,10 +116,10 @@ export default function Header({ locale, messages }: HeaderProps) {
       }`}
     >
 
-      <div className="section-container-medium flex items-center justify-between gap-3 py-4 md:py-5">
-        <Link href={withLocale(locale, "/")} className="flex items-center gap-3">
-          <div className="relative h-8 w-20 md:h-10 md:w-24">
-            <Image src="/images/logo.png" alt="BRC logo" fill className="object-contain" />
+      <div className="section-container-medium flex items-center justify-between gap-3 py-2 md:py-5">
+        <Link href={withLocale(locale, "/")} className="flex items-center gap-1.5 md:gap-2">
+          <div className="relative -mr-2 h-[48px] w-[75px] md:-mr-1 md:h-[64px] md:w-24">
+            <Image src={headerLogoSrc} alt="BRC logo" fill className="object-contain" />
           </div>
           <div className="leading-tight">
             <div className={`text-xs font-semibold md:text-sm ${useLightText ? "text-white" : "text-heading-token"}`}>
@@ -154,7 +163,7 @@ export default function Header({ locale, messages }: HeaderProps) {
           <Link
             href={donationHref}
             aria-current={isDonationPage ? "page" : undefined}
-            className={`focus-ring-token header-btn header-btn-primary ${isDonationPage ? "header-btn-active" : ""}`}
+            className="focus-ring-token header-btn header-btn-donation"
           >
             {messages.header.donate}
           </Link>
@@ -174,10 +183,10 @@ export default function Header({ locale, messages }: HeaderProps) {
                   className={`header-nav-mobile-link inline-flex min-h-11 min-w-0 items-center justify-center rounded-lg px-1 text-center break-words ${
                     useLightText
                       ? active
-                        ? "bg-[var(--accent-weak)] text-[var(--accent-strong)] font-semibold"
+                        ? "bg-transparent text-[var(--dk-hi)] font-semibold"
                         : "hover:bg-surface-a/10 hover:text-white"
                       : active
-                        ? "bg-[var(--accent-weak)] text-[var(--accent-strong)] font-semibold"
+                        ? "bg-transparent text-[var(--accent-strong)] font-semibold"
                         : "hover:bg-surface-b hover:text-heading-token"
                   }`}
                 >
