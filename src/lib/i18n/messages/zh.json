@@ -48,7 +48,7 @@
   "home": {
     "hero": {
       "title": "伯特利中心",
-      "subtitle": "更新生命 · 服事列國",
+      "subtitle": "祷告复兴·更新生命·服事列国",
       "ctaPrimary": "關於我們",
       "ctaSecondary": "奉獻支持",
       "scrollDownAria": "滑動到下一區塊"
@@ -165,9 +165,13 @@
     "teamTitle": "BRC董事會",
     "teamCta": "查看事工詳情",
     "team": [
-      { "name": "黃明發 牧師", "role": "BRC 總召集人" },
-      { "name": "邱燕惠 姐妹", "role": "事工領袖" },
-      { "name": "xxxx 牧師", "role": "事工領袖" }
+      { "name": "黃明發 弟兄", "role": "創辦人／董事會主席" },
+      { "name": "郁維強 弟兄", "role": "創辦人" },
+      { "name": "周彼得 弟兄", "role": "創辦人" },
+      { "name": "王惠國 弟兄", "role": "董事" },
+      { "name": "邱燕惠 姊妹", "role": "董事" },
+      { "name": "林孝本 弟兄", "role": "董事" },
+      { "name": "張沅 弟兄", "role": "董事" }
     ],
     "joinTitle": "與我們同行",
     "joinBody": "透過合作、代禱與奉獻，一起參與城市與列國的更新。",

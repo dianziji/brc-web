@@ -456,7 +456,7 @@ html[lang^="zh"] .font-zh-serif {
   border-radius: 999px;
   border: 1px solid transparent;
   padding: 0.125rem 0.5rem;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   line-height: 1.2;
   text-decoration: none;
@@ -550,8 +550,14 @@ html[lang^="zh"] .font-zh-serif {
   font-weight: 600;
 }
 
+.header-nav-link-active::after {
+  transform: scaleX(1);
+  opacity: 1;
+  background: var(--accent);
+}
+
 .header-nav-link-default.header-nav-link-active {
-  color: var(--accent-strong);
+  color: var(--accent);
   font-weight: 600;
 }
 
@@ -564,7 +570,7 @@ html[lang^="zh"] .font-zh-serif {
 }
 
 .header-nav-link-light.header-nav-link-active {
-  color: var(--accent-strong);
+  color: var(--accent);
 }
 
 .header-nav-link-light.header-nav-link-active::after {
@@ -596,7 +602,7 @@ html[lang^="zh"] .font-zh-serif {
   .header-btn {
     min-height: 35px;
     padding: 0.25rem 0.625rem;
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 
@@ -605,6 +611,55 @@ html[lang^="zh"] .font-zh-serif {
   overflow: hidden;
   transition: transform 0.24s var(--ease-standard), box-shadow 0.24s var(--ease-standard),
     background-color 0.24s var(--ease-standard), border-color 0.24s var(--ease-standard), filter 0.24s var(--ease-standard);
+}
+
+.hero-title-xl {
+  font-size: clamp(2.35rem, 9.2vw, 3.25rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  text-shadow: 0 10px 32px rgba(0, 0, 0, 0.26);
+}
+
+.hero-subtitle-xl {
+  font-size: clamp(1.2rem, 4.1vw, 1.65rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  text-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+}
+
+.hero-subtitle-singleline {
+  white-space: nowrap;
+  text-wrap: nowrap;
+  font-size: clamp(0.86rem, 3.2vw, 1.52rem);
+  letter-spacing: -0.015em;
+}
+
+.hero-cta-xl {
+  min-height: 50px;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.95rem;
+}
+
+@media (min-width: 768px) {
+  .hero-title-xl {
+    font-size: clamp(4.05rem, 6.8vw, 5.85rem);
+  }
+
+  .hero-subtitle-xl {
+    font-size: clamp(1.7rem, 3.1vw, 3.1rem);
+  }
+
+  .hero-subtitle-singleline {
+    font-size: clamp(1.2rem, 2.25vw, 2.2rem);
+  }
+
+  .hero-cta-xl {
+    min-height: 56px;
+    padding: 0.9rem 1.8rem;
+    font-size: 1.05rem;
+  }
 }
 
 .hero-cta::after {
@@ -923,6 +978,15 @@ html[lang^="zh"] .font-zh-serif {
 
 .media-overlay-hero {
   background: var(--overlay-hero);
+}
+
+.media-overlay-hero-bright {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.12) 52%,
+    rgba(255, 255, 255, 0.18) 100%
+  );
 }
 
 .content-card-stack {
