@@ -1282,7 +1282,7 @@ function isPublished(status?: string | null): boolean {
   return (status || "").toLowerCase() === "publish";
 }
 
-function normalizeLifecycleStatus(raw?: string | null): EventLifecycleStatus | undefined {
+function normalizeLifecycleStatus(raw?: unknown): EventLifecycleStatus | undefined {
   const value = normalizeScalarText(raw);
   if (!value) return undefined;
   const normalized = value.toUpperCase();
