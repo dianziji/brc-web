@@ -8,7 +8,7 @@ export type SectionNode = {
   export function pickLeafSection(sections: SectionNode[]): SectionNode | null {
     if (!sections?.length) return null;
   
-    // 你現在會同時勾：Youth（parent=null）+ CHISTA（parent!=null）
+    // 你現在會同時勾：Young Adult（parent=null）+ CHISTA（parent!=null）
     // 規則：優先選擇“有 parent 的”作為 leaf（更具體的那個）
     const withParent = sections.filter(s => s.parent?.node?.slug);
     if (withParent.length > 0) return withParent[0];

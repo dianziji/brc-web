@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { sanitizeRichHtml } from "../src/lib/sanitize-html.ts";
+import { sanitizeRichHtml } from "@/lib/sanitize-html";
 
 test("sanitizeRichHtml removes dangerous tags and attributes", () => {
   const dirty = `<p onclick="alert(1)">Hello<script>alert(1)</script></p>`;
@@ -29,9 +29,9 @@ test("sanitizeRichHtml enforces noopener noreferrer for external links", () => {
 });
 
 test("sanitizeRichHtml keeps relative links without forcing rel", () => {
-  const dirty = `<a href="/ministries/youth">Youth</a>`;
+  const dirty = `<a href="/ministries/young-adult">Young Adult</a>`;
   const clean = sanitizeRichHtml(dirty);
 
-  assert.ok(clean.includes(`href="/ministries/youth"`));
+  assert.ok(clean.includes(`href="/ministries/young-adult"`));
   assert.ok(!clean.includes(`rel="noopener noreferrer"`));
 });

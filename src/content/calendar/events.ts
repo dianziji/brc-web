@@ -55,10 +55,10 @@ export const calendarEvents: CalendarEventItem[] = [
     relatedMinistrySlugs: ["missions"],
   },
   {
-    id: "event-youth-camp",
-    titleEn: "Youth Camp",
+    id: "event-young-adult-camp",
+    titleEn: "Young Adult Camp",
     titleZh: "青年成長營",
-    summaryEn: "Three-day youth discipleship camp focused on identity, calling, and mission.",
+    summaryEn: "Three-day young adult discipleship camp focused on identity, calling, and mission.",
     summaryZh: "三天青年門訓營，聚焦身份、呼召與使命。",
     date: "2026-02-09",
     time: "9:00 AM",
@@ -68,8 +68,8 @@ export const calendarEvents: CalendarEventItem[] = [
     registrationMode: "external",
     registrationUrl: "https://newbethelrc.org",
     donationLink: "/zh/donation",
-    donationPurposeCode: "donation_youth_camp_2026",
-    primaryMinistrySlug: "youth",
+    donationPurposeCode: "donation_young_adult_camp_2026",
+    primaryMinistrySlug: "young-adult",
   },
   {
     id: "event-family-night",
@@ -122,6 +122,6 @@ export const calendarEvents: CalendarEventItem[] = [
     donationLink: "/zh/donation",
     donationPurposeCode: "donation_chista_summit_2025",
     primaryMinistrySlug: "chista",
-    relatedMinistrySlugs: ["youth"],
+    relatedMinistrySlugs: ["young-adult"],
   },
 ];

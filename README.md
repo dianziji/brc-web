@@ -28,8 +28,9 @@ Frontend (localized):
 
 API (BFF):
 
+
 - `/api/ministries` - list all ministries
-- `/api/ministries?top=youth` - list ministries by top section
+- `/api/ministries?top=young-adult` - list ministries by top section
 - `/api/ministries/[slug]` - single ministry detail
 - `/api/nav` - placeholder navigation endpoint (returns empty array)
 
@@ -58,7 +59,7 @@ Each ministry item returned by the API has this shape:
 
 Section logic lives in `src/lib/sections.ts`:
 
-- If multiple sections are assigned (e.g. Youth + CHISTA), the leaf is the one
+- If multiple sections are assigned (e.g. Young Adult + CHISTA), the leaf is the one
   with a parent.
 - `section.top` is the parent slug if present, otherwise the leaf slug.
 
@@ -78,7 +79,7 @@ Required ACF fields (bilingual):
 Taxonomy:
 
 - Each Ministry should be assigned to a `section` term.
-- Nested terms are supported: top-level (e.g. `youth`) and leaf (e.g. `chista`).
+- Nested terms are supported: top-level (e.g. `young-adult`) and leaf (e.g. `chista`).
 - The app derives `section.top` from the parent term when present.
 
 ## Calendar Events (WordPress First, Local Fallback)
@@ -119,7 +120,11 @@ WP_GRAPHQL_RETRY_COUNT=1
 WP_GRAPHQL_RETRY_BACKOFF_MS=300
 DONATION_PROVIDER=legacy_wp
 DONATION_LEGACY_FORM_URL=https://newbethelrc.org/donations/donation-form/
+DONATION_LEGACY_FORM_URL_ZH=
+DONATION_LEGACY_FORM_URL_EN=
 DONATION_SUPABASE_PORTAL_URL=
+DONATION_SUPABASE_PORTAL_URL_ZH=
+DONATION_SUPABASE_PORTAL_URL_EN=
 SITE_URL=https://your-site-domain.com
 ```
 
@@ -130,7 +135,9 @@ Notes:
 - `WP_GRAPHQL_RETRY_BACKOFF_MS`: linear backoff base milliseconds between retries.
 - `DONATION_PROVIDER`: donation provider mode (`legacy_wp` or `supabase_portal`).
 - `DONATION_LEGACY_FORM_URL`: fallback donation URL for legacy WP flow.
-- `DONATION_SUPABASE_PORTAL_URL`: future Supabase portal URL used when `DONATION_PROVIDER=supabase_portal`.
+- `DONATION_LEGACY_FORM_URL_ZH` / `DONATION_LEGACY_FORM_URL_EN`: optional locale-specific legacy WP donation URLs (preferred for multilingual redirect).
+- `DONATION_SUPABASE_PORTAL_URL`: fallback Supabase portal URL when `DONATION_PROVIDER=supabase_portal`.
+- `DONATION_SUPABASE_PORTAL_URL_ZH` / `DONATION_SUPABASE_PORTAL_URL_EN`: optional locale-specific Supabase portal URLs.
 
 ## Development
 

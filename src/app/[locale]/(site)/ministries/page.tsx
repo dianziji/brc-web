@@ -102,7 +102,7 @@ export default async function MinistriesIndex({ params }: { params: Promise<{ lo
         ) : null}
 
         {slides.length > 0 ? (
-          <section className="w-full space-y-4">
+          <section className="w-full space-y-6 md:space-y-8">
             <SectionHeader
               title={messages.ministries.highlightTitle}
               cta={{

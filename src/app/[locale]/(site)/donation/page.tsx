@@ -2,11 +2,33 @@ import AppImage from "@/components/AppImage";
 import { getDonationPortalConfig } from "@/lib/donation";
 import { getMessages, normalizeLocale } from "@/lib/i18n";
 
-export default async function DonationPage({ params }: { params: Promise<{ locale: string }> }) {
+function withForwardedQueryParams(
+  donationUrl: string,
+  searchParams: Record<string, string | string[] | undefined>
+): string {
+  const url = new URL(donationUrl);
+  for (const [key, rawValue] of Object.entries(searchParams)) {
+    if (!rawValue) continue;
+    const value = Array.isArray(rawValue) ? rawValue[0] : rawValue;
+    if (!value) continue;
+    url.searchParams.set(key, value);
+  }
+  return url.toString();
+}
+
+export default async function DonationPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const { locale } = await params;
+  const resolvedSearchParams = await searchParams;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
-  const donationConfig = getDonationPortalConfig();
+  const donationConfig = getDonationPortalConfig(normalizedLocale);
+  const donationButtonHref = withForwardedQueryParams(donationConfig.donateUrl, resolvedSearchParams);
   const mailingAddressLines = messages.donation.mailValue.split(",").map((line) => line.trim()).filter(Boolean);
 
   return (
@@ -80,7 +102,7 @@ export default async function DonationPage({ params }: { params: Promise<{ local
                       ))}
                     </ul>
                     <a
-                      href={donationConfig.donateUrl}
+                      href={donationButtonHref}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-base btn-donation-cta focus-ring-token mt-2"

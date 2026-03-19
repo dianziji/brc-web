@@ -57,9 +57,9 @@ export const mediaRegistry = {
     src: "/images/mission.jpeg",
     alt: { zh: "宣教事工", en: "Mission ministries" },
   },
-  ministriesTopYouth: {
+  ministriesTopYoungAdult: {
     src: "/images/youthMinistry2.jpeg",
-    alt: { zh: "青年事工", en: "Youth ministries" },
+    alt: { zh: "青年事工", en: "Young Adult ministries" },
   },
   ministriesTopFamily: {
     src: "/images/familyMinistry.jpeg",

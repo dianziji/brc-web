@@ -12,7 +12,7 @@ function getErrorType(error: unknown): string {
 
 export async function GET(req: Request) {
   const url = new URL(req.url);
-  const top = url.searchParams.get("top"); // e.g. youth / missions / family
+  const top = url.searchParams.get("top"); // e.g. young-adult / missions / family
   const startedAt = Date.now();
   const route = top ? `/api/ministries?top=${top}` : "/api/ministries";
 
