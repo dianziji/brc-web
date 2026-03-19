@@ -1,6 +1,10 @@
 import { getDonationPageUrl } from "@/lib/donation/links";
 import type { DonationLocale, DonationPortalConfig } from "@/lib/donation/types";
 
+export const DEFAULT_LEGACY_DONATION_URL = getDonationPageUrl("zh");
+export const DEFAULT_LEGACY_DONATION_URL_ZH = getDonationPageUrl("zh");
+export const DEFAULT_LEGACY_DONATION_URL_EN = getDonationPageUrl("en");
+
 function pickLocalizedDonationUrl(
   locale: DonationLocale,
   urls: {
