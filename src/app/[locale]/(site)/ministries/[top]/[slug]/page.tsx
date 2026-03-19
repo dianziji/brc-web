@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { resolveCmsImageUrl } from "@/lib/cms-media";
+import { formatEventDateTimeRange } from "@/lib/event-schedule";
 import { getEventsByMinistrySafeResult, isArchivedEvent } from "@/lib/events";
 import { getMinistryDetailSafeResult } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
@@ -127,8 +128,8 @@ export default async function Page({
   const retryLabel = normalizedLocale === "en" ? "Retry now" : "立即重試";
   const eventsDegradedNotice =
     normalizedLocale === "en"
-      ? "WordPress event service is temporarily degraded. Fallback data is displayed."
-      : "WordPress 活動服務暫時降級，當前顯示備援資料。";
+      ? "Event data is temporarily unavailable. Please check back shortly."
+      : "目前無法取得活動資料，請稍後再試。";
 
   if (!data) {
     return (
@@ -277,9 +278,7 @@ export default async function Page({
                             <div className="text-base font-semibold text-heading-token">
                               {normalizedLocale === "en" ? event.titleEn : event.titleZh}
                             </div>
-                            <div className="text-sm text-body-color-token">
-                              {[event.date, event.time, event.location].filter((item) => item && item.length > 0).join(" · ")}
-                            </div>
+                            <div className="text-sm text-body-color-token">{[formatEventDateTimeRange(event), event.location].filter(Boolean).join(" · ")}</div>
                             <div className="flex flex-wrap gap-2 pt-1">
                               <Link
                                 href={withLocale(normalizedLocale, `/events/${event.id}`)}
@@ -334,9 +333,7 @@ export default async function Page({
                             <div className="text-base font-semibold text-heading-token">
                               {normalizedLocale === "en" ? event.titleEn : event.titleZh}
                             </div>
-                            <div className="text-sm text-body-color-token">
-                              {[event.date, event.time, event.location].filter((item) => item && item.length > 0).join(" · ")}
-                            </div>
+                            <div className="text-sm text-body-color-token">{[formatEventDateTimeRange(event), event.location].filter(Boolean).join(" · ")}</div>
                             <div className="flex flex-wrap gap-2 pt-1">
                               <Link
                                 href={withLocale(normalizedLocale, `/events/archive/${event.id}`)}

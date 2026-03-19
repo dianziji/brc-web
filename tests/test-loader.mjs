@@ -3,6 +3,7 @@ import path from "node:path";
 import fs from "node:fs";
 
 const serverOnlyStubUrl = pathToFileURL(path.resolve(process.cwd(), "tests/stubs/server-only.mjs")).href;
+const nextCacheStubUrl = pathToFileURL(path.resolve(process.cwd(), "tests/stubs/next-cache.mjs")).href;
 const SRC_ROOT = path.resolve(process.cwd(), "src");
 
 function resolveAliasToFileUrl(specifier) {
@@ -31,6 +32,13 @@ export async function resolve(specifier, context, defaultResolve) {
   if (specifier === "server-only") {
     return {
       url: serverOnlyStubUrl,
+      shortCircuit: true,
+    };
+  }
+
+  if (specifier === "next/cache") {
+    return {
+      url: nextCacheStubUrl,
       shortCircuit: true,
     };
   }

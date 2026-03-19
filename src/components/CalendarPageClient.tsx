@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import type { CalendarEventItem } from "@/content/calendar/events";
+import { formatEventDateTimeRange } from "@/lib/event-schedule";
+import { htmlToPlainText } from "@/lib/html-text";
 import { withLocale, type Locale, type Messages } from "@/lib/i18n";
 
 type CalendarPageClientProps = {
@@ -120,6 +122,7 @@ export default function CalendarPageClient({
   const activeSlide = slidePool[activeSlideIndex] ?? null;
   const activeTitle = activeSlide ? (locale === "en" ? activeSlide.titleEn : activeSlide.titleZh) : "";
   const activeSubtitle = activeSlide ? (locale === "en" ? activeSlide.titleZh : activeSlide.titleEn) : "";
+  const activeSlideSchedule = activeSlide ? formatEventDateTimeRange(activeSlide) : "";
 
   const calendarDays = useMemo(() => {
     const firstDayIndex = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
@@ -179,9 +182,7 @@ export default function CalendarPageClient({
                 <>
                   <div className="text-lg font-semibold sm:text-2xl">{activeTitle}</div>
                   <div className="text-sm text-dk-title-token">{activeSubtitle}</div>
-                  <div className="text-sm text-dk-title-token">
-                    {[activeSlide.date, activeSlide.time, activeSlide.location].filter((item) => item.length > 0).join(" · ")}
-                  </div>
+                  <div className="text-sm text-dk-title-token">{[activeSlideSchedule, activeSlide.location].filter(Boolean).join(" · ")}</div>
                   <div className="flex flex-wrap gap-2 pt-2">
                     <Link
                       href={withLocale(locale, `/events/${activeSlide.id}`)}
@@ -303,14 +304,17 @@ export default function CalendarPageClient({
                   <div key={event.id} className="rounded-lg border border-token p-4">
                     <div className="text-lg font-semibold">{locale === "en" ? event.titleEn : event.titleZh}</div>
                     <div className="text-sm text-muted-token">{locale === "en" ? event.titleZh : event.titleEn}</div>
-                    {(event.summaryEn || event.summaryZh) ? (
+                    {(() => {
+                      const summary = htmlToPlainText(
+                        locale === "en" ? event.summaryEn || event.summaryZh || "" : event.summaryZh || event.summaryEn || ""
+                      );
+                      return summary ? (
                       <div className="mt-2 text-sm text-body-color-token">
-                        {locale === "en" ? event.summaryEn || event.summaryZh : event.summaryZh || event.summaryEn}
+                        {summary}
                       </div>
-                    ) : null}
-                    <div className="mt-2 text-sm text-body-color-token">
-                      {[event.date, event.time].filter((item) => item.length > 0).join(" · ")}
-                    </div>
+                      ) : null;
+                    })()}
+                    <div className="mt-2 text-sm text-body-color-token">{formatEventDateTimeRange(event)}</div>
                     {event.location ? <div className="text-sm text-body-color-token">{event.location}</div> : null}
                     <div className="mt-3 flex flex-wrap gap-2">
                       <Link

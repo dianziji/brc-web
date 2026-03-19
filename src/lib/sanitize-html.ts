@@ -65,3 +65,15 @@ export function sanitizeRichHtml(input: string): string {
     exclusiveFilter: (frame) => frame.tag === "a" && !frame.attribs.href ? "excludeTag" : false,
   });
 }
+
+export function stripRichHtml(input: string): string {
+  if (!input) return "";
+
+  return sanitizeHtml(input, {
+    allowedTags: [],
+    allowedAttributes: {},
+    disallowedTagsMode: "discard",
+  })
+    .replace(/\s+/g, " ")
+    .trim();
+}
