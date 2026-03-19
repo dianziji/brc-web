@@ -116,23 +116,29 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <video className="h-full w-full object-cover object-center" autoPlay loop muted playsInline preload="auto" suppressHydrationWarning>
             <source src="/videos/brc-hero.mp4" type="video/mp4" />
           </video>
-          <div className="media-overlay-hero absolute inset-0" />
+          <div className="media-overlay-hero-bright absolute inset-0" />
         </div>
-        <div className="relative mx-auto flex min-h-screen min-h-[100svh] max-w-md items-center justify-center px-6 pt-20 text-center">
-          <div className="w-full max-w-sm">
-            <h1 className="font-display text-display-token font-semibold">
+        <div className="relative mx-auto flex min-h-screen min-h-[100svh] max-w-lg items-center justify-center px-6 pt-20 text-center">
+          <div className="w-full max-w-md">
+            <h1 className="font-display hero-title-xl text-display-token font-semibold">
               {messages.home.hero.title}
-              <span className="text-donation-cta-token mt-2 block text-base">{messages.home.hero.subtitle}</span>
+              <span
+                className={`hero-subtitle-xl text-donation-cta-token mt-2 block ${
+                  normalizedLocale === "en" ? "hero-subtitle-singleline" : ""
+                }`}
+              >
+                {messages.home.hero.subtitle}
+              </span>
             </h1>
-            <div className="mt-6 flex flex-col gap-3">
+            <div className="mt-8 flex flex-col gap-3.5">
               <a
-                className="hero-cta hero-cta-primary btn-base btn-primary focus-ring-token w-full"
+                className="hero-cta hero-cta-secondary hero-cta-xl btn-base btn-inverse focus-ring-token w-full"
                 href={withLocale(normalizedLocale, "/about")}
               >
                 {messages.home.hero.ctaPrimary}
               </a>
               <a
-                className="hero-cta hero-cta-secondary btn-base btn-inverse focus-ring-token w-full"
+                className="hero-cta hero-cta-primary hero-cta-xl btn-base btn-primary focus-ring-token w-full"
                 href={withLocale(normalizedLocale, "/donation")}
               >
                 {messages.home.hero.ctaSecondary}
@@ -160,27 +166,31 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             preload="auto"
             suppressHydrationWarning
           >
-            <source src="/videos/brc-hero.mp4" type="video/mp4" />
+            <source src="/videos/brc-hero2.mp4" type="video/mp4" />
           </video>
-          <div className="media-overlay-hero absolute inset-0" />
+          <div className="media-overlay-hero-bright absolute inset-0" />
         </div>
-        <div className="relative mx-auto max-w-6xl px-6 py-24 md:px-12 md:py-40 min-h-[70vh] md:min-h-[100vh] flex items-center justify-center">
-          <div className="mx-auto max-w-4xl text-center">
-            <h1 className="font-display text-display-token text-dk-title-token mt-4 font-semibold leading-tight md:text-5xl">
+        <div className="relative mx-auto max-w-7xl px-6 py-24 md:px-12 md:py-40 min-h-[70vh] md:min-h-[100vh] flex items-center justify-center">
+          <div className="mx-auto max-w-5xl text-center">
+            <h1 className="font-display hero-title-xl text-display-token text-dk-title-token mt-4 font-semibold leading-tight">
               {messages.home.hero.title}
-              <span className="text-donation-cta-token mt-2 block text-lg md:text-3xl">
+              <span
+                className={`hero-subtitle-xl text-donation-cta-token mt-2 block ${
+                  normalizedLocale === "en" ? "hero-subtitle-singleline" : ""
+                }`}
+              >
                 {messages.home.hero.subtitle}
               </span>
             </h1>
-            <div className="mt-8 flex items-center justify-center gap-3">
+            <div className="mt-10 flex items-center justify-center gap-4">
               <a
-                className="hero-cta hero-cta-primary btn-base btn-primary focus-ring-token"
+                className="hero-cta hero-cta-secondary hero-cta-xl btn-base btn-inverse focus-ring-token"
                 href={withLocale(normalizedLocale, "/about")}
               >
                 {messages.home.hero.ctaPrimary}
               </a>
               <a
-                className="hero-cta hero-cta-secondary btn-base btn-inverse focus-ring-token"
+                className="hero-cta hero-cta-primary hero-cta-xl btn-base btn-primary focus-ring-token"
                 href={withLocale(normalizedLocale, "/donation")}
               >
                 {messages.home.hero.ctaSecondary}

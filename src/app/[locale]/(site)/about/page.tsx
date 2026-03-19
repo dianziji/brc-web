@@ -1,6 +1,7 @@
 import AppImage from "@/components/AppImage";
 import AlignWithGodSection from "@/components/AlignWithGodSection";
 import { getMessages, normalizeLocale, withLocale } from "@/lib/i18n";
+import Image from "next/image";
 
 function splitFixedLines(text: string): string[] {
   return text
@@ -26,14 +27,48 @@ function getLeadLetter(primary: string) {
   return primary.trim().charAt(0).toUpperCase();
 }
 
+function getBoardImageForMember(memberName: string): string | null {
+  const normalized = memberName.toLowerCase();
+  if (normalized.includes("paul huang") || normalized.includes("黃明發")) return "/images/board/Paul Huang.png";
+  if (normalized.includes("john yu") || normalized.includes("郁維強")) return "/images/board/John Yu.png";
+  if (normalized.includes("peter chou") || normalized.includes("周彼得")) return "/images/board/Peter Chou.png";
+  if (normalized.includes("weyl wang") || normalized.includes("王惠國")) return "/images/board/Weyl Wang.png";
+  if (normalized.includes("olive chiu") || normalized.includes("邱燕惠")) return "/images/board/Olive Chiu.png";
+  if (normalized.includes("shaow lin") || normalized.includes("林孝本")) return "/images/board/Shaow Lin.png";
+  if (normalized.includes("john chang") || normalized.includes("張沅")) {
+    return "/images/board/John Chang.png";
+  }
+  return null;
+}
+
+function getBoardImageClassForMember(memberName: string): string {
+  const normalized = memberName.toLowerCase();
+  if (normalized.includes("weyl wang") || normalized.includes("王惠國")) {
+    return "object-cover object-top scale-[1.08]";
+  }
+  return "object-cover object-top";
+}
+
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
+  const boardSlotCount = 7;
   const valuesLead =
     normalizedLocale === "en"
       ? "Eight commitments that shape how we build people, teams, and mission."
       : "八個核心價值，定義我們如何建造生命、團隊與事工。";
+  const boardPlaceholderName = normalizedLocale === "en" ? "Board Member" : "董事成員";
+  const boardPlaceholderRole = normalizedLocale === "en" ? "Profile pending" : "資料待更新";
+  const boardPhotoPlaceholder = normalizedLocale === "en" ? "Photo" : "頭像";
+  const boardMembers = Array.from({ length: boardSlotCount }, (_, index) => {
+    const member = messages.about.team[index];
+    if (member) return member;
+    return {
+      name: `${boardPlaceholderName} ${index + 1}`,
+      role: boardPlaceholderRole,
+    };
+  });
 
   const acrosticLetters = messages.about.values.map((item) => {
     const { primary } = splitValueLabel(item);
@@ -158,14 +193,28 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             {messages.about.teamCta}
           </a>
         </div>
-        <div className="mt-6 grid gap-8 md:grid-cols-3">
-          {messages.about.team.map((item) => (
-            <div key={item.name} className="group">
-              <div className="h-52 w-full bg-surface-b" />
-              <div className="mt-4 text-lg font-medium">{item.name}</div>
-              <div className="mt-1 text-sm text-body-color-token">{item.role}</div>
-            </div>
-          ))}
+        <div className="mt-6 overflow-x-auto pb-2">
+          <div className="flex min-w-full snap-x snap-mandatory gap-2 md:gap-3">
+            {boardMembers.map((item, index) => (
+              <div key={`${item.name}-${index}`} className="group shrink-0 snap-start basis-[68%] sm:basis-[44%] lg:basis-[24%]">
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-dashed border-token bg-surface-b">
+                  {(() => {
+                    const imageSrc = getBoardImageForMember(item.name);
+                    if (!imageSrc) {
+                      return (
+                        <div className="absolute inset-0 flex items-center justify-center text-sm font-medium tracking-wide text-muted-token">
+                          {boardPhotoPlaceholder}
+                        </div>
+                      );
+                    }
+                    return <Image src={imageSrc} alt={item.name} fill className={getBoardImageClassForMember(item.name)} />;
+                  })()}
+                </div>
+                <div className="mt-4 text-center text-lg font-medium">{item.name}</div>
+                <div className="mt-1 text-center text-sm text-body-color-token">{item.role}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

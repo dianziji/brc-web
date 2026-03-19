@@ -104,11 +104,7 @@ export default async function EventDetailPage({
           <div className="inline-flex rounded-full border border-token px-3 py-1 text-xs font-semibold text-body-color-token">
             {messages.eventModule.archivedLabel}
           </div>
-        ) : (
-          <div className="inline-flex rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-            {messages.eventModule.upcomingLabel}
-          </div>
-        )}
+        ) : null}
       </div>
 
       <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">

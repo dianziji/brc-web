@@ -46,3 +46,6 @@ next-env.d.ts
 # local archives and exports
 output/
 brc-homepage-full.html
+
+# local AI worktrees
+.claude/worktrees/

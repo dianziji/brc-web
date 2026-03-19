@@ -57,7 +57,7 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
             const secondaryLinks = links.secondary.filter((link) => Boolean(link.label && link.href));
 
             return (
-              <article key={`${card.title}-${index}`} className="card-base card-base-hover p-6 space-y-4">
+              <article key={`${card.title}-${index}`} className="card-base card-base-hover flex h-full flex-col p-6">
                 <div
                   className={`relative w-full overflow-hidden rounded-xl bg-surface-b ${
                     prayerCardImageWrapClassNames[index] || "h-40"
@@ -71,63 +71,72 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
                     className={prayerCardImageClassNames[index] || "object-cover object-center"}
                   />
                 </div>
-                <h3 className="text-h3-token text-heading-token font-semibold">{card.title}</h3>
-                <p className="text-body-token text-body-color-token">{card.body}</p>
-                <div className="text-caption-token text-muted-token space-y-1">
-                  <div>{card.detail1}</div>
-                  <div className="whitespace-pre-line">{card.detail2}</div>
-                </div>
 
-                {card.cta1 && links.primaryHref ? (
-                  <a
-                    className="btn-base btn-primary focus-ring-token w-full"
-                    href={links.primaryHref}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {card.cta1}
-                  </a>
-                ) : null}
-
-                {index === 1 ? (
-                  <MorningPrayerGuideModal
-                    guide={messages.prayer.morningGuide}
-                    triggerLabel={card.cta2}
-                    zoomHref={links.primaryHref}
-                    shareHref={PRAYER_MORNING_PDF_URL}
-                  />
-                ) : null}
-
-                {index === 1 ? (
-                  <div className="space-y-1">
-                    <a
-                      className="link-primary focus-ring-token block text-sm"
-                      href={PRAYER_WEEKLY_SHARING_DOC_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {card.cta4}
-                    </a>
+                <div className="mt-4 flex flex-1 flex-col">
+                  <h3 className="text-h3-token text-heading-token font-semibold">{card.title}</h3>
+                  <p className="text-body-token text-body-color-token mt-4">{card.body}</p>
+                  <div className="text-caption-token text-muted-token mt-4 space-y-1">
+                    <div>{card.detail1}</div>
+                    <div className="whitespace-pre-line">{card.detail2}</div>
                   </div>
-                ) : null}
 
-                {secondaryLinks.length > 0 ? (
-                  <div className="space-y-1">
-                    {secondaryLinks.map((link) => (
+                  <div className="mt-auto space-y-3 pt-5">
+                    {index === 1 ? (
+                      <MorningPrayerGuideModal
+                        guide={messages.prayer.morningGuide}
+                        triggerLabel={card.cta2}
+                        zoomHref={links.primaryHref}
+                        shareHref={PRAYER_MORNING_PDF_URL}
+                      />
+                    ) : null}
+
+                    {index === 1 ? (
+                      <div className="space-y-1">
+                        <a
+                          className="link-primary focus-ring-token block text-sm"
+                          href={PRAYER_WEEKLY_SHARING_DOC_URL}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {card.cta4}
+                        </a>
+                      </div>
+                    ) : null}
+
+                    {secondaryLinks.length > 0 ? (
+                      <div className="space-y-1">
+                        {secondaryLinks.map((link) => (
+                          <a
+                            key={link.href}
+                            className="link-primary focus-ring-token block text-sm"
+                            href={link.href}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {link.label}
+                          </a>
+                        ))}
+                      </div>
+                    ) : null}
+
+                    {card.note ? (
+                      <p className="text-caption-token border-token border-t pt-3 whitespace-pre-line text-muted-token">
+                        {card.note}
+                      </p>
+                    ) : null}
+
+                    {card.cta1 && links.primaryHref ? (
                       <a
-                        key={link.href}
-                        className="link-primary focus-ring-token block text-sm"
-                        href={link.href}
+                        className="btn-base btn-primary focus-ring-token mt-auto w-full"
+                        href={links.primaryHref}
                         target="_blank"
                         rel="noreferrer"
                       >
-                        {link.label}
+                        {card.cta1}
                       </a>
-                    ))}
+                    ) : null}
                   </div>
-                ) : null}
-
-                {card.note ? <p className="text-caption-token border-token border-t pt-3 whitespace-pre-line text-muted-token">{card.note}</p> : null}
+                </div>
               </article>
             );
           })}

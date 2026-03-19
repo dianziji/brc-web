@@ -1,7 +1,7 @@
 import "server-only";
 import { getLegacyWpDonationConfig } from "@/lib/donation/providers/legacy-wp";
 import { getSupabaseDonationConfig } from "@/lib/donation/providers/supabase-portal";
-import type { DonationPortalConfig, DonationProvider } from "@/lib/donation/types";
+import type { DonationLocale, DonationPortalConfig, DonationProvider } from "@/lib/donation/types";
 
 const DEFAULT_DONATION_PROVIDER: DonationProvider = "legacy_wp";
 
@@ -11,16 +11,16 @@ function resolveDonationProvider(): DonationProvider {
   return DEFAULT_DONATION_PROVIDER;
 }
 
-export function getDonationPortalConfig(): DonationPortalConfig {
+export function getDonationPortalConfig(locale: DonationLocale = "zh"): DonationPortalConfig {
   const provider = resolveDonationProvider();
 
   if (provider === "supabase_portal") {
-    const supabaseConfig = getSupabaseDonationConfig();
+    const supabaseConfig = getSupabaseDonationConfig(locale);
     if (supabaseConfig) return supabaseConfig;
     console.warn(
-      "[donation] DONATION_PROVIDER=supabase_portal but DONATION_SUPABASE_PORTAL_URL is missing, fallback to legacy_wp"
+      `[donation] DONATION_PROVIDER=supabase_portal but no Supabase donation URL is configured for locale="${locale}", fallback to legacy_wp`
     );
   }
 
-  return getLegacyWpDonationConfig();
+  return getLegacyWpDonationConfig(locale);
 }

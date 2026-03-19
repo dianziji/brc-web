@@ -29,7 +29,7 @@
     "title": "Bethel Renewal Center",
     "subtitle": "伯特利中心",
     "location": "Lake Hiawatha, NJ 07034",
-    "email": "info@brc.org p",
+    "email": "info@brc.org",
     "phone": "(862)-261-0116",
     "contactCta": "Contact Us",
     "quickLinks": "Quick Links",
@@ -48,7 +48,7 @@
   "home": {
     "hero": {
       "title": "Bethel Renewal Center",
-      "subtitle": "Renewed Lives · Serving Nations",
+      "subtitle": "Prayer Revival · Renewed Lives · Serving Nations",
       "ctaPrimary": "About Us",
       "ctaSecondary": "Support Us",
       "scrollDownAria": "Scroll to next section"
@@ -87,7 +87,7 @@
       "cta": "View all",
       "cards": [
         { "title": "Community Health Outreach", "subtitle": "Sat 9:00 AM" },
-        { "title": "Youth Growth Camp", "subtitle": "Sun 2:00 PM" },
+        { "title": "Young Adult Growth Camp", "subtitle": "Sun 2:00 PM" },
         { "title": "International Partners Night", "subtitle": "Fri 7:30 PM" }
       ],
       "detailsCta": "See details"
@@ -164,9 +164,13 @@
     "teamTitle": "BRC Board",
     "teamCta": "View ministry details",
     "team": [
-      { "name": "Huang Mingfa, Pastor", "role": "BRC Coordinator" },
-      { "name": "Qiu Yanhui, Sister", "role": "Ministry Leader" },
-      { "name": "xxxx, Pastor", "role": "Ministry Leader" }
+      { "name": "Paul Huang", "role": "Founder / Board Chair" },
+      { "name": "John Yu", "role": "Founder" },
+      { "name": "Peter Chou", "role": "Founder" },
+      { "name": "Weyl Wang", "role": "Board Director" },
+      { "name": "Olive Chiu", "role": "Board Director" },
+      { "name": "Shaow Lin", "role": "Board Director" },
+      { "name": "John Chang", "role": "Board Director" }
     ],
     "joinTitle": "Walk With Us",
     "joinBody": "Partner through prayer and giving to renew cities and nations.",

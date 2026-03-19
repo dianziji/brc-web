@@ -32,7 +32,7 @@ export default function Header({ locale, messages }: HeaderProps) {
   const ministryHeroPaths = new Set([
     "/ministries/missions",
     "/ministries/mission",
-    "/ministries/youth",
+    "/ministries/young-adult",
     "/ministries/family",
   ]);
   const transparentHeaderWithDarkTextPaths = new Set([
@@ -122,15 +122,15 @@ export default function Header({ locale, messages }: HeaderProps) {
             <Image src={headerLogoSrc} alt="BRC logo" fill className="object-contain" />
           </div>
           <div className="leading-tight">
-            <div className={`text-xs font-semibold md:text-sm ${useLightText ? "text-white" : "text-heading-token"}`}>
+            <div className={`text-[13px] font-semibold md:text-base ${useLightText ? "text-white" : "text-heading-token"}`}>
               {messages.header.title}
             </div>
-            <div className={`text-[10px] md:text-xs ${useLightText ? "text-dk-title-token" : "text-muted-token"}`}>
+            <div className={`text-[11px] md:text-[13px] ${useLightText ? "text-dk-title-token" : "text-muted-token"}`}>
               {messages.header.subtitle}
             </div>
           </div>
         </Link>
-        <nav className={`hidden items-center gap-6 text-sm md:flex ${useLightText ? "text-dk-title-token" : "text-body-color-token"}`}>
+        <nav className={`hidden items-center gap-6 text-[15px] md:flex ${useLightText ? "text-dk-title-token" : "text-body-color-token"}`}>
           {navItems.map((item) => {
             const active = isActiveRoute(item.activePatterns);
             return (
@@ -141,10 +141,14 @@ export default function Header({ locale, messages }: HeaderProps) {
                 className={`header-nav-link ${
                   useLightText
                     ? active
-                      ? "header-nav-link-light header-nav-link-active"
+                      ? isTransparentHeader
+                        ? "header-nav-link-light header-nav-link-neutral-current"
+                        : "header-nav-link-light header-nav-link-accent-current"
                       : "header-nav-link-light header-nav-link-inactive"
                     : active
-                      ? "header-nav-link-default header-nav-link-active"
+                      ? isTransparentHeader
+                        ? "header-nav-link-default header-nav-link-neutral-current"
+                        : "header-nav-link-default header-nav-link-accent-current"
                       : "header-nav-link-default header-nav-link-inactive"
                 }`}
               >
@@ -172,7 +176,7 @@ export default function Header({ locale, messages }: HeaderProps) {
 
       <div className={`border-t md:hidden ${useLightText ? "border-white/20" : "border-token"}`}>
         <div className={`section-container-medium py-1.5 ${useLightText ? "text-dk-title-token" : "text-body-color-token"}`}>
-          <nav className="grid grid-cols-6 gap-1 text-[10px] leading-tight">
+          <nav className="grid grid-cols-6 gap-1 text-[11px] leading-tight">
             {navItems.map((item) => {
               const active = isActiveRoute(item.activePatterns);
               return (
@@ -183,10 +187,14 @@ export default function Header({ locale, messages }: HeaderProps) {
                   className={`header-nav-mobile-link inline-flex min-h-11 min-w-0 items-center justify-center rounded-lg px-1 text-center break-words ${
                     useLightText
                       ? active
-                        ? "bg-transparent text-[var(--dk-hi)] font-semibold"
+                        ? isTransparentHeader
+                          ? "header-nav-mobile-link-neutral-active"
+                          : "header-nav-mobile-link-accent-active"
                         : "hover:bg-surface-a/10 hover:text-white"
                       : active
-                        ? "bg-transparent text-[var(--accent-strong)] font-semibold"
+                        ? isTransparentHeader
+                          ? "header-nav-mobile-link-neutral-active"
+                          : "header-nav-mobile-link-accent-active"
                         : "hover:bg-surface-b hover:text-heading-token"
                   }`}
                 >

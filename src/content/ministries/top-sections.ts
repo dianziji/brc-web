@@ -20,12 +20,12 @@ export const fixedTopSections: FixedTopSection[] = [
     imageKey: "ministriesTopMissions",
   },
   {
-    slug: "youth",
+    slug: "young-adult",
     titleZh: "青年事工",
-    titleEn: "Youth",
+    titleEn: "Young Adult",
     descZh: "裝備青年、建造下一代門徒。",
-    descEn: "Equip youth and build the next generation of disciples.",
-    imageKey: "ministriesTopYouth",
+    descEn: "Equip young adults and build the next generation of disciples.",
+    imageKey: "ministriesTopYoungAdult",
   },
   {
     slug: "family",
