@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { formatEventDateTimeRange } from "@/lib/event-schedule";
 import { getMinistryDetailSafe } from "@/lib/ministries";
 import { getEventBySlugSafeResult, isArchivedEvent } from "@/lib/events";
 import { getMessages, normalizeLocale, withLocale } from "@/lib/i18n";
+import { sanitizeRichHtml } from "@/lib/sanitize-html";
 
 export const revalidate = 60;
 
@@ -64,8 +66,8 @@ export default async function EventDetailPage({
   const isArchived = event ? isArchivedEvent(event) : false;
   const degradedNotice =
     normalizedLocale === "en"
-      ? "WordPress event service is temporarily degraded. Fallback data is displayed."
-      : "WordPress 活動服務暫時降級，當前顯示備援資料。";
+      ? "Event data is temporarily unavailable. Please check back shortly."
+      : "目前無法取得活動資料，請稍後再試。";
 
   if (!event) {
     return (
@@ -84,6 +86,8 @@ export default async function EventDetailPage({
   const subtitle = normalizedLocale === "en" ? event.titleZh : event.titleEn;
   const summary =
     normalizedLocale === "en" ? event.summaryEn || event.summaryZh : event.summaryZh || event.summaryEn;
+  const safeSummaryHtml = sanitizeRichHtml(summary || "");
+  const schedule = formatEventDateTimeRange(event);
   const donationHref = resolveDonationHref(normalizedLocale, event, isArchived ? "archive_detail" : "event_detail");
 
   let ministryHref: string | null = null;
@@ -116,9 +120,16 @@ export default async function EventDetailPage({
         <div className="space-y-5">
           <h1 className="text-3xl font-semibold">{title}</h1>
           <div className="text-sm text-muted-token">{subtitle}</div>
-          <div className="text-sm text-body-color-token">{summary || messages.eventModule.summaryFallback}</div>
+          {safeSummaryHtml ? (
+            <div
+              className="text-sm text-body-color-token"
+              dangerouslySetInnerHTML={{ __html: safeSummaryHtml }}
+            />
+          ) : (
+            <div className="text-sm text-body-color-token">{messages.eventModule.summaryFallback}</div>
+          )}
           <div className="rounded-lg border border-token bg-surface-b p-4 text-sm text-body-color-token">
-            <div>{[event.date, event.time].filter((item) => item && item.length > 0).join(" · ")}</div>
+            <div>{schedule}</div>
             {event.location ? <div className="mt-1">{event.location}</div> : null}
           </div>
           {ministryHref ? (

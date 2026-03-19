@@ -9,6 +9,7 @@ import SectionHeader from "@/components/home/SectionHeader";
 import { getMediaSrc } from "@/content/media";
 import { resolveCmsImageUrl } from "@/lib/cms-media";
 import { getFeaturedDiscipleshipPrograms, hasLocalDetail } from "@/lib/discipleship";
+import { formatEventDateTimeRange } from "@/lib/event-schedule";
 import { getCalendarEventsSafeResult } from "@/lib/events";
 import { getFixedTopTitle } from "@/content/ministries/top-sections";
 import { getMinistriesListSafe } from "@/lib/ministries";
@@ -32,28 +33,6 @@ function toTodayKey(): string {
   const m = String(now.getMonth() + 1).padStart(2, "0");
   const d = String(now.getDate()).padStart(2, "0");
   return `${y}-${m}-${d}`;
-}
-
-function parseDateKey(dateKey: string): Date | null {
-  const matched = dateKey.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (!matched) return null;
-  const y = Number(matched[1]);
-  const m = Number(matched[2]);
-  const d = Number(matched[3]);
-  if (!Number.isInteger(y) || !Number.isInteger(m) || !Number.isInteger(d)) return null;
-  if (m < 1 || m > 12 || d < 1 || d > 31) return null;
-  return new Date(y, m - 1, d);
-}
-
-function formatDateLabel(dateKey: string, locale: "zh" | "en"): string {
-  const date = parseDateKey(dateKey);
-  if (!date) return dateKey;
-  return date.toLocaleDateString(locale === "en" ? "en-US" : "zh-TW", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    weekday: "short",
-  });
 }
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
@@ -303,9 +282,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             >
               {upcomingEvents.map((item) => {
                 const title = normalizedLocale === "en" ? item.titleEn : item.titleZh;
-                const meta = [formatDateLabel(item.date, normalizedLocale), item.time, item.location]
-                  .filter((value) => value && value.length > 0)
-                  .join(" · ");
+                const meta = [formatEventDateTimeRange(item), item.location].filter((value) => value && value.length > 0).join(" · ");
                 return (
                   <article key={item.id} className="card-overlay-card relative min-h-[160px] min-w-[88%] snap-start overflow-hidden">
                     <Image src={item.image} alt={title} fill className="object-cover object-center" />
@@ -470,8 +447,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               {upcomingEvents.map((item) => {
                 const title = normalizedLocale === "en" ? item.titleEn : item.titleZh;
                 const subtitle = normalizedLocale === "en" ? item.titleZh : item.titleEn;
-                const dateLabel = formatDateLabel(item.date, normalizedLocale);
-                const meta = [dateLabel, item.time, item.location].filter((value) => value && value.length > 0).join(" · ");
+                const meta = [formatEventDateTimeRange(item), item.location].filter((value) => value && value.length > 0).join(" · ");
                 return (
                   <article key={item.id} className="card-base card-base-hover overflow-hidden">
                     <div className="card-media-top relative h-44 w-full">

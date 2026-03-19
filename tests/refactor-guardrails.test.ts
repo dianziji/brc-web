@@ -71,13 +71,12 @@ test("canonical top redirect is in place for ministry detail route", () => {
   assert.ok(detailPage.includes("data.section.top !== top"));
 });
 
-test("calendar events source is centralized with wp adapter and local fallback", () => {
+test("calendar events source is centralized with wp adapter", () => {
   const calendarPage = read("src/app/[locale]/(site)/calendar/page.tsx");
   const eventsLib = read("src/lib/events.ts");
   assert.ok(calendarPage.includes('from "@/lib/events"'));
   assert.ok(calendarPage.includes("getCalendarEventsSafeResult"));
-  assert.ok(eventsLib.includes('from "@/content/calendar/events"'));
-  assert.ok(eventsLib.includes("getLocalFallbackEvents"));
+  assert.ok(eventsLib.includes('type CalendarEventItem'));
   assert.equal(exists("src/content/calendar/events.ts"), true);
 });
 

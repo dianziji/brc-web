@@ -11,11 +11,11 @@ export default async function CalendarPage({ params }: { params: Promise<{ local
   const result = await getCalendarEventsSafeResult();
 
   const degradedTitle =
-    normalizedLocale === "en" ? "Calendar content is temporarily unavailable." : "日曆內容暫時不可用。";
+    normalizedLocale === "en" ? "Events coming soon." : "活動即將上線。";
   const degradedBody =
     normalizedLocale === "en"
-      ? "We loaded fallback events while WordPress is recovering. Please retry shortly."
-      : "WordPress 服務暫時異常，已載入備用活動資料，請稍後重試。";
+      ? "Event data is temporarily unavailable. Please check back shortly."
+      : "目前無法取得活動資料，請稍後再試。";
   const retryLabel = normalizedLocale === "en" ? "Retry now" : "立即重試";
 
   return (

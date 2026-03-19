@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { getArchivedEventsSafeResult } from "@/lib/events";
+import { formatEventDateTimeRange } from "@/lib/event-schedule";
+import { htmlToPlainText } from "@/lib/html-text";
 import { getMessages, normalizeLocale, withLocale } from "@/lib/i18n";
 
 export const revalidate = 60;
@@ -60,8 +62,8 @@ export default async function EventArchivePage({
   const backHref = withLocale(normalizedLocale, "/calendar");
   const degradedNotice =
     normalizedLocale === "en"
-      ? "WordPress event service is temporarily degraded. Fallback archive data is displayed."
-      : "WordPress 活動服務暫時降級，當前顯示備援歸檔資料。";
+      ? "Event data is temporarily unavailable. Please check back shortly."
+      : "目前無法取得活動資料，請稍後再試。";
 
   return (
     <main className="mx-auto max-w-6xl space-y-8 px-6 pb-12 pt-32">
@@ -88,8 +90,10 @@ export default async function EventArchivePage({
           {result.items.map((event) => {
             const title = normalizedLocale === "en" ? event.titleEn : event.titleZh;
             const subtitle = normalizedLocale === "en" ? event.titleZh : event.titleEn;
-            const summary =
-              normalizedLocale === "en" ? event.summaryEn || event.summaryZh : event.summaryZh || event.summaryEn;
+            const summary = htmlToPlainText(
+              normalizedLocale === "en" ? event.summaryEn || event.summaryZh || "" : event.summaryZh || event.summaryEn || ""
+            );
+            const schedule = formatEventDateTimeRange(event);
             const donationHref = resolveDonationHref(normalizedLocale, event);
 
             return (
@@ -102,9 +106,7 @@ export default async function EventArchivePage({
                   <div className="text-lg font-semibold">{title}</div>
                   <div className="text-sm text-muted-token">{subtitle}</div>
                   <div className="text-sm text-body-color-token">{summary || messages.eventModule.summaryFallback}</div>
-                  <div className="text-sm text-body-color-token">
-                    {[event.date, event.time, event.location].filter((item) => item && item.length > 0).join(" · ")}
-                  </div>
+                  <div className="text-sm text-body-color-token">{[schedule, event.location].filter(Boolean).join(" · ")}</div>
                   <div className="flex flex-wrap gap-2 pt-1">
                     <Link
                       href={withLocale(normalizedLocale, `/events/${event.id}`)}

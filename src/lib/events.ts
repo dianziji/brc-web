@@ -1,7 +1,6 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
 import {
-  calendarEvents,
   type CalendarEventItem,
   type EventLifecycleStatus,
   type EventPaymentMode,
@@ -37,10 +36,10 @@ type EventFields = {
   time?: string | null;
   location?: string | null;
   archiveAt?: string | null;
-  lifecycleStatus?: string | null;
-  registrationMode?: string | null;
+  lifecycleStatus?: unknown;
+  registrationMode?: unknown;
   registrationUrl?: string | null;
-  paymentMode?: string | null;
+  paymentMode?: unknown;
   paymentAmount?: number | null;
   donationLink?: string | null;
   donationPurposeCode?: string | null;
@@ -190,6 +189,231 @@ query EventsListFullScalar($first: Int!) {
         donationPurposeCode
         primaryMinistrySlug
         relatedMinistrySlugs
+        coverImage
+      }
+    }
+  }
+}
+`;
+
+const EVENTS_QUERY_FULL_MIXED = /* GraphQL */ `
+query EventsListFullMixed($first: Int!) {
+  events(first: $first) {
+    nodes {
+      id
+      slug
+      status
+      date
+      title
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+      eventFields {
+        titleEn
+        titleZh
+        summaryEn
+        summaryZh
+        startAt: startat
+        endAt: endat
+        time
+        location
+        archiveAt: archiveat
+        lifecycleStatus: status
+        registrationMode
+        registrationUrl
+        paymentMode
+        paymentAmount
+        donationLink
+        donationPurposeCode
+        primaryMinistrySlug
+        relatedMinistrySlugs
+        coverImage {
+          node {
+            sourceUrl
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
+const EVENTS_QUERY_FULL_MIXED_MEDIA = /* GraphQL */ `
+query EventsListFullMixedMedia($first: Int!) {
+  events(first: $first) {
+    nodes {
+      id
+      slug
+      status
+      date
+      title
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+      eventFields {
+        titleEn
+        titleZh
+        summaryEn
+        summaryZh
+        startAt: startat
+        endAt: endat
+        time
+        location
+        archiveAt: archiveat
+        lifecycleStatus: status
+        registrationMode
+        registrationUrl
+        paymentMode
+        paymentAmount
+        donationLink
+        donationPurposeCode
+        primaryMinistrySlug
+        relatedMinistrySlugs
+        coverImage {
+          sourceUrl
+        }
+      }
+    }
+  }
+}
+`;
+
+const EVENTS_QUERY_FULL_MIXED_SCALAR = /* GraphQL */ `
+query EventsListFullMixedScalar($first: Int!) {
+  events(first: $first) {
+    nodes {
+      id
+      slug
+      status
+      date
+      title
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+      eventFields {
+        titleEn
+        titleZh
+        summaryEn
+        summaryZh
+        startAt: startat
+        endAt: endat
+        time
+        location
+        archiveAt: archiveat
+        lifecycleStatus: status
+        registrationMode
+        registrationUrl
+        paymentMode
+        paymentAmount
+        donationLink
+        donationPurposeCode
+        primaryMinistrySlug
+        relatedMinistrySlugs
+        coverImage
+      }
+    }
+  }
+}
+`;
+
+const EVENTS_QUERY_CONTENT_MIXED = /* GraphQL */ `
+query EventsListContentMixed($first: Int!) {
+  events(first: $first) {
+    nodes {
+      id
+      slug
+      status
+      date
+      title
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+      eventFields {
+        titleEn
+        titleZh
+        summaryEn
+        summaryZh
+        startAt: startat
+        endAt: endat
+        time
+        location
+        archiveAt: archiveat
+        coverImage {
+          node {
+            sourceUrl
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
+const EVENTS_QUERY_CONTENT_MIXED_MEDIA = /* GraphQL */ `
+query EventsListContentMixedMedia($first: Int!) {
+  events(first: $first) {
+    nodes {
+      id
+      slug
+      status
+      date
+      title
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+      eventFields {
+        titleEn
+        titleZh
+        summaryEn
+        summaryZh
+        startAt: startat
+        endAt: endat
+        time
+        location
+        archiveAt: archiveat
+        coverImage {
+          sourceUrl
+        }
+      }
+    }
+  }
+}
+`;
+
+const EVENTS_QUERY_CONTENT_MIXED_SCALAR = /* GraphQL */ `
+query EventsListContentMixedScalar($first: Int!) {
+  events(first: $first) {
+    nodes {
+      id
+      slug
+      status
+      date
+      title
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+      eventFields {
+        titleEn
+        titleZh
+        summaryEn
+        summaryZh
+        startAt: startat
+        endAt: endat
+        time
+        location
+        archiveAt: archiveat
         coverImage
       }
     }
@@ -1058,9 +1282,10 @@ function isPublished(status?: string | null): boolean {
   return (status || "").toLowerCase() === "publish";
 }
 
-function normalizeLifecycleStatus(raw?: string | null): EventLifecycleStatus | undefined {
-  if (!raw) return undefined;
-  const normalized = raw.trim().toUpperCase();
+function normalizeLifecycleStatus(raw?: unknown): EventLifecycleStatus | undefined {
+  const value = normalizeScalarText(raw);
+  if (!value) return undefined;
+  const normalized = value.toUpperCase();
   if (
     normalized === "DRAFT" ||
     normalized === "PUBLISHED" ||
@@ -1076,15 +1301,17 @@ function normalizeLifecycleStatus(raw?: string | null): EventLifecycleStatus | u
 }
 
 function normalizeRegistrationMode(raw?: unknown): EventRegistrationMode | undefined {
-  if (typeof raw !== "string") return undefined;
-  const normalized = raw.trim().toLowerCase();
+  const value = normalizeScalarText(raw);
+  if (!value) return undefined;
+  const normalized = value.toLowerCase();
   if (normalized === "external" || normalized === "internal") return normalized;
   return undefined;
 }
 
 function normalizePaymentMode(raw?: unknown): EventPaymentMode | undefined {
-  if (typeof raw !== "string") return undefined;
-  const normalized = raw.trim().toLowerCase();
+  const value = normalizeScalarText(raw);
+  if (!value) return undefined;
+  const normalized = value.toLowerCase();
   if (normalized === "none" || normalized === "fee" || normalized === "donation") return normalized;
   return undefined;
 }
@@ -1188,7 +1415,26 @@ function normalizeLocation(fields?: EventFields | null): string {
   return normalizeText(fields?.location) || "";
 }
 
+function normalizeScalarText(input?: unknown): string | undefined {
+  if (typeof input === "string") {
+    const trimmed = input.trim();
+    return trimmed ? trimmed : undefined;
+  }
+
+  if (Array.isArray(input)) {
+    for (const item of input) {
+      const normalized = normalizeScalarText(item);
+      if (normalized) return normalized;
+    }
+  }
+
+  return undefined;
+}
+
 function normalizeText(input?: unknown): string | undefined {
+  const scalar = normalizeScalarText(input);
+  if (scalar) return scalar;
+
   if (typeof input === "object" && input !== null) {
     if ("url" in input && typeof (input as { url?: unknown }).url === "string") {
       const urlTrimmed = (input as { url: string }).url.trim();
@@ -1199,9 +1445,7 @@ function normalizeText(input?: unknown): string | undefined {
       return hrefTrimmed ? hrefTrimmed : undefined;
     }
   }
-  if (typeof input !== "string") return undefined;
-  const trimmed = input.trim();
-  return trimmed ? trimmed : undefined;
+  return undefined;
 }
 
 function resolveEventFieldImageUrl(image: EventFieldImage | undefined): string | null {
@@ -1289,8 +1533,12 @@ function mapWpEventNode(node: WpEventNode): CalendarEventItem | null {
   if (!date) return null;
 
   const titleBase = node.title?.trim() || node.slug || "event";
-  const titleEn = node.eventFields?.titleEn?.trim() || titleBase;
-  const titleZh = node.eventFields?.titleZh?.trim() || titleBase;
+  const localizedTitleEn = normalizeText(node.eventFields?.titleEn);
+  const localizedTitleZh = normalizeText(node.eventFields?.titleZh);
+  const localizedSummaryEn = normalizeText(node.eventFields?.summaryEn);
+  const localizedSummaryZh = normalizeText(node.eventFields?.summaryZh);
+  const titleEn = localizedTitleEn || localizedTitleZh || titleBase;
+  const titleZh = localizedTitleZh || localizedTitleEn || titleBase;
   const image =
     resolveEventFieldImageUrl(node.eventFields?.coverImage) ||
     resolveCmsImageUrl(node.featuredImage?.node?.sourceUrl) ||
@@ -1300,8 +1548,8 @@ function mapWpEventNode(node: WpEventNode): CalendarEventItem | null {
     id: node.slug || node.id,
     titleEn,
     titleZh,
-    summaryEn: normalizeText(node.eventFields?.summaryEn),
-    summaryZh: normalizeText(node.eventFields?.summaryZh),
+    summaryEn: localizedSummaryEn || localizedSummaryZh,
+    summaryZh: localizedSummaryZh || localizedSummaryEn,
     date,
     time: normalizeTimeLabel(node.eventFields),
     location: normalizeLocation(node.eventFields),
@@ -1331,10 +1579,6 @@ function sortEvents(items: CalendarEventItem[]): CalendarEventItem[] {
   });
 }
 
-function getLocalFallbackEvents(): CalendarEventItem[] {
-  return sortEvents(calendarEvents).filter((item) => isVisibleOnSite(item));
-}
-
 async function queryWpEvents(): Promise<EventsGQL> {
   try {
     return await wpgraphql<EventsGQL>(
@@ -1347,6 +1591,12 @@ async function queryWpEvents(): Promise<EventsGQL> {
     if (!field || field === "events") throw error;
 
     const attempts: Array<{ query: string; label: string }> = [
+      { query: EVENTS_QUERY_FULL_MIXED, label: "wpgraphql:events-list:full-mixed" },
+      { query: EVENTS_QUERY_FULL_MIXED_MEDIA, label: "wpgraphql:events-list:full-mixed-media" },
+      { query: EVENTS_QUERY_FULL_MIXED_SCALAR, label: "wpgraphql:events-list:full-mixed-scalar" },
+      { query: EVENTS_QUERY_CONTENT_MIXED, label: "wpgraphql:events-list:content-mixed" },
+      { query: EVENTS_QUERY_CONTENT_MIXED_MEDIA, label: "wpgraphql:events-list:content-mixed-media" },
+      { query: EVENTS_QUERY_CONTENT_MIXED_SCALAR, label: "wpgraphql:events-list:content-mixed-scalar" },
       { query: EVENTS_QUERY_FULL_LOWER, label: "wpgraphql:events-list:full-lower" },
       {
         query: EVENTS_QUERY_MINIMAL_MIXED_MEDIA_NODE_FRAGMENT_REG_MINISTRY_LOWER,
@@ -1478,8 +1728,8 @@ export async function getAllEventsSafeResult(): Promise<CalendarEventsSafeResult
   } catch (error) {
     const errorType = getErrorType(error);
     const message = getErrorMessage(error);
-    console.warn("[events] fallback to local events", { errorType, message });
-    return { items: getLocalFallbackEvents(), degraded: true, errorType };
+    console.warn("[events] wp events unavailable, return empty list", { errorType, message });
+    return { items: [], degraded: true, errorType };
   }
 }
 
