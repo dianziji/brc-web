@@ -29,10 +29,11 @@
     "title": "Bethel Renewal Center",
     "subtitle": "伯特利中心",
     "location": "Lake Hiawatha, NJ 07034",
-    "email": "info@brc.org",
+    "email": "brc@bethelrc.org",
     "phone": "(862)-261-0116",
     "contactCta": "聯繫我們",
     "quickLinks": "快速連結",
+    "archiveSite": "網站存檔",
     "subscribeTitle": "訂閱更新",
     "subscribeDesc": "獲取最新活動與講道資訊。",
     "emailPlaceholder": "your@email.com",
@@ -130,7 +131,7 @@
     "contact": {
       "title": "聯繫我們",
       "address": "地址：Bethel Renewal Center, Lake Hiawatha, NJ",
-      "email": "郵箱：info@brc.org",
+      "email": "郵箱：brc@bethelrc.org",
       "phone": "電話：(862)-261-0116",
       "namePlaceholder": "姓名",
       "emailPlaceholder": "郵箱",
@@ -321,7 +322,7 @@
         "cta3": "目前已經認領時段列表",
         "cta4": "",
         "cta5": "",
-        "note": "為避免產生雜音干擾聚會，上線後請關閉麥克風(或按 mute)保持靜音，要說話的時候再打開即可。"
+        "note": "Zoom Meeting ID: 880 8117 7356\n請點擊下方按鈕加入聚會。\n\n為避免產生雜音干擾聚會，上線後請關閉麥克風(或按 mute)保持靜音，要說話的時候再打開即可。"
       },
       {
         "title": "伯特利中心禱告平台",
@@ -333,7 +334,19 @@
         "cta3": "",
         "cta4": "點擊查看本周專題分享及禱告焦點",
         "cta5": "",
-        "note": ""
+        "note": "Zoom Meeting ID: 561 386 692\nPassword: 589667\n\n為避免產生雜音干擾聚會，上線後請關閉麥克風(或按 mute)保持靜音，要說話的時候再打開即可。"
+      },
+      {
+        "title": "伯特利跨文化宣教平台祝福差遣禱告會",
+        "body": "跨文化宣教分享與差遣祝福禱告，一同為宣教、同工與差遣服事守望。",
+        "detail1": "時間：03/17 週二晚美東時間晚上 8 點\n03/17 週二下午美西 5 點\n03/18 週三早北京時間 8 點",
+        "detail2": "內容：簡單宣教分享、祝福差遣禱告與彼此代禱",
+        "cta1": "加入 Zoom 禱告會",
+        "cta2": "祷告会细节",
+        "cta3": "",
+        "cta4": "",
+        "cta5": "",
+        "note": "Zoom Meeting ID: 561 386 692\nPassword: 589667\n\n為避免產生雜音干擾聚會，上線後請關閉麥克風(或按 mute)保持靜音，要說話的時候再打開即可。"
       },
       {
         "title": "NJ/NY 聯合宣教禱告聚會",
@@ -380,7 +393,7 @@
     },
     "contact": {
       "address": "Bethel Renewal Center, Lake Hiawatha, NJ 07034",
-      "email": "info@brc.org",
+      "email": "brc@bethelrc.org",
       "phone": "(862)-261-0116"
     }
   }

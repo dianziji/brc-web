@@ -12,13 +12,13 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
   const { locale } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
-;
   const cards = messages.prayer.cards;
-  const prayerCardMediaKeys: MediaKey[] = ["prayerCardAltar", "prayerCardPlatform", "prayerCardRpg"];
-  const prayerCardImageWrapClassNames = ["h-48 md:h-52", "h-48 md:h-52", "h-48 md:h-52"];
+  const prayerCardMediaKeys: MediaKey[] = ["prayerCardAltar", "prayerCardPlatform", "prayerCardSending", "prayerCardRpg"];
+  const prayerCardImageWrapClassNames = ["h-48 md:h-52", "h-48 md:h-52", "h-48 md:h-52", "h-48 md:h-52"];
   const prayerCardImageClassNames = [
     "object-cover object-[center_30%]",
     "object-cover object-[center_28%]",
+    "object-cover object-center",
     "object-cover object-center",
   ];
   const cardLinks = PRAYER_CARD_LINK_CONFIG.map((config, index) => {
@@ -48,10 +48,8 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
       </section>
 
       <section className="bg-rhythm-b section-rhythm-divider">
-        <div className="section-container-medium section-block-tight space-y-8">
-      
-
-          <section className="grid gap-6 md:grid-cols-3">
+        <div className="mx-auto w-full max-w-[100rem] px-4 md:px-5 xl:px-6 section-block-tight space-y-8">
+          <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {cards.map((card, index) => {
             const links = cardLinks[index];
             const secondaryLinks = links.secondary.filter((link) => Boolean(link.label && link.href));
@@ -76,7 +74,7 @@ export default async function PrayerPage({ params }: { params: Promise<{ locale:
                   <h3 className="text-h3-token text-heading-token font-semibold">{card.title}</h3>
                   <p className="text-body-token text-body-color-token mt-4">{card.body}</p>
                   <div className="text-caption-token text-muted-token mt-4 space-y-1">
-                    <div>{card.detail1}</div>
+                    <div className="whitespace-pre-line">{card.detail1}</div>
                     <div className="whitespace-pre-line">{card.detail2}</div>
                   </div>
 
