@@ -15,6 +15,7 @@ export default function Footer({ locale, messages }: FooterProps) {
     { label: messages.nav.ministries, href: withLocale(locale, "/ministries") },
     { label: messages.nav.trainings, href: withLocale(locale, "/discipleship") },
     { label: messages.nav.donation, href: withLocale(locale, "/donation") },
+    { label: messages.footer.archiveSite, href: "https://archive.bethelrc.org", external: true },
   ];
 
   const copyright = messages.footer.copyright.replace(
@@ -42,9 +43,21 @@ export default function Footer({ locale, messages }: FooterProps) {
             <div className="text-dk-hi-token font-semibold">{messages.footer.quickLinks}</div>
             <div className="mt-1.5 grid grid-cols-2 gap-x-5 gap-y-1.5">
               {navItems.map((item) => (
-                <Link key={item.href} href={item.href} className="focus-ring-token transition-colors hover:text-dk-hi-token">
-                  {item.label}
-                </Link>
+                item.external ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="focus-ring-token transition-colors hover:text-dk-hi-token"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link key={item.href} href={item.href} className="focus-ring-token transition-colors hover:text-dk-hi-token">
+                    {item.label}
+                  </Link>
+                )
               ))}
             </div>
           </div>

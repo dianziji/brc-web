@@ -19,11 +19,8 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
               <h2 className="font-display text-h2-token text-heading-token font-semibold">{contact.title}</h2>
               <div className="text-body-token text-body-color-token space-y-2">
                 <div>{contact.address}</div>
-                <a className="link-primary focus-ring-token inline-flex" href="mailto:info@brc.org">
+                <a className="link-primary focus-ring-token inline-flex" href="mailto:brc@bethelrc.org">
                   {contact.email}
-                </a>
-                <a className="link-primary focus-ring-token inline-flex" href="tel:+18622610116">
-                  {contact.phone}
                 </a>
               </div>
             </div>

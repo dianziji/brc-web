@@ -30,11 +30,21 @@ export const PRAYER_CARD_LINK_CONFIG: PrayerCardLinkConfig[] = [
     secondary: [],
   },
   {
+    primaryHref: "https://zoom.us/j/561386692?pwd=T0dWYi9HMFZMSUZ0SzJ6bld6cFJIUT09",
+    secondary: [
+      {
+        href: "https://docs.google.com/document/d/1st1ugw0oKpfMw3Qw9CH-aYl9Sd405Xahl2ZIrXHE1WQ/edit?usp=sharing",
+        labelField: "cta2",
+      },
+    ],
+  },
+  {
     primaryHref: "",
     secondary: [
-      // Replace this with the monthly mission prayer Google Doc link when available.
-      { href: "https://docs.google.com/document/d/1_OMA3jncsX-jnq6yglOUexxawwuaqrfSLQ0kh_keDrY/edit?usp=sharing", labelField: "cta2" },
+      {
+        href: "https://docs.google.com/document/d/1_OMA3jncsX-jnq6yglOUexxawwuaqrfSLQ0kh_keDrY/edit?usp=sharing",
+        labelField: "cta2",
+      },
     ],
   },
 ];
-

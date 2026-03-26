@@ -81,6 +81,10 @@ export const mediaRegistry = {
     src: "/images/mission.jpeg",
     alt: { zh: "RPG 復興禱告特會", en: "RPG revival prayer gathering" },
   },
+  prayerCardSending: {
+    src: "/images/amaury-gutierrez-rzmQOng8h8I-unsplash.jpg",
+    alt: { zh: "祝福差遣禱告會", en: "Blessing and sending prayer meeting" },
+  },
 } as const satisfies Record<string, MediaItem>;
 
 export type MediaKey = keyof typeof mediaRegistry;

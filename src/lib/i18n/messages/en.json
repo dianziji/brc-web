@@ -29,10 +29,11 @@
     "title": "Bethel Renewal Center",
     "subtitle": "伯特利中心",
     "location": "Lake Hiawatha, NJ 07034",
-    "email": "info@brc.org",
+    "email": "brc@bethelrc.org",
     "phone": "(862)-261-0116",
     "contactCta": "Contact Us",
     "quickLinks": "Quick Links",
+    "archiveSite": "Site Archive",
     "subscribeTitle": "Subscribe",
     "subscribeDesc": "Get updates on events and messages.",
     "emailPlaceholder": "your@email.com",
@@ -128,7 +129,7 @@
     "contact": {
       "title": "Contact Us",
       "address": "Address: Bethel Renewal Center, Lake Hiawatha, NJ",
-      "email": "Email: info@brc.org",
+      "email": "Email: brc@bethelrc.org",
       "phone": "Phone: (862)-261-0116",
       "namePlaceholder": "Name",
       "emailPlaceholder": "Email",
@@ -320,7 +321,7 @@
         "cta3": "View claimed time slots",
         "cta4": "",
         "cta5": "",
-        "note": "To avoid background noise, please mute your microphone after joining and unmute only when speaking."
+        "note": "Zoom Meeting ID: 880 8117 7356\nUse the button below to join the meeting.\n\nTo avoid background noise, please mute your microphone after joining and unmute only when speaking."
       },
       {
         "title": "BRC Prayer Platform",
@@ -332,7 +333,19 @@
         "cta3": "",
         "cta4": "View this week's sharing and prayer focus",
         "cta5": "",
-        "note": ""
+        "note": "Zoom Meeting ID: 561 386 692\nPassword: 589667\n\nTo avoid background noise, please mute your microphone after joining and unmute only when speaking."
+      },
+      {
+        "title": "Bethel Cross-Cultural Mission Platform Blessing & Sending Prayer Meeting",
+        "body": "A cross-cultural mission gathering for brief sharing, blessing, sending prayer, and mutual intercession.",
+        "detail1": "Time: Tue 03/17 8:00 PM ET\nTue 03/17 5:00 PM PT\nWed 03/18 8:00 AM Beijing Time",
+        "detail2": "Content: short mission sharing, blessing and sending prayer, and prayer for one another",
+        "cta1": "Join Zoom Prayer",
+        "cta2": "Basic Info",
+        "cta3": "",
+        "cta4": "",
+        "cta5": "",
+        "note": "Zoom Meeting ID: 561 386 692\nPassword: 589667\n\nTo avoid background noise, please mute your microphone after joining and unmute only when speaking."
       },
       {
         "title": "NJ/NY Mission Prayer Fellowship Meeting",
@@ -379,7 +392,7 @@
     },
     "contact": {
       "address": "Bethel Renewal Center, Lake Hiawatha, NJ 07034",
-      "email": "info@brc.org",
+      "email": "brc@bethelrc.org",
       "phone": "(862)-261-0116"
     }
   }
