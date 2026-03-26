@@ -170,6 +170,37 @@ blockquote {
   text-wrap: pretty;
 }
 
+.text-display-token,
+.text-h2-token,
+.text-h3-token {
+  text-wrap: balance;
+}
+
+.text-body-token,
+.text-caption-token {
+  text-wrap: pretty;
+}
+
+html[lang="en"] .text-body-token,
+html[lang="en"] .text-caption-token,
+html[lang="en"] p,
+html[lang="en"] li,
+html[lang="en"] blockquote {
+  hyphens: auto;
+}
+
+html[lang^="zh"] .text-display-token,
+html[lang^="zh"] .text-h2-token,
+html[lang^="zh"] .text-h3-token,
+html[lang^="zh"] .text-body-token,
+html[lang^="zh"] .text-caption-token,
+html[lang^="zh"] p,
+html[lang^="zh"] li,
+html[lang^="zh"] blockquote {
+  line-break: loose;
+  hanging-punctuation: allow-end;
+}
+
 html[lang^="zh"] .font-zh-serif {
   font-family: var(--font-noto-sans-tc), "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
 }

@@ -200,7 +200,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <div className="relative z-10 space-y-1.5 px-5 py-4 text-center text-white">
               <h2 className="font-display text-h3-token font-semibold">{messages.home.mission.title}</h2>
               <div className="text-caption-token space-y-1 leading-relaxed text-white/90">
-                {splitFixedLines(messages.home.mission.body).slice(0, 3).map((line) => (
+                {splitFixedLines(messages.home.mission.body).map((line) => (
                   <p key={line}>{line}</p>
                 ))}
               </div>
@@ -236,7 +236,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <article className="card-overlay-card relative min-h-[190px] overflow-hidden">
             <AppImage mediaKey="homePrayerRoom" locale={normalizedLocale} fill className="object-cover object-center" />
             <div className="media-overlay-strong absolute inset-0" />
-            <div className="relative z-10 space-y-1.5 px-5 py-4 text-center text-white">
+            <div className="relative z-10 flex min-h-[190px] flex-col items-center justify-center space-y-1.5 px-5 py-4 text-center text-white">
               <h2 className="font-display text-h3-token font-semibold">{messages.home.prayer.title}</h2>
               <p className="text-caption-token leading-relaxed text-white/90">{messages.home.prayer.body}</p>
               <a className="link-inverse inline-flex justify-center text-sm focus-ring-token" href={withLocale(normalizedLocale, "/prayer")}>
