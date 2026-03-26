@@ -93,7 +93,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="relative min-h-screen min-h-[100svh] overflow-hidden text-white md:hidden">
         <div className="absolute inset-0">
           <video className="h-full w-full object-cover object-center" autoPlay loop muted playsInline preload="auto" suppressHydrationWarning>
-            <source src="/videos/brc-hero.mp4" type="video/mp4" />
+            <source src="/videos/brc-hero2.mp4" type="video/mp4" />
           </video>
           <div className="media-overlay-hero-bright absolute inset-0" />
         </div>

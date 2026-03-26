@@ -1278,6 +1278,21 @@ function getUnknownFieldName(error: unknown): string | null {
   return matched?.[1] || null;
 }
 
+function isInternalServerError(error: unknown): boolean {
+  return (
+    error instanceof WpGraphQLRequestError &&
+    error.type === "http" &&
+    typeof error.statusCode === "number" &&
+    error.statusCode >= 500
+  );
+}
+
+function shouldTryAlternateEventsQuery(error: unknown): boolean {
+  const unknownField = getUnknownFieldName(error);
+  if (unknownField) return unknownField !== "events";
+  return isInternalServerError(error);
+}
+
 function isPublished(status?: string | null): boolean {
   return (status || "").toLowerCase() === "publish";
 }
@@ -1587,8 +1602,7 @@ async function queryWpEvents(): Promise<EventsGQL> {
       { revalidate: EVENT_REVALIDATE_SECONDS, label: "wpgraphql:events-list:full" }
     );
   } catch (error) {
-    const field = getUnknownFieldName(error);
-    if (!field || field === "events") throw error;
+    if (!shouldTryAlternateEventsQuery(error)) throw error;
 
     const attempts: Array<{ query: string; label: string }> = [
       { query: EVENTS_QUERY_FULL_MIXED, label: "wpgraphql:events-list:full-mixed" },
@@ -1645,8 +1659,7 @@ async function queryWpEvents(): Promise<EventsGQL> {
           { revalidate: EVENT_REVALIDATE_SECONDS, label: attempt.label }
         );
       } catch (attemptError) {
-        const unknownField = getUnknownFieldName(attemptError);
-        if (!unknownField || unknownField === "events") {
+        if (!shouldTryAlternateEventsQuery(attemptError)) {
           throw attemptError;
         }
         lastError = attemptError;
