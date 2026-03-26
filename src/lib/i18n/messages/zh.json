@@ -2,7 +2,7 @@
   "nav": {
     "home": "主頁",
     "about": "關於我們",
-    "calendar": "活動日歷",
+    "calendar": "活動日暦",
     "prayer": "禱告室",
     "ministries": "BRC事工",
     "trainings": "門徒訓練",
@@ -247,7 +247,7 @@
     "back": "← 返回"
   },
   "calendar": {
-    "title": "事工活動日歷",
+    "title": "事工活動日暦",
     "desc": "查看即將舉行的活動，並根據日期查找詳細安排。",
     "selectedDate": "選擇日期",
     "empty": "今天沒有安排的事工或活動。",
@@ -278,7 +278,7 @@
   },
   "pages": {
     "audio": "音訊庫",
-    "calendar": "事工活動日歷",
+    "calendar": "事工活動日暦",
     "contact": "聯繫我們",
     "donation": "奉獻支持",
     "prayer": "禱告室",
