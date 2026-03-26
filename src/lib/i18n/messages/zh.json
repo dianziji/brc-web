@@ -13,7 +13,7 @@
   "navMobile": {
     "home": "主頁",
     "about": "關於",
-    "calendar": "日曆",
+    "calendar": "日暦",
     "prayer": "禱告",
     "ministries": "事工",
     "trainings": "訓練"
@@ -49,7 +49,7 @@
   "home": {
     "hero": {
       "title": "伯特利中心",
-      "subtitle": "祷告复兴·更新生命·服事列国",
+      "subtitle": "禱告復興·更新生命·服事列國",
       "ctaPrimary": "關於我們",
       "ctaSecondary": "奉獻支持",
       "scrollDownAria": "滑動到下一區塊"
@@ -263,7 +263,7 @@
     "archiveTitle": "活動歸檔",
     "archiveDesc": "查看已結束活動，並持續支持相關事工。",
     "archiveEmpty": "目前尚無歸檔活動。",
-    "backToCalendar": "返回活動日曆",
+    "backToCalendar": "返回活動日暦",
     "summaryFallback": "活動詳情將稍後更新。",
     "registerUnavailable": "報名資訊將稍後公布。",
     "registerCta": "前往報名",
@@ -299,11 +299,11 @@
     "digitalTitle": "線上轉賬",
     "paypal": "Paypal：brc@bethelrc.org",
     "zelle": "Zelle：brc@bethelrc.org",
-    "wire": "Wire Transfer：brc@bethelrc.org（請來信索取Wire Transfer的账户詳情）",
+    "wire": "Wire Transfer：brc@bethelrc.org（請來信索取 Wire Transfer 的帳戶詳情）",
     "notesTitle": "奉獻注意事項",
     "notes": [
       "使用信用卡/Paypal 捐款會產生 2-3% 手續費。",
-      "請在備注中注明奉獻支持的具體事工。"
+      "請在備註中註明奉獻支持的具體事工。"
     ],
     
     "disclaimer": "您的奉獻是基於以下理解：伯特利中心對所有奉獻款項的使用擁有完全的酌情權與控制權。"
@@ -318,7 +318,7 @@
         "detail1": "形式：Zoom 線上 24 小時不間斷禱告會",
         "detail2": "基準時間：紐約美東時間（EST）",
         "cta1": "加入 Zoom 禱告會",
-        "cta2": "祷告会细节",
+        "cta2": "禱告會細節",
         "cta3": "目前已經認領時段列表",
         "cta4": "",
         "cta5": "",
@@ -330,7 +330,7 @@
         "detail1": "內容：本周專題分享及禱告焦點",
         "detail2": "入口：點擊連結查看本周專題分享及禱告焦點",
         "cta1": "加入 Zoom 禱告會",
-        "cta2": "晨禱加入方式具体信息",
+        "cta2": "晨禱加入方式具體資訊",
         "cta3": "",
         "cta4": "點擊查看本周專題分享及禱告焦點",
         "cta5": "",
@@ -342,7 +342,7 @@
         "detail1": "時間：03/17 週二晚美東時間晚上 8 點\n03/17 週二下午美西 5 點\n03/18 週三早北京時間 8 點",
         "detail2": "內容：簡單宣教分享、祝福差遣禱告與彼此代禱",
         "cta1": "加入 Zoom 禱告會",
-        "cta2": "祷告会细节",
+        "cta2": "禱告會細節",
         "cta3": "",
         "cta4": "",
         "cta5": "",
