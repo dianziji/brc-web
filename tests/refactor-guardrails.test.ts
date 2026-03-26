@@ -42,7 +42,7 @@ test("donation page uses donation adapter instead of hardcoded wp url", () => {
   const donationPage = read("src/app/[locale]/(site)/donation/page.tsx");
   assert.ok(donationPage.includes('from "@/lib/donation"'));
   assert.ok(donationPage.includes("getDonationPortalConfig"));
-  assert.ok(!donationPage.includes("https://newbethelrc.org/donations/donation-form/"));
+  assert.ok(!donationPage.includes("https://cms.bethelrc.org/donations/donation-form/"));
 });
 
 test("all _blank links use noopener noreferrer", () => {

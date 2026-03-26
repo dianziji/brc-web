@@ -1,8 +1,8 @@
 import type { DonationLocale } from "@/lib/donation/types";
 
 export const DONATION_PAGE_URLS = {
-  zh: "https://newbethelrc.org/donation-zh/",
-  en: "https://newbethelrc.org/donation-en/",
+  zh: "https://cms.bethelrc.org/donation-zh/",
+  en: "https://cms.bethelrc.org/donation-en/",
 } as const satisfies Record<DonationLocale, string>;
 
 export function getDonationPageUrl(locale: DonationLocale): string {

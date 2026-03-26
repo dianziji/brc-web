@@ -11,7 +11,7 @@ type HomeContactFormProps = {
   submitLabel: string;
 };
 
-const CONTACT_EMAIL = "info@bethelrc.org";
+const CONTACT_EMAIL = "brc@bethelrc.org";
 
 export default function HomeContactForm({
   locale,

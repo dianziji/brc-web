@@ -104,3 +104,76 @@ test("events fallback keeps localized summary fields when schema uses mixed casi
   assert.deepEqual(event.relatedMinistrySlugs, ["young-adult"]);
   assert.equal(event.image, "https://example.org/cover.jpg");
 });
+
+test("events fallback retries alternate query when WordPress returns HTTP 500", async () => {
+  process.env.WP_GRAPHQL_URL = "https://example.org/graphql";
+
+  const seenQueries: string[] = [];
+
+  setFetch(async (_input, init) => {
+    const payload = JSON.parse(String(init?.body || "{}")) as { query?: string };
+    seenQueries.push(payload.query || "");
+
+    if (seenQueries.length === 1) {
+      return new Response(
+        JSON.stringify({
+          code: "internal_server_error",
+          message: "<p>There has been a critical error on this website.</p>",
+          data: { status: 500 },
+          additional_errors: [],
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    return Response.json({
+      data: {
+        events: {
+          nodes: [
+            {
+              id: "post:2",
+              slug: "http-500-fallback-event",
+              status: "publish",
+              date: "2026-04-01T09:00:00",
+              title: "HTTP 500 Fallback Event",
+              featuredImage: null,
+              eventFields: {
+                titleEn: "HTTP 500 Fallback Event",
+                titleZh: null,
+                summaryEn: "Fallback after internal server error",
+                summaryZh: null,
+                startAt: "2026-04-01T09:00:00+00:00",
+                endAt: null,
+                time: null,
+                location: "Basking Ridge",
+                archiveAt: null,
+                lifecycleStatus: "PUBLISHED",
+                registrationMode: null,
+                registrationUrl: null,
+                paymentMode: null,
+                paymentAmount: null,
+                donationLink: null,
+                donationPurposeCode: null,
+                primaryMinistrySlug: null,
+                relatedMinistrySlugs: null,
+                coverImage: null,
+              },
+            },
+          ],
+        },
+      },
+    });
+  });
+
+  const result = await getAllEventsSafeResult();
+
+  assert.equal(result.degraded, false);
+  assert.equal(result.items.length, 1);
+  assert.equal(seenQueries.length, 2, "expected full query to retry once with an alternate query after HTTP 500");
+  assert.match(seenQueries[0], /EventsListFull/);
+  assert.match(seenQueries[1], /EventsListFullMixed/);
+  assert.equal(result.items[0]?.id, "http-500-fallback-event");
+});

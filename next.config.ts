@@ -4,20 +4,12 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "newbethelrc.org",
+        protocol: "https",
+        hostname: "cms.bethelrc.org",
       },
       {
         protocol: "https",
-        hostname: "newbethelrc.org",
-      },
-      {
-        protocol: "http",
-        hostname: "www.newbethelrc.org",
-      },
-      {
-        protocol: "https",
-        hostname: "www.newbethelrc.org",
+        hostname: "archive.bethelrc.org",
       },
       {
         protocol: "http",
@@ -43,8 +35,13 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "**.wp.com",
       },
+
     ],
   },
 };
+
+
+
+
 
 export default nextConfig;
