@@ -285,8 +285,8 @@
   },
   "donation": {
     "title": "Give",
-    "subtitle": "Bethel Renewal Center is an IRS 501(c)(3) non-profit organization. Donations are tax deductible.",
-    "orgNote": "『Bethel Renewal Center』 is an IRS 501(c)(3) Non-Profit Organization. Donations are Tax Deductible.",
+    "subtitle": "Bethel Renewal Center is an IRS 501(c)(3) non-profit organization. \n Donations are tax deductible to the extent allowed by law.",
+    "orgNote": "『Bethel Renewal Center』 is an IRS 501(c)(3) Non-Profit Organization. \n Donations are tax deductible to the extent allowed by law.",
     "buttonLabel": "Donate Now",
     "verseTitle": "Scripture on Giving",
     "verseText": "Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.",

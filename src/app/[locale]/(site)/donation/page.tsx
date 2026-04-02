@@ -41,7 +41,7 @@ export default async function DonationPage({
         <div className="absolute inset-0 flex items-center justify-center text-center px-6 pt-20 md:pt-32">
           <div className="max-w-3xl space-y-4">
             <h1 className="text-3xl font-semibold md:text-5xl">{messages.donation.title}</h1>
-            <p className="text-sm text-dk-title-token md:text-base">
+            <p className="text-sm text-dk-title-token md:text-base whitespace-pre-line">
               {messages.donation.subtitle}
             </p>
           </div>
