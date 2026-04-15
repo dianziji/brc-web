@@ -12,7 +12,7 @@ import { WpGraphQLRequestError, wpgraphql } from "@/lib/wpgraphql";
 const EVENT_REVALIDATE_SECONDS = 60;
 const FALLBACK_EVENT_IMAGE = "/images/hero.jpeg";
 const DRAFT_STATUSES = new Set<EventLifecycleStatus>(["DRAFT"]);
-const ARCHIVED_STATUSES = new Set<EventLifecycleStatus>(["ARCHIVED"]);
+const ARCHIVED_STATUSES = new Set<EventLifecycleStatus>(["ARCHIVED", "ENDED"]);
 const DEFAULT_EVENT_DISPLAY_TIME_ZONE = "America/New_York";
 const USE_WALL_CLOCK_EVENT_TIME = process.env.EVENT_TIME_DISPLAY_MODE?.trim().toLowerCase() !== "timezone";
 
@@ -1529,11 +1529,13 @@ function inferLifecycleStatus(item: Pick<CalendarEventItem, "lifecycleStatus" | 
   return "PUBLISHED";
 }
 
-export function isArchivedEvent(item: Pick<CalendarEventItem, "lifecycleStatus" | "archiveAt">): boolean {
-  const status = inferLifecycleStatus({ lifecycleStatus: item.lifecycleStatus, archiveAt: item.archiveAt, endAt: undefined });
+export function isArchivedEvent(item: Pick<CalendarEventItem, "lifecycleStatus" | "archiveAt" | "endAt">): boolean {
+  const status = inferLifecycleStatus(item);
   if (ARCHIVED_STATUSES.has(status)) return true;
   const archiveAtDate = parseDate(item.archiveAt);
-  return Boolean(archiveAtDate && archiveAtDate.getTime() <= Date.now());
+  if (archiveAtDate && archiveAtDate.getTime() <= Date.now()) return true;
+  const endAtDate = parseDate(item.endAt);
+  return Boolean(endAtDate && endAtDate.getTime() < Date.now());
 }
 
 function isVisibleOnSite(item: CalendarEventItem): boolean {

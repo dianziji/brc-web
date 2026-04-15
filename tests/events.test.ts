@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { getAllEventsSafeResult } from "../src/lib/events.ts";
+import { getAllEventsSafeResult, isArchivedEvent } from "../src/lib/events.ts";
 
 const ORIGINAL_FETCH = globalThis.fetch;
 const ORIGINAL_URL = process.env.WP_GRAPHQL_URL;
@@ -176,4 +176,26 @@ test("events fallback retries alternate query when WordPress returns HTTP 500", 
   assert.match(seenQueries[0], /EventsListFull/);
   assert.match(seenQueries[1], /EventsListFullMixed/);
   assert.equal(result.items[0]?.id, "http-500-fallback-event");
+});
+
+test("ended events are treated as archived once endAt has passed", () => {
+  assert.equal(
+    isArchivedEvent({
+      lifecycleStatus: "PUBLISHED",
+      archiveAt: undefined,
+      endAt: "2020-01-01T00:00:00Z",
+    }),
+    true
+  );
+});
+
+test("events explicitly marked ENDED are treated as archived", () => {
+  assert.equal(
+    isArchivedEvent({
+      lifecycleStatus: "ENDED",
+      archiveAt: undefined,
+      endAt: undefined,
+    }),
+    true
+  );
 });
