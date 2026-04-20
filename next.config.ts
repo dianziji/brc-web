@@ -38,6 +38,31 @@ const nextConfig: NextConfig = {
 
     ],
   },
+
+  async redirects() {
+    return [
+      {
+        source: "/zh/index.php/:path*",
+        destination: "https://archive.bethelrc.org/zh/index.php/:path*",
+        permanent: true,
+      },
+      {
+        source: "/index.php/:path*",
+        destination: "https://archive.bethelrc.org/index.php/:path*",
+        permanent: true,
+      },
+      {
+        source: "/images/:path*",
+        destination: "https://archive.bethelrc.org/images/:path*",
+        permanent: true,
+      },
+      {
+        source: "/music/:path*",
+        destination: "https://archive.bethelrc.org/music/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 
