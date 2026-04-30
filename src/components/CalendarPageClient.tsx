@@ -170,7 +170,7 @@ export default function CalendarPageClient({
             <div className="relative h-[260px] w-full sm:h-[320px] md:h-[360px]">
               {activeSlide ? (
                 <>
-                  <Image src={activeSlide.image} alt={activeTitle} fill className="object-cover object-center" />
+                  <Image src={activeSlide.image} alt={activeTitle} fill sizes="100vw" className="object-cover object-center" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 </>
               ) : (

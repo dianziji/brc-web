@@ -10,7 +10,7 @@ import { resolveCmsImageUrl } from "@/lib/cms-media";
 import { WpGraphQLRequestError, wpgraphql } from "@/lib/wpgraphql";
 
 const EVENT_REVALIDATE_SECONDS = 60;
-const FALLBACK_EVENT_IMAGE = "/images/hero.jpeg";
+const FALLBACK_EVENT_IMAGE = "/assets/images/hero.jpeg";
 const DRAFT_STATUSES = new Set<EventLifecycleStatus>(["DRAFT"]);
 const ARCHIVED_STATUSES = new Set<EventLifecycleStatus>(["ARCHIVED", "ENDED"]);
 const DEFAULT_EVENT_DISPLAY_TIME_ZONE = "America/New_York";

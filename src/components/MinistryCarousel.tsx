@@ -87,7 +87,7 @@ export default function MinistryCarousel({ slides, detailsLabel }: MinistryCarou
               direction === 1 ? "carousel-slide-exit-to-left" : "carousel-slide-exit-to-right"
             }`}
           >
-            <Image src={previous.src} alt="" fill className="object-cover object-center" />
+            <Image src={previous.src} alt="" fill sizes="100vw" className="object-cover object-center" />
             <div className="media-overlay-strong absolute inset-0" />
             <div className="absolute bottom-6 left-6 right-6 text-white">
               <div className="font-display text-h2-token font-semibold">{previous.title}</div>
@@ -101,7 +101,7 @@ export default function MinistryCarousel({ slides, detailsLabel }: MinistryCarou
             previous ? (direction === 1 ? "carousel-slide-enter-from-right" : "carousel-slide-enter-from-left") : ""
           }`}
         >
-          <Image src={active.src} alt={active.title} fill className="object-cover object-center" />
+          <Image src={active.src} alt={active.title} fill sizes="100vw" className="object-cover object-center" />
           <div className="media-overlay-strong absolute inset-0" />
           <div className="absolute bottom-6 left-6 right-6 text-white">
             <div className="font-display text-h2-token font-semibold">{active.title}</div>

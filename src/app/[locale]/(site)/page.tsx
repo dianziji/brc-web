@@ -81,7 +81,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       title,
       desc: excerpt(summary, normalizedLocale === "en" ? 110 : 52),
       href,
-      imageSrc: item.homeImage ?? "/images/discipleship.png",
+      imageSrc: item.homeImage ?? "/assets/images/discipleship.png",
     };
   });
   const todayKey = toTodayKey();
@@ -285,7 +285,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 const meta = [formatEventDateTimeRange(item), item.location].filter((value) => value && value.length > 0).join(" · ");
                 return (
                   <article key={item.id} className="card-overlay-card relative min-h-[160px] min-w-[88%] snap-start overflow-hidden">
-                    <Image src={item.image} alt={title} fill className="object-cover object-center" />
+                    <Image src={item.image} alt={title} fill sizes="88vw" className="object-cover object-center" />
                     <div className="media-overlay-strong absolute inset-0" />
                     <div className="absolute inset-x-0 bottom-0 space-y-1.5 px-4 pb-4 text-center text-white">
                       <div className="text-sm font-semibold">{title}</div>
@@ -316,7 +316,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <div className="mt-2.5 grid grid-cols-3 gap-2" aria-label={messages.home.trainings.title}>
             {featuredTrainings.map((item) => (
               <a key={item.id} href={item.href} className="card-overlay-card relative block min-h-[118px] overflow-hidden">
-                <Image src={item.imageSrc} alt={item.title} fill className="object-cover object-center" />
+                <Image src={item.imageSrc} alt={item.title} fill sizes="33vw" className="object-cover object-center" />
                 <div className="media-overlay-strong absolute inset-0" />
                 <div className="absolute inset-x-0 bottom-0 px-2 pb-2 text-center text-white">
                   <div className="text-xs font-semibold leading-tight">{item.title}</div>
@@ -451,7 +451,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 return (
                   <article key={item.id} className="card-base card-base-hover overflow-hidden">
                     <div className="card-media-top relative h-44 w-full">
-                      <Image src={item.image} alt={title} fill className="object-cover object-center" />
+                      <Image src={item.image} alt={title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover object-center" />
                     </div>
                     <div className="space-y-2 p-5">
                       <div className="text-h3-token text-heading-token font-semibold">{title}</div>
@@ -485,7 +485,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             {featuredTrainings.map((item) => (
               <div key={item.id} className="card-base card-base-hover group p-0">
                 <div className="card-media-top relative h-40 w-full overflow-hidden rounded-t-[var(--radius-card)]">
-                  <Image src={item.imageSrc} alt={item.title} fill className="object-cover object-center" />
+                  <Image src={item.imageSrc} alt={item.title} fill sizes="(max-width: 768px) 33vw, 33vw" className="object-cover object-center" />
                 </div>
                 <div className="px-4 pb-4 pt-4">
                 <div className="text-h3-token text-heading-token font-semibold">{item.title}</div>
