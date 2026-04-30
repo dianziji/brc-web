@@ -60,7 +60,7 @@ export default function ArchiveScene3D({ items, detailsLabel, locale }: ArchiveS
   const viewRef = useRef<HTMLDivElement | null>(null);
   const camRef = useRef<HTMLDivElement | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const fallbackSrc = "/images/logo.png";
+  const fallbackSrc = "/assets/images/logo.png";
   const fallbackThumbClass = "h-32 w-full rounded-t-2xl bg-surface-a object-contain p-3";
 
   const cards = useMemo(() => items.slice(0, 50), [items]);

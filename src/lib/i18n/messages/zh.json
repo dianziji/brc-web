@@ -28,7 +28,7 @@
   "footer": {
     "title": "Bethel Renewal Center",
     "subtitle": "伯特利中心",
-    "location": "Lake Hiawatha, NJ 07034",
+    "location": "P.O.Box 186, Lake Hiawatha, NJ 07034",
     "email": "brc@bethelrc.org",
     "phone": "(862)-261-0116",
     "contactCta": "聯繫我們",
@@ -130,7 +130,7 @@
     },
     "contact": {
       "title": "聯繫我們",
-      "address": "地址：Bethel Renewal Center, Lake Hiawatha, NJ",
+      "address": "地址：Bethel Renewal Center, P.O.Box 186, Lake Hiawatha, NJ",
       "email": "郵箱：brc@bethelrc.org",
       "phone": "電話：(862)-261-0116",
       "namePlaceholder": "姓名",

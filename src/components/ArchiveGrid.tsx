@@ -88,7 +88,7 @@ export default function ArchiveGrid({ items, detailsLabel, locale }: ArchiveGrid
       setOverlay(null);
     }, 220);
   };
-  const fallbackSrc = "/images/logo.png";
+  const fallbackSrc = "/assets/images/logo.png";
   const fallbackThumbClass = "h-20 w-full rounded-md bg-surface-a object-contain p-2";
   const fallbackHeroClass = "h-56 w-full rounded-t-2xl bg-surface-a object-contain p-8";
 

@@ -19,9 +19,11 @@ type AppImageProps = AppImageWithMedia | AppImageWithSrc;
 export default function AppImage(props: AppImageProps) {
   if ("mediaKey" in props && props.mediaKey) {
     const { mediaKey, locale = "zh", alt, ...rest } = props;
-    return <Image src={getMediaSrc(mediaKey)} alt={alt || getMediaAlt(mediaKey, locale)} {...rest} />;
+    const imageProps = { ...rest, sizes: rest.fill ? (rest.sizes ?? "100vw") : rest.sizes };
+    return <Image src={getMediaSrc(mediaKey)} alt={alt || getMediaAlt(mediaKey, locale)} {...imageProps} />;
   }
 
   const { src, alt, ...rest } = props;
-  return <Image src={src} alt={alt} {...rest} />;
+  const imageProps = { ...rest, sizes: rest.fill ? (rest.sizes ?? "100vw") : rest.sizes };
+  return <Image src={src} alt={alt} {...imageProps} />;
 }

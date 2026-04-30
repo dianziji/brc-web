@@ -119,7 +119,7 @@ export default function Header({ locale, messages }: HeaderProps) {
       <div className="section-container-medium flex items-center justify-between gap-3 py-2 md:py-5">
         <Link href={withLocale(locale, "/")} className="flex items-center gap-1.5 md:gap-2">
           <div className="relative -mr-2 h-[48px] w-[75px] md:-mr-1 md:h-[64px] md:w-24">
-            <Image src={headerLogoSrc} alt="BRC logo" fill className="object-contain" />
+            <Image src={headerLogoSrc} alt="BRC logo" fill sizes="(max-width: 768px) 75px, 96px" className="object-contain" />
           </div>
           <div className="leading-tight">
             <div className={`text-[13px] font-semibold md:text-base ${useLightText ? "text-white" : "text-heading-token"}`}>

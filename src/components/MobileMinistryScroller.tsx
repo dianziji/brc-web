@@ -19,7 +19,7 @@ export default function MobileMinistryScroller({ slides }: MobileMinistryScrolle
       >
         {slides.map((item) => (
           <a key={`${item.href}-${item.title}`} href={item.href} className="card-overlay-card relative min-h-[170px] min-w-[92%] snap-start overflow-hidden">
-            <Image src={item.src} alt={item.title} fill className="object-cover object-center" />
+            <Image src={item.src} alt={item.title} fill sizes="92vw" className="object-cover object-center" />
             <div className="media-overlay-strong absolute inset-0" />
             <div className="absolute inset-x-0 bottom-0 space-y-1.5 px-4 pb-4 text-center text-white">
               <div className="font-display text-h3-token font-semibold">{item.title}</div>

@@ -29,14 +29,14 @@ function getLeadLetter(primary: string) {
 
 function getBoardImageForMember(memberName: string): string | null {
   const normalized = memberName.toLowerCase();
-  if (normalized.includes("paul huang") || normalized.includes("黃明發")) return "/images/board/Paul Huang.png";
-  if (normalized.includes("john yu") || normalized.includes("郁維強")) return "/images/board/John Yu.png";
-  if (normalized.includes("peter chou") || normalized.includes("周彼得")) return "/images/board/Peter Chou.png";
-  if (normalized.includes("weyl wang") || normalized.includes("王惠國")) return "/images/board/Weyl Wang.png";
-  if (normalized.includes("olive chiu") || normalized.includes("邱燕惠")) return "/images/board/Olive Chiu.png";
-  if (normalized.includes("shaow lin") || normalized.includes("林孝本")) return "/images/board/Shaow Lin.png";
+  if (normalized.includes("paul huang") || normalized.includes("黃明發")) return "/assets/images/board/Paul Huang.png";
+  if (normalized.includes("john yu") || normalized.includes("郁維強")) return "/assets/images/board/John Yu.png";
+  if (normalized.includes("peter chou") || normalized.includes("周彼得")) return "/assets/images/board/Peter Chou.png";
+  if (normalized.includes("weyl wang") || normalized.includes("王惠國")) return "/assets/images/board/Weyl Wang.png";
+  if (normalized.includes("olive chiu") || normalized.includes("邱燕惠")) return "/assets/images/board/Olive Chiu.png";
+  if (normalized.includes("shaow lin") || normalized.includes("林孝本")) return "/assets/images/board/Shaow Lin.png";
   if (normalized.includes("john chang") || normalized.includes("張沅")) {
-    return "/images/board/John Chang.png";
+    return "/assets/images/board/John Chang.png";
   }
   return null;
 }
@@ -207,7 +207,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                         </div>
                       );
                     }
-                    return <Image src={imageSrc} alt={item.name} fill className={getBoardImageClassForMember(item.name)} />;
+                    return <Image src={imageSrc} alt={item.name} fill sizes="(max-width: 640px) 68vw, (max-width: 1024px) 44vw, 24vw" className={getBoardImageClassForMember(item.name)} />;
                   })()}
                 </div>
                 <div className="mt-4 text-center text-lg font-medium">{item.name}</div>
