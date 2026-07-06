@@ -1,0 +1,48 @@
+name: Deploy to Vercel
+
+# Triggers a Vercel Deploy Hook so deployments work on the free (Hobby) plan
+# without the git-author needing to be a member of the Vercel team.
+#
+# Setup (one-time):
+#   1. Vercel → project → Settings → Git → Deploy Hooks → create a hook for the
+#      `main` branch and copy its URL.
+#   2. GitHub → repo Settings → Secrets and variables → Actions → New repository
+#      secret named VERCEL_DEPLOY_HOOK_URL with that URL as the value.
+#
+# After that, every successful Quality run on main triggers a production deploy.
+# You can also deploy on demand from the Actions tab (Run workflow).
+
+on:
+  # Deploy only after the Quality workflow succeeds on main.
+  workflow_run:
+    workflows: ["Quality"]
+    branches: [main]
+    types: [completed]
+  # Allow manual deploys from the Actions tab.
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # Skip when Quality failed; always run for manual dispatch.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    steps:
+      - name: Trigger Vercel deploy hook
+        env:
+          DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$DEPLOY_HOOK_URL" ]; then
+            echo "::error::Secret VERCEL_DEPLOY_HOOK_URL is not set. Add it under Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+          echo "Triggering Vercel deploy hook..."
+          http_code=$(curl -sS -o /dev/null -w "%{http_code}" -X POST "$DEPLOY_HOOK_URL")
+          echo "Vercel responded with HTTP $http_code"
+          if [ "$http_code" -lt 200 ] || [ "$http_code" -ge 300 ]; then
+            echo "::error::Deploy hook request failed (HTTP $http_code)"
+            exit 1
+          fi
+          echo "Deploy triggered successfully."
