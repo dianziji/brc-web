@@ -174,6 +174,8 @@
       { "name": "林孝本 弟兄", "role": "董事" },
       { "name": "張沅 弟兄", "role": "董事" }
     ],
+    "financialsTitle": "財務報表",
+    "financialsBody": "BRC 是符合 IRS 501(c)(3) 條款的非營利機構，以下為經獨立會計師審編的年度財務報表。",
     "joinTitle": "與我們同行",
     "joinBody": "透過合作、代禱與奉獻，一起參與城市與列國的更新。",
     "joinCta": "奉獻支持"

@@ -1,6 +1,7 @@
 import AppImage from "@/components/AppImage";
 import AlignWithGodSection from "@/components/AlignWithGodSection";
 import { getMessages, normalizeLocale, withLocale } from "@/lib/i18n";
+import { FINANCIAL_REPORTS } from "@/content/about/financial-reports";
 import Image from "next/image";
 
 function splitFixedLines(text: string): string[] {
@@ -217,6 +218,38 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           </div>
         </div>
       </section>
+
+      {FINANCIAL_REPORTS.length > 0 && (
+        <section className="bg-surface-b section-rhythm-divider">
+          <div className="section-container-medium section-block-tight">
+            <h2 className="text-3xl font-semibold">{messages.about.financialsTitle}</h2>
+            <p className="mt-2 max-w-2xl text-sm text-body-color-token">{messages.about.financialsBody}</p>
+            <ul className="mt-6 space-y-3">
+              {[...FINANCIAL_REPORTS]
+                .sort((a, b) => b.year - a.year)
+                .map((report) => {
+                  const label =
+                    (normalizedLocale === "en" ? report.titleEn : report.titleZh) ||
+                    (normalizedLocale === "en"
+                      ? `${report.year} Financial Statement (PDF)`
+                      : `${report.year} 年度財務報表（PDF）`);
+                  return (
+                    <li key={report.year}>
+                      <a
+                        className="text-body-color-token underline underline-offset-4 hover:text-heading-token"
+                        href={report.pdfUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {label}
+                      </a>
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
+        </section>
+      )}
 
       <section className="bg-stats-token">
         <div className="section-container-medium section-block-tight text-white">

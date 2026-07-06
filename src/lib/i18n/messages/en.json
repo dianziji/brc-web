@@ -173,6 +173,8 @@
       { "name": "Shaow Lin", "role": "Board Director" },
       { "name": "John Chang", "role": "Board Director" }
     ],
+    "financialsTitle": "Financial Statements",
+    "financialsBody": "BRC is an IRS 501(c)(3) nonprofit. Below are our annual financial statements with the independent accountant's compilation report.",
     "joinTitle": "Walk With Us",
     "joinBody": "Partner through prayer and giving to renew cities and nations.",
     "joinCta": "Give"
