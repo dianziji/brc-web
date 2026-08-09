@@ -9,6 +9,16 @@ import { sanitizeRichHtml } from "@/lib/sanitize-html";
 
 export const revalidate = 60;
 
+// Ministries whose detail page links into an internal BRC section (in addition to
+// any CMS-managed external website). Keyed by ministry slug.
+const INTERNAL_MINISTRY_CTAS: Record<string, { href: string; labelZh: string; labelEn: string }> = {
+  "crown-ministry": {
+    href: "/crown",
+    labelZh: "進入冠冕理財專區",
+    labelEn: "Explore the Crown section",
+  },
+};
+
 function sortEventsByDateAndId<T extends { date: string; id: string }>(items: T[]): T[] {
   return [...items].sort((a, b) => {
     const dateCompare = a.date.localeCompare(b.date);
@@ -174,6 +184,7 @@ export default async function Page({
   });
   const safeSummaryHtml = sanitizeRichHtml(summary);
   const websiteUrl = data.fields.externalUrl ?? "";
+  const internalCta = INTERNAL_MINISTRY_CTAS[slug] ?? null;
   const heroSrc = resolveCmsImageUrl(data.fields.heroImage?.node?.sourceUrl);
   const heroAlt = data.fields.heroImage?.node?.altText || title;
   const todayKey = toTodayKey();
@@ -207,6 +218,16 @@ export default async function Page({
                 </section>
 
                 <div className="flex flex-wrap gap-3 pt-1">
+                  {internalCta ? (
+                    <Link
+                      href={withLocale(normalizedLocale, internalCta.href)}
+                      className="inline-flex items-center gap-2 rounded-full bg-[var(--accent-strong)] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
+                    >
+                      <span className="text-xs">→</span>
+                      <span>{normalizedLocale === "en" ? internalCta.labelEn : internalCta.labelZh}</span>
+                    </Link>
+                  ) : null}
+
                   {websiteUrl.length > 0 ? (
                     <a
                       href={websiteUrl}

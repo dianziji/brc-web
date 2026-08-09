@@ -85,6 +85,72 @@ export const mediaRegistry = {
     src: "/assets/images/amaury-gutierrez-rzmQOng8h8I-unsplash.jpg",
     alt: { zh: "祝福差遣禱告會", en: "Blessing and sending prayer meeting" },
   },
+  // Crown ministry — reuses an existing background for now; swap the src when a
+  // dedicated Crown hero image is added under /assets/images/crown/.
+  crownHero: {
+    src: "/assets/images/mission&vision.jpeg",
+    alt: { zh: "冠冕北美華文外展事工", en: "Crown North American Chinese Outreach Ministry" },
+  },
+  crownLogo: {
+    src: "/assets/images/crown/crown-logo.jpg",
+    alt: { zh: "冠冕財務事工標誌", en: "Crown Financial Ministries logo" },
+  },
+  crownBooksBanner: {
+    src: "/assets/images/crown/books-banner.jpg",
+    alt: { zh: "冠冕好書", en: "Crown recommended books" },
+  },
+  crownBookMoneyMarriage: {
+    src: "/assets/images/crown/book-money-marriage.jpg",
+    alt: { zh: "《金錢與婚姻─蒙福之道》書封", en: "Money and Marriage — God's Way (book cover)" },
+  },
+  crownBookFinancialFreedom12: {
+    src: "/assets/images/crown/book-financial-freedom-12.png",
+    alt: { zh: "《享受財務自由的十二堂必修課》書封", en: "Twelve Lessons to Enjoy Financial Freedom (book cover)" },
+  },
+  crownBook2350: {
+    src: "/assets/images/crown/book-2350.jpg",
+    alt: { zh: "《2350－聖經財務管理解密》書封", en: "2350: Biblical Financial Management Decoded (book cover)" },
+  },
+  crownBookStrengthFish: {
+    src: "/assets/images/crown/book-strength-and-fish.jpg",
+    alt: { zh: "《得力有魚 9'59\" 靈修計劃》書封", en: "Strength and Fish 9'59\" Devotional Plan (book cover)" },
+  },
+  crownBookAftershock: {
+    src: "/assets/images/crown/book-surviving-aftershock.jpg",
+    alt: { zh: "《在餘震後存活》書封", en: "Surviving the Aftershock (book cover)" },
+  },
+  crownBookRootOfRiches: {
+    src: "/assets/images/crown/book-root-of-riches.jpg",
+    alt: { zh: "《財富之根》書封", en: "The Root of Riches (book cover)" },
+  },
+  crownBookBusinessDvd: {
+    src: "/assets/images/crown/book-business-dvd.jpg",
+    alt: { zh: "《經商有道 DVD：合神心意的經營管理》", en: "Business by the Book DVD (cover)" },
+  },
+  crownBookYourMoneyCounts: {
+    src: "/assets/images/crown/book-your-money-counts.jpg",
+    alt: { zh: "《理財贏家》書封", en: "Your Money Counts (book cover)" },
+  },
+  crownArticleFinancialDestiny: {
+    src: "/assets/images/crown/article-financial-destiny.jpeg",
+    alt: { zh: "如何反轉「財務命運」？", en: "How to reverse your financial destiny?" },
+  },
+  crownMaterialFinancialStudent: {
+    src: "/assets/images/crown/material-sg3.jpg",
+    alt: { zh: "理財有道 學員手冊", en: "Biblical Financial Study — Student Manual" },
+  },
+  crownMaterialFinancialLeader: {
+    src: "/assets/images/crown/material-sg4.jpg",
+    alt: { zh: "理財有道 小組長手冊", en: "Biblical Financial Study — Leader's Guide" },
+  },
+  crownMaterialBusinessStudent: {
+    src: "/assets/images/crown/material-sg1.jpg",
+    alt: { zh: "經營有道 學員手冊", en: "Business by the Book — Student Manual" },
+  },
+  crownMaterialBusinessLeader: {
+    src: "/assets/images/crown/material-sg2.jpg",
+    alt: { zh: "經商有道 小組長手冊", en: "Business by the Book — Leader's Guide" },
+  },
 } as const satisfies Record<string, MediaItem>;
 
 export type MediaKey = keyof typeof mediaRegistry;

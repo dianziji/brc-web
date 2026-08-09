@@ -28,6 +28,7 @@ export default function Header({ locale, messages }: HeaderProps) {
     "/ministries",
     "/ministries/archive",
     "/discipleship",
+    "/crown",
   ]);
   const ministryHeroPaths = new Set([
     "/ministries/missions",
