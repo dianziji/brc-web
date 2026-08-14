@@ -180,12 +180,16 @@
       "Renewed Heart and Mind",
       "Christ Centered Lifestyle"
     ],
+    "foundersTitle": "BRC Founders",
+    "founders": [
+      { "name": "Paul Huang", "role": "Founder / Board Chair" },
+      { "name": "John Yu", "role": "Founder" },
+      { "name": "Peter Chou", "role": "Founder" }
+    ],
     "teamTitle": "BRC Board",
     "teamCta": "View ministry details",
     "team": [
-      { "name": "Paul Huang", "role": "Founder / Board Chair" },
-      { "name": "John Yu", "role": "Founder" },
-      { "name": "Peter Chou", "role": "Founder" },
+      { "name": "Paul Huang", "role": "Board Chair" },
       { "name": "Weyl Wang", "role": "Board Director" },
       { "name": "Olive Chiu", "role": "Board Director" },
       { "name": "Shaow Lin", "role": "Board Director" },

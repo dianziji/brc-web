@@ -181,12 +181,16 @@
       "Renewed Heart and Mind 心意更新而變化",
       "Christ Centered Lifestyle 以基督為中心的生活方式"
     ],
+    "foundersTitle": "BRC 創辦人",
+    "founders": [
+      { "name": "黃明發 弟兄", "role": "創辦人／董事會主席" },
+      { "name": "郁維強 弟兄", "role": "創辦人" },
+      { "name": "周彼得 弟兄", "role": "創辦人" }
+    ],
     "teamTitle": "BRC董事會",
     "teamCta": "查看事工詳情",
     "team": [
-      { "name": "黃明發 弟兄", "role": "創辦人／董事會主席" },
-      { "name": "郁維強 弟兄", "role": "創辦人" },
-      { "name": "周彼得 弟兄", "role": "創辦人" },
+      { "name": "黃明發 弟兄", "role": "董事會主席" },
       { "name": "王惠國 弟兄", "role": "董事" },
       { "name": "邱燕惠 姊妹", "role": "董事" },
       { "name": "林孝本 弟兄", "role": "董事" },

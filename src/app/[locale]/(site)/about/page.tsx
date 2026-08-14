@@ -54,7 +54,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const { locale } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
-  const boardSlotCount = 7;
+  const boardSlotCount = 5;
   const valuesLead =
     normalizedLocale === "en"
       ? "Eight commitments that shape how we build people, teams, and mission."
@@ -70,6 +70,35 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       role: boardPlaceholderRole,
     };
   });
+  const founders = messages.about.founders;
+
+  const renderMemberCard = (item: { name: string; role: string }, index: number, className = "") => (
+    <div key={`${item.name}-${index}`} className={`group ${className}`.trim()}>
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-dashed border-token bg-surface-b">
+        {(() => {
+          const imageSrc = getBoardImageForMember(item.name);
+          if (!imageSrc) {
+            return (
+              <div className="absolute inset-0 flex items-center justify-center text-sm font-medium tracking-wide text-muted-token">
+                {boardPhotoPlaceholder}
+              </div>
+            );
+          }
+          return (
+            <Image
+              src={imageSrc}
+              alt={item.name}
+              fill
+              sizes="(max-width: 640px) 68vw, (max-width: 1024px) 44vw, 24vw"
+              className={getBoardImageClassForMember(item.name)}
+            />
+          );
+        })()}
+      </div>
+      <div className="mt-4 text-center text-lg font-medium">{item.name}</div>
+      <div className="mt-1 text-center text-sm text-body-color-token">{item.role}</div>
+    </div>
+  );
 
   const acrosticLetters = messages.about.values.map((item) => {
     const { primary } = splitValueLabel(item);
@@ -184,38 +213,24 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </section>
 
-      <section className="section-container-medium section-block-tight">
-        <div className="flex items-end justify-between">
-          <h2 className="text-3xl font-semibold">{messages.about.teamTitle}</h2>
-          <a
-            className="text-sm text-body-color-token underline"
-            href={withLocale(normalizedLocale, "/ministries")}
-          >
-            {messages.about.teamCta}
-          </a>
+      {/* Founders + board share one visual block: normal top padding, no bottom
+          padding, so both rows of people fit in a single viewport. */}
+      <section className="section-container-medium pb-0 pt-7 md:pt-13">
+        <h2 className="text-center text-3xl font-semibold">{messages.about.foundersTitle}</h2>
+        {/* Same 5-column track as the board grid below, so founder cards match
+            the board cards in size; starting at column 2 centers the three of
+            them within the track. */}
+        <div className="mx-auto mt-5 grid w-full grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:max-w-5xl lg:grid-cols-5">
+          {founders.map((item, index) =>
+            renderMemberCard(item, index, index === 0 ? "lg:col-start-2" : ""),
+          )}
         </div>
-        <div className="mt-6 overflow-x-auto pb-2">
-          <div className="flex min-w-full snap-x snap-mandatory gap-2 md:gap-3">
-            {boardMembers.map((item, index) => (
-              <div key={`${item.name}-${index}`} className="group shrink-0 snap-start basis-[68%] sm:basis-[44%] lg:basis-[24%]">
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-dashed border-token bg-surface-b">
-                  {(() => {
-                    const imageSrc = getBoardImageForMember(item.name);
-                    if (!imageSrc) {
-                      return (
-                        <div className="absolute inset-0 flex items-center justify-center text-sm font-medium tracking-wide text-muted-token">
-                          {boardPhotoPlaceholder}
-                        </div>
-                      );
-                    }
-                    return <Image src={imageSrc} alt={item.name} fill sizes="(max-width: 640px) 68vw, (max-width: 1024px) 44vw, 24vw" className={getBoardImageClassForMember(item.name)} />;
-                  })()}
-                </div>
-                <div className="mt-4 text-center text-lg font-medium">{item.name}</div>
-                <div className="mt-1 text-center text-sm text-body-color-token">{item.role}</div>
-              </div>
-            ))}
-          </div>
+      </section>
+
+      <section className="section-container-medium pb-7 pt-6 md:pb-13 md:pt-6">
+        <h2 className="text-center text-3xl font-semibold">{messages.about.teamTitle}</h2>
+        <div className="mx-auto mt-5 grid w-full grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:max-w-5xl lg:grid-cols-5">
+          {boardMembers.map((item, index) => renderMemberCard(item, index))}
         </div>
       </section>
 
