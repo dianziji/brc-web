@@ -2,7 +2,7 @@
   "nav": {
     "home": "Home",
     "about": "About",
-    "calendar": "Calendar",
+    "calendar": "Latest News",
     "prayer": "Prayer Room",
     "ministries": "Ministries",
     "trainings": "Discipleship",
@@ -13,7 +13,7 @@
   "navMobile": {
     "home": "Home",
     "about": "About",
-    "calendar": "Events",
+    "calendar": "News",
     "prayer": "Prayer",
     "ministries": "Ministry",
     "trainings": "Training"
@@ -92,6 +92,23 @@
         { "title": "International Partners Night", "subtitle": "Fri 7:30 PM" }
       ],
       "detailsCta": "See details"
+    },
+    "news": {
+      "title": "Latest News",
+      "cta": "All events",
+      "eventsTitle": "Events & Gatherings",
+      "weeklyTitle": "Weekly Gatherings",
+      "weeklyCta": "Visit the Prayer Room",
+      "detailsCta": "Learn more",
+      "gridView": "List",
+      "calendarView": "Calendar",
+      "empty": "Nothing matches this filter right now",
+      "monthFormat": "{month} {year}",
+      "status": { "registering": "Registering", "ongoing": "Happening now", "upcoming": "Upcoming", "ended": "Ended" },
+      "statusCta": { "registering": "Register now", "ongoing": "Learn more", "upcoming": "Learn more", "ended": "See recap" },
+      "filters": { "all": "All", "registering": "Registering", "ended": "Recaps" },
+      "legend": { "event": "Special event", "weekly": "Weekly gathering", "course": "Course" },
+      "carousel": { "previous": "Previous slide", "next": "Next slide", "slide": "Slide {index}: {title}" }
     },
     "prayer": {
       "title": "Prayer Room",
@@ -248,8 +265,8 @@
     "back": "← Back"
   },
   "calendar": {
-    "title": "Ministry Calendar",
-    "desc": "See upcoming events and find details by date.",
+    "title": "Latest News",
+    "desc": "Upcoming events, courses, and weekly gatherings — all in one place.",
     "selectedDate": "Selected Date",
     "empty": "No events scheduled for this day.",
     "prev": "← Prev",
@@ -279,7 +296,7 @@
   },
   "pages": {
     "audio": "Media Library",
-    "calendar": "Ministry Calendar",
+    "calendar": "Latest News",
     "contact": "Contact Us",
     "donation": "Give",
     "prayer": "Prayer Room",

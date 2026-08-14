@@ -75,7 +75,12 @@ test("calendar events source is centralized with wp adapter", () => {
   const calendarPage = read("src/app/[locale]/(site)/calendar/page.tsx");
   const eventsLib = read("src/lib/events.ts");
   assert.ok(calendarPage.includes('from "@/lib/events"'));
-  assert.ok(calendarPage.includes("getCalendarEventsSafeResult"));
+  // The page reads all events (not just calendar ones) so ended events can show
+  // under the 回顧 filter; what matters here is that it still goes through a
+  // centralized safe-result accessor rather than querying WP directly.
+  assert.ok(
+    calendarPage.includes("getAllEventsSafeResult") || calendarPage.includes("getCalendarEventsSafeResult"),
+  );
   assert.ok(eventsLib.includes('type CalendarEventItem'));
   assert.equal(exists("src/content/calendar/events.ts"), true);
 });

@@ -1367,3 +1367,501 @@ html[lang^="zh"] .event-registration-form-shell .cog-form__container {
     transition: none;
   }
 }
+
+/* ==========================================================================
+   最新消息 / News section
+   Hero composition is driven by --news-hero-ratio-lg. Swap that one value to
+   change the composition: 16/10 = 置中配對, 2/1 = 海報溢出 (with poster height
+   >100%), 4/3 = 海報主導.
+   ========================================================================== */
+
+.news-hero {
+  --news-hero-poster-height: 78%;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  /* aspect-ratio alone leaves too little room on phones once the overlaying
+     header is cleared, so the poster collapses. min-height keeps it usable. */
+  aspect-ratio: 4 / 5;
+  min-height: 88svh;
+  /* The hero must be readable without scrolling, so it never outgrows the
+     viewport no matter how wide the window makes the aspect-ratio box. */
+  max-height: 100svh;
+  background:
+    radial-gradient(90% 120% at 72% 8%, rgba(129, 143, 78, 0.4) 0%, rgba(35, 74, 55, 0) 58%),
+    radial-gradient(70% 90% at 12% 96%, rgba(20, 44, 32, 0.55) 0%, rgba(35, 74, 55, 0) 60%),
+    linear-gradient(122deg, #1a382a 0%, var(--align-bg) 46%, #2f5340 100%);
+}
+
+@media (min-width: 640px) {
+  .news-hero {
+    aspect-ratio: 16 / 11;
+    min-height: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .news-hero {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+.news-hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-standard);
+  pointer-events: none;
+}
+
+.news-hero-slide[data-active="true"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.news-hero-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  /* Generous top padding clears the transparent header that overlays this hero:
+     the brand ground runs under it, the poster and copy must not. */
+  padding: 8.5rem 1rem 2.875rem;
+}
+
+@media (min-width: 640px) {
+  .news-hero-inner {
+    flex-direction: row;
+    gap: 1.875rem;
+    padding: 8.5rem 1.75rem 2.5rem;
+  }
+}
+
+/* The header collapses from two rows to one at md, so it needs less clearance. */
+@media (min-width: 768px) {
+  .news-hero-inner {
+    padding-top: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .news-hero-inner {
+    gap: 2.875rem;
+    padding: 6.5rem 2.75rem 2.75rem;
+  }
+}
+
+.news-hero-poster {
+  flex: none;
+  /* The poster fits a box of (max-width x height) and scales up to fill it:
+     a portrait poster is limited by the box's height, a landscape one by its
+     width, so each gets as large as its own shape allows. A definite height is
+     what lets it scale up at all — max-* alone caps but never grows.
+     The leftover space around a landscape image is transparent, and
+     drop-shadow (unlike box-shadow) traces the image's real edges, not the
+     box's, so no frame shows around it. */
+  height: 56%;
+  width: 100%;
+  aspect-ratio: auto;
+  max-width: 82%;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 0.7rem;
+  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.5));
+}
+
+@media (min-width: 640px) {
+  .news-hero-poster {
+    height: var(--news-hero-poster-height);
+    max-width: 46%;
+  }
+}
+
+.news-hero-copy {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  flex: 0 1 auto;
+  max-width: 30ch;
+  color: #fff;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .news-hero-copy {
+    max-width: 34ch;
+    text-align: left;
+  }
+}
+
+.news-hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: var(--donation-cta);
+  color: #241a06;
+  padding: 0.25rem 0.5625rem;
+  border-radius: 99px;
+  margin-bottom: 0.6875rem;
+}
+
+.news-hero-title {
+  margin: 0;
+  font-size: 1.3125rem;
+  line-height: 1.18;
+  font-weight: 690;
+  text-wrap: balance;
+}
+
+@media (min-width: 640px) {
+  .news-hero-title {
+    font-size: 1.6875rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .news-hero-title {
+    font-size: 2.25rem;
+  }
+}
+
+.news-hero-meta {
+  margin: 0.6875rem 0 0;
+  font-size: 0.78125rem;
+  color: rgba(246, 250, 234, 0.86);
+}
+
+@media (min-width: 1024px) {
+  .news-hero-meta {
+    font-size: 0.875rem;
+  }
+}
+
+.news-hero-summary {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .news-hero-summary {
+    display: block;
+    margin: 0.625rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.62;
+    color: rgba(246, 250, 234, 0.68);
+  }
+}
+
+.news-hero-cta {
+  display: inline-block;
+  margin-top: 1rem;
+  background: var(--donation-cta);
+  color: var(--donation-cta-text);
+  font-size: 0.84375rem;
+  font-weight: 620;
+  padding: 0.625rem 1.375rem;
+  border-radius: var(--radius-button);
+  text-decoration: none;
+}
+
+/* Progress-bar pagination: the dots were invisible, so autoplay read as static. */
+.news-hero-nav {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.875rem;
+  display: flex;
+  gap: 0.375rem;
+  z-index: 4;
+}
+
+@media (min-width: 768px) {
+  .news-hero-nav {
+    left: 2.75rem;
+    right: auto;
+    width: 13rem;
+    bottom: 1.25rem;
+  }
+}
+
+.news-hero-nav button {
+  flex: 1;
+  min-height: var(--touch-target-min);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.news-hero-track {
+  display: block;
+  width: 100%;
+  height: 3.5px;
+  border-radius: 99px;
+  background: rgba(246, 250, 234, 0.3);
+  overflow: hidden;
+}
+
+.news-hero-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--dk-title);
+  border-radius: 99px;
+}
+
+.news-hero-nav button[aria-current="true"] .news-hero-fill {
+  animation: news-hero-fill 5.5s linear forwards;
+}
+
+.news-hero[data-paused="true"] .news-hero-nav button[aria-current="true"] .news-hero-fill {
+  animation-play-state: paused;
+}
+
+@keyframes news-hero-fill {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.news-hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.375rem;
+  height: 2.375rem;
+  border-radius: 50%;
+  background: rgba(12, 20, 15, 0.5);
+  border: 1px solid rgba(246, 250, 234, 0.3);
+  color: var(--dk-title);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  z-index: 5;
+  transition: background var(--motion-fast) var(--ease-standard);
+}
+
+.news-hero-arrow:hover {
+  background: rgba(12, 20, 15, 0.85);
+}
+
+/* Flat event cards — image fills the frame, everything else is text below. */
+.news-card-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--sec-b);
+}
+
+.news-card-badge {
+  position: absolute;
+  top: 0.5625rem;
+  left: 0.5625rem;
+  z-index: 2;
+  font-size: 0.65625rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5625rem;
+  border-radius: 99px;
+}
+
+.news-badge-registering {
+  background: var(--donation-cta);
+  color: var(--donation-cta-text);
+}
+
+.news-badge-ongoing {
+  background: #c0442e;
+  color: #fff;
+}
+
+.news-badge-upcoming {
+  background: var(--accent-strong);
+  color: var(--dk-title);
+}
+
+.news-badge-ended {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--muted);
+}
+
+/* Filter chips */
+.news-filter {
+  font-size: 0.78125rem;
+  cursor: pointer;
+  padding: 0.40625rem 0.8125rem;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--sec-a);
+  color: var(--body);
+  white-space: nowrap;
+  transition: border-color var(--motion-fast) var(--ease-standard);
+}
+
+.news-filter:hover {
+  border-color: var(--accent);
+}
+
+.news-filter[aria-pressed="true"] {
+  background: var(--accent-strong);
+  color: var(--dk-title);
+  border-color: var(--accent-strong);
+}
+
+/* Grid ⇄ calendar view switch */
+.news-viewtoggle {
+  display: inline-flex;
+  background: var(--sec-b);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.news-viewtoggle button {
+  font-size: 0.78125rem;
+  cursor: pointer;
+  padding: 0.375rem 0.875rem;
+  border-radius: 6px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  transition: background var(--motion-fast) var(--ease-standard);
+}
+
+.news-viewtoggle button[aria-pressed="true"] {
+  background: var(--sec-a);
+  color: var(--heading);
+  font-weight: 600;
+  box-shadow: var(--shadow-card);
+}
+
+/* Month grid with per-category dots, so "when is something on" reads at a glance */
+.news-cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  font-size: 0.75rem;
+  color: var(--body);
+  position: relative;
+  font-variant-numeric: tabular-nums;
+  border: 1px solid transparent;
+}
+
+.news-cal-day[data-has="true"] {
+  background: var(--accent-weak);
+  border-color: var(--border);
+  color: var(--heading);
+  font-weight: 600;
+}
+
+.news-cal-day[data-today="true"] {
+  background: var(--accent-strong);
+  color: var(--dk-title);
+  font-weight: 700;
+}
+
+.news-cal-day[data-selected="true"] {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.news-day-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0.625rem 0.75rem;
+  background: var(--sec-a);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  text-decoration: none;
+}
+
+a.news-day-item:hover {
+  border-color: var(--accent);
+}
+
+.news-cal-dots {
+  display: flex;
+  gap: 2.5px;
+  position: absolute;
+  bottom: 4px;
+}
+
+.news-cal-dots i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  display: block;
+}
+
+.news-dot-event {
+  background: var(--accent);
+}
+
+.news-dot-weekly {
+  background: var(--donation-cta);
+}
+
+.news-dot-course {
+  background: #7a94b8;
+}
+
+/* Weekly gatherings — the one dark block in the section */
+.news-weekly {
+  background: var(--accent-strong);
+  border-radius: var(--radius-card);
+  padding: 0.875rem 1.125rem 1rem;
+  color: var(--dk-title);
+}
+
+.news-weekly-item {
+  display: flex;
+  gap: 0.625rem;
+  align-items: center;
+  padding: 0.4375rem 0.625rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--dk-border);
+  border-radius: 0.6rem;
+}
+
+.news-weekly-cadence {
+  font-size: 0.65625rem;
+  font-weight: 700;
+  color: var(--donation-cta);
+  background: rgba(204, 159, 74, 0.16);
+  border-radius: 6px;
+  padding: 0.375rem 0.5rem;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.35;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .news-hero-slide {
+    transition: none;
+  }
+
+  .news-hero-nav button[aria-current="true"] .news-hero-fill {
+    animation: none;
+    width: 100%;
+  }
+
+  .news-filter,
+  .news-viewtoggle button,
+  .news-hero-arrow {
+    transition: none;
+  }
+}

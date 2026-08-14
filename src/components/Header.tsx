@@ -22,6 +22,7 @@ export default function Header({ locale, messages }: HeaderProps) {
   const basePath = normalizePath(pathname);
   const transparentHeaderPaths = new Set([
     "/",
+    "/calendar",
     "/prayer",
     "/about",
     "/donation",
