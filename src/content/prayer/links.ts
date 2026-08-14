@@ -33,13 +33,4 @@ export const PRAYER_CARD_LINK_CONFIG: PrayerCardLinkConfig[] = [
     primaryHref: "https://zoom.us/j/561386692?pwd=T0dWYi9HMFZMSUZ0SzJ6bld6cFJIUT09",
     secondary: [],
   },
-  {
-    primaryHref: "",
-    secondary: [
-      {
-        href: "https://docs.google.com/document/d/1_OMA3jncsX-jnq6yglOUexxawwuaqrfSLQ0kh_keDrY/edit?usp=sharing",
-        labelField: "cta2",
-      },
-    ],
-  },
 ];

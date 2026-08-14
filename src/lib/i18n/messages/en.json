@@ -2,7 +2,7 @@
   "nav": {
     "home": "Home",
     "about": "About",
-    "calendar": "Calendar",
+    "calendar": "Latest News",
     "prayer": "Prayer Room",
     "ministries": "Ministries",
     "trainings": "Discipleship",
@@ -13,7 +13,7 @@
   "navMobile": {
     "home": "Home",
     "about": "About",
-    "calendar": "Events",
+    "calendar": "News",
     "prayer": "Prayer",
     "ministries": "Ministry",
     "trainings": "Training"
@@ -51,6 +51,7 @@
       "title": "Bethel Renewal Center",
       "subtitle": "Prayer Revival · Renewed Lives · Serving Nations",
       "ctaPrimary": "About Us",
+      "ctaNews": "Latest News",
       "ctaSecondary": "Support Us",
       "scrollDownAria": "Scroll to next section"
     },
@@ -92,6 +93,23 @@
         { "title": "International Partners Night", "subtitle": "Fri 7:30 PM" }
       ],
       "detailsCta": "See details"
+    },
+    "news": {
+      "title": "Latest News",
+      "cta": "All events",
+      "eventsTitle": "Events & Gatherings",
+      "weeklyTitle": "Weekly Gatherings",
+      "weeklyCta": "Visit the Prayer Room",
+      "detailsCta": "Learn more",
+      "gridView": "List",
+      "calendarView": "Calendar",
+      "empty": "Nothing matches this filter right now",
+      "monthFormat": "{month} {year}",
+      "status": { "registering": "Registering", "ongoing": "Happening now", "upcoming": "Upcoming", "ended": "Ended" },
+      "statusCta": { "registering": "Register now", "ongoing": "Learn more", "upcoming": "Learn more", "ended": "See recap" },
+      "filters": { "all": "All", "registering": "Registering", "ended": "Recaps" },
+      "legend": { "event": "Special event", "weekly": "Weekly gathering", "course": "Course" },
+      "carousel": { "previous": "Previous slide", "next": "Next slide", "slide": "Slide {index}: {title}" }
     },
     "prayer": {
       "title": "Prayer Room",
@@ -162,12 +180,16 @@
       "Renewed Heart and Mind",
       "Christ Centered Lifestyle"
     ],
+    "foundersTitle": "BRC Founders",
+    "founders": [
+      { "name": "Paul Huang", "role": "Founder / Board Chair" },
+      { "name": "John Yu", "role": "Founder" },
+      { "name": "Peter Chou", "role": "Founder" }
+    ],
     "teamTitle": "BRC Board",
     "teamCta": "View ministry details",
     "team": [
-      { "name": "Paul Huang", "role": "Founder / Board Chair" },
-      { "name": "John Yu", "role": "Founder" },
-      { "name": "Peter Chou", "role": "Founder" },
+      { "name": "Paul Huang", "role": "Board Chair" },
       { "name": "Weyl Wang", "role": "Board Director" },
       { "name": "Olive Chiu", "role": "Board Director" },
       { "name": "Shaow Lin", "role": "Board Director" },
@@ -248,8 +270,8 @@
     "back": "← Back"
   },
   "calendar": {
-    "title": "Ministry Calendar",
-    "desc": "See upcoming events and find details by date.",
+    "title": "Latest News",
+    "desc": "Upcoming events, courses, and weekly gatherings — all in one place.",
     "selectedDate": "Selected Date",
     "empty": "No events scheduled for this day.",
     "prev": "← Prev",
@@ -279,7 +301,7 @@
   },
   "pages": {
     "audio": "Media Library",
-    "calendar": "Ministry Calendar",
+    "calendar": "Latest News",
     "contact": "Contact Us",
     "donation": "Give",
     "prayer": "Prayer Room",
@@ -348,18 +370,6 @@
         "cta4": "",
         "cta5": "",
         "note": "Zoom Meeting ID: 561 386 692\nPassword: 589667\n\nTo serve on the team, please contact Elder Jeremy: 201-757-1361\n\nTo avoid background noise, please mute your microphone after joining and unmute only when speaking.\n\n\"The prayer of a righteous person is powerful and effective.\" - James 5:16"
-      },
-      {
-        "title": "NJ/NY Mission Prayer Fellowship Meeting",
-        "body": "Cross-cultural mission sharing and prayer with worship, prayer, mission updates, and lunch fellowship.",
-        "detail1": "Date: Second Tuesday of each month | Time: 10:00-13:00",
-        "detail2": "Location: Bogart Memorial Reformed Church\n263 Larch Ave\nBogota, NJ 07603\n\nContacts: \nMingfa Huang (201) 312-4728\nShuozhen Wu (551) 246-5838",
-        "cta1": "",
-        "cta2": "View Monthly Agenda & Updates",
-        "cta3": "",
-        "cta4": "",
-        "cta5": "",
-        "note": "We are pastors and ministry coworkers from different churches across New York and New Jersey. We gather in person monthly to pray for Chinese participation in global missions, especially for unreached peoples, and to share mission resources.\n\nIf you have a mission project you would like to share in a future meeting, please contact our team. You are warmly invited to join and share this invitation with others."
       }
     ],
     "morningGuide": {

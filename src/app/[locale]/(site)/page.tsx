@@ -10,7 +10,8 @@ import { getMediaSrc } from "@/content/media";
 import { resolveCmsImageUrl } from "@/lib/cms-media";
 import { getFeaturedDiscipleshipPrograms, hasLocalDetail } from "@/lib/discipleship";
 import { formatEventDateTimeRange } from "@/lib/event-schedule";
-import { getCalendarEventsSafeResult } from "@/lib/events";
+import { getAllEventsSafeResult } from "@/lib/events";
+import { classifyEvents } from "@/lib/news";
 import { getFixedTopTitle } from "@/content/ministries/top-sections";
 import { getMinistriesListSafe } from "@/lib/ministries";
 import { getMessages, normalizeLocale, pickLocalized, withLocale } from "@/lib/i18n";
@@ -27,19 +28,11 @@ function splitFixedLines(text: string): string[] {
     .filter((line) => line.length > 0);
 }
 
-function toTodayKey(): string {
-  const now = new Date();
-  const y = now.getFullYear();
-  const m = String(now.getMonth() + 1).padStart(2, "0");
-  const d = String(now.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
-}
-
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
-  const [ministryItems, eventResult] = await Promise.all([getMinistriesListSafe(), getCalendarEventsSafeResult()]);
+  const [ministryItems, eventResult] = await Promise.all([getMinistriesListSafe(), getAllEventsSafeResult()]);
   const wpSlides = ministryItems
     .map((item) => {
       const heroSrc = resolveCmsImageUrl(item.fields.heroImage?.node?.sourceUrl);
@@ -84,8 +77,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       imageSrc: item.homeImage ?? "/assets/images/discipleship.png",
     };
   });
-  const todayKey = toTodayKey();
-  const upcomingEvents = eventResult.items.filter((item) => item.date >= todayKey).slice(0, 3);
+  // Sourced from classifyEvents rather than the old `date >= today` filter,
+  // which hid ongoing multi-month events and left this section empty.
+  const upcomingEvents = classifyEvents(eventResult.items)
+    .filter(({ status }) => status !== "ended")
+    .slice(0, 3)
+    .map(({ item }) => item);
   const donationCtaLabel = "Donate Now";
 
   return (
@@ -110,6 +107,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               </span>
             </h1>
             <div className="mt-8 flex flex-col gap-3.5">
+              <a
+                className="hero-cta hero-cta-primary hero-cta-xl btn-base btn-donation-cta focus-ring-token w-full"
+                href={withLocale(normalizedLocale, "/calendar")}
+              >
+                {messages.home.hero.ctaNews}
+              </a>
               <a
                 className="hero-cta hero-cta-secondary hero-cta-xl btn-base btn-inverse focus-ring-token w-full"
                 href={withLocale(normalizedLocale, "/about")}
@@ -162,6 +165,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               </span>
             </h1>
             <div className="mt-10 flex items-center justify-center gap-4">
+              <a
+                className="hero-cta hero-cta-primary hero-cta-xl btn-base btn-donation-cta focus-ring-token"
+                href={withLocale(normalizedLocale, "/calendar")}
+              >
+                {messages.home.hero.ctaNews}
+              </a>
               <a
                 className="hero-cta hero-cta-secondary hero-cta-xl btn-base btn-inverse focus-ring-token"
                 href={withLocale(normalizedLocale, "/about")}

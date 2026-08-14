@@ -2,7 +2,7 @@
   "nav": {
     "home": "主頁",
     "about": "關於我們",
-    "calendar": "活動日暦",
+    "calendar": "最新消息",
     "prayer": "禱告室",
     "ministries": "BRC事工",
     "trainings": "門徒訓練",
@@ -13,7 +13,7 @@
   "navMobile": {
     "home": "主頁",
     "about": "關於",
-    "calendar": "日暦",
+    "calendar": "消息",
     "prayer": "禱告",
     "ministries": "事工",
     "trainings": "訓練"
@@ -51,6 +51,7 @@
       "title": "伯特利中心",
       "subtitle": "禱告復興·更新生命·服事列國",
       "ctaPrimary": "關於我們",
+      "ctaNews": "最新消息",
       "ctaSecondary": "奉獻支持",
       "scrollDownAria": "滑動到下一區塊"
     },
@@ -94,6 +95,23 @@
         { "title": "國際伙伴分享會", "subtitle": "下周五 7:30 PM" }
       ],
       "detailsCta": "了解詳情"
+    },
+    "news": {
+      "title": "最新消息",
+      "cta": "活動總覽",
+      "eventsTitle": "活動與聚會",
+      "weeklyTitle": "每週固定聚會",
+      "weeklyCta": "前往禱告室",
+      "detailsCta": "了解詳情",
+      "gridView": "列表",
+      "calendarView": "日曆",
+      "empty": "目前沒有符合的項目",
+      "monthFormat": "{year} 年 {month} 月",
+      "status": { "registering": "報名中", "ongoing": "進行中", "upcoming": "即將舉行", "ended": "已結束" },
+      "statusCta": { "registering": "立即報名", "ongoing": "了解詳情", "upcoming": "了解詳情", "ended": "查看回顧" },
+      "filters": { "all": "全部", "registering": "報名中", "ended": "回顧" },
+      "legend": { "event": "特別活動", "weekly": "每週固定聚會", "course": "課程" },
+      "carousel": { "previous": "上一張", "next": "下一張", "slide": "第 {index} 張：{title}" }
     },
     "prayer": {
       "title": "禱告室",
@@ -163,12 +181,16 @@
       "Renewed Heart and Mind 心意更新而變化",
       "Christ Centered Lifestyle 以基督為中心的生活方式"
     ],
+    "foundersTitle": "BRC 創辦人",
+    "founders": [
+      { "name": "黃明發 弟兄", "role": "創辦人／董事會主席" },
+      { "name": "郁維強 弟兄", "role": "創辦人" },
+      { "name": "周彼得 弟兄", "role": "創辦人" }
+    ],
     "teamTitle": "BRC董事會",
     "teamCta": "查看事工詳情",
     "team": [
-      { "name": "黃明發 弟兄", "role": "創辦人／董事會主席" },
-      { "name": "郁維強 弟兄", "role": "創辦人" },
-      { "name": "周彼得 弟兄", "role": "創辦人" },
+      { "name": "黃明發 弟兄", "role": "董事會主席" },
       { "name": "王惠國 弟兄", "role": "董事" },
       { "name": "邱燕惠 姊妹", "role": "董事" },
       { "name": "林孝本 弟兄", "role": "董事" },
@@ -249,8 +271,8 @@
     "back": "← 返回"
   },
   "calendar": {
-    "title": "事工活動日暦",
-    "desc": "查看即將舉行的活動，並根據日期查找詳細安排。",
+    "title": "最新消息",
+    "desc": "教會近期活動、課程與每週固定聚會，都在這裡。",
     "selectedDate": "選擇日期",
     "empty": "今天沒有安排的事工或活動。",
     "prev": "← 上月",
@@ -280,7 +302,7 @@
   },
   "pages": {
     "audio": "音訊庫",
-    "calendar": "事工活動日暦",
+    "calendar": "最新消息",
     "contact": "聯繫我們",
     "donation": "奉獻支持",
     "prayer": "禱告室",
@@ -349,18 +371,6 @@
         "cta4": "",
         "cta5": "",
         "note": "Zoom Meeting ID: 561 386 692\nPassword: 589667\n\n若要參與同工，請和 Jeremy 長老聯繫：201-757-1361\n\n為避免產生雜音干擾聚會，上線後請關閉麥克風(或按 mute)保持靜音，要說話的時候再打開即可。\n\n「凡恆切禱告的，力量大有功效。」— 雅各書 5:16"
-      },
-      {
-        "title": "NJ/NY 聯合宣教禱告聚會",
-        "body": "跨文化宣教分享及禱告，有敬拜、禱告、宣教信息與活動資訊分享，以及午餐交流。",
-        "detail1": "日期：每月第二個星期二｜時間：10:00-13:00",
-        "detail2": "地點：Bogart Memorial Reformed Church\n263 Larch Ave\nBogota, NJ 07603\n\n聯絡同工：\n黃明發 (201) 312-4728\n吳碩琛 (551) 246-5838",
-        "cta1": "",
-        "cta2": "查看本月議程與更新",
-        "cta3": "",
-        "cta4": "",
-        "cta5": "",
-        "note": "我們是一群來自紐約與紐澤西不同教會背景的牧長和同工，盼望每月實體聚集，為華人參與普世宣教、特別是福音未得之民同心禱告，並分享宣教資源。\n\n若您有宣教項目希望未來分享，歡迎與同工聯繫。誠摯邀請您一起參與，也歡迎轉發給更多弟兄姊妹。"
       }
     ],
     "morningGuide": {
