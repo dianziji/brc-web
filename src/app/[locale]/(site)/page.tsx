@@ -108,6 +108,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </h1>
             <div className="mt-8 flex flex-col gap-3.5">
               <a
+                className="hero-cta hero-cta-primary hero-cta-xl btn-base btn-donation-cta focus-ring-token w-full"
+                href={withLocale(normalizedLocale, "/calendar")}
+              >
+                {messages.home.hero.ctaNews}
+              </a>
+              <a
                 className="hero-cta hero-cta-secondary hero-cta-xl btn-base btn-inverse focus-ring-token w-full"
                 href={withLocale(normalizedLocale, "/about")}
               >
@@ -159,6 +165,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               </span>
             </h1>
             <div className="mt-10 flex items-center justify-center gap-4">
+              <a
+                className="hero-cta hero-cta-primary hero-cta-xl btn-base btn-donation-cta focus-ring-token"
+                href={withLocale(normalizedLocale, "/calendar")}
+              >
+                {messages.home.hero.ctaNews}
+              </a>
               <a
                 className="hero-cta hero-cta-secondary hero-cta-xl btn-base btn-inverse focus-ring-token"
                 href={withLocale(normalizedLocale, "/about")}
