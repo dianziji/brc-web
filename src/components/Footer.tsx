@@ -62,7 +62,10 @@ export default function Footer({ locale, messages }: FooterProps) {
             </div>
           </div>
         </div>
-        <div className="text-caption-token text-dk-meta-token mt-6">{copyright}</div>
+        <div className="text-caption-token text-dk-meta-token mt-6 space-y-1">
+          <div>{messages.footer.legal}</div>
+          <div>{copyright}</div>
+        </div>
       </div>
     </footer>
   );
