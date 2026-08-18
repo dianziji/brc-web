@@ -38,8 +38,9 @@
     "subscribeDesc": "Get updates on events and messages.",
     "emailPlaceholder": "your@email.com",
     "subscribeButton": "Subscribe",
-    "legal": "Bethel Renewal Center (伯特利中心) is a registered 501(c)(3) nonprofit organization. Legal name: BETHEL RENEWAL CENTER A NJ NONPROFIT CORPORATION · EIN: 46-2088153 · P.O. Box 186, Lake Hiawatha, NJ 07034. bethelrc.org is the official website of Bethel Renewal Center.",
-    "copyright": "© {year} Bethel Renewal Center. All rights reserved."
+    "legalName": "Legal name: BETHEL RENEWAL CENTER A NJ NONPROFIT CORPORATION",
+    "nonprofitNote": "501(c)(3) nonprofit organization · EIN: 46-2088153",
+    "copyright": "© {year} Bethel Renewal Center. All rights reserved. bethelrc.org is the official website of Bethel Renewal Center."
   },
   "common": {
     "comingSoon": "Coming soon",

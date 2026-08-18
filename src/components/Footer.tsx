@@ -31,6 +31,8 @@ export default function Footer({ locale, messages }: FooterProps) {
             <div className="font-display text-h3-token text-dk-title-token font-semibold">{messages.footer.title}</div>
             <div className="text-caption-token text-dk-meta-token">{messages.footer.subtitle}</div>
             <div className="text-body-token text-dk-title-token space-y-1 pt-1">
+              <div className="text-caption-token text-dk-meta-token">{messages.footer.legalName}</div>
+              <div className="text-caption-token text-dk-meta-token">{messages.footer.nonprofitNote}</div>
               <div>{messages.footer.location}</div>
               <div>{messages.footer.email}</div>
               <Link className="focus-ring-token link-inverse mt-2 inline-flex" href={withLocale(locale, "/contact")}>
@@ -62,10 +64,7 @@ export default function Footer({ locale, messages }: FooterProps) {
             </div>
           </div>
         </div>
-        <div className="text-caption-token text-dk-meta-token mt-6 space-y-1">
-          <div>{messages.footer.legal}</div>
-          <div>{copyright}</div>
-        </div>
+        <div className="text-caption-token text-dk-meta-token mt-6">{copyright}</div>
       </div>
     </footer>
   );
