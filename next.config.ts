@@ -41,6 +41,18 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
+      // Nepal flood relief campaign landing pages (GiveWP / Elementor on the CMS).
+      // Events link to "/nepal-relief" so the locale prefix picks the right language.
+      {
+        source: "/zh/nepal-relief",
+        destination: "https://cms.bethelrc.org/nepal-relief-zh/",
+        permanent: false,
+      },
+      {
+        source: "/en/nepal-relief",
+        destination: "https://cms.bethelrc.org/nepal-relief-en/",
+        permanent: false,
+      },
       {
         source: "/zh/index.php/:path*",
         destination: "https://archive.bethelrc.org/zh/index.php/:path*",
