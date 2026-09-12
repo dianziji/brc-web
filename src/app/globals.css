@@ -1865,3 +1865,401 @@ a.news-day-item:hover {
     transition: none;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Featured campaign: header banner + home popup                        */
+/* ------------------------------------------------------------------ */
+
+:root {
+  --campaign-banner-h: 0px;
+}
+
+/* The boot script in the site layout sets this before first paint. While the
+   banner is active the body is padded by its height, so the fixed header stack
+   (banner + nav) covers exactly the same area of the page as before. */
+html[data-campaign-banner="active"] {
+  --campaign-banner-h: 44px;
+}
+
+@media (min-width: 768px) {
+  html[data-campaign-banner="active"] {
+    --campaign-banner-h: 40px;
+  }
+}
+
+body {
+  padding-top: var(--campaign-banner-h);
+}
+
+/* Full-viewport heroes shrink by the banner height so their scroll cue stays on screen. */
+.hero-full-viewport {
+  min-height: calc(100vh - var(--campaign-banner-h));
+  min-height: calc(100svh - var(--campaign-banner-h));
+}
+
+.campaign-banner {
+  display: none;
+  height: var(--campaign-banner-h);
+  color: var(--campaign-banner-fg);
+  background: var(--campaign-banner-bg);
+  border-bottom: 1px solid var(--campaign-banner-line);
+}
+
+html[data-campaign-banner="active"] .campaign-banner {
+  display: block;
+}
+
+/* Tones: pick one per campaign in src/content/home/featured-campaign.ts */
+[data-tone="gold"] {
+  --campaign-banner-bg: linear-gradient(90deg, #d9ad55 0%, var(--donation-cta) 55%, #b98a35 100%);
+  --campaign-banner-fg: #1f2a20;
+  --campaign-banner-line: rgba(31, 42, 32, 0.18);
+  --campaign-tag-bg: #1f2a20;
+  --campaign-tag-fg: #f6faea;
+  --campaign-accent: var(--donation-cta);
+}
+
+[data-tone="crimson"] {
+  --campaign-banner-bg: linear-gradient(90deg, #b4322b 0%, #9c2620 60%, #7f1d18 100%);
+  --campaign-banner-fg: #fff7f5;
+  --campaign-banner-line: rgba(0, 0, 0, 0.18);
+  --campaign-tag-bg: #fff7f5;
+  --campaign-tag-fg: #7f1d18;
+  --campaign-accent: #b4322b;
+}
+
+[data-tone="forest"] {
+  --campaign-banner-bg: linear-gradient(90deg, #2c5c44 0%, var(--align-bg) 60%, #1a3729 100%);
+  --campaign-banner-fg: #f6faea;
+  --campaign-banner-line: rgba(0, 0, 0, 0.2);
+  --campaign-tag-bg: var(--donation-cta);
+  --campaign-tag-fg: #1f2a20;
+  --campaign-accent: var(--accent-strong);
+}
+
+.campaign-banner-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 100%;
+  min-width: 0;
+}
+
+.campaign-banner-tag {
+  flex: none;
+  border-radius: 999px;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  background: var(--campaign-tag-bg);
+  color: var(--campaign-tag-fg);
+}
+
+.campaign-banner-message {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: baseline;
+  gap: 0.5rem;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.8125rem;
+  line-height: 1.3;
+}
+
+@media (min-width: 768px) {
+  .campaign-banner-message {
+    font-size: 0.875rem;
+  }
+}
+
+.campaign-banner-text {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 600;
+}
+
+.campaign-banner-cta {
+  flex: none;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
+/* Small screens: let the message wrap to two lines and drop the CTA label
+   (the whole message is the link; the arrow stays as the affordance). */
+@media (max-width: 767px) {
+  .campaign-banner-message {
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+
+  .campaign-banner-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    white-space: normal;
+  }
+
+  .campaign-banner-cta-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+.campaign-banner-message:hover .campaign-banner-cta {
+  text-underline-offset: 5px;
+}
+
+.campaign-banner-close {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-right: -0.375rem;
+  border-radius: 999px;
+  color: inherit;
+  background: transparent;
+  transition: background-color var(--motion-fast) var(--ease-standard);
+}
+
+.campaign-banner-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Popup ------------------------------------------------------------- */
+
+.campaign-popup-root {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .campaign-popup-root {
+    padding: 1.5rem;
+  }
+}
+
+.campaign-popup-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 17, 0.62);
+  backdrop-filter: blur(2px);
+  animation: campaign-fade-in var(--motion-enter) var(--ease-standard) both;
+}
+
+.campaign-popup-dialog {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 100%;
+  max-width: 46rem;
+  max-height: min(90vh, 90svh);
+  overflow: hidden auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--sec-a);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+  animation: campaign-pop-in var(--motion-enter) var(--ease-emphasis) both;
+}
+
+@media (min-width: 768px) {
+  .campaign-popup-dialog {
+    grid-template-columns: minmax(0, 17rem) minmax(0, 1fr);
+    max-height: min(86vh, 86svh);
+  }
+}
+
+.campaign-popup-close {
+  position: absolute;
+  top: 0.625rem;
+  right: 0.625rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(20, 28, 22, 0.55);
+  backdrop-filter: blur(4px);
+  transition: background-color var(--motion-fast) var(--ease-standard);
+}
+
+@media (min-width: 768px) {
+  .campaign-popup-close {
+    color: var(--heading);
+    background: color-mix(in srgb, var(--sec-b) 80%, #fff 20%);
+    border: 1px solid var(--border);
+  }
+}
+
+.campaign-popup-close:hover {
+  background: rgba(20, 28, 22, 0.75);
+}
+
+@media (min-width: 768px) {
+  .campaign-popup-close:hover {
+    background: var(--sec-b);
+  }
+}
+
+.campaign-popup-poster {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  max-height: 30vh;
+  background: var(--sec-b);
+}
+
+@media (min-width: 768px) {
+  .campaign-popup-poster {
+    aspect-ratio: auto;
+    max-height: none;
+    min-height: 100%;
+  }
+}
+
+.campaign-popup-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 1.125rem 1.25rem 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .campaign-popup-body {
+    gap: 0.75rem;
+    padding: 1.75rem 1.75rem 1.5rem;
+  }
+}
+
+.campaign-popup-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--campaign-accent);
+}
+
+.campaign-popup-eyebrow::before {
+  content: "";
+  width: 1.25rem;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--campaign-accent);
+}
+
+.campaign-popup-title {
+  font-size: clamp(1.375rem, 2.6vw, 1.75rem);
+  font-weight: 600;
+  line-height: var(--lh-title);
+}
+
+.campaign-popup-subtitle {
+  margin-top: -0.375rem;
+  font-size: var(--fs-body);
+}
+
+.campaign-popup-summary {
+  font-size: var(--fs-body);
+  line-height: 1.65;
+}
+
+.campaign-popup-highlights {
+  display: grid;
+  gap: 0.375rem;
+  padding-left: 1.125rem;
+  font-size: var(--fs-caption);
+  line-height: 1.55;
+  list-style: disc;
+}
+
+.campaign-popup-highlights li::marker {
+  color: var(--campaign-accent);
+}
+
+.campaign-popup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 0.25rem;
+}
+
+.campaign-popup-btn {
+  flex: 1 1 8rem;
+}
+
+/* Small screens: the dialog body may scroll, so keep both buttons pinned to
+   the bottom of the dialog. */
+@media (max-width: 767px) {
+  .campaign-popup-actions {
+    position: sticky;
+    bottom: 0;
+    margin: 0.25rem -1.25rem -1.25rem;
+    padding: 0.75rem 1.25rem 1.25rem;
+    background: linear-gradient(180deg, transparent 0%, var(--sec-a) 28%);
+  }
+}
+
+@media (min-width: 768px) {
+  .campaign-popup-btn {
+    flex: 0 0 auto;
+    min-width: 9.5rem;
+  }
+}
+
+@keyframes campaign-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes campaign-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .campaign-popup-backdrop,
+  .campaign-popup-dialog {
+    animation: none;
+  }
+
+  .campaign-banner-close,
+  .campaign-popup-close {
+    transition: none;
+  }
+}
