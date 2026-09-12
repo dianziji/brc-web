@@ -4,14 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import CampaignBanner from "@/components/campaign/CampaignBanner";
+import type { CampaignBannerModel } from "@/lib/featured-campaign";
 import { type Locale, type Messages, stripLocale, withLocale } from "@/lib/i18n";
 
 type HeaderProps = {
   locale: Locale;
   messages: Messages;
+  /** Featured-campaign strip rendered above the nav row; null hides it. */
+  banner?: CampaignBannerModel | null;
 };
 
-export default function Header({ locale, messages }: HeaderProps) {
+export default function Header({ locale, messages, banner = null }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const normalizePath = (path: string) => {
@@ -116,6 +120,13 @@ export default function Header({ locale, messages }: HeaderProps) {
         isTransparentHeader ? "bg-transparent border-transparent" : "bg-surface-a/90 backdrop-blur border-token"
       }`}
     >
+      {banner ? (
+        <CampaignBanner
+          banner={banner}
+          ctaLabel={messages.campaign.bannerCta}
+          closeLabel={messages.campaign.closeBanner}
+        />
+      ) : null}
 
       <div className="section-container-medium flex items-center justify-between gap-3 py-2 md:py-5">
         <Link href={withLocale(locale, "/")} className="flex items-center gap-1.5 md:gap-2">

@@ -44,7 +44,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const locale = cookieLocale ? normalizeLocale(cookieLocale) : defaultLocale;
 
   return (
-    <html lang={locale} data-scheme="olive">
+    // suppressHydrationWarning: the featured-campaign boot script adds a data
+    // attribute to <html> before React hydrates.
+    <html lang={locale} data-scheme="olive" suppressHydrationWarning>
       <body className={`${inter.variable} ${notoSansTc.variable} antialiased`}>{children}</body>
     </html>
   );

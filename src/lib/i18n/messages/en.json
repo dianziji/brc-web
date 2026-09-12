@@ -48,6 +48,15 @@
     "notFound": "Ministry not found.",
     "errorPrefix": "Ministries API error:"
   },
+  "campaign": {
+    "eyebrow": "Featured ministry",
+    "defaultTag": "Featured",
+    "learnMore": "Learn more",
+    "donate": "Give now",
+    "closePopup": "Close featured ministry",
+    "closeBanner": "Dismiss announcement",
+    "bannerCta": "Learn more"
+  },
   "home": {
     "hero": {
       "title": "Bethel Renewal Center",

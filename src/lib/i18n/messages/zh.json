@@ -48,6 +48,15 @@
     "notFound": "未找到相關事工。",
     "errorPrefix": "Ministries API error:"
   },
+  "campaign": {
+    "eyebrow": "當前重點事工",
+    "defaultTag": "重點",
+    "learnMore": "了解更多",
+    "donate": "奉獻支持",
+    "closePopup": "關閉重點事工提示",
+    "closeBanner": "關閉公告",
+    "bannerCta": "了解更多"
+  },
   "home": {
     "hero": {
       "title": "伯特利中心",

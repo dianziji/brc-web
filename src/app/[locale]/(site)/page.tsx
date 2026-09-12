@@ -1,6 +1,7 @@
 import Image from "next/image";
 import AlignWithGodSection from "@/components/AlignWithGodSection";
 import AppImage from "@/components/AppImage";
+import CampaignPopup from "@/components/campaign/CampaignPopup";
 import MobileMinistryScroller from "@/components/MobileMinistryScroller";
 import MinistryCarousel from "@/components/MinistryCarousel";
 import ScrollToSectionButton from "@/components/ScrollToSectionButton";
@@ -11,6 +12,7 @@ import { resolveCmsImageUrl } from "@/lib/cms-media";
 import { getFeaturedDiscipleshipPrograms, hasLocalDetail } from "@/lib/discipleship";
 import { formatEventDateTimeRange } from "@/lib/event-schedule";
 import { getAllEventsSafeResult } from "@/lib/events";
+import { getFeaturedCampaignPopup } from "@/lib/featured-campaign";
 import { classifyEvents } from "@/lib/news";
 import { getFixedTopTitle } from "@/content/ministries/top-sections";
 import { getMinistriesListSafe } from "@/lib/ministries";
@@ -32,7 +34,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const { locale } = await params;
   const normalizedLocale = normalizeLocale(locale);
   const messages = getMessages(normalizedLocale);
-  const [ministryItems, eventResult] = await Promise.all([getMinistriesListSafe(), getAllEventsSafeResult()]);
+  const [ministryItems, eventResult, campaignPopup] = await Promise.all([
+    getMinistriesListSafe(),
+    getAllEventsSafeResult(),
+    getFeaturedCampaignPopup(normalizedLocale, messages.campaign),
+  ]);
   const wpSlides = ministryItems
     .map((item) => {
       const heroSrc = resolveCmsImageUrl(item.fields.heroImage?.node?.sourceUrl);
@@ -87,14 +93,25 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <main className="min-h-screen bg-surface-a text-heading-token">
-      <section className="relative min-h-screen min-h-[100svh] overflow-hidden text-white md:hidden">
+      {campaignPopup ? (
+        <CampaignPopup
+          campaign={campaignPopup}
+          labels={{
+            learnMore: messages.campaign.learnMore,
+            donate: messages.campaign.donate,
+            close: messages.campaign.closePopup,
+          }}
+        />
+      ) : null}
+
+      <section className="hero-full-viewport relative min-h-screen min-h-[100svh] overflow-hidden text-white md:hidden">
         <div className="absolute inset-0">
           <video className="h-full w-full object-cover object-center" autoPlay loop muted playsInline preload="auto" suppressHydrationWarning>
             <source src="/videos/brc-hero2.mp4" type="video/mp4" />
           </video>
           <div className="media-overlay-hero-bright absolute inset-0" />
         </div>
-        <div className="relative mx-auto flex min-h-screen min-h-[100svh] max-w-lg items-center justify-center px-6 pt-20 text-center">
+        <div className="hero-full-viewport relative mx-auto flex min-h-screen min-h-[100svh] max-w-lg items-center justify-center px-6 pt-20 text-center">
           <div className="w-full max-w-md">
             <h1 className="font-display hero-title-xl text-display-token font-semibold">
               {messages.home.hero.title}
@@ -137,7 +154,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </ScrollToSectionButton>
       </section>
 
-      <section className="relative hidden min-h-[70vh] overflow-hidden text-white md:block md:min-h-[100vh]">
+      <section className="hero-full-viewport relative hidden min-h-[70vh] overflow-hidden text-white md:block md:min-h-[100vh]">
         <div className="absolute inset-0">
           <video
             className="h-full w-full object-cover object-center"
@@ -152,7 +169,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </video>
           <div className="media-overlay-hero-bright absolute inset-0" />
         </div>
-        <div className="relative mx-auto max-w-7xl px-6 py-24 md:px-12 md:py-40 min-h-[70vh] md:min-h-[100vh] flex items-center justify-center">
+        <div className="hero-full-viewport relative mx-auto max-w-7xl px-6 py-24 md:px-12 md:py-40 min-h-[70vh] md:min-h-[100vh] flex items-center justify-center">
           <div className="mx-auto max-w-5xl text-center">
             <h1 className="font-display hero-title-xl text-display-token text-dk-title-token mt-4 font-semibold leading-tight">
               {messages.home.hero.title}
